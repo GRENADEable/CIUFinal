@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour
     public float speed;
     public float rotateSpeed;
     private CharacterController charController;
+
     void Start()
     {
         charController = GetComponent<CharacterController>();

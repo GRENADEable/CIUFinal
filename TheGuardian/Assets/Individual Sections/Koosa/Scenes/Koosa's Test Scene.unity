@@ -349,7 +349,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1144840251}
   m_LocalRotation: {x: 0.11703, y: -0, z: -0, w: 0.9931284}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.05, y: 4.92, z: -8.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1144840251}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3415f2371f5bbbd44b6dc8e2ece52853, type: 3}
   m_Name: 
@@ -617,7 +617,6 @@ GameObject:
   - component: {fileID: 2133229973}
   - component: {fileID: 2133229972}
   - component: {fileID: 2133229971}
-  - component: {fileID: 2133229969}
   - component: {fileID: 2133229968}
   - component: {fileID: 2133229970}
   - component: {fileID: 2133229974}
@@ -639,21 +638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fecc67ae217491418a0b697678a00b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &2133229969
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2133229967}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
+  moveSpeed: 5
+  rotateSpeed: 1
+  characterController: {fileID: 0}
 --- !u!135 &2133229970
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -716,29 +703,26 @@ Transform:
   m_GameObject: {fileID: 2133229967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.019043, y: 3.56, z: -2.21}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 304284041}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2133229974
-MonoBehaviour:
+--- !u!143 &2133229974
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133229967}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b0251c58a585b49878da19bbd6cbea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grappelingHook: {fileID: 956913240}
-  grappelingHookHolder: {fileID: 304284040}
-  grappelingHookLaunchSpeed: 5
-  playerLaunchSpeed: 3
-  maxDistance: 30
-  curDistance: 0
-  distanceFromHook: 0
-  launched: 0
-  hooked: 0
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}

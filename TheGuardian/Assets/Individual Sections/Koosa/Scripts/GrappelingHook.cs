@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GrappelingHook : MonoBehaviour
 {
-    #region Public Variables
 
     [Header("GameObjects")]
 
@@ -24,9 +23,8 @@ public class GrappelingHook : MonoBehaviour
 
     public bool launched;
     public bool hooked;
-    #endregion
 
-    #region Unity Callbacks
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !launched)
@@ -48,9 +46,8 @@ public class GrappelingHook : MonoBehaviour
                 HookReturn();
         }
     }
-    #endregion
 
-    #region My Functions
+
     public void HookLaunch()
     {
         grappelingHook.transform.Translate(Vector3.forward * grappelingHookLaunchSpeed * Time.deltaTime);
@@ -69,6 +66,5 @@ public class GrappelingHook : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, grappelingHook.transform.position, playerLaunchSpeed * Time.deltaTime);
         distanceFromHook = Vector3.Distance(transform.position, grappelingHook.transform.position);
     }
-    #endregion
 
 }
