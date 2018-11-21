@@ -11,6 +11,7 @@ public class PlayerControlTest : MonoBehaviour
     public Vector3 raycastHeight;
     private CharacterController charController;
     private Vector3 moveDirection = Vector3.zero;
+    public bool iniatePuzzleLever = false;
     void Start()
     {
         charController = GetComponent<CharacterController>();
@@ -32,6 +33,14 @@ public class PlayerControlTest : MonoBehaviour
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         float curSpeed = speed * Input.GetAxis("Vertical");
-        //charController.SimpleMove(forward * curSpeed);
+        charController.SimpleMove(forward * curSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag=="Hookable")
+        {
+            iniatePuzzleLever = true;
+        }
     }
 }

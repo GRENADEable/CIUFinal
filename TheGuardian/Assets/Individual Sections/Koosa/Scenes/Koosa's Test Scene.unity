@@ -361,16 +361,18 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1144840251}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3415f2371f5bbbd44b6dc8e2ece52853, type: 3}
+  m_Script: {fileID: 11500000, guid: 03482d0b6ff7fb0498002152fe8f3de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAt: {fileID: 0}
-  playerCameraTransform: {fileID: 0}
-  zDistance: 10
-  xDistance: 0
-  yDistance: -5
+  lookAtTransform: {fileID: 2133229973}
+  playerCameraTransform: {fileID: 1144840254}
+  zDistanceFromLookAt: -5
+  yDistanceFromLookAt: 3
+  xDistanceFromLookAt: 0
+  cameraSmoothing: 0
+  targetTransforms: []
 --- !u!1 &1321028488
 GameObject:
   m_ObjectHideFlags: 0

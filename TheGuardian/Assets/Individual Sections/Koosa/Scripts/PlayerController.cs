@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 	
-	
 	void Update ()
     {
         moveInput = Input.GetAxis("Vertical");
