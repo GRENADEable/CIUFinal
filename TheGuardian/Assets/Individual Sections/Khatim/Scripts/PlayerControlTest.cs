@@ -10,7 +10,6 @@ public class PlayerControlTest : MonoBehaviour
     public float jumpSpeed;
     public Vector3 raycastHeight;
     private CharacterController charController;
-    private Vector3 moveDirection = Vector3.zero;
     public bool iniatePuzzleLever = false;
     void Start()
     {
