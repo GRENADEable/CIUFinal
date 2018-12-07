@@ -15,6 +15,8 @@ public class PlayerTestwithPhysics : MonoBehaviour
     public float minInteract;
     private GameObject objectToInteract;
     private Rigidbody rg;
+    [SerializeField]
+    private bool isInteracting;
     void Start()
     {
         rg = GetComponent<Rigidbody>();
@@ -24,7 +26,7 @@ public class PlayerTestwithPhysics : MonoBehaviour
     {
         RaycastHit hit;
         Debug.DrawRay(transform.position, -transform.up * raycastDistance, Color.green);
-        //Debug.DrawRay(transform.position, transform.forward * interactionDistance, Color.green);
+        Debug.DrawRay(transform.position, transform.forward * interactionDistance, Color.green);
 
         if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance) && Input.GetKeyDown(KeyCode.Space))
         {
@@ -36,11 +38,13 @@ public class PlayerTestwithPhysics : MonoBehaviour
         {
             Debug.LogWarning(hit.transform.name);
             hit.transform.parent = this.transform;
+            hit.rigidbody.isKinematic = true;
             Debug.LogWarning("Object Attached");
         }
         else if (Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance) && Input.GetKeyUp(KeyCode.E) && hit.collider.tag == "Interact")
         {
             hit.transform.parent = null;
+            hit.rigidbody.isKinematic = false;
             Debug.LogWarning("Object Detached");
         }
 
@@ -71,11 +75,22 @@ public class PlayerTestwithPhysics : MonoBehaviour
         rg.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
-    /*void OnCollisionEnter(Collider other)
+    /*void OnCollisionStay(Collision other)
     {
-        if (other.gameObject.tag == "Interact" && Input.GetKeyDown(KeyCode.E))
+        if (other.gameObject.tag == "Interact" && Input.GetKeyDown(KeyCode.E) && !isInteracting)
         {
-            objectToInteract.transform.position = other.transform.position;
+            Debug.LogWarning("Object Attached");
+            other.gameObject.transform.parent = this.transform;
+            other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            isInteracting = true;
+        }
+
+        if (other.gameObject.tag == "Interact" && Input.GetKeyUp(KeyCode.E) && isInteracting)
+        {
+            Debug.LogWarning("Object Detached");
+            other.gameObject.transform.parent = null;
+            other.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            isInteracting = false;
         }
     }*/
 }
