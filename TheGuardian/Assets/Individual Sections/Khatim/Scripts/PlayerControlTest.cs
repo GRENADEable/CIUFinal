@@ -9,6 +9,7 @@ public class PlayerControlTest : MonoBehaviour
     public float raycastDistance;
     public float jumpSpeed;
     public Vector3 raycastHeight;
+    public float pushForce;
     private CharacterController charController;
     public bool iniatePuzzleLever = false;
     void Start()
@@ -35,11 +36,25 @@ public class PlayerControlTest : MonoBehaviour
         charController.SimpleMove(forward * curSpeed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag=="Hookable")
+        if (other.gameObject.tag == "Hookable")
         {
             iniatePuzzleLever = true;
         }
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody rg = hit.collider.attachedRigidbody;
+
+        if (rg == null || rg.isKinematic)
+            return;
+
+        if (hit.moveDirection.y < -0.3)
+            return;
+
+        Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+        rg.velocity = dir * pushForce;
     }
 }
