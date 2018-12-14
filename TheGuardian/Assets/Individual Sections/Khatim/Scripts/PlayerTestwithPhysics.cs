@@ -17,6 +17,8 @@ public class PlayerTestwithPhysics : MonoBehaviour
     private Rigidbody rg;
     [SerializeField]
     private bool isInteracting;
+    [SerializeField]
+    private GameObject interactableObj;
     void Start()
     {
         rg = GetComponent<Rigidbody>();
@@ -28,35 +30,30 @@ public class PlayerTestwithPhysics : MonoBehaviour
         Debug.DrawRay(transform.position, -transform.up * raycastDistance, Color.green);
         Debug.DrawRay(transform.position, transform.forward * interactionDistance, Color.green);
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance) && Input.GetKeyDown(KeyCode.Space))
+        if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance) && Input.GetKeyDown(KeyCode.Space) && !isInteracting && hit.collider.tag == "Ground")
         {
-            Debug.LogWarning(hit.transform.tag);
+            //Debug.LogWarning(hit.transform.tag);
             Jump();
         }
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance) && Input.GetKeyDown(KeyCode.E) && hit.collider.tag == "Interact")
+        if (Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance) && Input.GetKeyDown(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
         {
-            Debug.LogWarning(hit.transform.name);
-            hit.transform.parent = this.transform;
-            hit.rigidbody.isKinematic = true;
+            //Debug.LogWarning(hit.transform.name);
+            isInteracting = true;
+            interactableObj = hit.collider.gameObject;
+            interactableObj.GetComponent<FixedJoint>().enableCollision = true;
+            interactableObj.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            hit.rigidbody.useGravity = false;
             Debug.LogWarning("Object Attached");
         }
-        else if (Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance) && Input.GetKeyUp(KeyCode.E) && hit.collider.tag == "Interact")
+        else if (Input.GetKeyUp(KeyCode.E) && isInteracting)
         {
-            hit.transform.parent = null;
-            hit.rigidbody.isKinematic = false;
+            isInteracting = false;
+            interactableObj.GetComponent<FixedJoint>().enableCollision = false;
+            interactableObj.GetComponent<FixedJoint>().connectedBody = null;
+            hit.rigidbody.useGravity = true;
             Debug.LogWarning("Object Detached");
         }
-
-        /*if (objectToInteract != null)
-        {
-            distance = Vector3.Distance(transform.position, objectToInteract.transform.position);
-        }
-
-        if (distance > maxInteract)
-            objectToInteract = null;
-        else if (distance < minInteract)*/
-
     }
     void FixedUpdate()
     {
@@ -74,23 +71,4 @@ public class PlayerTestwithPhysics : MonoBehaviour
     {
         rg.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
-
-    /*void OnCollisionStay(Collision other)
-    {
-        if (other.gameObject.tag == "Interact" && Input.GetKeyDown(KeyCode.E) && !isInteracting)
-        {
-            Debug.LogWarning("Object Attached");
-            other.gameObject.transform.parent = this.transform;
-            other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            isInteracting = true;
-        }
-
-        if (other.gameObject.tag == "Interact" && Input.GetKeyUp(KeyCode.E) && isInteracting)
-        {
-            Debug.LogWarning("Object Detached");
-            other.gameObject.transform.parent = null;
-            other.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            isInteracting = false;
-        }
-    }*/
 }
