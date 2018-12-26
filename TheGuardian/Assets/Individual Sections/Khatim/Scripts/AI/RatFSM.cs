@@ -8,12 +8,12 @@ public class RatFSM : MonoBehaviour
     public float attackDistance;
     public float chaseDistance;
     public float distanceToPlayer;
-    [Header("Attack Variables")]
     public float attackDelay;
-    public float attackTime;
+    public float maxJumpCooldownTime;
+
     [Header("Wander Variables")]
     public float wanderRadius;
-    public float wanderTimer;
+    public float maxWanderTimer;
     public GameObject player;
     [SerializeField]
     private bool isAttacking;
@@ -24,11 +24,12 @@ public class RatFSM : MonoBehaviour
     private NavMeshAgent ratAgent;
     private Transform target;
     private float timer;
+    private float attackTime;
     void Start()
     {
         isAttacking = false;
         ratAgent = GetComponent<NavMeshAgent>();
-        timer = wanderTimer;
+        timer = maxWanderTimer;
     }
 
     void Update()
@@ -74,18 +75,18 @@ public class RatFSM : MonoBehaviour
             case 1: //Wander Condition
                 timer += Time.deltaTime;
 
-                if (timer >= wanderTimer)
+                if (timer >= maxWanderTimer)
                 {
                     Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
                     ratAgent.SetDestination(newPos);
                     timer = 0;
                 }
-                Debug.LogWarning("Wandering");
+                // Debug.LogWarning("Wandering");
                 break;
 
             case 2: //Chase Condition
                 ratAgent.SetDestination(player.transform.position);
-                Debug.LogWarning("Chasing Player");
+                // Debug.LogWarning("Chasing Player");
                 isAttacking = false;
                 break;
 
