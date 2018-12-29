@@ -46,13 +46,13 @@ public class RatFSM : MonoBehaviour
         if (distanceToPlayer < chaseDistance && currCondition != chaseCondition)
         {
             //Chase Player
-            currCondition = 2;
+            // currCondition = 2;
         }
 
         if (distanceToPlayer < attackDistance && currCondition != attackCondition)
         {
             //Attack Player
-            currCondition = 3;
+            // currCondition = 3;
         }
 
         if (isAttacking)
