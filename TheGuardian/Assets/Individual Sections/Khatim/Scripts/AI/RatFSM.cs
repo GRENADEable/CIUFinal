@@ -94,21 +94,33 @@ public class RatFSM : MonoBehaviour
                 isAttacking = true;
                 break;
 
-            case 4: //Null Condition
+            case 4: //Wait Condition
+                break;
+
+            case 5: //Null Condition
                 break;
         }
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
+        //Sets a random position inside the sphere and that is multiplied with the distance and the center of the sphere.
+        Vector3 randomPos = Random.insideUnitSphere * dist;
+        
+        //Vector 3 position is returned to the origin parameter.
+        randomPos += origin;
 
-        randDirection += origin;
+        NavMeshHit hit;
 
-        NavMeshHit navHit;
+        //Bool check if the random position is suitable on the navmesh. If true, then return the hit position.
+        NavMesh.SamplePosition(randomPos, out hit, dist, layermask);
 
-        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        return hit.position;
+    }
 
-        return navHit.position;
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, wanderRadius);
     }
 }
