@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
-    public float crouchSpeed;
-    public float sprintSpeed;
+    [Header("Player Speeds")]
     public float walkSpeed;
+    public float sprintSpeed;
+    public float crouchSpeed;
+    public float climbSpeed;
     public float rotateSpeed;
+    [Header("Clamps")]
     public float lockRotation = 0f;
     public float magnitudeToClamp;
+    [Header("Jump Variables")]
     public float jumpStrenght;
-    public float climbSpeed;
+    public float distanceFromGround;
 
+    [Header("Bool Checks")]
     public bool climb = false;
     public bool crouch = false;
     public bool sprinting = false;
@@ -23,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private float rotateInput;
     public float playerHeight;
+    private float moveSpeed;
 
     private Vector3 playerInput;
     private Vector3 defaultVector;
@@ -48,20 +53,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //playerHeight = this.gameObject.transform.localScale.y;
-
-
-        PlayerInputs();
         transform.rotation = Quaternion.Euler(lockRotation, transform.rotation.eulerAngles.y, lockRotation);
         playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         if (Input.GetKeyDown(KeyCode.Space) && NotGrounded())
             Jump();
+
+        Debug.DrawRay(transform.position, -Vector3.up * distanceFromGround, Color.green);
     }
 
     void FixedUpdate()
     {
-        if(!climb)
-        PlayerTurn();
+        PlayerInputs();
+
+        if (!climb)
+            PlayerTurn();
         if (moveInput != 0 && /*NotGrounded() &&*/ !climb)
         {
             PlayerMove();
@@ -90,17 +96,17 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 directionOfMovement = transform.forward * moveInput * moveSpeed;
         Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
-       // playerRb.velocity = vectorOfMovement;
-        playerRb.AddRelativeForce(transform.forward * moveInput * moveSpeed * Time.deltaTime, ForceMode.Impulse);
+        // playerRb.velocity = vectorOfMovement;
+        playerRb.AddForce(transform.forward * moveInput * moveSpeed * Time.deltaTime, ForceMode.Impulse);
         playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
-        playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
+        // playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
     }
 
     private bool NotGrounded()
     {
-        float DistanceFromGround;
-        DistanceFromGround = playerCollider.bounds.extents.y;
-        return Physics.Raycast(transform.position, -Vector3.up, DistanceFromGround);
+        // float DistanceFromGround;
+        // DistanceFromGround = playerCollider.bounds.extents.y;
+        return Physics.Raycast(transform.position, -Vector3.up, distanceFromGround);
     }
 
     private void Jump()
@@ -119,7 +125,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("climbing i should");
             climb = true;
         }
-        else if(NotGrounded() && Input.GetKeyUp(KeyCode.E) && climb)
+        else if (NotGrounded() && Input.GetKeyUp(KeyCode.E) && climb)
         {
             Debug.Log(" i should kinda land now");
             climb = false;
