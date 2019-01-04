@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!climb)
         PlayerTurn();
         if (moveInput != 0 && /*NotGrounded() &&*/ !climb)
         {
@@ -90,8 +91,9 @@ public class PlayerController : MonoBehaviour
         Vector3 directionOfMovement = transform.forward * moveInput * moveSpeed;
         Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
        // playerRb.velocity = vectorOfMovement;
-        playerRb.AddForce(transform.forward * moveInput * moveSpeed * Time.deltaTime, ForceMode.Impulse);
+        playerRb.AddRelativeForce(transform.forward * moveInput * moveSpeed * Time.deltaTime, ForceMode.Impulse);
         playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
     }
 
     private bool NotGrounded()
