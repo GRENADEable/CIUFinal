@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         //playerHeight = this.gameObject.transform.localScale.y;
         transform.rotation = Quaternion.Euler(lockRotation, transform.rotation.eulerAngles.y, lockRotation);
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         if (Input.GetKeyDown(KeyCode.Space) && NotGrounded())
             Jump();
