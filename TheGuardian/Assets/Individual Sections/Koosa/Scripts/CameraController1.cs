@@ -28,23 +28,23 @@ public class CameraController1 : MonoBehaviour
     {
         playerCameraTransform = this.transform;
         playerCamera = gameObject.GetComponent<Camera>();
-        lookAtTransform = GameObject.FindObjectOfType<PlayerControlTest>().transform;
+        lookAtTransform = GameObject.FindObjectOfType<PlayerController>().transform;
     }
 
     void LateUpdate()
     {
-        Vector3 leverPosition = new Vector3(66, 27, 616);
-        distance = lookAtTransform.position.z - targetsToAdd[2].position.z;
-        Vector3 Offset = new Vector3(xDistanceFromLookAt, yDistanceFromLookAt, zDistanceFromLookAt); 
+        // Vector3 leverPosition = new Vector3(66, 27, 616);
+        // distance = lookAtTransform.position.z - targetsToAdd[2].position.z;
+        Vector3 Offset = new Vector3(xDistanceFromLookAt, yDistanceFromLookAt, zDistanceFromLookAt);
         //Vector3 center = GetEncapsulatingBounds().center;
 
         if (targetTransforms.Count == 1 && !ignore)
             transform.position = Offset + lookAtTransform.position;
-        if (lookAtTransform.GetComponent<PlayerControlTest>().iniatePuzzleLever)
-        {
-            transform.position = Vector3.SmoothDamp(transform.position, leverPosition, ref cameraVelocity, cameraSmoothing);
-            ignore = true;
-        }
+        // if (lookAtTransform.GetComponent<PlayerControlTest>().iniatePuzzleLever)
+        // {
+        //     transform.position = Vector3.SmoothDamp(transform.position, leverPosition, ref cameraVelocity, cameraSmoothing);
+        //     ignore = true;
+        // }
 
         /*
          if ((lookAtTransform.position.z - targetsToAdd[2].position.z) > -50)
