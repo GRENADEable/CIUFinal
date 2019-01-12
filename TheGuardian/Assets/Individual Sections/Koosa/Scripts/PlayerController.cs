@@ -4,40 +4,42 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Player Speeds")]
     public float walkSpeed;
     public float sprintSpeed;
     public float crouchSpeed;
     public float climbSpeed;
     public float rotateSpeed;
-    [Header("Clamps")]
+
     public float lockRotation = 0f;
     public float magnitudeToClamp;
-    [Header("Jump Variables")]
-    public float jumpStrenght;
-    public float distanceFromGround;
 
-    [Header("Bool Checks")]
+    public float jumpStrenght;
+
+
     public bool climb = false;
     public bool crouch = false;
     public bool sprinting = false;
+    public bool canMove = true;
 
     public Animator playerAnimator;
+    public SlopeModifier slopeModifier;
 
     private float moveInput;
     private float rotateInput;
-    public float playerHeight;
+    private float playerHeight;
     private float moveSpeed;
+    private float inputDelay = 0.1f;
 
     private Vector3 playerInput;
     private Vector3 defaultVector;
+
 
     [SerializeField]
     private Rigidbody playerRb;
     [SerializeField]
     private Collider playerCollider;
     [SerializeField]
-    public Transform playerTransform;
+    private Transform playerTransform;
 
     private RaycastHit hit;
 
@@ -53,22 +55,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //playerHeight = this.gameObject.transform.localScale.y;
-        transform.rotation = Quaternion.Euler(lockRotation, transform.rotation.eulerAngles.y, lockRotation);
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        //transform.rotation = Quaternion.Euler(lockRotation, transform.rotation.eulerAngles.y, lockRotation);
+       // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         if (Input.GetKeyDown(KeyCode.Space) && NotGrounded())
             Jump();
-
-        Debug.DrawRay(transform.position, -Vector3.up * distanceFromGround, Color.green);
     }
 
     void FixedUpdate()
     {
         PlayerInputs();
 
-        if (!climb)
+        if (!climb && Mathf.Abs(rotateInput) > inputDelay)
             PlayerTurn();
-        if (moveInput != 0 && /*NotGrounded() &&*/ !climb)
+        if (moveInput != 0 && /*NotGrounded() &&*/ !climb && canMove && Mathf.Abs(moveInput) > inputDelay)
         {
             PlayerMove();
         }
@@ -89,30 +89,32 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerTurn()
     {
-        transform.Rotate(0, rotateInput * rotateSpeed, 0);
+        //transform.Rotate(0, rotateInput * rotateSpeed, 0);
+        transform.rotation *= Quaternion.AngleAxis(rotateInput * rotateSpeed * Time.deltaTime, Vector3.up);
     }
 
     private void PlayerMove()
     {
-        Vector3 directionOfMovement = transform.forward * moveInput * moveSpeed;
-        Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
-        // playerRb.velocity = vectorOfMovement;
-        playerRb.AddForce(transform.forward * moveInput * moveSpeed * Time.deltaTime, ForceMode.Impulse);
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector * moveInput * moveSpeed;
+        //Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
+         //playerRb.velocity = directionOfMovement;
+        //playerRb.AddForce(directionOfMovement, ForceMode.Impulse);
+        playerRb.MovePosition(transform.position + directionOfMovement.normalized * Time.deltaTime);
+        // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ ;
         // playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
     }
 
-    private bool NotGrounded()
+    public bool NotGrounded()
     {
-        // float DistanceFromGround;
-        // DistanceFromGround = playerCollider.bounds.extents.y;
-        return Physics.Raycast(transform.position, -Vector3.up, distanceFromGround);
+        float distanceFromGround;
+        //distanceFromGround = playerCollider.bounds.extents.y;
+        return Physics.Raycast(transform.position, -Vector3.up, 0.5f);
     }
 
     private void Jump()
     {
         playerRb.AddForce(new Vector3(0f, jumpStrenght, 0f), ForceMode.Impulse);
-        //playerRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        playerRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
     public void OnCollisionStay(Collision collider)
