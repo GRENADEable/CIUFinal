@@ -565,7 +565,7 @@ GameObject:
   - component: {fileID: 652440282}
   - component: {fileID: 652440281}
   - component: {fileID: 652440280}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,13 +632,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 652440279}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.19, y: 2.19, z: 0.1}
-  m_LocalScale: {x: 1, y: 1, z: 55}
+  m_LocalRotation: {x: 0.22495107, y: 0, z: 0, w: 0.9743701}
+  m_LocalPosition: {x: 13.95, y: 2.19, z: 0.1}
+  m_LocalScale: {x: 6.4873, y: 1, z: 55}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26, y: 0, z: 0}
 --- !u!1 &731045840
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 923416315}
   - component: {fileID: 923416314}
   - component: {fileID: 923416313}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1758,7 @@ GameObject:
   - component: {fileID: 1321028492}
   - component: {fileID: 1321028491}
   - component: {fileID: 1321028490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2682,6 +2682,7 @@ GameObject:
   - component: {fileID: 2133229968}
   - component: {fileID: 2133229969}
   - component: {fileID: 2133229970}
+  - component: {fileID: 2133229974}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2700,20 +2701,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fecc67ae217491418a0b697678a00b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 15
+  walkSpeed: 25
   sprintSpeed: 18
   crouchSpeed: 4
   climbSpeed: 3
-  rotateSpeed: 4
+  rotateSpeed: 200
   lockRotation: 0
   magnitudeToClamp: 20
   jumpStrenght: 5
-  distanceFromGround: 0.5
   climb: 0
   crouch: 0
   sprinting: 0
+  canMove: 1
   playerAnimator: {fileID: 0}
-  playerHeight: 0
+  slopeModifier: {fileID: 2133229974}
   playerRb: {fileID: 0}
   playerCollider: {fileID: 0}
   playerTransform: {fileID: 0}
@@ -2793,10 +2794,25 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133229967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.15, y: 2.373, z: -10.093}
+  m_LocalPosition: {x: 14.15, y: 2.373, z: 6.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1144840254}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2133229974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2133229967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45d2de9016feee49b482df5d55b90d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAngleFromGround: 120
+  AngleFromGround: 0
+  playerCalculatedForwardVector: {x: 0, y: 0, z: 0}
+  playerController: {fileID: 2133229968}
