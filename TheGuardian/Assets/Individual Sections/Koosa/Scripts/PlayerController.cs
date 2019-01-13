@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
     {
         float distanceFromGround;
         distanceFromGround = playerCollider.bounds.extents.y;
-        return Physics.Raycast(transform.position, -Vector3.up,distanceFromGround + 1 );
+        return Physics.Raycast(transform.position, -Vector3.up,distanceFromGround);
     }
 
     private void Jump()
