@@ -6,12 +6,11 @@ public class SlopeModifier : MonoBehaviour
 {
     public float maxAngleFromGround;
     public float AngleFromGround;
-    public Vector3 playerCalculatedForwardVector;
 
-    public RaycastHit hitInfo;
-
-    //public LayerMask groundLayerMask;
     public PlayerController playerController;
+
+    protected internal Vector3 playerCalculatedForwardVector;
+    private RaycastHit hitInfo;
 
 
     // Use this for initialization
@@ -24,11 +23,11 @@ public class SlopeModifier : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Physics.Raycast(transform.position, -Vector3.up,out hitInfo, 5);
+        Physics.Raycast(transform.position, -Vector3.up,out hitInfo, 15);
         CalculateTheForwardVectorOfPlayer();
         CalculateAngleFromGroundToPlayerForward();
 
-        if (AngleFromGround > maxAngleFromGround)
+        if (AngleFromGround >= maxAngleFromGround)
         {
             playerController.canMove = false;
         }
@@ -61,9 +60,9 @@ public class SlopeModifier : MonoBehaviour
 
     public void Debuging()
     {
-        Debug.DrawLine(transform.position, transform.position + playerCalculatedForwardVector * 0.5f * 2, Color.red);
-        Debug.DrawLine(transform.position, transform.position - Vector3.up * 0.5f, Color.blue);
-        // Debug.Log(playerController.NotGrounded());
+        Debug.DrawLine(transform.position, transform.position + playerCalculatedForwardVector * 15 * 2, Color.red);
+        Debug.DrawLine(transform.position, transform.position - Vector3.up * 15, Color.blue);
+        Debug.Log(playerController.NotGrounded());
         //  Debug.Log(hitInfo);
     }
 }

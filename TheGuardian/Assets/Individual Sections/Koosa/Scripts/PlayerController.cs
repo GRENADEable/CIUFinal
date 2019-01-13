@@ -107,14 +107,14 @@ public class PlayerController : MonoBehaviour
     public bool NotGrounded()
     {
         float distanceFromGround;
-        //distanceFromGround = playerCollider.bounds.extents.y;
-        return Physics.Raycast(transform.position, -Vector3.up, 0.5f);
+        distanceFromGround = playerCollider.bounds.extents.y;
+        return Physics.Raycast(transform.position, -Vector3.up,distanceFromGround + 1 );
     }
 
     private void Jump()
     {
         playerRb.AddForce(new Vector3(0f, jumpStrenght, 0f), ForceMode.Impulse);
-        playerRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+       // playerRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
     public void OnCollisionStay(Collision collider)
