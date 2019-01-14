@@ -57,28 +57,14 @@ public class PlayerController : MonoBehaviour
         //playerHeight = this.gameObject.transform.localScale.y;
         //transform.rotation = Quaternion.Euler(lockRotation, transform.rotation.eulerAngles.y, lockRotation);
        // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-        if (Input.GetKeyDown(KeyCode.Space) && NotGrounded())
-            Jump();
     }
 
     void FixedUpdate()
     {
         PlayerInputs();
-
-        if (!climb && Mathf.Abs(rotateInput) > inputDelay)
-            PlayerTurn();
-        if (moveInput != 0 && /*NotGrounded() &&*/ !climb && canMove && Mathf.Abs(moveInput) > inputDelay)
-        {
-            PlayerMove();
-        }
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            Sprint();
-            Debug.Log("running running ");
-        }
-        else
-            moveSpeed = walkSpeed;
+        PlayerMovementExecution();
+        GravityManipulator();
+        JumpExecution();
     }
 
     private void PlayerInputs()
@@ -98,7 +84,7 @@ public class PlayerController : MonoBehaviour
         Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector.normalized * moveInput * moveSpeed;
         Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
          //playerRb.velocity = directionOfMovement;
-        playerRb.AddForce(vectorOfMovement, ForceMode.Impulse);
+        playerRb.AddForce(vectorOfMovement);
        // playerRb.MovePosition(transform.position + vectorOfMovement.normalized * moveSpeed * Time.deltaTime);
         // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ ;
         // playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
@@ -108,7 +94,7 @@ public class PlayerController : MonoBehaviour
     {
         float distanceFromGround;
         distanceFromGround = playerCollider.bounds.extents.y;
-        return Physics.Raycast(transform.position, -Vector3.up,distanceFromGround);
+        return Physics.Raycast(transform.position, -Vector3.up,distanceFromGround + 1);
     }
 
     private void Jump()
@@ -140,5 +126,41 @@ public class PlayerController : MonoBehaviour
         moveSpeed = sprintSpeed;
         sprinting = true;
         //might add more stuff
+    }
+
+    public void GravityManipulator()
+    {
+        if (climb)
+            playerRb.useGravity = false;
+        else
+            playerRb.useGravity = true;
+
+        if (!NotGrounded())
+            Physics.gravity = new Vector3(0, -9.81f * 2, 0);
+        else
+            Physics.gravity = new Vector3(0, -9.81f, 0);
+    }
+
+    public void PlayerMovementExecution()
+    {
+        if (!climb && Mathf.Abs(rotateInput) > inputDelay)
+            PlayerTurn();
+        if (moveInput != 0 && /*NotGrounded() &&*/ !climb && canMove && Mathf.Abs(moveInput) > inputDelay)
+        {
+            PlayerMove();
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Sprint();
+            Debug.Log("running running ");
+        }
+        else
+            moveSpeed = walkSpeed;
+    }
+
+    public void JumpExecution()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && NotGrounded())
+            Jump();
     }
 }
