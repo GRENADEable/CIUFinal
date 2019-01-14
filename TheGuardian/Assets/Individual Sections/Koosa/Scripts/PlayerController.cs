@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove()
     {
-        Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector * moveInput;
+        Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector.normalized * moveInput * moveSpeed;
         Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
          //playerRb.velocity = directionOfMovement;
         playerRb.AddForce(vectorOfMovement, ForceMode.Impulse);
