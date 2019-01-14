@@ -29,7 +29,7 @@ public class PlayerTestwithPhysics : MonoBehaviour
         Debug.DrawRay(transform.position, -transform.up * raycastDistance, Color.green);
         Debug.DrawRay(transform.position, transform.forward * interactionDistance, Color.green);
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance) && Input.GetKeyDown(KeyCode.Space) && !isInteracting && hit.collider.tag == "Ground")
+        if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance) && Input.GetKeyDown(KeyCode.Space) && !isInteracting)
         {
             //Debug.LogWarning(hit.transform.tag);
             rg.AddForce(transform.up * jumpForce, ForceMode.Impulse);
