@@ -9,26 +9,38 @@ public class RatFSM : MonoBehaviour
     public float chaseDistance;
     public float distanceToPlayer;
     public float attackDelay;
-    public float maxJumpCooldownTime;
-
+    [SerializeField]
+    private Vector3 ratMagnitude;
+    //public float maxJumpCooldownTime;
+    public float ratSpeed;
+    [Header("Rat FoV")]
+    public float verticalFov;
+    [SerializeField]
+    private float verticalAngle;
     [Header("Wander Variables")]
     public float wanderRadius;
     public float maxWanderTimer;
-    public GameObject player;
+    // [SerializeField]
+    // private bool isAttacking;
     [SerializeField]
-    private bool isAttacking;
+    private GameObject player;
     private int currCondition;
     private int wanderCondition = 1;
     private int chaseCondition = 2;
     private int attackCondition = 3;
     private NavMeshAgent ratAgent;
     private Transform target;
+    private Vector3 tarDir;
     private float timer;
     private float attackTime;
+    private Animator ratAnim;
     void Start()
     {
-        isAttacking = false;
+        player = GameObject.FindGameObjectWithTag("Player");
+        // isAttacking = false;
         ratAgent = GetComponent<NavMeshAgent>();
+        ratSpeed = ratAgent.speed;
+        ratAnim = GetComponentInChildren<Animator>();
         timer = maxWanderTimer;
     }
 
@@ -36,6 +48,9 @@ public class RatFSM : MonoBehaviour
     {
         //Distance check to Player
         distanceToPlayer = Vector3.Distance(this.transform.position, player.transform.position);
+        tarDir = player.transform.position - this.transform.position;
+        verticalAngle = Vector3.Angle(this.tarDir, -this.transform.up);
+        ratMagnitude = ratAgent.velocity;
 
         if (distanceToPlayer > chaseDistance && currCondition != wanderCondition)
         {
@@ -43,29 +58,38 @@ public class RatFSM : MonoBehaviour
             currCondition = 1;
         }
 
-        if (distanceToPlayer < chaseDistance && currCondition != chaseCondition)
+        if ((distanceToPlayer < chaseDistance && verticalAngle > verticalFov) && currCondition != chaseCondition)
         {
             //Chase Player
-            // currCondition = 2;
+            currCondition = 2;
         }
 
         if (distanceToPlayer < attackDistance && currCondition != attackCondition)
         {
             //Attack Player
-            // currCondition = 3;
+            currCondition = 3;
         }
 
-        if (isAttacking)
+        if (ratAgent.velocity.magnitude < 0.1f)
         {
-            attackTime += Time.deltaTime;
-
-            if (attackTime >= attackDelay)
-            {
-                //Attack
-                attackTime = 0;
-                Debug.LogWarning("Attacking Player");
-            }
+            ratAnim.SetBool("isIdle", true);
         }
+        else if (ratAgent.velocity.magnitude > 0.5f)
+        {
+            ratAnim.SetBool("isIdle", false);
+        }
+
+        // if (isAttacking)
+        // {
+        //     attackTime += Time.deltaTime;
+
+        //     if (attackTime >= attackDelay)
+        //     {
+        //         //Attack
+        //         attackTime = 0;
+        //         Debug.LogWarning("Attacking Player");
+        //     }
+        // }
     }
 
     void FixedUpdate()
@@ -86,12 +110,13 @@ public class RatFSM : MonoBehaviour
 
             case 2: //Chase Condition
                 ratAgent.SetDestination(player.transform.position);
-                // Debug.LogWarning("Chasing Player");
-                isAttacking = false;
+                Debug.LogWarning("Chasing Player");
+                // isAttacking = false;
                 break;
 
             case 3: //Attack Condition
-                isAttacking = true;
+                // isAttacking = true;
+                Debug.LogWarning("Attacking");
                 break;
 
             case 4: //Wait Condition
@@ -106,7 +131,7 @@ public class RatFSM : MonoBehaviour
     {
         //Sets a random position inside the sphere and that is multiplied with the distance and the center of the sphere.
         Vector3 randomPos = Random.insideUnitSphere * dist;
-        
+
         //Vector 3 position is returned to the origin parameter.
         randomPos += origin;
 
