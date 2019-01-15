@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44286516, g: 0.49203193, b: 0.5717894, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -372,11 +372,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 3
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &17140151
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -501,11 +503,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &18907163
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -601,11 +605,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &22936065
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -671,7 +677,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2e573d7d70f85f340af5c63bc42ba396, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2e573d7d70f85f340af5c63bc42ba396, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -709,11 +715,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &29005278
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -989,7 +997,7 @@ Transform:
   m_LocalScale: {x: 2, y: 12.967926, z: 69.13787}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &40694691
 NavMeshObstacle:
@@ -1102,11 +1110,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &47788805
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1181,11 +1191,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &52639198
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1235,6 +1247,91 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &52969321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52969325}
+  - component: {fileID: 52969324}
+  - component: {fileID: 52969323}
+  - component: {fileID: 52969322}
+  m_Layer: 0
+  m_Name: Cube (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &52969322
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52969321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &52969323
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52969321}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &52969324
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52969321}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &52969325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52969321}
+  m_LocalRotation: {x: -0.21611914, y: -0, z: -0, w: 0.97636706}
+  m_LocalPosition: {x: -10.536, y: 0.398, z: -16.811}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: -24.962002, y: 0, z: 0}
 --- !u!1001 &55056057
 Prefab:
   m_ObjectHideFlags: 0
@@ -1352,11 +1449,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &61558126
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1502,11 +1601,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &62611876
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1581,11 +1682,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &65587999
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1660,11 +1763,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &65809446
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1718,11 +1823,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &71852738
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1856,7 +1963,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &86093386
 Rigidbody:
@@ -1969,11 +2076,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &91853278
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2048,11 +2157,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &97618337
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2148,11 +2259,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &107355084
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2227,11 +2340,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &107864863
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2569,11 +2684,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &126322384
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2627,11 +2744,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &128888256
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2798,11 +2917,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &134283312
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3161,11 +3282,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &164481023
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3624,11 +3747,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &190447891
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4005,11 +4130,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &208987227
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4155,11 +4282,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &220796406
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4255,11 +4384,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &222522593
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4334,11 +4465,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &225620687
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4463,11 +4596,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &231902516
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4968,11 +5103,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &273987764
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5263,11 +5400,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &322928321
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5321,11 +5460,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &342907453
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5613,11 +5754,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &349154331
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5751,7 +5894,7 @@ Transform:
   m_LocalScale: {x: 2, y: 3.508638, z: 13.897736}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &351181036
 NavMeshObstacle:
@@ -5814,11 +5957,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &353465352
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5943,11 +6088,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &356620473
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6043,11 +6190,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &356726856
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6101,11 +6250,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &357644320
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6180,11 +6331,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &359644542
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6324,7 +6477,7 @@ GameObject:
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &363959634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6429,7 +6582,7 @@ Transform:
   - {fileID: 1991621844}
   - {fileID: 1659723634}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &379173659 stripped
 GameObject:
@@ -6477,11 +6630,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &379173663
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6556,11 +6711,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &386641876
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6685,11 +6842,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &389409129
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6764,11 +6923,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &395827255
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6914,11 +7075,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &405841872
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7014,11 +7177,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &405999037
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7072,11 +7237,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &406840354
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7172,11 +7339,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &409273717
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7230,11 +7399,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &410896717
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7543,11 +7714,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &434177955
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7622,11 +7795,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &442211417
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7843,11 +8018,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &446678677
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7972,11 +8149,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &451339099
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8051,11 +8230,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &458540706
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8151,11 +8332,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &467994166
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8301,11 +8484,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &472774275
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8451,11 +8636,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &490431986
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8780,7 +8967,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 45.000004, y: 0, z: 0}
 --- !u!1 &517303900 stripped
 GameObject:
@@ -8828,11 +9015,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &517303904
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8907,11 +9096,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &524335107
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8986,11 +9177,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &540040763
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9090,6 +9283,91 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10f4671d8163144895e682fcf37d1e6, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1 &542259118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542259122}
+  - component: {fileID: 542259121}
+  - component: {fileID: 542259120}
+  - component: {fileID: 542259119}
+  m_Layer: 0
+  m_Name: Cube (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &542259119
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542259118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &542259120
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542259118}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &542259121
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542259118}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &542259122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542259118}
+  m_LocalRotation: {x: -0.31407213, y: -0, z: -0, w: 0.9493992}
+  m_LocalPosition: {x: -10.536, y: 1.0976, z: -15.6909}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: -36.61, y: 0, z: 0}
 --- !u!1 &548837685 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: a10f4671d8163144895e682fcf37d1e6,
@@ -9136,11 +9414,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &548837689
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9481,11 +9761,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &562333714
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10235,7 +10517,7 @@ Transform:
   m_Children:
   - {fileID: 194351037}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &609618421 stripped
 GameObject:
@@ -10283,11 +10565,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &609618425
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10412,11 +10696,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &616372905
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10512,11 +10798,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &619004071
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10570,11 +10858,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &623799530
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10741,11 +11031,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &631323805
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10891,11 +11183,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &639926891
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11112,11 +11406,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &673985830
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11191,11 +11487,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &680423377
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11270,11 +11568,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &681841065
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11399,11 +11699,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &692088620
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -11691,11 +11993,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &716810746
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -11770,11 +12074,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &721535289
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -11920,11 +12226,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &727197053
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12020,11 +12328,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &734682937
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12099,11 +12409,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &740077068
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12157,11 +12469,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &743305950
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12357,11 +12671,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &746368355
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12530,7 +12846,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 10.39}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &753585316 stripped
 GameObject:
@@ -12557,11 +12873,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &753585319
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12657,11 +12975,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &753896231
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12715,11 +13035,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &756628964
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12923,7 +13245,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 45.000004, y: 0, z: 0}
 --- !u!1 &766084104 stripped
 GameObject:
@@ -12971,11 +13293,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &766084108
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13100,11 +13424,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &772171400
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -13413,11 +13739,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &797562364
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13542,11 +13870,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &803588455
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -13692,11 +14022,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &805792565
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -13792,11 +14124,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &806084123
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13871,11 +14205,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &810115422
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13929,11 +14265,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &817127947
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14008,11 +14346,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &821512468
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14679,11 +15019,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &857949009
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -14737,11 +15079,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &858703998
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14816,11 +15160,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &862859748
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14870,6 +15216,91 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &878210456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 878210460}
+  - component: {fileID: 878210459}
+  - component: {fileID: 878210458}
+  - component: {fileID: 878210457}
+  m_Layer: 0
+  m_Name: Cube (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &878210457
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878210456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &878210458
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878210456}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &878210459
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878210456}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &878210460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878210456}
+  m_LocalRotation: {x: -0.10523993, y: -0, z: -0, w: 0.9944469}
+  m_LocalPosition: {x: -10.536, y: 0.058, z: -17.705}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: -12.082001, y: 0, z: 0}
 --- !u!1001 &880810319
 Prefab:
   m_ObjectHideFlags: 0
@@ -15108,11 +15539,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &888760444
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -15279,11 +15712,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &897254250
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15408,11 +15843,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &915631713
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -15771,11 +16208,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &961864112
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16063,11 +16502,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &980302161
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16201,7 +16642,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &983595756
 Rigidbody:
@@ -16339,6 +16780,91 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
+--- !u!1 &998264551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 998264555}
+  - component: {fileID: 998264554}
+  - component: {fileID: 998264553}
+  - component: {fileID: 998264552}
+  m_Layer: 0
+  m_Name: Cube (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &998264552
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998264551}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &998264553
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998264551}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &998264554
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998264551}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &998264555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998264551}
+  m_LocalRotation: {x: -0.19247091, y: -0, z: -0, w: 0.9813027}
+  m_LocalPosition: {x: -10.536, y: 0.26799995, z: -17.113998}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: -22.194, y: 0, z: 0}
 --- !u!1001 &998582908
 Prefab:
   m_ObjectHideFlags: 0
@@ -16506,11 +17032,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1017423757
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16706,11 +17234,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1021328735
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16785,11 +17315,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1022356971
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16864,11 +17396,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1022495444
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16943,11 +17477,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1028435718
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17143,11 +17679,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1035945151
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17243,11 +17781,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1044959167
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17372,11 +17912,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1049584768
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17426,6 +17968,91 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &1049959308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1049959312}
+  - component: {fileID: 1049959311}
+  - component: {fileID: 1049959310}
+  - component: {fileID: 1049959309}
+  m_Layer: 0
+  m_Name: Cube (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1049959309
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1049959308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1049959310
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1049959308}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1049959311
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1049959308}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1049959312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1049959308}
+  m_LocalRotation: {x: -0.2789912, y: -0, z: -0, w: 0.9602937}
+  m_LocalPosition: {x: -10.536, y: 0.707, z: -16.24}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: -32.4, y: 0, z: 0}
 --- !u!1 &1050109572 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: a10f4671d8163144895e682fcf37d1e6,
@@ -17472,11 +18099,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1050109576
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17672,11 +18301,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1079407526
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17822,11 +18453,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1088159815
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -18064,11 +18697,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1093015218
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18214,11 +18849,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1102428160
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18343,11 +18980,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1104920569
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -18422,11 +19061,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1115613607
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -18522,11 +19163,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1122733035
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18601,11 +19244,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1126689831
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18680,11 +19325,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1126932304
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18809,11 +19456,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1141480950
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -18959,11 +19608,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1158503301
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -19059,11 +19710,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1161017797
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19330,11 +19983,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1166413831
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -19622,11 +20277,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1173186434
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -19772,11 +20429,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1180775720
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -19993,11 +20652,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 3
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1211103008
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -20164,11 +20825,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1228307187
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20423,7 +21086,7 @@ Transform:
   m_LocalScale: {x: 2, y: 3.508638, z: 19.952923}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!208 &1246119571
 NavMeshObstacle:
@@ -20486,11 +21149,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1250508331
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20565,11 +21230,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1250546780
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20928,11 +21595,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1275767604
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21128,11 +21797,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1285009123
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -21228,11 +21899,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1287045192
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21378,11 +22051,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1303089542
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21528,11 +22203,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1305795966
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21607,11 +22284,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1314298706
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21686,11 +22365,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1315904629
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21836,11 +22517,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1326834557
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21894,11 +22577,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1327283959
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -22044,11 +22729,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1351465876
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -22144,11 +22831,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1351507714
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22438,11 +23127,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1355488573
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22588,11 +23279,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1357976630
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22738,11 +23431,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1369612789
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -23175,11 +23870,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1385513151
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -23254,11 +23951,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1386157723
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -23508,7 +24207,7 @@ Transform:
   - {fileID: 1399426808}
   - {fileID: 1303089539}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392684986 stripped
 GameObject:
@@ -23556,11 +24255,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1392684990
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -23635,11 +24336,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1399426811
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -23714,11 +24417,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1400448682
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -23864,11 +24569,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1405390189
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24014,11 +24721,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1411885567
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24072,11 +24781,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1413033259
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -24197,6 +24908,91 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10f4671d8163144895e682fcf37d1e6, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1 &1420691570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420691574}
+  - component: {fileID: 1420691573}
+  - component: {fileID: 1420691572}
+  - component: {fileID: 1420691571}
+  m_Layer: 0
+  m_Name: Cube (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1420691571
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1420691570}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1420691572
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1420691570}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1420691573
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1420691570}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1420691574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1420691570}
+  m_LocalRotation: {x: -0.31407213, y: -0, z: -0, w: 0.9493992}
+  m_LocalPosition: {x: -10.536, y: 0.9, z: -15.962}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: -36.61, y: 0, z: 0}
 --- !u!1 &1426920016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: a10f4671d8163144895e682fcf37d1e6,
@@ -24222,11 +25018,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1426920019
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -24431,7 +25229,7 @@ Transform:
   m_LocalScale: {x: 2, y: 3.508638, z: 13.897736}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
 --- !u!208 &1430494125
 NavMeshObstacle:
@@ -24494,11 +25292,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1432343124
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24768,11 +25568,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1434812859
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -24939,11 +25741,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1460773963
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24997,11 +25801,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1464375775
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -25168,11 +25974,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1467938398
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25226,11 +26034,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1470655555
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -25397,11 +26207,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1500842306
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25547,11 +26359,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1519072808
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25697,11 +26511,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1529061879
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25826,11 +26642,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1533333373
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -25926,11 +26744,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1538951196
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26055,11 +26875,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1565326473
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -26155,11 +26977,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1570621661
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26213,11 +27037,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1574922414
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -26384,11 +27210,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1582230806
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26513,11 +27341,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1596444837
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -26592,11 +27422,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1597319727
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -26671,11 +27503,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1610851281
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -26771,11 +27605,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1619281347
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26850,11 +27686,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1619766919
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -27050,11 +27888,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1628091917
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -27104,6 +27944,91 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &1633362890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1633362894}
+  - component: {fileID: 1633362893}
+  - component: {fileID: 1633362892}
+  - component: {fileID: 1633362891}
+  m_Layer: 0
+  m_Name: Cube (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1633362891
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1633362890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1633362892
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1633362890}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1633362893
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1633362890}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1633362894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1633362890}
+  m_LocalRotation: {x: -0.24269353, y: -0, z: -0, w: 0.970103}
+  m_LocalPosition: {x: -10.536, y: 0.545, z: -16.518}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: -28.091002, y: 0, z: 0}
 --- !u!1 &1645056558 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: a10f4671d8163144895e682fcf37d1e6,
@@ -27150,11 +28075,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1645056562
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -27279,11 +28206,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1652863450
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -28024,11 +28953,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1693243467
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -28103,11 +29034,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1695611499
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -28550,7 +29483,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &1748093952
 Prefab:
@@ -28740,11 +29673,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1756806349
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -29032,11 +29967,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1765826381
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -29090,11 +30027,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1766887447
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -29190,11 +30129,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1774038388
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -29269,11 +30210,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1774329768
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -29456,7 +30399,7 @@ Transform:
   m_LocalScale: {x: 60, y: 0.2, z: 85}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782076461
 GameObject:
@@ -29625,11 +30568,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1783520209
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -30402,11 +31347,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1838979306
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -30502,11 +31449,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1839138437
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -30773,11 +31722,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1866239026
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -30902,11 +31853,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1871750074
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -30956,6 +31909,129 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1001 &1875852131
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.457582
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1994
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.401266
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00000006657901
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000005960463
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 9f15207194692b0498da701d37a182bd, type: 3}
+  m_IsPrefabAsset: 0
+--- !u!1 &1875852132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 9f15207194692b0498da701d37a182bd,
+    type: 3}
+  m_PrefabInternal: {fileID: 1875852131}
+--- !u!114 &1875852133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1875852132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fecc67ae217491418a0b697678a00b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 0.35
+  sprintSpeed: 0.4
+  crouchSpeed: 0
+  climbSpeed: 2
+  rotateSpeed: 150
+  lockRotation: 0
+  magnitudeToClamp: 0.4
+  jumpStrenght: 5
+  climb: 0
+  crouch: 0
+  sprinting: 0
+  canMove: 1
+  playerAnimator: {fileID: 0}
+  slopeModifier: {fileID: 1875852136}
+  playerRb: {fileID: 0}
+  playerCollider: {fileID: 0}
+  playerTransform: {fileID: 0}
+--- !u!136 &1875852134
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1875852132}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5223505
+  m_Height: 3.511759
+  m_Direction: 1
+  m_Center: {x: 0.000020861626, y: 0.0000011920928, z: -0.0000019669535}
+--- !u!54 &1875852135
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1875852132}
+  serializedVersion: 2
+  m_Mass: 2
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &1875852136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1875852132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45d2de9016feee49b482df5d55b90d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAngleFromGround: 120
+  AngleFromGround: 0
+  playerController: {fileID: 1875852133}
+--- !u!4 &1875852139 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd,
+    type: 3}
+  m_PrefabInternal: {fileID: 1875852131}
 --- !u!1001 &1877861362
 Prefab:
   m_ObjectHideFlags: 0
@@ -31140,11 +32216,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1884055405
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -31648,11 +32726,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1914762070
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32061,11 +33141,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1926952975
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32427,11 +33509,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1939233542
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32506,11 +33590,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1952511010
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32564,11 +33650,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1961477826
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -32689,6 +33777,83 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10f4671d8163144895e682fcf37d1e6, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1 &1982906620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1982906621}
+  - component: {fileID: 1982906623}
+  - component: {fileID: 1982906622}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1982906621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1982906620}
+  m_LocalRotation: {x: 0.14584525, y: -0, z: -3.0032593e-14, w: 0.98930746}
+  m_LocalPosition: {x: 0, y: 6.76, z: -9.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1875852139}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 16.772001, y: 0, z: 0}
+--- !u!81 &1982906622
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1982906620}
+  m_Enabled: 1
+--- !u!20 &1982906623
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1982906620}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &1989850933 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: a10f4671d8163144895e682fcf37d1e6,
@@ -32735,11 +33900,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &1989850937
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32865,11 +34032,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &1992919571
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -32919,6 +34088,91 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &1992937229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1992937233}
+  - component: {fileID: 1992937232}
+  - component: {fileID: 1992937231}
+  - component: {fileID: 1992937230}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1992937230
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992937229}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1992937231
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992937229}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1992937232
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992937229}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1992937233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992937229}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.536, y: 0.0401, z: -17.972256}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2003523923 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: a10f4671d8163144895e682fcf37d1e6,
@@ -32965,11 +34219,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &2003523927
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33257,11 +34513,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &2015659675
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33315,11 +34573,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &2024614739
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -33823,11 +35083,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &2066408977
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -33948,6 +35210,91 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10f4671d8163144895e682fcf37d1e6, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1 &2072209177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2072209181}
+  - component: {fileID: 2072209180}
+  - component: {fileID: 2072209179}
+  - component: {fileID: 2072209178}
+  m_Layer: 0
+  m_Name: Cube (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2072209178
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072209177}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2072209179
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072209177}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &2072209180
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072209177}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2072209181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072209177}
+  m_LocalRotation: {x: -0.19247091, y: -0, z: -0, w: 0.9813027}
+  m_LocalPosition: {x: -10.536, y: 0.1372, z: -17.4338}
+  m_LocalScale: {x: 0.39576584, y: 0.12640119, z: 0.33631}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: -22.194, y: 0, z: 0}
 --- !u!1001 &2093439384
 Prefab:
   m_ObjectHideFlags: 0
@@ -34115,11 +35462,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &2094811133
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -34407,11 +35756,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &2122891391
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -34624,11 +35975,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!195 &2145992399
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -34724,11 +36077,13 @@ MonoBehaviour:
   chaseDistance: 25
   distanceToPlayer: 0
   attackDelay: 3
-  maxJumpCooldownTime: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
+  ratSpeed: 0
+  verticalFov: 0
+  verticalAngle: 0
   wanderRadius: 10
   maxWanderTimer: 0
   player: {fileID: 363959633}
-  isAttacking: 0
 --- !u!136 &2146947138
 CapsuleCollider:
   m_ObjectHideFlags: 0
