@@ -81,10 +81,10 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove()
     {
-        Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector.normalized * moveInput * moveSpeed;
+        Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector.normalized * moveInput * moveSpeed * Time.fixedDeltaTime;
         Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
          //playerRb.velocity = directionOfMovement;
-        playerRb.AddForce(vectorOfMovement);
+        playerRb.AddForce(vectorOfMovement, ForceMode.Impulse);
        // playerRb.MovePosition(transform.position + vectorOfMovement.normalized * moveSpeed * Time.deltaTime);
         // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ ;
         // playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
