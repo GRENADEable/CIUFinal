@@ -14,20 +14,10 @@ public class UIManager : MonoBehaviour
         settingsPanel.SetActive(false);
     }
 
-    public void NewGame()
-    {
-        SceneManager.LoadScene("TheGuadianGameScene");
-    }
-
     public void Settings()
     {
         mainmenuPanel.SetActive(false);
         settingsPanel.SetActive(true);
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
     }
 
     public void SettingsToMainMenu()

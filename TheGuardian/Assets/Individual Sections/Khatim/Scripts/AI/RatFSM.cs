@@ -7,19 +7,21 @@ public class RatFSM : MonoBehaviour
     [Header("Rat Variables")]
     public float attackDistance;
     public float chaseDistance;
+    public float closeDistance;
     public float distanceToPlayer;
-    public float attackDelay;
-    [SerializeField]
+    // public float attackDelay;
     private Vector3 ratMagnitude;
     //public float maxJumpCooldownTime;
     public float ratSpeed;
     [Header("Rat FoV")]
-    public float verticalFov;
+    public float fov;
     [SerializeField]
-    private float verticalAngle;
+    private float angle;
     [Header("Wander Variables")]
     public float wanderRadius;
     public float maxWanderTimer;
+    public GameObject deathScreen;
+
     // [SerializeField]
     // private bool isAttacking;
     [SerializeField]
@@ -34,12 +36,14 @@ public class RatFSM : MonoBehaviour
     private float timer;
     private float attackTime;
     private Animator ratAnim;
+
     void Start()
     {
+        deathScreen.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
         // isAttacking = false;
         ratAgent = GetComponent<NavMeshAgent>();
-        ratSpeed = ratAgent.speed;
+        ratAgent.speed = ratSpeed;
         ratAnim = GetComponentInChildren<Animator>();
         timer = maxWanderTimer;
     }
@@ -48,8 +52,9 @@ public class RatFSM : MonoBehaviour
     {
         //Distance check to Player
         distanceToPlayer = Vector3.Distance(this.transform.position, player.transform.position);
+
         tarDir = player.transform.position - this.transform.position;
-        verticalAngle = Vector3.Angle(this.tarDir, -this.transform.up);
+        angle = Vector3.Angle(this.tarDir, this.transform.forward);
         ratMagnitude = ratAgent.velocity;
 
         if (distanceToPlayer > chaseDistance && currCondition != wanderCondition)
@@ -58,13 +63,13 @@ public class RatFSM : MonoBehaviour
             currCondition = 1;
         }
 
-        if ((distanceToPlayer < chaseDistance && verticalAngle > verticalFov) && currCondition != chaseCondition)
+        if ((distanceToPlayer < chaseDistance && angle < fov || distanceToPlayer < closeDistance) && currCondition != chaseCondition)
         {
             //Chase Player
             currCondition = 2;
         }
 
-        if (distanceToPlayer < attackDistance && currCondition != attackCondition)
+        if (distanceToPlayer < attackDistance && currCondition != attackCondition && player != null)
         {
             //Attack Player
             currCondition = 3;
@@ -73,12 +78,18 @@ public class RatFSM : MonoBehaviour
         if (ratAgent.velocity.magnitude < 0.1f)
         {
             ratAnim.SetBool("isIdle", true);
-            Debug.LogWarning("Idle");
+            // Debug.LogWarning("Idle");
         }
         if (ratAgent.velocity.magnitude > 0.2f)
         {
             ratAnim.SetBool("isIdle", false);
-            Debug.LogWarning("Not Idle");
+            // Debug.LogWarning("Not Idle");
+        }
+
+        if (!player.activeInHierarchy)
+        {
+            currCondition = 1;
+            deathScreen.SetActive(true);
         }
 
         // if (isAttacking)
@@ -118,6 +129,7 @@ public class RatFSM : MonoBehaviour
 
             case 3: //Attack Condition
                 // isAttacking = true;
+                player.SetActive(false);
                 Debug.LogWarning("Attacking");
                 break;
 
