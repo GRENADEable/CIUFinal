@@ -39,25 +39,26 @@ public class SlopeModifier : MonoBehaviour
 
     public void CalculateTheForwardVectorOfPlayer()
     {
-        
+        /*
         if (playerController.NotGrounded())
         {
             playerCalculatedForwardVector = transform.forward;
         }
         else
+        */
         
             playerCalculatedForwardVector = Vector3.Cross(transform.right, hitInfo.normal);
     }
 
     public void CalculateAngleFromGroundToPlayerForward()
     {
-        
+        /*
         if (playerController.NotGrounded())
         {
             AngleFromGround = 90;
         }
         else
-        
+        */
             AngleFromGround = Vector3.Angle(hitInfo.normal, transform.forward);
     }
 
