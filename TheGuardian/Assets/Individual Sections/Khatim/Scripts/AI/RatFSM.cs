@@ -73,10 +73,12 @@ public class RatFSM : MonoBehaviour
         if (ratAgent.velocity.magnitude < 0.1f)
         {
             ratAnim.SetBool("isIdle", true);
+            Debug.LogWarning("Idle");
         }
-        else if (ratAgent.velocity.magnitude > 0.5f)
+        if (ratAgent.velocity.magnitude > 0.2f)
         {
             ratAnim.SetBool("isIdle", false);
+            Debug.LogWarning("Not Idle");
         }
 
         // if (isAttacking)
