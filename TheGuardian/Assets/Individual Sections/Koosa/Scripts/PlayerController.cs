@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float crouchSpeed;
     public float climbSpeed;
     public float rotateSpeed;
-    public float Force;
 
     public float lockRotation = 0f;
     public float magnitudeToClamp;
@@ -84,17 +83,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector.normalized * moveInput * moveSpeed * Time.fixedDeltaTime;
         Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
-         playerRb.velocity = vectorOfMovement;
-        //playerRb.AddForce(vectorOfMovement, ForceMode.Impulse);
+         //playerRb.velocity = vectorOfMovement;
+        playerRb.AddForce(vectorOfMovement, ForceMode.Impulse);
        // playerRb.MovePosition(transform.position + vectorOfMovement.normalized * moveSpeed * Time.deltaTime);
         // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ ;
         // playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
-    }
-    private void PlayerMoveWithForce()
-    {
-        Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector.normalized * moveInput * Force * Time.fixedDeltaTime;
-        Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
-        playerRb.AddForce(vectorOfMovement, ForceMode.Impulse);
     }
 
     public bool NotGrounded()
@@ -143,7 +136,7 @@ public class PlayerController : MonoBehaviour
             playerRb.useGravity = true;
 
         if (!NotGrounded())
-            Physics.gravity = new Vector3(0, -9.81f * 2, 0);
+            Physics.gravity = new Vector3(0, -9.81f * 3, 0);
         else
             Physics.gravity = new Vector3(0, -9.81f, 0);
     }
@@ -152,13 +145,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!climb && Mathf.Abs(rotateInput) > inputDelay)
             PlayerTurn();
-        if (moveInput != 0 && NotGrounded() && !climb && canMove && Mathf.Abs(moveInput) > inputDelay)
+        if (moveInput != 0 /*&& NotGrounded()*/ && !climb && canMove && Mathf.Abs(moveInput) > inputDelay)
         {
             PlayerMove();
-        }
-        if (moveInput != 0 && !NotGrounded() && !climb && canMove && Mathf.Abs(moveInput) > inputDelay)
-        {
-            PlayerMoveWithForce();
         }
         if (Input.GetKey(KeyCode.LeftShift))
         {
