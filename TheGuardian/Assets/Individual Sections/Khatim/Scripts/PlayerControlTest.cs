@@ -4,57 +4,94 @@ using UnityEngine;
 
 public class PlayerControlTest : MonoBehaviour
 {
-    public float speed;
+    public float walkingSpeed;
+    public float runningSpeed;
     public float rotateSpeed;
     public float raycastDistance;
-    public float jumpSpeed;
+    public float climbSpeed;
+    public float jumpStrength;
     public Vector3 raycastHeight;
     public float pushForce;
+    public float defaultGravity;
+    [Header("References Obejcts")]
+    public GameObject levelTitleText;
+    public GameObject pausePanel;
+    private float gravity;
     private CharacterController charController;
-    public bool iniatePuzzleLever = false;
+    private Vector3 moveDirection = Vector3.zero;
+    [SerializeField]
+    private bool climb;
+
     void Start()
     {
+        if (levelTitleText != null && pausePanel != null)
+        {
+            levelTitleText.SetActive(true);
+            pausePanel.SetActive(false);
+        }
         charController = GetComponent<CharacterController>();
+        gravity = defaultGravity;
     }
-
     void Update()
     {
-        RaycastHit hit;
-        Debug.DrawRay(transform.position + raycastHeight, transform.forward * raycastDistance, Color.green);
-        if (Physics.Raycast(transform.position + raycastHeight, transform.forward, out hit, raycastDistance) && Input.GetKeyDown(KeyCode.Space))
+        if (charController.isGrounded)
         {
-            Debug.LogWarning(hit.transform.name);
-            //Make Character Jump Over Object.
+            moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
+            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
+            moveDirection = transform.TransformDirection(moveDirection);
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                moveDirection = moveDirection * runningSpeed;
+                // Debug.LogWarning("Running");
+            }
+            else
+            {
+                moveDirection = moveDirection * walkingSpeed;
+                // Debug.LogWarning("Walking");
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && !climb)
+            {
+                moveDirection.y = jumpStrength;
+            }
+        }
+        moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
+        charController.Move(moveDirection * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseorUnpause();
+    }
+
+
+
+    public void PauseorUnpause()
+    {
+        pausePanel.SetActive(!pausePanel.activeSelf);
+
+        if (pausePanel.activeSelf)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1f;
         }
     }
-    void FixedUpdate()
-    {
-        transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
 
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        float curSpeed = speed * Input.GetAxis("Vertical");
-        charController.SimpleMove(forward * curSpeed);
-    }
+    // void OnControllerColliderHit(ControllerColliderHit hit)
+    // {
+    //     Rigidbody rg = hit.collider.attachedRigidbody;
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Hookable")
-        {
-            iniatePuzzleLever = true;
-        }
-    }
+    //     if (rg == null || rg.isKinematic)
+    //         return;
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody rg = hit.collider.attachedRigidbody;
+    //     if (hit.moveDirection.y < -0.3)
+    //         return;
 
-        if (rg == null || rg.isKinematic)
-            return;
+    //     Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+    //     rg.velocity = dir * pushForce;
+    // }
 
-        if (hit.moveDirection.y < -0.3)
-            return;
 
-        Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-        rg.velocity = dir * pushForce;
-    }
 }

@@ -28,7 +28,7 @@ public class CameraController1 : MonoBehaviour
     {
         playerCameraTransform = this.transform;
         playerCamera = gameObject.GetComponent<Camera>();
-        lookAtTransform = GameObject.FindObjectOfType<PlayerController>().transform;
+        lookAtTransform = GameObject.FindObjectOfType<PlayerControlTest>().transform;
     }
 
     void LateUpdate()
