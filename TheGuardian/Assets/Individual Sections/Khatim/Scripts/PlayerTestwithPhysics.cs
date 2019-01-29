@@ -10,10 +10,6 @@ public class PlayerTestwithPhysics : MonoBehaviour
     public float rotationSpeed;
     public float raycastDistance;
     public float interactionDistance;
-    public float distance;
-    public float maxInteract;
-    public float minInteract;
-    private GameObject objectToInteract;
     private Rigidbody rg;
     [SerializeField]
     private bool isInteracting;

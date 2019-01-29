@@ -20,6 +20,7 @@ public class SceneManage : MonoBehaviour
     public void NewGame()
     {
         SceneManager.LoadScene("TheGuadianGameScene");
+        Time.timeScale = 1;
     }
 
     public void MainMenu()
