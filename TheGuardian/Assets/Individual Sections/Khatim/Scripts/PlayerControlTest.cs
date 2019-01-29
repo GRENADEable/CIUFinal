@@ -29,13 +29,13 @@ public class PlayerControlTest : MonoBehaviour
 
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null)
+        if (levelTitleText != null && pausePanel != null && trapDoor != null && toBeContinuedPanel != null)
         {
             levelTitleText.SetActive(true);
             pausePanel.SetActive(false);
+            trapDoor.SetActive(true);
+            toBeContinuedPanel.SetActive(false);
         }
-        trapDoor.SetActive(true);
-        toBeContinuedPanel.SetActive(false);
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
     }
