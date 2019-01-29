@@ -21,6 +21,9 @@ public class PlayerControlTest : MonoBehaviour
     public GameObject toBeContinuedPanel;
     private float gravity;
     private CharacterController charController;
+    [Header("Virtual Camera Reference")]
+    public GameObject virtualCam1;
+    public GameObject virtualCam2;
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField]
     private bool climb;
@@ -29,12 +32,14 @@ public class PlayerControlTest : MonoBehaviour
 
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null && trapDoor != null && toBeContinuedPanel != null)
+        if (levelTitleText != null && pausePanel != null && trapDoor != null && toBeContinuedPanel != null && virtualCam1 != null && virtualCam2 != null)
         {
             levelTitleText.SetActive(true);
             pausePanel.SetActive(false);
             trapDoor.SetActive(true);
             toBeContinuedPanel.SetActive(false);
+            virtualCam1.SetActive(true);
+            virtualCam2.SetActive(false);
         }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
@@ -65,6 +70,7 @@ public class PlayerControlTest : MonoBehaviour
 
             Debug.DrawRay(transform.position, transform.forward * interactionDistance, Color.green);
         }
+
         moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
         charController.Move(moveDirection * Time.deltaTime);
 
@@ -93,8 +99,6 @@ public class PlayerControlTest : MonoBehaviour
         //     Debug.LogWarning("Object Detached");
         // }
     }
-
-
 
     public void PauseorUnpause()
     {
@@ -135,6 +139,21 @@ public class PlayerControlTest : MonoBehaviour
         {
             toBeContinuedPanel.SetActive(true);
             this.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "CameraPanEnter")
+        {
+            virtualCam1.SetActive(false);
+            virtualCam2.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "CameraPanEnter")
+        {
+            virtualCam1.SetActive(true);
+            virtualCam2.SetActive(false);
         }
     }
 }
