@@ -24,6 +24,7 @@ public class PlayerControlTest : MonoBehaviour
     [Header("Virtual Camera Reference")]
     public GameObject virtualCam1;
     public GameObject virtualCam2;
+    public GameObject virtualCam3;
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField]
     private bool climb;
@@ -32,7 +33,7 @@ public class PlayerControlTest : MonoBehaviour
 
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null && trapDoor != null && toBeContinuedPanel != null && virtualCam1 != null && virtualCam2 != null)
+        if (levelTitleText != null && pausePanel != null && trapDoor != null && toBeContinuedPanel != null && virtualCam1 != null && virtualCam2 != null && virtualCam3 != null)
         {
             levelTitleText.SetActive(true);
             pausePanel.SetActive(false);
@@ -40,6 +41,7 @@ public class PlayerControlTest : MonoBehaviour
             toBeContinuedPanel.SetActive(false);
             virtualCam1.SetActive(true);
             virtualCam2.SetActive(false);
+            virtualCam3.SetActive(false);
         }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
@@ -135,25 +137,35 @@ public class PlayerControlTest : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "End")
-        {
-            toBeContinuedPanel.SetActive(true);
-            this.gameObject.SetActive(false);
-        }
-
-        if (other.gameObject.tag == "CameraPanEnter")
+        if (other.gameObject.tag == "SecondLevelCameraPan")
         {
             virtualCam1.SetActive(false);
+            virtualCam3.SetActive(false);
             virtualCam2.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdLevelCameraPan")
+        {
+            virtualCam1.SetActive(false);
+            virtualCam2.SetActive(false);
+            virtualCam3.SetActive(true);
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "CameraPanEnter")
+        if (other.gameObject.tag == "SecondLevelCameraPan")
         {
-            virtualCam1.SetActive(true);
+            virtualCam3.SetActive(false);
             virtualCam2.SetActive(false);
+            virtualCam1.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdLevelCameraPan")
+        {
+            virtualCam3.SetActive(false);
+            virtualCam2.SetActive(false);
+            virtualCam1.SetActive(true);
         }
     }
 }
