@@ -48,21 +48,26 @@ public class PlayerControlTest : MonoBehaviour
     }
     void Update()
     {
+        //Checks if the player is on the Ground
         if (charController.isGrounded)
         {
+            //Gets Player Input
             moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
+
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
+
+            //Applies Movement
             moveDirection = transform.TransformDirection(moveDirection);
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveDirection = moveDirection * runningSpeed;
-                // Debug.LogWarning("Running");
+                Debug.LogWarning("Running");
             }
             else
             {
                 moveDirection = moveDirection * walkingSpeed;
-                // Debug.LogWarning("Walking");
+                Debug.LogWarning("Walking");
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && !climb)
@@ -116,18 +121,19 @@ public class PlayerControlTest : MonoBehaviour
         }
     }
 
+    //Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // Rigidbody rg = hit.collider.attachedRigidbody;
+        Rigidbody rg = hit.collider.attachedRigidbody;
 
-        // if (rg == null || rg.isKinematic)
-        //     return;
+        if (rg == null || rg.isKinematic)
+            return;
 
-        // if (hit.moveDirection.y < -0.3)
-        //     return;
+        if (hit.moveDirection.y < -0.3)
+            return;
 
-        // Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-        // rg.velocity = dir * pushForce;
+        Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+        rg.velocity = dir * pushForce;
 
         if (hit.collider.tag == "Rope")
         {
