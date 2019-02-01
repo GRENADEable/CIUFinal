@@ -62,12 +62,12 @@ public class PlayerControlTest : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveDirection = moveDirection * runningSpeed;
-                Debug.LogWarning("Running");
+                // Debug.LogWarning("Running");
             }
             else
             {
                 moveDirection = moveDirection * walkingSpeed;
-                Debug.LogWarning("Walking");
+                // Debug.LogWarning("Walking");
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && !climb)
