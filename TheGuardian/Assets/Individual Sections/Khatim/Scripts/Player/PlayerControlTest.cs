@@ -54,7 +54,7 @@ public class PlayerControlTest : MonoBehaviour
             //Gets Player Input
             moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
 
-            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
+            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
 
             //Applies Movement
             moveDirection = transform.TransformDirection(moveDirection);
