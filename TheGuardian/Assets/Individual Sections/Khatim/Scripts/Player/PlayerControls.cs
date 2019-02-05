@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     public bool onLadder;
+    [Header("Player Movement Variables")]
     public float walkingSpeed;
     public float runningSpeed;
     public float rotateSpeed;
@@ -13,7 +14,13 @@ public class PlayerControls : MonoBehaviour
     public float sprintClimbSpeed;
     public float defaultGravity;
     public float pushForce;
-
+    [Header("Virtual Camera Reference")]
+    public GameObject virtualCam1;
+    public GameObject virtualCam2;
+    public GameObject virtualCam3;
+    [Header("References Obejcts")]
+    public GameObject levelTitleText;
+    public GameObject pausePanel;
     private float gravity;
     [SerializeField]
     private Vector3 moveDirection = Vector3.zero;
@@ -22,6 +29,14 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
+        if (levelTitleText != null && pausePanel != null && virtualCam1 != null && virtualCam2 != null && virtualCam3 != null)
+        {
+            levelTitleText.SetActive(true);
+            pausePanel.SetActive(false);
+            virtualCam1.SetActive(true);
+            virtualCam2.SetActive(false);
+            virtualCam3.SetActive(false);
+        }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
@@ -94,23 +109,60 @@ public class PlayerControls : MonoBehaviour
             onLadder = false;
     }
 
+    public void PauseorUnpause()
+    {
+        pausePanel.SetActive(!pausePanel.activeSelf);
+
+        if (pausePanel.activeSelf)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
     //Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // Rigidbody rg = hit.collider.attachedRigidbody;
-
-        // if (rg == null || rg.isKinematic)
-        //     return;
-
-        // if (hit.moveDirection.y < -0.3)
-        //     return;
-
-        // Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-        // rg.velocity = dir * pushForce;
-
         if (hit.collider.tag == "Ropes" && Input.GetKey(KeyCode.E))
             onLadder = true;
         else
             onLadder = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "SecondLevelCameraPan")
+        {
+            virtualCam1.SetActive(false);
+            virtualCam3.SetActive(false);
+            virtualCam2.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdLevelCameraPan")
+        {
+            virtualCam1.SetActive(false);
+            virtualCam2.SetActive(false);
+            virtualCam3.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "SecondLevelCameraPan")
+        {
+            virtualCam3.SetActive(false);
+            virtualCam2.SetActive(false);
+            virtualCam1.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdLevelCameraPan")
+        {
+            virtualCam3.SetActive(false);
+            virtualCam2.SetActive(false);
+            virtualCam1.SetActive(true);
+        }
     }
 }
