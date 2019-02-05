@@ -13,7 +13,7 @@ public class PlayerControlTest : MonoBehaviour
     public Vector3 raycastHeight;
     public float pushForce;
     public float defaultGravity;
-    public GameObject trapDoor;
+    // public GameObject trapDoor;
     public float interactionDistance;
     // [Header("References Obejcts")]
     // public GameObject levelTitleText;
