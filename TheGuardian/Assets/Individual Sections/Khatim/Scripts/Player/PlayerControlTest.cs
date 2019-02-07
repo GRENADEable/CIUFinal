@@ -4,82 +4,97 @@ using UnityEngine;
 
 public class PlayerControlTest : MonoBehaviour
 {
+    [Header("Player Movement Variables")]
+    public bool onLadder;
     public float walkingSpeed;
     public float runningSpeed;
     public float rotateSpeed;
-    public float raycastDistance;
+    public float jumpPower;
     public float climbSpeed;
-    public float jumpStrength;
-    public Vector3 raycastHeight;
-    public float pushForce;
+    public float sprintClimbSpeed;
+    // public float raycastDistance;
+    // public Vector3 raycastHeight;
+    // public float pushForce;
     public float defaultGravity;
-    // public GameObject trapDoor;
     public float interactionDistance;
-    // [Header("References Obejcts")]
-    // public GameObject levelTitleText;
-    // public GameObject pausePanel;
-    // public GameObject toBeContinuedPanel;
     private float gravity;
     private CharacterController charController;
-    // [Header("Virtual Camera Reference")]
-    // public GameObject virtualCam1;
-    // public GameObject virtualCam2;
-    // public GameObject virtualCam3;
+    [Header("Virtual Camera Reference")]
+    public GameObject mainVirutalCam;
+    public GameObject firstPuzzleCamPan;
+    public GameObject secondPuzzleVirtualCam;
+    public GameObject thirdPuzzleVirtualCam;
     private Vector3 moveDirection = Vector3.zero;
-    [SerializeField]
-    private bool climb;
-    [SerializeField]
-    private bool isInteracting;
+
+    // [SerializeField]
+    // private bool isInteracting;
 
     void Start()
     {
-        // if (levelTitleText != null && pausePanel != null && trapDoor != null && toBeContinuedPanel != null && virtualCam1 != null && virtualCam2 != null && virtualCam3 != null)
-        // {
-        //     levelTitleText.SetActive(true);
-        //     pausePanel.SetActive(false);
-        //     trapDoor.SetActive(true);
-        //     toBeContinuedPanel.SetActive(false);
-        //     virtualCam1.SetActive(true);
-        //     virtualCam2.SetActive(false);
-        //     virtualCam3.SetActive(false);
-        // }
+        if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null)
+        {
+            mainVirutalCam.SetActive(true);
+            firstPuzzleCamPan.SetActive(false);
+            secondPuzzleVirtualCam.SetActive(false);
+            thirdPuzzleVirtualCam.SetActive(false);
+        }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
     }
     void Update()
     {
-        //Checks if the player is on the Ground
-        if (charController.isGrounded)
+        if (!onLadder)
         {
-            //Gets Player Input
-            moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
-
-            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
-
-            //Applies Movement
-            moveDirection = transform.TransformDirection(moveDirection);
-
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (charController.isGrounded)
             {
-                moveDirection = moveDirection * runningSpeed;
-                // Debug.LogWarning("Running");
+                //Gets Player Inputs
+                moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
+                transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+
+                //Applies Movement
+                moveDirection = transform.TransformDirection(moveDirection);
+
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    moveDirection = moveDirection * runningSpeed;
+                    // Debug.LogWarning("Running");
+                }
+
+                else
+                {
+                    moveDirection = moveDirection * walkingSpeed;
+                    // Debug.LogWarning("Walking");
+                }
+
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    moveDirection.y = jumpPower;
+                    // Debug.LogWarning("Jump");
+                }
             }
             else
             {
-                moveDirection = moveDirection * walkingSpeed;
-                // Debug.LogWarning("Walking");
+                moveDirection.y -= gravity * Time.deltaTime;
             }
-
-            if (Input.GetKeyDown(KeyCode.Space) && !climb)
-            {
-                moveDirection.y = jumpStrength;
-            }
-
-            Debug.DrawRay(transform.position, transform.forward * interactionDistance, Color.green);
         }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
+                Debug.LogWarning("Sprint Climb?");
+            }
+            else
+            {
+                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
+                Debug.LogWarning("Climbing");
+            }
 
-        moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
+        }
         charController.Move(moveDirection * Time.deltaTime);
+
+        if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
+            onLadder = false;
 
         // if (Input.GetKeyDown(KeyCode.Escape))
         //     PauseorUnpause();
@@ -107,71 +122,47 @@ public class PlayerControlTest : MonoBehaviour
         // }
     }
 
-    // public void PauseorUnpause()
-    // {
-    //     pausePanel.SetActive(!pausePanel.activeSelf);
-
-    //     if (pausePanel.activeSelf)
-    //     {
-    //         Time.timeScale = 0;
-    //     }
-    //     else
-    //     {
-    //         Time.timeScale = 1f;
-    //     }
-    // }
-
     //Function which checks what hit the Character Controller's Collider
     // void OnControllerColliderHit(ControllerColliderHit hit)
     // {
-    //     Rigidbody rg = hit.collider.attachedRigidbody;
-
-    //     if (rg == null || rg.isKinematic)
-    //         return;
-
-    //     if (hit.moveDirection.y < -0.3)
-    //         return;
-
-    //     Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-    //     rg.velocity = dir * pushForce;
-
-    //     if (hit.collider.tag == "Rope")
-    //     {
-    //         trapDoor.SetActive(false);
-    //     }
     // }
 
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.gameObject.tag == "SecondLevelCameraPan")
-    //     {
-    //         virtualCam1.SetActive(false);
-    //         virtualCam3.SetActive(false);
-    //         virtualCam2.SetActive(true);
-    //     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "FirstPuzzleCamPan")
+        {
+            firstPuzzleCamPan.SetActive(true);
+        }
 
-    //     if (other.gameObject.tag == "ThirdLevelCameraPan")
-    //     {
-    //         virtualCam1.SetActive(false);
-    //         virtualCam2.SetActive(false);
-    //         virtualCam3.SetActive(true);
-    //     }
-    // }
+        if (other.gameObject.tag == "SecondPuzzleCamPan")
+        {
+            secondPuzzleVirtualCam.SetActive(true);
+        }
 
-    // void OnTriggerExit(Collider other)
-    // {
-    //     if (other.gameObject.tag == "SecondLevelCameraPan")
-    //     {
-    //         virtualCam3.SetActive(false);
-    //         virtualCam2.SetActive(false);
-    //         virtualCam1.SetActive(true);
-    //     }
+        if (other.gameObject.tag == "ThirdPuzzleCamPan")
+        {
+            thirdPuzzleVirtualCam.SetActive(true);
+        }
+    }
 
-    //     if (other.gameObject.tag == "ThirdLevelCameraPan")
-    //     {
-    //         virtualCam3.SetActive(false);
-    //         virtualCam2.SetActive(false);
-    //         virtualCam1.SetActive(true);
-    //     }
-    // }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "FirstPuzzleCamPan")
+        {
+            mainVirutalCam.SetActive(true);
+            firstPuzzleCamPan.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "SecondPuzzleCamPan")
+        {
+            mainVirutalCam.SetActive(true);
+            secondPuzzleVirtualCam.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleCamPan")
+        {
+            mainVirutalCam.SetActive(true);
+            thirdPuzzleVirtualCam.SetActive(false);
+        }
+    }
 }
