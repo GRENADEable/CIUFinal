@@ -45,11 +45,12 @@ public class PlayerControlTest : MonoBehaviour
     {
         if (!onLadder)
         {
+            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
             if (charController.isGrounded)
             {
                 //Gets Player Inputs
                 moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
-                transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+
 
                 //Applies Movement
                 moveDirection = transform.TransformDirection(moveDirection);

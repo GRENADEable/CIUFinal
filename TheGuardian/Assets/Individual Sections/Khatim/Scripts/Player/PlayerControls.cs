@@ -49,6 +49,8 @@ public class PlayerControls : MonoBehaviour
         //Checks if the player is on the Ground
         if (!onLadder)
         {
+            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+
             if (charController.isGrounded)
             {
                 //Gets Player Inputs
@@ -62,8 +64,6 @@ public class PlayerControls : MonoBehaviour
                     anim.SetBool("isWalkingBack", true);
                 else
                     anim.SetBool("isWalkingBack", false);
-
-                transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
 
                 //Applies Movement
                 moveDirection = transform.TransformDirection(moveDirection);
