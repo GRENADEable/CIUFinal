@@ -26,8 +26,8 @@ public class ObjectThrowing : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.F) && canGrab && !grabbing)
         {
-            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) - new Vector3(0,0,2), out hitInfo, 10);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) - new Vector3(0, 0, 2) * 10, Color.green);
+            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, 10);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.green);
             // Physics.Raycast(transform.position - new Vector3(0, 2, 0), Vector3.forward, out hitInfo, 5);
             // Physics.Raycast(transform.position - new Vector3(0,2.5f,0), Vector3.forward, out hitInfo, 5);
             Debug.Log(hitInfo.collider.name);
@@ -38,6 +38,7 @@ public class ObjectThrowing : MonoBehaviour
                 hitInfo.collider.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 hitInfo.collider.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                 hitInfo.collider.GetComponent<Rigidbody>().useGravity = false;
+                hitInfo.collider.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 hitInfo.collider.transform.SetParent(this.gameObject.transform);
                 hitInfo.collider.gameObject.transform.localPosition = objectToBeThrownPosition;
                 canGrab = false;
@@ -48,6 +49,7 @@ public class ObjectThrowing : MonoBehaviour
         {
             objectToBeThrown.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
             hitInfo.collider.GetComponent<Rigidbody>().useGravity = true;
+            hitInfo.collider.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             hitInfo.collider.transform.SetParent(null);
             objectToBeThrown = null;
             canGrab = true;
