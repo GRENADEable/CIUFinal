@@ -15,9 +15,10 @@ public class PlayerControls : MonoBehaviour
     public float defaultGravity;
     public float pushForce;
     [Header("Virtual Camera Reference")]
-    public GameObject virtualCam1;
-    public GameObject virtualCam2;
-    public GameObject virtualCam3;
+    public GameObject mainVirutalCam;
+    public GameObject firstPuzzleCamPan;
+    public GameObject secondPuzzleVirtualCam;
+    public GameObject thirdPuzzleVirtualCam;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
     public GameObject pausePanel;
@@ -29,13 +30,14 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null && virtualCam1 != null && virtualCam2 != null && virtualCam3 != null)
+        if (levelTitleText != null && pausePanel != null && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null)
         {
             levelTitleText.SetActive(true);
             pausePanel.SetActive(false);
-            virtualCam1.SetActive(true);
-            virtualCam2.SetActive(false);
-            virtualCam3.SetActive(false);
+            mainVirutalCam.SetActive(true);
+            firstPuzzleCamPan.SetActive(false);
+            secondPuzzleVirtualCam.SetActive(false);
+            thirdPuzzleVirtualCam.SetActive(false);
         }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
@@ -47,6 +49,8 @@ public class PlayerControls : MonoBehaviour
         //Checks if the player is on the Ground
         if (!onLadder)
         {
+            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+
             if (charController.isGrounded)
             {
                 //Gets Player Inputs
@@ -60,8 +64,6 @@ public class PlayerControls : MonoBehaviour
                     anim.SetBool("isWalkingBack", true);
                 else
                     anim.SetBool("isWalkingBack", false);
-
-                transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
 
                 //Applies Movement
                 moveDirection = transform.TransformDirection(moveDirection);
@@ -134,35 +136,40 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "SecondLevelCameraPan")
+        if (other.gameObject.tag == "FirstPuzzleCamPan")
         {
-            virtualCam1.SetActive(false);
-            virtualCam3.SetActive(false);
-            virtualCam2.SetActive(true);
+            firstPuzzleCamPan.SetActive(true);
         }
 
-        if (other.gameObject.tag == "ThirdLevelCameraPan")
+        if (other.gameObject.tag == "SecondPuzzleCamPan")
         {
-            virtualCam1.SetActive(false);
-            virtualCam2.SetActive(false);
-            virtualCam3.SetActive(true);
+            secondPuzzleVirtualCam.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleCamPan")
+        {
+            thirdPuzzleVirtualCam.SetActive(true);
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "SecondLevelCameraPan")
+        if (other.gameObject.tag == "FirstPuzzleCamPan")
         {
-            virtualCam3.SetActive(false);
-            virtualCam2.SetActive(false);
-            virtualCam1.SetActive(true);
+            mainVirutalCam.SetActive(true);
+            firstPuzzleCamPan.SetActive(false);
         }
 
-        if (other.gameObject.tag == "ThirdLevelCameraPan")
+        if (other.gameObject.tag == "SecondPuzzleCamPan")
         {
-            virtualCam3.SetActive(false);
-            virtualCam2.SetActive(false);
-            virtualCam1.SetActive(true);
+            mainVirutalCam.SetActive(true);
+            secondPuzzleVirtualCam.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleCamPan")
+        {
+            mainVirutalCam.SetActive(true);
+            thirdPuzzleVirtualCam.SetActive(false);
         }
     }
 }
