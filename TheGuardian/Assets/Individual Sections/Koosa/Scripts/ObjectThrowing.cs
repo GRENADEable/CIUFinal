@@ -8,11 +8,13 @@ public class ObjectThrowing : MonoBehaviour
     public Vector3 objectToBeThrownPosition;
     public float distance;
     public RaycastHit hitInfo;
+    public float height;
 
     public bool canGrab = true;
     public bool grabbing = false;
     public GameObject objectToBeThrown;
     public Vector3 objectToBeThrownOriginalPos;
+
 
 
     // Use this for initialization
@@ -26,8 +28,8 @@ public class ObjectThrowing : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.F) && canGrab && !grabbing)
         {
-            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, 10);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.green);
+            Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, distance);
+            Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), Color.green);
             // Physics.Raycast(transform.position - new Vector3(0, 2, 0), Vector3.forward, out hitInfo, 5);
             // Physics.Raycast(transform.position - new Vector3(0,2.5f,0), Vector3.forward, out hitInfo, 5);
             Debug.Log(hitInfo.collider.name);
