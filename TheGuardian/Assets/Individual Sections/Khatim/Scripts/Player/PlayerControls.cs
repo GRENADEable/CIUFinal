@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerControls : MonoBehaviour
 {
     [Header("Player Movement Variables")]
@@ -20,6 +20,8 @@ public class PlayerControls : MonoBehaviour
     public GameObject secondPuzzleVirtualCam;
     public GameObject thirdPuzzleVirtualCam;
     public GameObject thirdPuzzleCrateCam;
+    [Header("Virtual Camera Variables")]
+    public float foV;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
     public GameObject pausePanel;
@@ -61,6 +63,11 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetKey(KeyCode.H))
             runningSpeed = defaultRunningSpeed;
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            mainVirutalCam.GetComponent<CinemachineVirtualCamera>().m_Lens.FieldOfView = foV;
+        }
         #endregion
 
         //Checks if the player is on the Ground

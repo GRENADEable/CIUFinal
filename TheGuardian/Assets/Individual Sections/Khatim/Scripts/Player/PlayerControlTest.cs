@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerControlTest : MonoBehaviour
 {
@@ -22,7 +23,14 @@ public class PlayerControlTest : MonoBehaviour
     public GameObject firstPuzzleCamPan;
     public GameObject secondPuzzleVirtualCam;
     public GameObject thirdPuzzleVirtualCam;
+    [Header("Virtual Camera Variables")]
+    public float foV;
     private Vector3 moveDirection = Vector3.zero;
+    [Header("Cheats Section :3")]
+    [SerializeField]
+    private float runningCheat;
+    [SerializeField]
+    private float defaultRunningSpeed;
     void Start()
     {
         if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null)
@@ -37,6 +45,19 @@ public class PlayerControlTest : MonoBehaviour
     }
     void Update()
     {
+        #region Cheats
+        if (Input.GetKey(KeyCode.G))
+            runningSpeed = runningCheat;
+
+        if (Input.GetKey(KeyCode.H))
+            runningSpeed = defaultRunningSpeed;
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            mainVirutalCam.GetComponent<CinemachineVirtualCamera>().m_Lens.FieldOfView = foV;
+        }
+        #endregion
+
         if (!onLadder)
         {
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
