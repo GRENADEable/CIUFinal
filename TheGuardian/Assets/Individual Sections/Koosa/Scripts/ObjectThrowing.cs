@@ -16,9 +16,9 @@ public class ObjectThrowing : MonoBehaviour
     void Update()
     {
         RaycastHit hitInfo;
-        Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), Color.green);
+        Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward) * distance, Color.red);
 
-        if (Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, distance)
+        if (Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward) * distance, out hitInfo)
         && hitInfo.collider.tag == "PickUp" && Input.GetKey(KeyCode.F)
         && !isInteracting)
         {

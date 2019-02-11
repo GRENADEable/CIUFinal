@@ -19,6 +19,7 @@ public class PlayerControls : MonoBehaviour
     public GameObject firstPuzzleCamPan;
     public GameObject secondPuzzleVirtualCam;
     public GameObject thirdPuzzleVirtualCam;
+    public GameObject thirdPuzzleCrateCam;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
     public GameObject pausePanel;
@@ -27,10 +28,17 @@ public class PlayerControls : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
     private Animator anim;
+    [Header("Cheats Section :3")]
+    [SerializeField]
+    private float runningCheat;
+    [SerializeField]
+    private float defaultRunningSpeed;
 
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null)
+        if (levelTitleText != null && pausePanel != null && mainVirutalCam != null
+         && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
+         && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null)
         {
             levelTitleText.SetActive(true);
             pausePanel.SetActive(false);
@@ -38,6 +46,7 @@ public class PlayerControls : MonoBehaviour
             firstPuzzleCamPan.SetActive(false);
             secondPuzzleVirtualCam.SetActive(false);
             thirdPuzzleVirtualCam.SetActive(false);
+            thirdPuzzleCrateCam.SetActive(false);
         }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
@@ -46,6 +55,14 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+        #region Cheats
+        if (Input.GetKey(KeyCode.G))
+            runningSpeed = runningCheat;
+
+        if (Input.GetKey(KeyCode.H))
+            runningSpeed = defaultRunningSpeed;
+        #endregion
+
         //Checks if the player is on the Ground
         if (!onLadder)
         {
@@ -144,7 +161,7 @@ public class PlayerControls : MonoBehaviour
         // Apply the push on the object
         body.velocity = pushDir * pushPower;
 
-        if (hit.collider.tag == "Ropes" && Input.GetKey(KeyCode.E))
+        if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
             onLadder = true;
         else
             onLadder = false;
@@ -166,6 +183,11 @@ public class PlayerControls : MonoBehaviour
         {
             thirdPuzzleVirtualCam.SetActive(true);
         }
+
+        if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
+        {
+            thirdPuzzleCrateCam.SetActive(true);
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -186,6 +208,12 @@ public class PlayerControls : MonoBehaviour
         {
             mainVirutalCam.SetActive(true);
             thirdPuzzleVirtualCam.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
+        {
+            mainVirutalCam.SetActive(true);
+            thirdPuzzleCrateCam.SetActive(false);
         }
     }
 }

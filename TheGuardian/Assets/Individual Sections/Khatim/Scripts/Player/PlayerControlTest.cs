@@ -108,6 +108,11 @@ public class PlayerControlTest : MonoBehaviour
 
         // Apply the push on the object
         body.velocity = pushDir * pushPower;
+
+        if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
+            onLadder = true;
+        else
+            onLadder = false;
     }
 
     void OnTriggerEnter(Collider other)
