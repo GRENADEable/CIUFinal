@@ -7,57 +7,42 @@ public class ObjectThrowing : MonoBehaviour
     public float throwingForce;
     public Vector3 objectToBeThrownPosition;
     public float distance;
-    public RaycastHit hitInfo;
     public float height;
+    // public GameObject objectToBeThrown;
+    [SerializeField]
+    private bool isInteracting;
+    // public Vector3 objectToBeThrownOriginalPos;
 
-    public bool canGrab = true;
-    public bool grabbing = false;
-    public GameObject objectToBeThrown;
-    public Vector3 objectToBeThrownOriginalPos;
-
-
-
-    // Use this for initialization
-    void Start ()
+    void Update()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        if (Input.GetKey(KeyCode.F) && canGrab && !grabbing)
+        RaycastHit hitInfo;
+        Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), Color.green);
+
+        if (Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, distance)
+        && hitInfo.collider.tag == "PickUp" && Input.GetKey(KeyCode.F)
+        && !isInteracting)
         {
-            Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, distance);
-            Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), Color.green);
-            // Physics.Raycast(transform.position - new Vector3(0, 2, 0), Vector3.forward, out hitInfo, 5);
-            // Physics.Raycast(transform.position - new Vector3(0,2.5f,0), Vector3.forward, out hitInfo, 5);
-            Debug.Log(hitInfo.collider.name);
-            if (hitInfo.collider.tag == ("PickUp"))
-            {
-                objectToBeThrownOriginalPos = hitInfo.collider.transform.position;
-                objectToBeThrown = hitInfo.collider.gameObject;
-                hitInfo.collider.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                hitInfo.collider.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-                hitInfo.collider.GetComponent<Rigidbody>().useGravity = false;
-                hitInfo.collider.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                hitInfo.collider.transform.SetParent(this.gameObject.transform);
-                hitInfo.collider.gameObject.transform.localPosition = objectToBeThrownPosition;
-                canGrab = false;
-                grabbing = true;
-            }
+            // objectToBeThrown = hitInfo.collider.gameObject;
+            // hitInfo.rigidbody.velocity = Vector3.zero;
+            // hitInfo.rigidbody.angularVelocity = Vector3.zero;
+            hitInfo.rigidbody.useGravity = false;
+            hitInfo.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            hitInfo.collider.transform.SetParent(this.gameObject.transform);
+            hitInfo.collider.gameObject.transform.localPosition = objectToBeThrownPosition;
+            isInteracting = true;
+            Debug.LogWarning("Object Picked Up");
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !canGrab && grabbing)
+        if (Input.GetKeyDown(KeyCode.Space) && isInteracting)
         {
-            objectToBeThrown.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
-            hitInfo.collider.GetComponent<Rigidbody>().useGravity = true;
-            hitInfo.collider.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            hitInfo.rigidbody.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
+            hitInfo.rigidbody.useGravity = true;
+            hitInfo.rigidbody.constraints = RigidbodyConstraints.None;
             hitInfo.collider.transform.SetParent(null);
-            objectToBeThrown = null;
-            canGrab = true;
-            grabbing = false;
+            // objectToBeThrown = null;
+            isInteracting = false;
+            Debug.LogWarning("Object Thrown");
         }
     }
 }
-    
+
 

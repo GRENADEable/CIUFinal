@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public bool onLadder;
     [Header("Player Movement Variables")]
+    public bool onLadder;
     public float walkingSpeed;
     public float runningSpeed;
     public float rotateSpeed;
@@ -13,7 +13,7 @@ public class PlayerControls : MonoBehaviour
     public float climbSpeed;
     public float sprintClimbSpeed;
     public float defaultGravity;
-    public float pushForce;
+    public float pushPower;
     [Header("Virtual Camera Reference")]
     public GameObject mainVirutalCam;
     public GameObject firstPuzzleCamPan;
@@ -128,6 +128,22 @@ public class PlayerControls : MonoBehaviour
     //Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        // Return null if no Rigidbody
+        if (body == null || body.isKinematic)
+            return;
+
+        // Return null as we don't want to push objects below us
+        if (hit.moveDirection.y < -0.3f)
+            return;
+
+        // Calculate push direction from move direction, we only push objects to the sides never up and down
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+
+        // Apply the push on the object
+        body.velocity = pushDir * pushPower;
+
         if (hit.collider.tag == "Ropes" && Input.GetKey(KeyCode.E))
             onLadder = true;
         else

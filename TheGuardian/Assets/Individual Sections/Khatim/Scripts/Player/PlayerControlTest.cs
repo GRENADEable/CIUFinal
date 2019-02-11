@@ -11,12 +11,10 @@ public class PlayerControlTest : MonoBehaviour
     public float rotateSpeed;
     public float jumpPower;
     public float climbSpeed;
+    public float pushPower;
     public float sprintClimbSpeed;
-    // public float raycastDistance;
-    // public Vector3 raycastHeight;
-    // public float pushForce;
     public float defaultGravity;
-    public float interactionDistance;
+
     private float gravity;
     private CharacterController charController;
     [Header("Virtual Camera Reference")]
@@ -25,10 +23,6 @@ public class PlayerControlTest : MonoBehaviour
     public GameObject secondPuzzleVirtualCam;
     public GameObject thirdPuzzleVirtualCam;
     private Vector3 moveDirection = Vector3.zero;
-
-    // [SerializeField]
-    // private bool isInteracting;
-
     void Start()
     {
         if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null)
@@ -51,7 +45,6 @@ public class PlayerControlTest : MonoBehaviour
                 //Gets Player Inputs
                 moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
 
-
                 //Applies Movement
                 moveDirection = transform.TransformDirection(moveDirection);
 
@@ -60,7 +53,6 @@ public class PlayerControlTest : MonoBehaviour
                     moveDirection = moveDirection * runningSpeed;
                     // Debug.LogWarning("Running");
                 }
-
                 else
                 {
                     moveDirection = moveDirection * walkingSpeed;
@@ -75,7 +67,7 @@ public class PlayerControlTest : MonoBehaviour
             }
             else
             {
-                moveDirection.y -= gravity * Time.deltaTime;
+                moveDirection.y -= defaultGravity * Time.deltaTime;
             }
         }
         else
@@ -96,37 +88,27 @@ public class PlayerControlTest : MonoBehaviour
 
         if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
             onLadder = false;
-
-        // if (Input.GetKeyDown(KeyCode.Escape))
-        //     PauseorUnpause();
-
-        // RaycastHit hit;
-        // if (Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance) && Input.GetKeyDown(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
-        // {
-        //     isInteracting = true;
-        //     hit.collider.gameObject.AddComponent(typeof(FixedJoint));
-        //     hit.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-        //     hit.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
-        //     hit.rigidbody.useGravity = false;
-        //     Debug.LogWarning("Object Attached");
-        // }
-
-        // else if (Input.GetKeyUp(KeyCode.E) && isInteracting)
-        // {
-        //     //Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
-        //     isInteracting = false;
-        //     hit.collider.gameObject.GetComponent<FixedJoint>().enableCollision = false;
-        //     hit.collider.gameObject.GetComponent<FixedJoint>().connectedBody = null;
-        //     hit.rigidbody.useGravity = true;
-        //     Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());
-        //     Debug.LogWarning("Object Detached");
-        // }
     }
 
-    //Function which checks what hit the Character Controller's Collider
-    // void OnControllerColliderHit(ControllerColliderHit hit)
-    // {
-    // }
+    // Function which checks what hit the Character Controller's Collider
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        // Return null if no Rigidbody
+        if (body == null || body.isKinematic)
+            return;
+
+        // Return null as we don't want to push objects below us
+        if (hit.moveDirection.y < -0.3f)
+            return;
+
+        // Calculate push direction from move direction, we only push objects to the sides never up and down
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+
+        // Apply the push on the object
+        body.velocity = pushDir * pushPower;
+    }
 
     void OnTriggerEnter(Collider other)
     {
