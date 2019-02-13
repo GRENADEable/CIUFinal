@@ -5,26 +5,32 @@ using Cinemachine;
 public class PlayerControls : MonoBehaviour
 {
     [Header("Player Movement Variables")]
-    public bool onLadder;
     public float walkingSpeed;
     public float runningSpeed;
     public float rotateSpeed;
     public float jumpPower;
-    public float climbSpeed;
-    public float sprintClimbSpeed;
     public float defaultGravity;
     public float pushPower;
+    [Header("Rope Variables")]
+    public bool onRope;
+    public float climbSpeed;
+    public float distanceFromRope;
+    public float raycastHeight;
+    public float sprintClimbSpeed;
     [Header("Virtual Camera Reference")]
     public GameObject mainVirutalCam;
     public GameObject firstPuzzleCamPan;
     public GameObject secondPuzzleVirtualCam;
     public GameObject thirdPuzzleVirtualCam;
     public GameObject thirdPuzzleCrateCam;
+    public GameObject thidpuzzleRopeCam;
     [Header("Virtual Camera Variables")]
     public float foV;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
     public GameObject pausePanel;
+    public GameObject trapDoor;
+    public GameObject toBeContinuedPanel;
     private float gravity;
     [SerializeField]
     private Vector3 moveDirection = Vector3.zero;
@@ -35,20 +41,26 @@ public class PlayerControls : MonoBehaviour
     private float runningCheat;
     [SerializeField]
     private float defaultRunningSpeed;
+    [SerializeField]
+    private float superJump;
+    [SerializeField]
+    private float defaultJump;
 
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null && mainVirutalCam != null
-         && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
-         && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null)
+        if (levelTitleText != null && pausePanel != null && toBeContinuedPanel != null && trapDoor != null
+         && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
+         && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null)
         {
             levelTitleText.SetActive(true);
+            trapDoor.SetActive(true);
             pausePanel.SetActive(false);
             mainVirutalCam.SetActive(true);
             firstPuzzleCamPan.SetActive(false);
             secondPuzzleVirtualCam.SetActive(false);
             thirdPuzzleVirtualCam.SetActive(false);
             thirdPuzzleCrateCam.SetActive(false);
+            thidpuzzleRopeCam.SetActive(false);
         }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
@@ -64,14 +76,23 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKey(KeyCode.H))
             runningSpeed = defaultRunningSpeed;
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            mainVirutalCam.GetComponent<CinemachineVirtualCamera>().m_Lens.FieldOfView = foV;
-        }
+        if (Input.GetKey(KeyCode.J))
+            jumpPower = superJump;
+
+        if (Input.GetKey(KeyCode.K))
+            jumpPower = defaultJump;
+
+        // if (Input.GetKeyDown(KeyCode.J))
+        // {
+        //     mainVirutalCam.GetComponent<CinemachineVirtualCamera>().m_Lens.FieldOfView = foV;
+        // }
         #endregion
 
+        RaycastHit hit;
+        Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
+
         //Checks if the player is on the Ground
-        if (!onLadder)
+        if (!onRope)
         {
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
 
@@ -79,12 +100,12 @@ public class PlayerControls : MonoBehaviour
             {
                 //Gets Player Inputs
                 moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
-                if (Input.GetAxis("Vertical") > 0)
+                if (Input.GetKey(KeyCode.W))
                     anim.SetBool("isWalking", true);
                 else
                     anim.SetBool("isWalking", false);
 
-                if (Input.GetAxis("Vertical") < 0)
+                if (Input.GetKey(KeyCode.S))
                     anim.SetBool("isWalkingBack", true);
                 else
                     anim.SetBool("isWalkingBack", false);
@@ -115,7 +136,9 @@ public class PlayerControls : MonoBehaviour
                 moveDirection.y -= gravity * Time.deltaTime;
             }
         }
-        else
+
+        if (Physics.Raycast(transform.position + Vector3.up * raycastHeight, transform.forward * distanceFromRope, out hit)
+         && Input.GetKey(KeyCode.E) && hit.collider.tag == "Rope")
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -128,11 +151,12 @@ public class PlayerControls : MonoBehaviour
                 Debug.LogWarning("Climbing");
             }
 
+            trapDoor.SetActive(false);
         }
         charController.Move(moveDirection * Time.deltaTime);
 
-        if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
-            onLadder = false;
+        // if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
+        //     onLadder = false;
     }
 
     public void PauseorUnpause()
@@ -152,6 +176,7 @@ public class PlayerControls : MonoBehaviour
     //Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
+
         Rigidbody body = hit.collider.attachedRigidbody;
 
         // Return null if no Rigidbody
@@ -168,10 +193,10 @@ public class PlayerControls : MonoBehaviour
         // Apply the push on the object
         body.velocity = pushDir * pushPower;
 
-        if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
-            onLadder = true;
-        else
-            onLadder = false;
+        // if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
+        //     onLadder = true;
+        // else
+        //     onLadder = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -194,6 +219,16 @@ public class PlayerControls : MonoBehaviour
         if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
         {
             thirdPuzzleCrateCam.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
+        {
+            thidpuzzleRopeCam.SetActive(true);
+        }
+        if (other.gameObject.tag == "End")
+        {
+            toBeContinuedPanel.SetActive(true);
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -221,6 +256,12 @@ public class PlayerControls : MonoBehaviour
         {
             mainVirutalCam.SetActive(true);
             thirdPuzzleCrateCam.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
+        {
+            thirdPuzzleVirtualCam.SetActive(true);
+            thidpuzzleRopeCam.SetActive(false);
         }
     }
 }

@@ -52,7 +52,8 @@ public class RatFSM : MonoBehaviour
     {
         //Distance check to Player
         distanceToPlayer = Vector3.Distance(this.transform.position, player.transform.position);
-        Debug.DrawRay(transform.position, transform.forward * distanceToPlayer, Color.green);
+        Debug.DrawRay(transform.position, transform.forward * chaseDistance, Color.green);
+        Debug.DrawRay(transform.position, transform.forward * attackDistance, Color.red);
         tarDir = player.transform.position - this.transform.position;
         angle = Vector3.Angle(this.tarDir, this.transform.forward);
         ratMagnitude = ratAgent.velocity;
