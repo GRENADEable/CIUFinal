@@ -10,6 +10,7 @@ public class RatFSM : MonoBehaviour
     public float closeDistance;
     public float distanceToPlayer;
     // public float attackDelay;
+    [SerializeField]
     private Vector3 ratMagnitude;
     //public float maxJumpCooldownTime;
     public float ratSpeed;
@@ -39,8 +40,9 @@ public class RatFSM : MonoBehaviour
 
     void Start()
     {
-        deathScreen.SetActive(false);
+
         player = GameObject.FindGameObjectWithTag("Player");
+        deathScreen.SetActive(false);
         // isAttacking = false;
         ratAgent = GetComponent<NavMeshAgent>();
         ratAgent.speed = ratSpeed;

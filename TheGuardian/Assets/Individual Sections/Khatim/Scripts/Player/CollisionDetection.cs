@@ -12,10 +12,10 @@ public class CollisionDetection : MonoBehaviour
 
     void Update()
     {
-        if (ply.col != null && Input.GetKeyDown(KeyCode.E) && ply.col.gameObject.tag == "Rope")
-        {
-            ply.ColliderHit();
-        }
+        // if (ply.col != null && Input.GetKeyDown(KeyCode.E) && ply.col.gameObject.tag == "Rope")
+        // {
+        //     ply.ColliderHit();
+        // }
     }
 
     void OnTriggerEnter(Collider other)

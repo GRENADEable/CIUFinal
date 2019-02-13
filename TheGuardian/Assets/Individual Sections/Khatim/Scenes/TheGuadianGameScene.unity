@@ -694,7 +694,7 @@ Transform:
   m_Children:
   - {fileID: 2018779419}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &12748592
 MonoBehaviour:
@@ -711,6 +711,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -4563,7 +4564,7 @@ Transform:
   m_Children:
   - {fileID: 165344063}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 25
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &106994808
 MonoBehaviour:
@@ -4580,6 +4581,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -5091,7 +5093,7 @@ Transform:
   m_Children:
   - {fileID: 290809279}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &115536545
 MonoBehaviour:
@@ -5108,6 +5110,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -5241,7 +5244,7 @@ Transform:
   m_Children:
   - {fileID: 600083011}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &119662263
 MonoBehaviour:
@@ -5258,6 +5261,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -7590,7 +7594,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &182140405
 Transform:
   m_ObjectHideFlags: 0
@@ -7624,7 +7628,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 182140404}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -10156,7 +10160,7 @@ Transform:
   m_Children:
   - {fileID: 1242998861}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 29
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &243307044
 MonoBehaviour:
@@ -10173,6 +10177,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -15653,7 +15658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &387467500
 Transform:
   m_ObjectHideFlags: 0
@@ -16889,6 +16894,19 @@ MonoBehaviour:
   distance: 0.2
   height: 0.1
   isInteracting: 0
+--- !u!136 &415574543
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 415574536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.059278965
+  m_Height: 0.23405075
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.11079645, z: 0.09496498}
 --- !u!1 &417060569
 GameObject:
   m_ObjectHideFlags: 0
@@ -21456,7 +21474,7 @@ Transform:
   m_Children:
   - {fileID: 349767560}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &504879390
 MonoBehaviour:
@@ -21473,6 +21491,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -28236,7 +28255,7 @@ Transform:
   m_Children:
   - {fileID: 734312875}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &669079235
 MonoBehaviour:
@@ -28253,6 +28272,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -31064,7 +31084,7 @@ Transform:
   m_Children:
   - {fileID: 1072435637}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &737228626
 MonoBehaviour:
@@ -31081,6 +31101,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -31764,7 +31785,7 @@ Transform:
   m_Children:
   - {fileID: 1298041585}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &751637304
 MonoBehaviour:
@@ -31781,6 +31802,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -33806,7 +33828,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 814016780}
   m_LocalRotation: {x: 0.71222216, y: -0, z: -0.7019541, w: 0}
-  m_LocalPosition: {x: 6.841, y: -2.08, z: -0.185}
+  m_LocalPosition: {x: -6.292, y: -2.08, z: 0.698}
   m_LocalScale: {x: 0.9043706, y: 0.904371, z: 0.9043697}
   m_Children:
   - {fileID: 1416791179}
@@ -39514,7 +39536,7 @@ Transform:
   m_Children:
   - {fileID: 51647205}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &930790716
 MonoBehaviour:
@@ -39531,6 +39553,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -41132,7 +41155,6 @@ GameObject:
   - component: {fileID: 968810568}
   - component: {fileID: 968810573}
   - component: {fileID: 968810572}
-  - component: {fileID: 968810571}
   - component: {fileID: 968810570}
   - component: {fileID: 968810569}
   m_Layer: 0
@@ -41167,7 +41189,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 1.0000006, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000008083881, y: -1.0062468, z: 0.005642863}
+  m_ConnectedAnchor: {x: 0.000018626453, y: -1.0062424, z: 0.0058644456}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -41207,20 +41229,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &968810571
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 136952029794623214, guid: e31ed2e86a22e3f42b4a276e0153da7b,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 968810567}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &968810572
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43745,7 +43753,7 @@ Transform:
   m_Children:
   - {fileID: 276483223}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 28
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1021413675
 MonoBehaviour:
@@ -43762,6 +43770,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -45698,7 +45707,7 @@ Transform:
   m_Children:
   - {fileID: 1677414101}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1060890112
 MonoBehaviour:
@@ -45715,6 +45724,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -46755,7 +46765,7 @@ Transform:
   m_Children:
   - {fileID: 2143592886}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1087507032
 MonoBehaviour:
@@ -46772,6 +46782,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -47641,7 +47652,7 @@ Transform:
   m_Children:
   - {fileID: 815124754}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1110199185
 MonoBehaviour:
@@ -47658,6 +47669,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -52080,7 +52092,7 @@ Transform:
   m_Children:
   - {fileID: 1727105267}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1210286211
 MonoBehaviour:
@@ -52097,6 +52109,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -52753,7 +52766,7 @@ Transform:
   m_Children:
   - {fileID: 253103648}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1220138791
 MonoBehaviour:
@@ -52770,6 +52783,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -55143,7 +55157,7 @@ Transform:
   m_Children:
   - {fileID: 685812141}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1283670298
 MonoBehaviour:
@@ -55160,6 +55174,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -55811,7 +55826,7 @@ Transform:
   m_Children:
   - {fileID: 903454221}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1301355026
 MonoBehaviour:
@@ -55828,6 +55843,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -61161,7 +61177,6 @@ GameObject:
   - component: {fileID: 1416791179}
   - component: {fileID: 1416791178}
   - component: {fileID: 1416791177}
-  - component: {fileID: 1416791176}
   - component: {fileID: 1416791180}
   - component: {fileID: 1416791181}
   m_Layer: 0
@@ -61171,20 +61186,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &1416791176
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 136916925052214606, guid: e31ed2e86a22e3f42b4a276e0153da7b,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1416791175}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1416791177
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61270,7 +61271,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.99998534, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.10571183, y: 0.031100597, z: 0.047645163}
+  m_ConnectedAnchor: {x: 0.10571131, y: 0.031101124, z: 0.04765412}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -62646,7 +62647,6 @@ GameObject:
   - component: {fileID: 1458806785}
   - component: {fileID: 1458806784}
   - component: {fileID: 1458806783}
-  - component: {fileID: 1458806782}
   - component: {fileID: 1458806786}
   - component: {fileID: 1458806787}
   m_Layer: 0
@@ -62656,20 +62656,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &1458806782
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 136952029794623214, guid: e31ed2e86a22e3f42b4a276e0153da7b,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1458806781}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1458806783
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62755,7 +62741,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 1.0000006, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.001991913, y: -0.97717965, z: -0.003514639}
+  m_ConnectedAnchor: {x: -0.0019813704, y: -0.97717595, z: -0.0032509}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -62804,7 +62790,6 @@ Transform:
   m_LocalPosition: {x: -0.1069, y: 12.025, z: -38.8055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1509997707}
   - {fileID: 669079234}
   - {fileID: 12748591}
   - {fileID: 115536544}
@@ -64552,80 +64537,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1505211045}
   m_Mesh: {fileID: 4300028, guid: d2833cd11c1df7648b0280f436fe5e1b, type: 3}
---- !u!1 &1509997704
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1509997707}
-  - component: {fileID: 1509997705}
-  - component: {fileID: 1509997706}
-  m_Layer: 0
-  m_Name: Rats
-  m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!195 &1509997705
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1509997704}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.13
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.11
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &1509997706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1509997704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f2c5e6cd9a3c134ab33aaeeec845808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDistance: 0.14
-  chaseDistance: 0.7
-  closeDistance: 0.8
-  distanceToPlayer: 0
-  ratSpeed: 0.3
-  fov: 60
-  angle: 0
-  wanderRadius: 1.5
-  maxWanderTimer: 3.5
-  deathScreen: {fileID: 714921797}
-  player: {fileID: 415574536}
---- !u!4 &1509997707
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1509997704}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.357, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1557577370}
-  m_Father: {fileID: 1462193541}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1510018321
 GameObject:
   m_ObjectHideFlags: 0
@@ -65781,11 +65692,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1552619679}
   m_Mesh: {fileID: 4300080, guid: d2833cd11c1df7648b0280f436fe5e1b, type: 3}
---- !u!4 &1557577370 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98,
-    type: 3}
-  m_PrefabInternal: {fileID: 1717599450}
 --- !u!1 &1558798527
 GameObject:
   m_ObjectHideFlags: 0
@@ -67834,7 +67740,7 @@ Transform:
   m_Children:
   - {fileID: 1620065142}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1584559137
 MonoBehaviour:
@@ -67851,6 +67757,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -69666,7 +69573,7 @@ Transform:
   m_Children:
   - {fileID: 954758486}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1626509430
 MonoBehaviour:
@@ -69683,6 +69590,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -72823,56 +72731,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1715146288}
   m_Mesh: {fileID: 4300016, guid: d2833cd11c1df7648b0280f436fe5e1b, type: 3}
---- !u!1001 &1717599450
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1509997707}
-    m_Modifications:
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.0068999976
-      objectReference: {fileID: 0}
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.02456665
-      objectReference: {fileID: 0}
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100068, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3e41f06f24e0db64fa62f39833c351c9, type: 2}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 73784a4ed21b3954dbac7d1c71cb0e98, type: 3}
-  m_IsPrefabAsset: 0
 --- !u!1 &1720351033
 GameObject:
   m_ObjectHideFlags: 0
@@ -73015,7 +72873,7 @@ Transform:
   m_Children:
   - {fileID: 1049050668}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1723378895
 MonoBehaviour:
@@ -73032,6 +72890,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -80734,7 +80593,7 @@ Transform:
   m_Children:
   - {fileID: 223452161}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1890177674
 MonoBehaviour:
@@ -80751,6 +80610,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -81974,7 +81834,7 @@ Transform:
   m_Children:
   - {fileID: 462962473}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1922827693
 MonoBehaviour:
@@ -81991,6 +81851,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -82752,7 +82613,7 @@ Transform:
   m_Children:
   - {fileID: 1927839005}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 26
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1934079296
 MonoBehaviour:
@@ -82769,6 +82630,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -84396,7 +84258,7 @@ Transform:
   m_Children:
   - {fileID: 100998167}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1976017755
 MonoBehaviour:
@@ -84413,6 +84275,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -85901,7 +85764,7 @@ Transform:
   m_Children:
   - {fileID: 384537618}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2002120400
 MonoBehaviour:
@@ -85918,6 +85781,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -88889,7 +88753,7 @@ Transform:
   m_Children:
   - {fileID: 1547522164}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2056498773
 MonoBehaviour:
@@ -88906,6 +88770,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -90068,10 +89933,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.01
-  m_Height: 0.1921436
+  m_Radius: 0.02
+  m_Height: 0.5037453
   m_Direction: 1
-  m_Center: {x: -0.00029959736, y: 0.029449515, z: 0.0000000035106544}
+  m_Center: {x: -0.00029960056, y: -0.12635127, z: -0.00000001506224}
 --- !u!59 &2085044150
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -90083,7 +89948,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -0.05, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.03999502, y: -1.145747, z: 0.03862911}
+  m_ConnectedAnchor: {x: -0.03998973, y: -1.1457524, z: 0.038808234}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -91036,7 +90901,7 @@ Transform:
   m_Children:
   - {fileID: 50113979}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2110974927
 MonoBehaviour:
@@ -91053,6 +90918,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -91368,7 +91234,7 @@ Transform:
   m_Children:
   - {fileID: 1546960254}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 30
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2123867358
 MonoBehaviour:
@@ -91385,6 +91251,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0
@@ -91707,7 +91574,7 @@ Transform:
   m_Children:
   - {fileID: 655032009}
   m_Father: {fileID: 1462193541}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2140173347
 MonoBehaviour:
@@ -91724,6 +91591,7 @@ MonoBehaviour:
   chaseDistance: 0.7
   closeDistance: 0.8
   distanceToPlayer: 0
+  ratMagnitude: {x: 0, y: 0, z: 0}
   ratSpeed: 0.3
   fov: 60
   angle: 0

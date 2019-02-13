@@ -89,14 +89,14 @@ public class PlayerControls : MonoBehaviour
         // }
         #endregion
 
-        RaycastHit hit;
+        // RaycastHit hit;
         Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
 
-        //Checks if the player is on the Ground
         if (!onRope)
         {
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
 
+            //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
                 //Gets Player Inputs
@@ -137,27 +137,32 @@ public class PlayerControls : MonoBehaviour
                 moveDirection.y -= gravity * Time.deltaTime;
             }
         }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
+                Debug.LogWarning("Sprint Climb?");
+            }
+            else
+            {
+                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
+                Debug.LogWarning("Climbing");
+            }
+        }
 
-        // if (Physics.Raycast(transform.position + Vector3.up * raycastHeight, transform.forward * distanceFromRope, out hit)
-        //  && Input.GetKey(KeyCode.E) && hit.collider.tag == "Rope")
-        // {
-        //     if (Input.GetKey(KeyCode.LeftShift))
-        //     {
-        //         moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
-        //         Debug.LogWarning("Sprint Climb?");
-        //     }
-        //     else
-        //     {
-        //         moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
-        //         Debug.LogWarning("Climbing");
-        //     }
+        if (col != null && Input.GetKey(KeyCode.E))
+        {
+            onRope = true;
 
-        //     trapDoor.SetActive(false);
-        // }
+        }
+        else
+            onRope = false;
+
         charController.Move(moveDirection * Time.deltaTime);
 
-        // if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
-        //     onLadder = false;
+        if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
+            onRope = false;
     }
 
     public void PauseorUnpause()
@@ -231,6 +236,11 @@ public class PlayerControls : MonoBehaviour
             toBeContinuedPanel.SetActive(true);
             this.gameObject.SetActive(false);
         }
+
+        if (other.tag == "Rope")
+        {
+            col = other;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -264,10 +274,14 @@ public class PlayerControls : MonoBehaviour
             thirdPuzzleVirtualCam.SetActive(true);
             thidpuzzleRopeCam.SetActive(false);
         }
+        if (other.tag == "Rope")
+        {
+            col = null;
+        }
     }
 
-    public void ColliderHit()
-    {
-        Debug.LogWarning("Grabbing Rope");
-    }
+    // public void ColliderHit()
+    // {
+    //     Debug.LogWarning("Grabbing Rope");
+    // }
 }
