@@ -31,6 +31,7 @@ public class PlayerControls : MonoBehaviour
     public GameObject pausePanel;
     public GameObject trapDoor;
     public GameObject toBeContinuedPanel;
+    public Collider col;
     private float gravity;
     [SerializeField]
     private Vector3 moveDirection = Vector3.zero;
@@ -137,22 +138,22 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(transform.position + Vector3.up * raycastHeight, transform.forward * distanceFromRope, out hit)
-         && Input.GetKey(KeyCode.E) && hit.collider.tag == "Rope")
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
-                Debug.LogWarning("Sprint Climb?");
-            }
-            else
-            {
-                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
-                Debug.LogWarning("Climbing");
-            }
+        // if (Physics.Raycast(transform.position + Vector3.up * raycastHeight, transform.forward * distanceFromRope, out hit)
+        //  && Input.GetKey(KeyCode.E) && hit.collider.tag == "Rope")
+        // {
+        //     if (Input.GetKey(KeyCode.LeftShift))
+        //     {
+        //         moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
+        //         Debug.LogWarning("Sprint Climb?");
+        //     }
+        //     else
+        //     {
+        //         moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
+        //         Debug.LogWarning("Climbing");
+        //     }
 
-            trapDoor.SetActive(false);
-        }
+        //     trapDoor.SetActive(false);
+        // }
         charController.Move(moveDirection * Time.deltaTime);
 
         // if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
@@ -263,5 +264,10 @@ public class PlayerControls : MonoBehaviour
             thirdPuzzleVirtualCam.SetActive(true);
             thidpuzzleRopeCam.SetActive(false);
         }
+    }
+
+    public void ColliderHit()
+    {
+        Debug.LogWarning("Grabbing Rope");
     }
 }

@@ -7572,6 +7572,105 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 181857923}
   m_Mesh: {fileID: 4300000, guid: d35a013531782014f8ceb06c654b0a1f, type: 3}
+--- !u!1 &182140404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 182140405}
+  - component: {fileID: 182140409}
+  - component: {fileID: 182140408}
+  - component: {fileID: 182140407}
+  - component: {fileID: 182140406}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &182140405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182140404}
+  m_LocalRotation: {x: 0.7071065, y: -0, z: -0, w: 0.7071072}
+  m_LocalPosition: {x: 0, y: 0.1113, z: 0.0944}
+  m_LocalScale: {x: 0.11542642, y: 0.11542642, z: 0.11542642}
+  m_Children: []
+  m_Father: {fileID: 415574540}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
+--- !u!114 &182140406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182140404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6578b8f4747fc40ac557dd7b50d52c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ply: {fileID: 415574538}
+--- !u!136 &182140407
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182140404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &182140408
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182140404}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &182140409
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182140404}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &183169855
 GameObject:
   m_ObjectHideFlags: 0
@@ -15554,7 +15653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &387467500
 Transform:
   m_ObjectHideFlags: 0
@@ -16750,6 +16849,7 @@ MonoBehaviour:
   pausePanel: {fileID: 1018851443}
   trapDoor: {fileID: 871808294}
   toBeContinuedPanel: {fileID: 513010064}
+  col: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   runningCheat: 5
   defaultRunningSpeed: 1.2
@@ -33706,7 +33806,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 814016780}
   m_LocalRotation: {x: 0.71222216, y: -0, z: -0.7019541, w: 0}
-  m_LocalPosition: {x: -6.423, y: -2.08, z: 0.677}
+  m_LocalPosition: {x: 6.841, y: -2.08, z: -0.185}
   m_LocalScale: {x: 0.9043706, y: 0.904371, z: 0.9043697}
   m_Children:
   - {fileID: 1416791179}
@@ -41067,7 +41167,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 1.0000006, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000018626453, y: -1.0062517, z: 0.0058325063}
+  m_ConnectedAnchor: {x: 0.000008083881, y: -1.0062468, z: 0.005642863}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -41115,7 +41215,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 968810567}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2.2
@@ -42448,6 +42548,7 @@ MonoBehaviour:
   pausePanel: {fileID: 0}
   trapDoor: {fileID: 0}
   toBeContinuedPanel: {fileID: 0}
+  col: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   runningCheat: 0
   defaultRunningSpeed: 0
@@ -61078,7 +61179,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1416791175}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2.2
@@ -61169,7 +61270,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.99998534, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.10571118, y: 0.031101124, z: 0.047654647}
+  m_ConnectedAnchor: {x: 0.10571183, y: 0.031100597, z: 0.047645163}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -62563,7 +62664,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1458806781}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2.2
@@ -62654,7 +62755,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 1.0000006, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0019813704, y: -0.9771746, z: -0.0033246272}
+  m_ConnectedAnchor: {x: -0.001991913, y: -0.97717965, z: -0.003514639}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -62692,7 +62793,7 @@ GameObject:
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1462193541
 Transform:
   m_ObjectHideFlags: 0
@@ -89965,7 +90066,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2085044145}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.01
   m_Height: 0.1921436
@@ -89982,7 +90083,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -0.05, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.03998973, y: -1.1457514, z: 0.038818844}
+  m_ConnectedAnchor: {x: -0.03999502, y: -1.145747, z: 0.03862911}
   m_UseSpring: 0
   m_Spring:
     spring: 0
