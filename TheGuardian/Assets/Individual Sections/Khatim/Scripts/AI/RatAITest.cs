@@ -2,109 +2,81 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class RatFSM : MonoBehaviour
+
+public class RatAITest : MonoBehaviour
 {
     [Header("Rat Variables")]
     public float attackDistance;
     public float chaseDistance;
     public float closeDistance;
     public float distanceToPlayer;
-    // public float attackDelay;
-    [SerializeField]
-    private Vector3 ratMagnitude;
-    //public float maxJumpCooldownTime;
-    public float ratSpeed;
+    public float baitDuration;
     [Header("Rat FoV")]
     public float fov;
     private float angle;
     [Header("Wander Variables")]
     public float wanderRadius;
     public float maxWanderTimer;
-    public GameObject deathScreen;
+    public GameObject bait;
 
-    // [SerializeField]
-    // private bool isAttacking;
-    [SerializeField]
     private GameObject player;
+    [SerializeField]
     private int currCondition;
-    private int wanderCondition = 1;
-    private int chaseCondition = 2;
-    private int attackCondition = 3;
+    // private int wanderCondition = 1;
+    // private int chaseCondition = 2;
+    // private int attackCondition = 3;
+    // private int waitCondition = 4;
+    // private int distractCondition = 5;
     private NavMeshAgent ratAgent;
-    // private Transform target;
     private Vector3 tarDir;
     private float timer;
-    // private float attackTime;
-    private Animator ratAnim;
+    [SerializeField]
+    private bool isDistracted;
+
+    void OnEnable()
+    {
+        DistractEnemyEvent.OnDistractEnemy += DistractEventReceived;
+    }
+
+
+    void OnDisable()
+    {
+        DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
+    }
 
     void Start()
     {
-
         player = GameObject.FindGameObjectWithTag("Player");
-        deathScreen.SetActive(false);
-        // isAttacking = false;
         ratAgent = GetComponent<NavMeshAgent>();
-        ratAgent.speed = ratSpeed;
-        ratAnim = GetComponentInChildren<Animator>();
         timer = maxWanderTimer;
     }
 
     void Update()
     {
-        //Distance check to Player
         distanceToPlayer = Vector3.Distance(this.transform.position, player.transform.position);
         Debug.DrawRay(transform.position, transform.forward * chaseDistance, Color.green);
         Debug.DrawRay(transform.position, transform.forward * attackDistance, Color.red);
+
         tarDir = player.transform.position - this.transform.position;
         angle = Vector3.Angle(this.tarDir, this.transform.forward);
-        ratMagnitude = ratAgent.velocity;
 
-        if (distanceToPlayer > chaseDistance && currCondition != wanderCondition)
+        if (distanceToPlayer > chaseDistance && !isDistracted /*&& currCondition != wanderCondition*/)
         {
             //Wander
             currCondition = 1;
         }
 
-        if ((distanceToPlayer < chaseDistance && angle < fov || distanceToPlayer < closeDistance) && currCondition != chaseCondition)
+        if ((distanceToPlayer < chaseDistance && angle < fov || distanceToPlayer < closeDistance) && !isDistracted /*&& currCondition != chaseCondition*/)
         {
             //Chase Player
             currCondition = 2;
         }
 
-        if (distanceToPlayer < attackDistance && currCondition != attackCondition && player != null)
+        if (distanceToPlayer < attackDistance /*&& currCondition != attackCondition*/ && player != null)
         {
             //Attack Player
             currCondition = 3;
         }
-
-        if (ratAgent.velocity.magnitude < 0.1f)
-        {
-            ratAnim.SetBool("isIdle", true);
-            // Debug.LogWarning("Idle");
-        }
-        if (ratAgent.velocity.magnitude > 0.2f)
-        {
-            ratAnim.SetBool("isIdle", false);
-            // Debug.LogWarning("Not Idle");
-        }
-
-        if (!player.activeInHierarchy)
-        {
-            currCondition = 1;
-            deathScreen.SetActive(true);
-        }
-
-        // if (isAttacking)
-        // {
-        //     attackTime += Time.deltaTime;
-
-        //     if (attackTime >= attackDelay)
-        //     {
-        //         //Attack
-        //         attackTime = 0;
-        //         Debug.LogWarning("Attacking Player");
-        //     }
-        // }
     }
 
     void FixedUpdate()
@@ -120,7 +92,7 @@ public class RatFSM : MonoBehaviour
                     ratAgent.SetDestination(newPos);
                     timer = 0;
                 }
-                // Debug.LogWarning("Wandering");
+                Debug.LogWarning("Wandering");
                 break;
 
             case 2: //Chase Condition
@@ -131,14 +103,18 @@ public class RatFSM : MonoBehaviour
 
             case 3: //Attack Condition
                 // isAttacking = true;
-                player.SetActive(false);
                 Debug.LogWarning("Attacking");
                 break;
 
             case 4: //Wait Condition
                 break;
 
-            case 5: //Null Condition
+            case 5: //Distract Condition
+                ratAgent.SetDestination(bait.transform.position);
+                Debug.LogWarning("Distracting Enemy");
+                break;
+
+            case 6: //Null Condition
                 break;
         }
     }
@@ -163,5 +139,31 @@ public class RatFSM : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, wanderRadius);
+    }
+
+    void DistractEventReceived()
+    {
+        DistractEnemy();
+        // Debug.LogWarning("Enemy Distracted");
+    }
+
+    void DistractEnemy()
+    {
+        StartCoroutine(Distract());
+    }
+
+    IEnumerator Distract()
+    {
+        isDistracted = true;
+
+        // while (true) //Don't use whie loop without yield return new WaitForSeconds. Or else you are stuck in an infinite loop.
+        // {
+        if (isDistracted)
+        {
+            currCondition = 5;
+        }
+        yield return new WaitForSeconds(baitDuration);
+        isDistracted = false;
+        // }
     }
 }
