@@ -6,16 +6,19 @@ using Cinemachine;
 public class PlayerControlTest : MonoBehaviour
 {
     [Header("Player Movement Variables")]
-    public bool onLadder;
     public float walkingSpeed;
     public float runningSpeed;
     public float rotateSpeed;
     public float jumpPower;
+    [Header("Rope Variables")]
+    public bool onRope;
     public float climbSpeed;
     public float pushPower;
     public float sprintClimbSpeed;
     public float defaultGravity;
 
+    [SerializeField]
+    private Collider col;
     private float gravity;
     private CharacterController charController;
     [Header("Virtual Camera Reference")]
@@ -58,7 +61,7 @@ public class PlayerControlTest : MonoBehaviour
         }
         #endregion
 
-        if (!onLadder)
+        if (!onRope)
         {
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
             if (charController.isGrounded)
@@ -107,8 +110,16 @@ public class PlayerControlTest : MonoBehaviour
         }
         charController.Move(moveDirection * Time.deltaTime);
 
-        if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
-            onLadder = false;
+        if (col != null && Input.GetKey(KeyCode.E))
+            onRope = true;
+
+        else
+            onRope = false;
+
+        charController.Move(moveDirection * Time.deltaTime);
+
+        if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
+            onRope = false;
     }
 
     // Function which checks what hit the Character Controller's Collider
@@ -130,10 +141,10 @@ public class PlayerControlTest : MonoBehaviour
         // Apply the push on the object
         body.velocity = pushDir * pushPower;
 
-        if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
-            onLadder = true;
-        else
-            onLadder = false;
+        // if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
+        //     onLadder = true;
+        // else
+        //     onLadder = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -151,6 +162,18 @@ public class PlayerControlTest : MonoBehaviour
         if (other.gameObject.tag == "ThirdPuzzleCamPan")
         {
             thirdPuzzleVirtualCam.SetActive(true);
+        }
+
+        if (other.tag == "Rope")
+        {
+            col = other;
+        }
+
+        if (other.tag == "RopeBreak")
+        {
+            Destroy(other.GetComponent<HingeJoint>());
+            // other.gameObject.SetActive(false);
+            Debug.LogWarning("Rope Broken");
         }
     }
 
@@ -172,6 +195,11 @@ public class PlayerControlTest : MonoBehaviour
         {
             mainVirutalCam.SetActive(true);
             thirdPuzzleVirtualCam.SetActive(false);
+        }
+
+        if (other.tag == "Rope")
+        {
+            col = null;
         }
     }
 }

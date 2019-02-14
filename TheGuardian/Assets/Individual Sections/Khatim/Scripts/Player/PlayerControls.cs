@@ -14,7 +14,7 @@ public class PlayerControls : MonoBehaviour
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
-    public float distanceFromRope;
+    // public float distanceFromRope;
     public float raycastHeight;
     public float sprintClimbSpeed;
     [Header("Virtual Camera Reference")]
@@ -90,7 +90,7 @@ public class PlayerControls : MonoBehaviour
         #endregion
 
         // RaycastHit hit;
-        Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
+        // Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
 
         if (!onRope)
         {
@@ -152,10 +152,8 @@ public class PlayerControls : MonoBehaviour
         }
 
         if (col != null && Input.GetKey(KeyCode.E))
-        {
             onRope = true;
 
-        }
         else
             onRope = false;
 
