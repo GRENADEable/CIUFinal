@@ -9,7 +9,7 @@ public class DistractEnemyEvent : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "DistractArea")
         {
             if (OnDistractEnemy != null)
             {
