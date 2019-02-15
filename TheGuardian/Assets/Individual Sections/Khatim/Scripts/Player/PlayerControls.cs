@@ -30,7 +30,6 @@ public class PlayerControls : MonoBehaviour
     public GameObject levelTitleText;
     public GameObject pausePanel;
     public GameObject trapDoor;
-    public GameObject toBeContinuedPanel;
     public Collider col;
     private float gravity;
     [SerializeField]
@@ -49,7 +48,7 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null && toBeContinuedPanel != null && trapDoor != null
+        if (levelTitleText != null && pausePanel != null && trapDoor != null
          && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
          && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null)
         {
@@ -229,10 +228,24 @@ public class PlayerControls : MonoBehaviour
         {
             thidpuzzleRopeCam.SetActive(true);
         }
+
+        if (other.tag == "Rope")
+        {
+            col = other;
+        }
+
+        if (other.tag == "RopeBreak" && trapDoor != null)
+        {
+            Destroy(other.GetComponent<HingeJoint>());
+            Destroy(other.GetComponent<Collider>());
+            trapDoor.SetActive(false);
+            // other.gameObject.SetActive(false);
+            Debug.LogWarning("Rope Broken");
+        }
+
         if (other.gameObject.tag == "End")
         {
-            toBeContinuedPanel.SetActive(true);
-            this.gameObject.SetActive(false);
+            SceneManage.instance.HallwayLevel();
         }
 
         if (other.tag == "Rope")

@@ -16,8 +16,8 @@ public class PlayerControlTest : MonoBehaviour
     public float pushPower;
     public float sprintClimbSpeed;
     public float defaultGravity;
-
-    [SerializeField]
+    [Header("References Obejcts")]
+    public GameObject trapDoor;
     private Collider col;
     private float gravity;
     private CharacterController charController;
@@ -36,12 +36,14 @@ public class PlayerControlTest : MonoBehaviour
     private float defaultRunningSpeed;
     void Start()
     {
-        if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null)
+        if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null
+            && trapDoor != null)
         {
             mainVirutalCam.SetActive(true);
             firstPuzzleCamPan.SetActive(false);
             secondPuzzleVirtualCam.SetActive(false);
             thirdPuzzleVirtualCam.SetActive(false);
+            trapDoor.SetActive(true);
         }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
@@ -106,7 +108,6 @@ public class PlayerControlTest : MonoBehaviour
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
                 Debug.LogWarning("Climbing");
             }
-
         }
         charController.Move(moveDirection * Time.deltaTime);
 
@@ -169,11 +170,18 @@ public class PlayerControlTest : MonoBehaviour
             col = other;
         }
 
-        if (other.tag == "RopeBreak")
+        if (other.tag == "RopeBreak" && trapDoor != null)
         {
             Destroy(other.GetComponent<HingeJoint>());
+            Destroy(other.GetComponent<Collider>());
+            trapDoor.SetActive(false);
             // other.gameObject.SetActive(false);
             Debug.LogWarning("Rope Broken");
+        }
+
+        if (other.gameObject.tag == "End")
+        {
+            this.gameObject.SetActive(false);
         }
     }
 
