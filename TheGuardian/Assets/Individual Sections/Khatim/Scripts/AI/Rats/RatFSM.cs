@@ -127,19 +127,19 @@ public class RatFSM : MonoBehaviour
                     ratAgent.SetDestination(newPos);
                     timer = 0;
                 }
-                Debug.LogWarning("Wandering");
+                // Debug.LogWarning("Wandering");
                 break;
 
             case 2: //Chase Condition
                 ratAgent.SetDestination(player.transform.position);
-                Debug.LogWarning("Chasing Player");
+                // Debug.LogWarning("Chasing Player");
                 // isAttacking = false;
                 break;
 
             case 3: //Attack Condition
                 // isAttacking = true;
                 player.SetActive(false);
-                Debug.LogWarning("Attacking");
+                // Debug.LogWarning("Attacking");
                 break;
 
             case 4: //Wait Condition
@@ -147,7 +147,7 @@ public class RatFSM : MonoBehaviour
 
             case 5: //Distract Condition
                 ratAgent.SetDestination(bait.transform.position);
-                Debug.LogWarning("Distracting Enemy");
+                // Debug.LogWarning("Distracting Enemy");
                 break;
 
             case 6: //Null Condition
