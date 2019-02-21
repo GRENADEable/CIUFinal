@@ -781,7 +781,6 @@ GameObject:
   - component: {fileID: 114964427382753318}
   - component: {fileID: 114984010265970946}
   - component: {fileID: 114418886295318254}
-  - component: {fileID: 114004203801835562}
   m_Layer: 0
   m_Name: CouragePlayerPrefab
   m_TagString: Player
@@ -1662,22 +1661,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114004203801835562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1931838216958480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 341c209037ce6194fa7c259892c0728b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crouchSpeed: 0.4
-  normalSpeed: 0.6
-  characterController: {fileID: 0}
-  playerVector: {x: 0, y: 0, z: 0}
-  playerHeight: 0
 --- !u!114 &114036085998489510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1716,6 +1699,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingSpeed: 0.6
   runningSpeed: 1.2
+  crouchWalkSpeed: 0.4
+  crouchRunSpeed: 0.5
   rotateSpeed: 250
   jumpPower: 2
   defaultGravity: 9.81
@@ -1733,10 +1718,9 @@ MonoBehaviour:
   foV: 90
   levelTitleText: {fileID: 0}
   pausePanel: {fileID: 0}
+  cheatPanel: {fileID: 0}
   trapDoor: {fileID: 0}
-  col: {fileID: 0}
-  moveDirection: {x: 0, y: 0, z: 0}
-  runningCheat: 5
+  flashSpeed: 5
   defaultRunningSpeed: 1.2
   superJump: 5
   defaultJump: 2

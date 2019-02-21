@@ -31,16 +31,16 @@ public class PlayerControls : MonoBehaviour
     [Header("References Obejcts")]
     public GameObject levelTitleText;
     public GameObject pausePanel;
+    public GameObject cheatPanel;
     public GameObject trapDoor;
-    public Collider col;
+    private Collider col;
     private float gravity;
-    [SerializeField]
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
     private Animator anim;
     [Header("Cheats Section :3")]
     [SerializeField]
-    private float runningCheat;
+    private float flashSpeed;
     [SerializeField]
     private float defaultRunningSpeed;
     [SerializeField]
@@ -54,12 +54,14 @@ public class PlayerControls : MonoBehaviour
     {
         if (levelTitleText != null && pausePanel != null && trapDoor != null
          && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
-         && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null)
+         && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null
+         && cheatPanel != null)
         {
             levelTitleText.SetActive(true);
             trapDoor.SetActive(true);
             pausePanel.SetActive(false);
             mainVirutalCam.SetActive(true);
+            cheatPanel.SetActive(false);
             firstPuzzleCamPan.SetActive(false);
             secondPuzzleVirtualCam.SetActive(false);
             thirdPuzzleVirtualCam.SetActive(false);
@@ -77,25 +79,11 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        #region Cheats
-        if (Input.GetKey(KeyCode.G))
-            runningSpeed = runningCheat;
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseorUnpause();
 
-        if (Input.GetKey(KeyCode.H))
-            runningSpeed = defaultRunningSpeed;
-
-        if (Input.GetKey(KeyCode.J))
-            jumpPower = superJump;
-
-        if (Input.GetKey(KeyCode.K))
-            jumpPower = defaultJump;
-
-        // if (Input.GetKeyDown(KeyCode.J))
-        // {
-        //     mainVirutalCam.GetComponent<CinemachineVirtualCamera>().m_Lens.FieldOfView = foV;
-        // }
-        #endregion
-
+        if (Input.GetKeyDown(KeyCode.Tab))
+            CheatPanelToggle();
         // RaycastHit hit;
         // Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
 
@@ -140,8 +128,6 @@ public class PlayerControls : MonoBehaviour
                         moveDirection = moveDirection * crouchWalkSpeed;
                         Debug.LogWarning("Crouch Walk");
                     }
-
-
                 }
                 else
                 {
@@ -155,17 +141,9 @@ public class PlayerControls : MonoBehaviour
                     Debug.LogWarning("Jump");
                 }
 
-                // if (Input.GetKey(KeyCode.C))
-                // {
-                //     localHeight = playerHeight * 0.5f;
-                //     moveDirection = moveDirection * crouchSpeed;
-                //     Debug.LogWarning("Crouching");
-                // }
-
                 float latestRecordedHeight = charController.height;
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
                 playerVector.y += (charController.height - latestRecordedHeight) / 1.5f;
-
             }
             else
             {
@@ -212,6 +190,11 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    public void CheatPanelToggle()
+    {
+        cheatPanel.SetActive(!pausePanel.activeSelf);
+    }
+
     public void CrouchingCheck()
     {
         float localHeight = 0;
@@ -221,7 +204,6 @@ public class PlayerControls : MonoBehaviour
         {
             CrouchingExecution(localSpeed, localHeight);
         }
-
     }
 
     public void CrouchingExecution(float speed, float height)
@@ -235,6 +217,32 @@ public class PlayerControls : MonoBehaviour
         float latestRecordedHeight = charController.height;
         //characterController.height = Mathf.Lerp(characterController.height);
     }
+
+    #region Cheats :P
+    public void SuperJumpToggle(bool isSuperJump)
+    {
+        if (isSuperJump)
+        {
+            jumpPower = superJump;
+        }
+        else if (!isSuperJump)
+        {
+            jumpPower = defaultJump;
+        }
+    }
+
+    public void FlashSpeedToggle(bool isFlash)
+    {
+        if (isFlash)
+        {
+            runningSpeed = flashSpeed;
+        }
+        else if (!isFlash)
+        {
+            runningSpeed = defaultRunningSpeed;
+        }
+    }
+    #endregion
 
     //Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
