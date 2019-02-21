@@ -8,12 +8,15 @@ public class RatBlockerFSM : MonoBehaviour
     [Header("Rat Variables")]
     public float attackDistance;
     public float chaseDistance;
+    public float fleeDistance;
     public float distanceToPlayer;
     public Transform fleePos;
     public float ratSpeed;
     public GameObject deathScreen;
     [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private bool isFleeing;
     private int currCondition;
     private NavMeshAgent ratAgent;
     private Animator ratAnim;
@@ -47,16 +50,26 @@ public class RatBlockerFSM : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward * chaseDistance, Color.green);
         Debug.DrawRay(transform.position, transform.forward * attackDistance, Color.red);
 
-        if (distanceToPlayer < chaseDistance)
+        if (distanceToPlayer > chaseDistance && !isFleeing)
+        {
+            currCondition = 4;
+        }
+
+        if (distanceToPlayer < chaseDistance && !isFleeing)
         {
             //Chase Player
             currCondition = 1;
         }
 
-        if (distanceToPlayer < attackDistance && player != null)
+        if (distanceToPlayer < attackDistance && player != null && !isFleeing)
         {
             //Attack Player
             currCondition = 2;
+        }
+
+        if (distanceToPlayer > chaseDistance && !isFleeing)
+        {
+            currCondition = 4;
         }
 
         if (ratAgent.velocity.magnitude < 0.1f)
@@ -114,8 +127,13 @@ public class RatBlockerFSM : MonoBehaviour
 
     IEnumerator Flee()
     {
-        if (distanceToPlayer < chaseDistance)
+        isFleeing = true;
+
+        if (distanceToPlayer < fleeDistance && isFleeing)
+        {
             currCondition = 3;
+        }
+
         yield return 0;
     }
 }

@@ -113,7 +113,7 @@ public class PlayerControls : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
                     moveDirection = moveDirection * runningSpeed;
-                    Debug.LogWarning("Running");
+                    // Debug.LogWarning("Running");
                 }
                 else if (Input.GetKey(KeyCode.C))
                 {
@@ -121,24 +121,24 @@ public class PlayerControls : MonoBehaviour
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
-                        Debug.LogWarning("Crouch Run");
+                        // Debug.LogWarning("Crouch Run");
                     }
                     else
                     {
                         moveDirection = moveDirection * crouchWalkSpeed;
-                        Debug.LogWarning("Crouch Walk");
+                        // Debug.LogWarning("Crouch Walk");
                     }
                 }
                 else
                 {
                     moveDirection = moveDirection * walkingSpeed;
-                    Debug.LogWarning("Walking");
+                    // Debug.LogWarning("Walking");
                 }
 
                 if (Input.GetKey(KeyCode.Space))
                 {
                     moveDirection.y = jumpPower;
-                    Debug.LogWarning("Jump");
+                    // Debug.LogWarning("Jump");
                 }
 
                 float latestRecordedHeight = charController.height;
@@ -192,7 +192,7 @@ public class PlayerControls : MonoBehaviour
 
     public void CheatPanelToggle()
     {
-        cheatPanel.SetActive(!pausePanel.activeSelf);
+        cheatPanel.SetActive(!cheatPanel.activeSelf);
     }
 
     public void CrouchingCheck()
