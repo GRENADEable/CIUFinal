@@ -6,16 +6,19 @@ using Cinemachine;
 public class PlayerControlTest : MonoBehaviour
 {
     [Header("Player Movement Variables")]
-    public bool onLadder;
     public float walkingSpeed;
     public float runningSpeed;
     public float rotateSpeed;
     public float jumpPower;
+    [Header("Rope Variables")]
+    public bool onRope;
     public float climbSpeed;
     public float pushPower;
     public float sprintClimbSpeed;
     public float defaultGravity;
-
+    [Header("References Obejcts")]
+    public GameObject trapDoor;
+    private Collider col;
     private float gravity;
     private CharacterController charController;
     [Header("Virtual Camera Reference")]
@@ -33,12 +36,14 @@ public class PlayerControlTest : MonoBehaviour
     private float defaultRunningSpeed;
     void Start()
     {
-        if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null)
+        if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null
+            && trapDoor != null)
         {
             mainVirutalCam.SetActive(true);
             firstPuzzleCamPan.SetActive(false);
             secondPuzzleVirtualCam.SetActive(false);
             thirdPuzzleVirtualCam.SetActive(false);
+            trapDoor.SetActive(true);
         }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
@@ -58,7 +63,7 @@ public class PlayerControlTest : MonoBehaviour
         }
         #endregion
 
-        if (!onLadder)
+        if (!onRope)
         {
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
             if (charController.isGrounded)
@@ -103,12 +108,19 @@ public class PlayerControlTest : MonoBehaviour
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
                 Debug.LogWarning("Climbing");
             }
-
         }
         charController.Move(moveDirection * Time.deltaTime);
 
-        if (onLadder && Input.GetKeyDown(KeyCode.E) && !charController.isGrounded)
-            onLadder = false;
+        if (col != null && Input.GetKey(KeyCode.E))
+            onRope = true;
+
+        else
+            onRope = false;
+
+        charController.Move(moveDirection * Time.deltaTime);
+
+        if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
+            onRope = false;
     }
 
     // Function which checks what hit the Character Controller's Collider
@@ -130,10 +142,10 @@ public class PlayerControlTest : MonoBehaviour
         // Apply the push on the object
         body.velocity = pushDir * pushPower;
 
-        if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
-            onLadder = true;
-        else
-            onLadder = false;
+        // if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
+        //     onLadder = true;
+        // else
+        //     onLadder = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -151,6 +163,25 @@ public class PlayerControlTest : MonoBehaviour
         if (other.gameObject.tag == "ThirdPuzzleCamPan")
         {
             thirdPuzzleVirtualCam.SetActive(true);
+        }
+
+        if (other.tag == "Rope")
+        {
+            col = other;
+        }
+
+        if (other.tag == "RopeBreak" && trapDoor != null)
+        {
+            Destroy(other.GetComponent<HingeJoint>());
+            Destroy(other.GetComponent<Collider>());
+            trapDoor.SetActive(false);
+            // other.gameObject.SetActive(false);
+            Debug.LogWarning("Rope Broken");
+        }
+
+        if (other.gameObject.tag == "End")
+        {
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -172,6 +203,11 @@ public class PlayerControlTest : MonoBehaviour
         {
             mainVirutalCam.SetActive(true);
             thirdPuzzleVirtualCam.SetActive(false);
+        }
+
+        if (other.tag == "Rope")
+        {
+            col = null;
         }
     }
 }

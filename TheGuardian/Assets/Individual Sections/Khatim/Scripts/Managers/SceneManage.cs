@@ -19,8 +19,13 @@ public class SceneManage : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("TheGuadianGameScene");
+        SceneManager.LoadScene("AtticAndNurseryLevel");
         Time.timeScale = 1;
+    }
+
+    public void HallwayLevel()
+    {
+        SceneManager.LoadScene("HallwayLevel");
     }
 
     public void MainMenu()
