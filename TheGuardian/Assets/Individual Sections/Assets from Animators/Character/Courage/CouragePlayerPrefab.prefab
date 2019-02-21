@@ -391,6 +391,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1396881973813512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4738321405587472}
+  - component: {fileID: 108199219011948762}
+  m_Layer: 0
+  m_Name: Matchstick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1415577421925466
 GameObject:
   m_ObjectHideFlags: 1
@@ -764,6 +780,8 @@ GameObject:
   - component: {fileID: 135704200309805212}
   - component: {fileID: 114964427382753318}
   - component: {fileID: 114984010265970946}
+  - component: {fileID: 114418886295318254}
+  - component: {fileID: 114004203801835562}
   m_Layer: 0
   m_Name: CouragePlayerPrefab
   m_TagString: Player
@@ -1300,6 +1318,19 @@ Transform:
   m_Father: {fileID: 4555940132295216}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4738321405587472
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1396881973813512}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0428, y: 0.066, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4759642508028548}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4759642508028548
 Transform:
   m_ObjectHideFlags: 1
@@ -1307,12 +1338,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1931838216958480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1608, y: 12.2836, z: -32.78}
+  m_LocalPosition: {x: 0.1608, y: 12.2836, z: -45.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4992904015985204}
   - {fileID: 4109240476918510}
   - {fileID: 4915294110961354}
+  - {fileID: 4738321405587472}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1593,6 +1625,59 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!108 &108199219011948762
+Light:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1396881973813512}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 1
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!114 &114004203801835562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931838216958480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341c209037ce6194fa7c259892c0728b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crouchSpeed: 0.4
+  normalSpeed: 0.6
+  characterController: {fileID: 0}
+  playerVector: {x: 0, y: 0, z: 0}
+  playerHeight: 0
 --- !u!114 &114036085998489510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1604,6 +1689,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6578b8f4747fc40ac557dd7b50d52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114418886295318254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931838216958480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuel: 5
+  matches: 1
+  match: {fileID: 1396881973813512}
 --- !u!114 &114964427382753318
 MonoBehaviour:
   m_ObjectHideFlags: 1

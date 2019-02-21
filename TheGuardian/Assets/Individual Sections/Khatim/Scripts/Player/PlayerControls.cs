@@ -7,6 +7,8 @@ public class PlayerControls : MonoBehaviour
     [Header("Player Movement Variables")]
     public float walkingSpeed;
     public float runningSpeed;
+    public float crouchWalkSpeed;
+    public float crouchRunSpeed;
     public float rotateSpeed;
     public float jumpPower;
     public float defaultGravity;
@@ -45,6 +47,8 @@ public class PlayerControls : MonoBehaviour
     private float superJump;
     [SerializeField]
     private float defaultJump;
+    private Vector3 playerVector;
+    private float playerHeight;
 
     void Start()
     {
@@ -62,9 +66,13 @@ public class PlayerControls : MonoBehaviour
             thirdPuzzleCrateCam.SetActive(false);
             thidpuzzleRopeCam.SetActive(false);
         }
+
+
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
+        playerHeight = charController.height;
+        playerVector = transform.position;
     }
 
     void Update()
@@ -93,6 +101,7 @@ public class PlayerControls : MonoBehaviour
 
         if (!onRope)
         {
+            float localHeight = playerHeight;
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
 
             //Checks if the player is on the Ground
@@ -113,23 +122,50 @@ public class PlayerControls : MonoBehaviour
                 //Applies Movement
                 moveDirection = transform.TransformDirection(moveDirection);
 
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
                     moveDirection = moveDirection * runningSpeed;
-                    // Debug.LogWarning("Running");
+                    Debug.LogWarning("Running");
                 }
+                else if (Input.GetKey(KeyCode.C))
+                {
+                    localHeight = playerHeight * 0.5f;
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        moveDirection = moveDirection * crouchRunSpeed;
+                        Debug.LogWarning("Crouch Run");
+                    }
+                    else
+                    {
+                        moveDirection = moveDirection * crouchWalkSpeed;
+                        Debug.LogWarning("Crouch Walk");
+                    }
 
+
+                }
                 else
                 {
                     moveDirection = moveDirection * walkingSpeed;
-                    // Debug.LogWarning("Walking");
+                    Debug.LogWarning("Walking");
                 }
 
                 if (Input.GetKey(KeyCode.Space))
                 {
                     moveDirection.y = jumpPower;
-                    // Debug.LogWarning("Jump");
+                    Debug.LogWarning("Jump");
                 }
+
+                // if (Input.GetKey(KeyCode.C))
+                // {
+                //     localHeight = playerHeight * 0.5f;
+                //     moveDirection = moveDirection * crouchSpeed;
+                //     Debug.LogWarning("Crouching");
+                // }
+
+                float latestRecordedHeight = charController.height;
+                charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
+                playerVector.y += (charController.height - latestRecordedHeight) / 1.5f;
+
             }
             else
             {
@@ -174,6 +210,30 @@ public class PlayerControls : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+    }
+
+    public void CrouchingCheck()
+    {
+        float localHeight = 0;
+        float localSpeed = 0;
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            CrouchingExecution(localSpeed, localHeight);
+        }
+
+    }
+
+    public void CrouchingExecution(float speed, float height)
+    {
+        height = playerHeight * 0.5f;
+        speed = crouchWalkSpeed;
+    }
+
+    public void CharacterControllerBodyModifier()
+    {
+        float latestRecordedHeight = charController.height;
+        //characterController.height = Mathf.Lerp(characterController.height);
     }
 
     //Function which checks what hit the Character Controller's Collider

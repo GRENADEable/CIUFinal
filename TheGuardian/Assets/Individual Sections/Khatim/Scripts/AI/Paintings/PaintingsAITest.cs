@@ -75,14 +75,14 @@ public class PaintingsAITest : MonoBehaviour
             time = 0f;
         }
 
-        if (this.transform.localEulerAngles != firstLightDirection && time >= changeDirection)
+        else if (this.transform.localEulerAngles != firstLightDirection && time >= changeDirection)
         {
             this.transform.localEulerAngles = firstLightDirection;
             Debug.LogWarning("First Light Direction");
             time = 0f;
         }
 
-        if (this.transform.localEulerAngles != secondLightDirection && time >= changeDirection)
+        else if (this.transform.localEulerAngles != secondLightDirection && time >= changeDirection)
         {
             this.transform.localEulerAngles = secondLightDirection;
             Debug.LogWarning("Second Light Direction");

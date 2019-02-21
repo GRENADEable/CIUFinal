@@ -14799,7 +14799,23 @@ Prefab:
       propertyPath: trapDoor
       value: 
       objectReference: {fileID: 871808294}
-    m_RemovedComponents: []
+    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: crouchSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: crouchWalkSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: crouchRunSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114004203801835562, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &415574536 stripped
@@ -37780,6 +37796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingSpeed: 0.6
   runningSpeed: 1.5
+  crouchWalkSpeed: 0
+  crouchRunSpeed: 0
   rotateSpeed: 2.5
   jumpPower: 2
   defaultGravity: 9.81
