@@ -11,8 +11,10 @@ public class PlayerControls : MonoBehaviour
     public float crouchRunSpeed;
     public float rotateSpeed;
     public float jumpPower;
+    public float jumpDelay;
     public float defaultGravity;
     public float pushPower;
+    public bool canJump;
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
@@ -33,10 +35,12 @@ public class PlayerControls : MonoBehaviour
     public GameObject pausePanel;
     public GameObject cheatPanel;
     public GameObject trapDoor;
+
     private Collider col;
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
+    private float jumpTime;
     private Animator anim;
     [Header("Cheats Section :3")]
     [SerializeField]
@@ -49,6 +53,8 @@ public class PlayerControls : MonoBehaviour
     private float defaultJump;
     private Vector3 playerVector;
     private float playerHeight;
+    private float moveHorizontal;
+    private float moveVertical;
 
     void Start()
     {
@@ -69,12 +75,12 @@ public class PlayerControls : MonoBehaviour
             thidpuzzleRopeCam.SetActive(false);
         }
 
-
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerVector = transform.position;
+        jumpTime = jumpDelay;
     }
 
     void Update()
@@ -90,25 +96,34 @@ public class PlayerControls : MonoBehaviour
         if (!onRope)
         {
             float localHeight = playerHeight;
-            transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+            // transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+            //Gets Player Inputs
+            moveVertical = Input.GetAxis("Vertical");
+            moveHorizontal = Input.GetAxis("Horizontal");
+            jumpTime += Time.deltaTime;
 
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
                 //Gets Player Inputs
-                moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
-                if (Input.GetKey(KeyCode.W))
+                // moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
+                //Animation Controls
+                if (moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0)
                     anim.SetBool("isWalking", true);
                 else
                     anim.SetBool("isWalking", false);
 
-                if (Input.GetKey(KeyCode.S))
-                    anim.SetBool("isWalkingBack", true);
-                else
-                    anim.SetBool("isWalkingBack", false);
+                // if (Input.GetKey(KeyCode.S))
+                //     anim.SetBool("isWalkingBack", true);
+                // else
+                //     anim.SetBool("isWalkingBack", false);
 
                 //Applies Movement
-                moveDirection = transform.TransformDirection(moveDirection);
+                // moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+
+                //Applies Roatation relative to What Key is Pressed
+                transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
@@ -137,10 +152,10 @@ public class PlayerControls : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    moveDirection.y = jumpPower;
-                    // Debug.LogWarning("Jump");
+                    Jump();
                 }
 
+                //Player Crouching
                 float latestRecordedHeight = charController.height;
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
                 playerVector.y += (charController.height - latestRecordedHeight) / 1.5f;
@@ -152,6 +167,7 @@ public class PlayerControls : MonoBehaviour
         }
         else
         {
+            //Rope Climbing
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
@@ -174,6 +190,16 @@ public class PlayerControls : MonoBehaviour
 
         if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
             onRope = false;
+    }
+
+    void Jump()
+    {
+        if (jumpTime > jumpDelay)
+        {
+            moveDirection.y = jumpPower;
+            Debug.LogWarning("Jump");
+            jumpTime = 0f;
+        }
     }
 
     public void PauseorUnpause()
@@ -247,7 +273,6 @@ public class PlayerControls : MonoBehaviour
     //Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-
         Rigidbody body = hit.collider.attachedRigidbody;
 
         // Return null if no Rigidbody
@@ -263,11 +288,6 @@ public class PlayerControls : MonoBehaviour
 
         // Apply the push on the object
         body.velocity = pushDir * pushPower;
-
-        // if (hit.collider.tag == "Rope" && Input.GetKey(KeyCode.E))
-        //     onLadder = true;
-        // else
-        //     onLadder = false;
     }
 
     void OnTriggerEnter(Collider other)

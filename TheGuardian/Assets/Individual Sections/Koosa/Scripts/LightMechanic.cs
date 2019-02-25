@@ -28,7 +28,7 @@ public class LightMechanic : MonoBehaviour
 
     void Matchlight()
     {
-        if (Input.GetKeyDown(KeyCode.J) && matchesCount > 0 && !match.activeSelf)
+        if (Input.GetKeyDown(KeyCode.F) && matchesCount > 0 && !match.activeSelf)
         {
             if (fuelTimer > 0)
             {

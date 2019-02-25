@@ -65,21 +65,21 @@ public class PlayerControlTest : MonoBehaviour
 
         if (!onRope)
         {
-
             // transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+            float moveHorizontal = Input.GetAxis("Vertical");
             float moveVertical = Input.GetAxis("Horizontal");
 
             if (charController.isGrounded)
             {
                 //Gets Player Inputs
                 // moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
-                float moveHorizontal = Input.GetAxis("Vertical");
+
 
                 //Applies Movement
                 // moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection = new Vector3(-moveHorizontal, 0.0f, moveVertical);
 
-                transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
+                transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
 
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
