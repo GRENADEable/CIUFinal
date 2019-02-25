@@ -14,7 +14,6 @@ public class PlayerControls : MonoBehaviour
     public float jumpDelay;
     public float defaultGravity;
     public float pushPower;
-    public bool canJump;
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
