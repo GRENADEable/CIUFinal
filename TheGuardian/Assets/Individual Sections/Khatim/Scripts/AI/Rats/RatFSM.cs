@@ -189,7 +189,6 @@ public class RatFSM : MonoBehaviour
     {
         isDistracted = true;
 
-
         if (isDistracted)
         {
             currCondition = 5;

@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 4912180973482380}
   - component: {fileID: 195657828323120468}
   - component: {fileID: 114448313817062382}
+  - component: {fileID: 136104919268206868}
   m_Layer: 0
   m_Name: RatBlocker
   m_TagString: Untagged
@@ -999,7 +1000,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1312807163037776}
   m_LocalRotation: {x: -0, y: 0.79335254, z: -0, w: 0.6087625}
-  m_LocalPosition: {x: -0.769, y: 0, z: -1.349}
+  m_LocalPosition: {x: -0.577, y: 0, z: -1.363}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4407957024576090}
@@ -1091,14 +1092,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDistance: 0.14
-  chaseDistance: 2
+  chaseDistance: 2.5
   fleeDistance: 1
+  fleeDuration: 5
   distanceToPlayer: 0
   fleePos: {fileID: 0}
-  ratSpeed: 0.5
+  ratSpeed: 0.8
+  fleeSpeed: 1
   deathScreen: {fileID: 0}
   player: {fileID: 0}
   isFleeing: 0
+--- !u!136 &136104919268206868
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1312807163037776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.06
+  m_Height: 0.3
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.06, z: 0}
 --- !u!137 &137012428982669314
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

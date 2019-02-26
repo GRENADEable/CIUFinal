@@ -9,9 +9,11 @@ public class RatBlockerFSM : MonoBehaviour
     public float attackDistance;
     public float chaseDistance;
     public float fleeDistance;
+    public float fleeDuration;
     public float distanceToPlayer;
     public Transform fleePos;
     public float ratSpeed;
+    public float fleeSpeed;
     public GameObject deathScreen;
     [SerializeField]
     private GameObject player;
@@ -20,7 +22,6 @@ public class RatBlockerFSM : MonoBehaviour
     private int currCondition;
     private NavMeshAgent ratAgent;
     private Animator ratAnim;
-
 
     void OnEnable()
     {
@@ -106,8 +107,10 @@ public class RatBlockerFSM : MonoBehaviour
                     // Vector3 playerDir = this.transform.position - player.transform.position;
                     // Vector3 fleePos = this.transform.position + playerDir;
                     // ratAgent.SetDestination(fleePos);
+
                 ratAgent.SetDestination(fleePos.transform.position);
                 Debug.LogWarning("Fleeing");
+
                 break;
 
             case 4: //Null Condition
@@ -132,8 +135,19 @@ public class RatBlockerFSM : MonoBehaviour
         if (distanceToPlayer < fleeDistance && isFleeing)
         {
             currCondition = 3;
+            ratAgent.speed = fleeSpeed;
         }
+        yield return new WaitForSeconds(fleeDuration);
+        isFleeing = false;
+        ratAgent.speed = ratSpeed;
+    }
 
-        yield return 0;
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "FleePosition")
+        {
+            Debug.LogWarning("Rat Fleed");
+            this.gameObject.SetActive(false);
+        }
     }
 }

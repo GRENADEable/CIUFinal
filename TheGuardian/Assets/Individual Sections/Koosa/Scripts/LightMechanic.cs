@@ -54,6 +54,12 @@ public class LightMechanic : MonoBehaviour
         }
     }
 
+    public void GiveMatchStick()
+    {
+        matchesCount++;
+        Debug.LogWarning("Matchstick Aquired");
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Matchstick")

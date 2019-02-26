@@ -52,7 +52,6 @@ GameObject:
   - component: {fileID: 33061437394483552}
   - component: {fileID: 23785790976318634}
   - component: {fileID: 136758502506644802}
-  - component: {fileID: 114036085998489510}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -1661,17 +1660,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114036085998489510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1026550012391254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc6578b8f4747fc40ac557dd7b50d52c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114418886295318254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1707,7 +1695,6 @@ MonoBehaviour:
   jumpDelay: 1
   defaultGravity: 9.81
   pushPower: 0
-  canJump: 0
   onRope: 0
   climbSpeed: 0.6
   raycastHeight: 0.07
@@ -1753,8 +1740,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.06
-  m_Center: {x: 0, y: 0.1, z: 0.04}
+  m_Radius: 0.051006086
+  m_Center: {x: 0, y: 0.1, z: 0.03100609}
 --- !u!136 &136758502506644802
 CapsuleCollider:
   m_ObjectHideFlags: 1
