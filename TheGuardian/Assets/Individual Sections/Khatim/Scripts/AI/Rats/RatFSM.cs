@@ -9,8 +9,6 @@ public class RatFSM : MonoBehaviour
     public float chaseDistance;
     public float closeDistance;
     public float distanceToPlayer;
-    [SerializeField]
-    private Vector3 ratMagnitude;
     public float ratSpeed;
     [Header("Rat FoV")]
     public float fov;
@@ -64,7 +62,6 @@ public class RatFSM : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward * attackDistance, Color.red);
         tarDir = player.transform.position - this.transform.position;
         angle = Vector3.Angle(this.tarDir, this.transform.forward);
-        ratMagnitude = ratAgent.velocity;
 
         if (distanceToPlayer > chaseDistance && !isDistracted)
         {
@@ -191,7 +188,6 @@ public class RatFSM : MonoBehaviour
     IEnumerator Distract()
     {
         isDistracted = true;
-
 
         if (isDistracted)
         {

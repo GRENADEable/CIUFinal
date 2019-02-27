@@ -4,48 +4,75 @@ using UnityEngine;
 
 public class LightMechanic : MonoBehaviour
 {
-    public float fuel;
-    public int matches;
+    public float maxFuelTimer;
+    public int matchesCount;
     public GameObject match;
+    public delegate void FleeEnemy();
+    public static event FleeEnemy OnFleeEnemy;
 
-	// Use this for initialization
-	void Start ()
+    [SerializeField]
+    private float fuelTimer;
+    private Collider col;
+
+    void Update()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-
-
         //picking up a match comes here
+        if (col != null && Input.GetKey(KeyCode.E) && col.gameObject.tag == "Matchstick")
+        {
+            col.gameObject.SetActive(false);
+            matchesCount++;
+        }
+
         Matchlight();
-	}
+    }
 
     void Matchlight()
     {
-        if(Input.GetKeyDown(KeyCode.J) && matches>0 && !match.activeSelf)
+        if (Input.GetKeyDown(KeyCode.F) && matchesCount > 0 && !match.activeSelf)
         {
-            if(fuel > 0)
+            if (fuelTimer > 0)
             {
                 match.SetActive(true);
             }
 
-            if (fuel < 0)
+            if (fuelTimer < 0)
             {
                 match.SetActive(false);
             }
         }
 
-        if(match.activeSelf)
+        if (match.activeSelf)
         {
-            fuel -= Time.deltaTime;
+            fuelTimer -= Time.deltaTime;
+            OnFleeEnemy();
         }
-        if (fuel <= 0 )
+        if (fuelTimer <= 0)
         {
-            matches = 0 ;
+            matchesCount = 0;
+            fuelTimer = maxFuelTimer;
             match.SetActive(false);
+        }
+    }
+
+    public void GiveMatchStick()
+    {
+        matchesCount++;
+        Debug.LogWarning("Matchstick Aquired");
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Matchstick")
+        {
+            col = other;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Matchstick")
+        {
+            col = null;
         }
     }
 }

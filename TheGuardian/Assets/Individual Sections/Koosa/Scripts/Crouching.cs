@@ -7,25 +7,25 @@ public class Crouching : MonoBehaviour
     //For Khatim
     //uses the character controller component attatched to its gameobject
 
-    public float crouchSpeed = 5f;
-    public float normalSpeed = 6.5f; // this is the walk speed in ur playercontrols script
-    public CharacterController characterController;
-    public Vector3 playerVector;
-    public float playerHeight;
+    public float crouchSpeed;
+    public float normalSpeed; // this is the walk speed in ur playercontrols script
+    private CharacterController characterController;
+    private Vector3 playerVector;
+    private float playerHeight;
 
-	void Start ()
+    void Start()
     {
         characterController = GetComponent<CharacterController>();
         playerHeight = characterController.height;
         playerVector = transform.position;
     }
-	
-	void Update ()
+
+    void Update()
     {
         float localHeight = playerHeight;
         float localSpeed = normalSpeed;
-       // Vector3 scale = new Vector3(1, characterController.height, 1);
-       // transform.localScale = scale;
+        // Vector3 scale = new Vector3(1, characterController.height, 1);
+        // transform.localScale = scale;
 
         if (/*if the player is on the floor subtitute booleon here from ur script*/ Input.GetKey(KeyCode.C))
         {
@@ -43,14 +43,14 @@ public class Crouching : MonoBehaviour
         float localHeight = 0;
         float localSpeed = 0;
 
-        if(/*if the player is on the floor subtitute booleon here from ur script*/ Input.GetKey(KeyCode.C))
+        if (/*if the player is on the floor subtitute booleon here from ur script*/ Input.GetKey(KeyCode.C))
         {
             CrouchingExecution(localSpeed, localHeight);
         }
 
     }
 
-    public void CrouchingExecution( float speed, float height)
+    public void CrouchingExecution(float speed, float height)
     {
         height = playerHeight * 0.5f;
         speed = crouchSpeed;
