@@ -28,12 +28,17 @@ public class PlayerControlTest : MonoBehaviour
     public GameObject thirdPuzzleVirtualCam;
     [Header("Virtual Camera Variables")]
     public float foV;
+    public Vector3 verticalCamOffset;
+    public Vector3 horizontalCamOffset;
+    public float floatT;
     private Vector3 moveDirection = Vector3.zero;
     [Header("Cheats Section :3")]
     [SerializeField]
     private float runningCheat;
     [SerializeField]
     private float defaultRunningSpeed;
+    [SerializeField]
+    private Vector3 defaultObjOffset;
     void Start()
     {
         if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null
@@ -68,6 +73,7 @@ public class PlayerControlTest : MonoBehaviour
             // transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
             float moveHorizontal = Input.GetAxis("Vertical");
             float moveVertical = Input.GetAxis("Horizontal");
+            // float moveCamVertical = Input.GetAxis("MoveCamVertical");
 
             if (charController.isGrounded)
             {
@@ -96,6 +102,37 @@ public class PlayerControlTest : MonoBehaviour
                 {
                     moveDirection.y = jumpPower;
                     // Debug.LogWarning("Jump");
+                }
+
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                    var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                    camOffset.m_TrackedObjectOffset = verticalCamOffset;
+                }
+                else if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                    var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                    camOffset.m_TrackedObjectOffset = -verticalCamOffset;
+                }
+                else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                    var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                    camOffset.m_TrackedObjectOffset = horizontalCamOffset;
+                }
+                else if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                    var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                    camOffset.m_TrackedObjectOffset = -horizontalCamOffset;
+                }
+                else
+                {
+                    CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                    var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                    camOffset.m_TrackedObjectOffset = defaultObjOffset;
                 }
             }
             else
@@ -128,6 +165,17 @@ public class PlayerControlTest : MonoBehaviour
 
         if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
             onRope = false;
+
+        // if (Input.GetKey(KeyCode.UpArrow))
+        // {
+        //     var camOffset = mainVirutalCam.GetComponent<CinemachineCameraOffset>();
+        //     camOffset.m_Offset = trackedObjOffset;
+        // }
+        // else
+        // {
+        //     var camOffset = mainVirutalCam.GetComponent<CinemachineCameraOffset>();
+        //     camOffset.m_Offset = Vector3.zero;
+        // }
     }
 
     // Function which checks what hit the Character Controller's Collider
