@@ -251,6 +251,88 @@ Transform:
   m_Father: {fileID: 1222949327}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &62674894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 62674896}
+  - component: {fileID: 62674895}
+  - component: {fileID: 62674897}
+  m_Layer: 0
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &62674895
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 62674894}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 3.56
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &62674896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 62674894}
+  m_LocalRotation: {x: 0.86602545, y: 0, z: 0, w: 0.49999994}
+  m_LocalPosition: {x: -8.334917, y: 12.67, z: 1.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 120, y: 0, z: 0}
+--- !u!114 &62674897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 62674894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c37439f37b48c43bba111227252ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotation1: 120
+  rotation2: 90
+  rotation3: 60
+  timeToWait: 5
 --- !u!1 &78689545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,13 +2731,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingSpeed: 0.6
   runningSpeed: 1.2
+  crouchWalkSpeed: 0
+  crouchRunSpeed: 0
   rotateSpeed: 250
   jumpPower: 2
+  jumpDelay: 0
   defaultGravity: 9.81
   pushPower: 0
   onRope: 0
   climbSpeed: 1
-  distanceFromRope: 0.1
   raycastHeight: 0.07
   sprintClimbSpeed: 1.5
   mainVirutalCam: {fileID: 0}
@@ -2667,11 +2751,9 @@ MonoBehaviour:
   foV: 90
   levelTitleText: {fileID: 0}
   pausePanel: {fileID: 0}
+  cheatPanel: {fileID: 0}
   trapDoor: {fileID: 0}
-  toBeContinuedPanel: {fileID: 0}
-  col: {fileID: 0}
-  moveDirection: {x: 0, y: 0, z: 0}
-  runningCheat: 5
+  flashSpeed: 0
   defaultRunningSpeed: 1.2
   superJump: 5
   defaultJump: 2
@@ -2736,9 +2818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crouchSpeed: 5
   normalSpeed: 6.5
-  characterController: {fileID: 0}
-  playerVector: {x: 0, y: 0, z: 0}
-  playerHeight: 0
 --- !u!1 &1509076294
 GameObject:
   m_ObjectHideFlags: 0
@@ -3647,7 +3726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6578b8f4747fc40ac557dd7b50d52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ply: {fileID: 1504049735}
 --- !u!136 &2072771266
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3892,6 +3970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuel: 10
-  matches: 1
+  maxFuelTimer: 0
+  matchesCount: 0
   match: {fileID: 1452164130}
+  fuelTimer: 0

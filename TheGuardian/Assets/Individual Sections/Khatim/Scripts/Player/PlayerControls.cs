@@ -122,6 +122,7 @@ public class PlayerControls : MonoBehaviour
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
+                if(moveDirection != Vector3.zero)
                 transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
