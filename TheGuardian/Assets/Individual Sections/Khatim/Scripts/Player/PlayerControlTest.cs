@@ -85,7 +85,8 @@ public class PlayerControlTest : MonoBehaviour
                 // moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection = new Vector3(-moveHorizontal, 0.0f, moveVertical);
 
-                transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
+                if (moveDirection != Vector3.zero)
+                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
 
                 if (Input.GetKey(KeyCode.LeftShift))
                 {

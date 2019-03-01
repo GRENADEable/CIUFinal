@@ -1183,7 +1183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 403684754}
   - component: {fileID: 403684755}
-  - component: {fileID: 403684757}
+  - component: {fileID: 403684756}
   m_Layer: 11
   m_Name: LightEyes
   m_TagString: Untagged
@@ -1241,7 +1241,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &403684757
+--- !u!114 &403684756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1249,18 +1249,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 403684753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d088234c312af7489a7fcf2a9bd62d9, type: 3}
+  m_Script: {fileID: 11500000, guid: c6c37439f37b48c43bba111227252ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 0
-  distanceToPlayer: 0
-  defaultLightDirection: {x: 60, y: 0, z: 0}
-  firstLightDirection: {x: 60, y: -30, z: 0}
-  secondLightDirection: {x: 60, y: 30, z: 0}
-  changeDirection: 3
-  fov: 0
-  angle: 0
-  time: 0
+  initialRotationPos: 0
+  firstRotationPos: 0
+  secondRotationPos: 0
+  timeToWait: 0
 --- !u!1 &412306848
 GameObject:
   m_ObjectHideFlags: 0
