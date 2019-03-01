@@ -8,7 +8,6 @@ public class PlayerControlTest : MonoBehaviour
     [Header("Player Movement Variables")]
     public float walkingSpeed;
     public float runningSpeed;
-    public float rotateSpeed;
     public float jumpPower;
     [Header("Rope Variables")]
     public bool onRope;
@@ -30,7 +29,6 @@ public class PlayerControlTest : MonoBehaviour
     public float foV;
     public Vector3 verticalCamOffset;
     public Vector3 horizontalCamOffset;
-    public float floatT;
     private Vector3 moveDirection = Vector3.zero;
     [Header("Cheats Section :3")]
     [SerializeField]
@@ -39,6 +37,18 @@ public class PlayerControlTest : MonoBehaviour
     private float defaultRunningSpeed;
     [SerializeField]
     private Vector3 defaultObjOffset;
+
+    // void OnEnable()
+    // {
+    //     EyePaintingLight.OnSlowPlayer += OnSlowEventReceived;
+    // }
+
+    // void OnDisable()
+    // {
+    //     EyePaintingLight.OnSlowPlayer = OnSlowEventReceived;
+
+    // }
+
     void Start()
     {
         if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null && thirdPuzzleVirtualCam != null
@@ -266,4 +276,9 @@ public class PlayerControlTest : MonoBehaviour
             col = null;
         }
     }
+
+    // void OnSlowEventReceived()
+    // {
+
+    // }
 }
