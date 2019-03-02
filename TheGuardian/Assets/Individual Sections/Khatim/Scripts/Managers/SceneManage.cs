@@ -13,8 +13,6 @@ public class SceneManage : MonoBehaviour
 
         else if (instance != null)
             Destroy(gameObject);
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     public void NewGame()

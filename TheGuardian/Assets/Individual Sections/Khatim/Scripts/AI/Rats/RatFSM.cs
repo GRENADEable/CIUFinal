@@ -91,24 +91,6 @@ public class RatFSM : MonoBehaviour
             ratAnim.SetBool("isIdle", false);
             // Debug.LogWarning("Not Idle");
         }
-
-        if (!player.activeInHierarchy)
-        {
-            currCondition = 1;
-            deathScreen.SetActive(true);
-        }
-
-        // if (isAttacking)
-        // {
-        //     attackTime += Time.deltaTime;
-
-        //     if (attackTime >= attackDelay)
-        //     {
-        //         //Attack
-        //         attackTime = 0;
-        //         Debug.LogWarning("Attacking Player");
-        //     }
-        // }
     }
 
     void FixedUpdate()
@@ -136,6 +118,7 @@ public class RatFSM : MonoBehaviour
             case 3: //Attack Condition
                 // isAttacking = true;
                 player.SetActive(false);
+                deathScreen.SetActive(true);
                 // Debug.LogWarning("Attacking");
                 break;
 
