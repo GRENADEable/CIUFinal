@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public enum GameState { MainMenu, Started, Ended, Paused };
-    public GameState currGameState;
-    public bool isPlayerDead;
-    public bool isGamePaused;
-    public bool isGameOver;
+    // public enum GameState { MainMenu, Started, Ended, Paused };
+    // public GameState currGameState;
+    // public bool isPlayerDead;
+    // public bool isGamePaused;
+    // public bool isGameOver;
     // public delegate void ChangeState();
     void Awake()
     {

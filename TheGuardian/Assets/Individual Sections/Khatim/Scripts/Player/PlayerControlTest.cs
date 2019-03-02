@@ -25,17 +25,18 @@ public class PlayerControlTest : MonoBehaviour
     private float runningCheat;
     [SerializeField]
     private float defaultRunningSpeed;
+    private EventManager eventMasterScript;
 
+    void OnEnable()
+    {
+        SetInitialReferences();
+        eventMasterScript.myGeneralEvent += HelloMessage;
+    }
 
-    // void OnEnable()
-    // {
-    //     EyePaintingLight.OnSlowPlayer += OnSlowEventReceived;
-    // }
-
-    // void OnDisable()
-    // {
-    //     EyePaintingLight.OnSlowPlayer = OnSlowEventReceived;
-    // }
+    void OnDisable()
+    {
+        eventMasterScript.myGeneralEvent -= HelloMessage;
+    }
 
     void Start()
     {
@@ -180,8 +181,13 @@ public class PlayerControlTest : MonoBehaviour
         }
     }
 
-    // void OnSlowEventReceived()
-    // {
+    void SetInitialReferences()
+    {
+        eventMasterScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EventManager>();
+    }
 
-    // }
+    void HelloMessage()
+    {
+        Debug.LogWarning("Hello World");
+    }
 }
