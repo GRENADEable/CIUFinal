@@ -20,7 +20,7 @@ public class LightMechanic : MonoBehaviour
         if (col != null && Input.GetKey(KeyCode.E) && col.gameObject.tag == "Matchstick")
         {
             col.gameObject.SetActive(false);
-            matchesCount++;
+            matchesCount = 1;
         }
 
         Matchlight();

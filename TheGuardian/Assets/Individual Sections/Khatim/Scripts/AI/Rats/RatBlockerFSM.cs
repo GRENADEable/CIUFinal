@@ -101,6 +101,7 @@ public class RatBlockerFSM : MonoBehaviour
 
             case 2: //Attack Condition
                 player.SetActive(false);
+                deathScreen.SetActive(true);
                 break;
 
             case 3: //Flee Condition
