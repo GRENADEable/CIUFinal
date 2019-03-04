@@ -780,6 +780,7 @@ GameObject:
   - component: {fileID: 114964427382753318}
   - component: {fileID: 114984010265970946}
   - component: {fileID: 114418886295318254}
+  - component: {fileID: 114815531357613886}
   m_Layer: 0
   m_Name: CouragePlayerPrefab
   m_TagString: Player
@@ -1671,10 +1672,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFuelTimer: 5
+  maxFuelTimer: 3
   matchesCount: 1
   match: {fileID: 1396881973813512}
   fuelTimer: 0
+--- !u!114 &114815531357613886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931838216958480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd960a3f67ed77e4a9c1295dca8043e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainVirutalCam: {fileID: 0}
+  firstPuzzleCamPan: {fileID: 0}
+  secondPuzzleVirtualCam: {fileID: 0}
+  thirdPuzzleVirtualCam: {fileID: 0}
+  thirdPuzzleCrateCam: {fileID: 0}
+  thidpuzzleRopeCam: {fileID: 0}
+  positiveScreenYCamOffset: 0.8
+  negativeScreenYCamOffset: 0.2
+  positiveScreenXCamOffset: 0.2
+  negativeScreenXCamOffset: 0.8
 --- !u!114 &114964427382753318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1696,9 +1718,9 @@ MonoBehaviour:
   defaultGravity: 9.81
   pushPower: 0
   onRope: 0
-  climbSpeed: 0.6
+  climbSpeed: 0.4
   raycastHeight: 0.07
-  sprintClimbSpeed: 1.2
+  sprintClimbSpeed: 0.6
   mainVirutalCam: {fileID: 0}
   firstPuzzleCamPan: {fileID: 0}
   secondPuzzleVirtualCam: {fileID: 0}
@@ -1740,8 +1762,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.051006086
-  m_Center: {x: 0, y: 0.1, z: 0.03100609}
+  m_Radius: 0.08
+  m_Center: {x: 0, y: 0.1, z: 0.06}
 --- !u!136 &136758502506644802
 CapsuleCollider:
   m_ObjectHideFlags: 1

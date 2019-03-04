@@ -13,10 +13,12 @@ public class VCamManager : MonoBehaviour
     public GameObject thirdPuzzleCrateCam;
     public GameObject thidpuzzleRopeCam;
     [Header("Virtual Camera Variables")]
-    public Vector3 verticalCamOffset;
-    public Vector3 horizontalCamOffset;
-    [SerializeField]
-    private Vector3 defaultObjOffset;
+    public float positiveScreenYCamOffset;
+    public float negativeScreenYCamOffset;
+    public float positiveScreenXCamOffset;
+    public float negativeScreenXCamOffset;
+    private float defaultXCamOffset = 0.5f;
+    private float defaultYCamOffset = 0.5f;
 
     void Start()
     {
@@ -34,35 +36,47 @@ public class VCamManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (mainVirutalCam != null)
         {
-            CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
-            var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
-            camOffset.m_TrackedObjectOffset = verticalCamOffset;
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
-            var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
-            camOffset.m_TrackedObjectOffset = -verticalCamOffset;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
-            var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
-            camOffset.m_TrackedObjectOffset = horizontalCamOffset;
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
-            var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
-            camOffset.m_TrackedObjectOffset = -horizontalCamOffset;
-        }
-        else
-        {
-            CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
-            var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
-            camOffset.m_TrackedObjectOffset = defaultObjOffset;
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                camOffset.m_ScreenY = defaultYCamOffset;
+                camOffset.m_ScreenX = defaultXCamOffset;
+                camOffset.m_ScreenY = positiveScreenYCamOffset;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                camOffset.m_ScreenY = defaultYCamOffset;
+                camOffset.m_ScreenX = defaultXCamOffset;
+                camOffset.m_ScreenY = negativeScreenYCamOffset;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                camOffset.m_ScreenY = defaultYCamOffset;
+                camOffset.m_ScreenX = defaultXCamOffset;
+                camOffset.m_ScreenX = positiveScreenXCamOffset;
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                camOffset.m_ScreenY = defaultYCamOffset;
+                camOffset.m_ScreenX = defaultXCamOffset;
+                camOffset.m_ScreenX = negativeScreenXCamOffset;
+            }
+            else
+            {
+                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+                var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
+                camOffset.m_ScreenY = defaultYCamOffset;
+                camOffset.m_ScreenX = defaultXCamOffset;
+            }
         }
     }
 

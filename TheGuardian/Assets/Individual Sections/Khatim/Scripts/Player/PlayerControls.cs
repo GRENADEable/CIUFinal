@@ -27,8 +27,6 @@ public class PlayerControls : MonoBehaviour
     public GameObject thirdPuzzleVirtualCam;
     public GameObject thirdPuzzleCrateCam;
     public GameObject thidpuzzleRopeCam;
-    [Header("Virtual Camera Variables")]
-    public float foV;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
     public GameObject pausePanel;
@@ -55,23 +53,38 @@ public class PlayerControls : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
 
+    void Awake()
+    {
+        pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
+        cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
+
+        if (pausePanel != null && pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+            cheatPanel.SetActive(false);
+        }
+    }
     void Start()
     {
-        if (levelTitleText != null && pausePanel != null && trapDoor != null
-         && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
-         && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null
-         && cheatPanel != null)
+        // if (levelTitleText != null && pausePanel != null && trapDoor != null
+        //  && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
+        //  && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null
+        //  cheatPanel != null)
+        // {
+        //     levelTitleText.SetActive(true);
+        //     trapDoor.SetActive(true);
+        //     pausePanel.SetActive(false);
+        //     mainVirutalCam.SetActive(true);
+        //     cheatPanel.SetActive(false);
+        //     firstPuzzleCamPan.SetActive(false);
+        //     secondPuzzleVirtualCam.SetActive(false);
+        //     thirdPuzzleVirtualCam.SetActive(false);
+        //     thirdPuzzleCrateCam.SetActive(false);
+        //     thidpuzzleRopeCam.SetActive(false);
+        // }
+        if (levelTitleText != null)
         {
             levelTitleText.SetActive(true);
-            trapDoor.SetActive(true);
-            pausePanel.SetActive(false);
-            mainVirutalCam.SetActive(true);
-            cheatPanel.SetActive(false);
-            firstPuzzleCamPan.SetActive(false);
-            secondPuzzleVirtualCam.SetActive(false);
-            thirdPuzzleVirtualCam.SetActive(false);
-            thirdPuzzleCrateCam.SetActive(false);
-            thidpuzzleRopeCam.SetActive(false);
         }
 
         charController = GetComponent<CharacterController>();
@@ -122,8 +135,8 @@ public class PlayerControls : MonoBehaviour
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
-                if(moveDirection != Vector3.zero)
-                transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
+                if (moveDirection != Vector3.zero)
+                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {

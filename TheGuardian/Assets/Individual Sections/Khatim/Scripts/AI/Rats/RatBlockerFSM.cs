@@ -17,7 +17,6 @@ public class RatBlockerFSM : MonoBehaviour
     public GameObject deathScreen;
     [SerializeField]
     private GameObject player;
-    [SerializeField]
     private bool isFleeing;
     private int currCondition;
     private NavMeshAgent ratAgent;
@@ -127,6 +126,7 @@ public class RatBlockerFSM : MonoBehaviour
     void FleeEnemy()
     {
         StartCoroutine(Flee());
+        // currCondition = 3;
     }
 
     IEnumerator Flee()
