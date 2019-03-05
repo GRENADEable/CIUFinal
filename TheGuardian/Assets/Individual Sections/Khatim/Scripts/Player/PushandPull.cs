@@ -7,19 +7,16 @@ public class PushandPull : MonoBehaviour
     public float interactionDistance;
     public float interactionDistanceHeight;
 
-    [SerializeField]
-    private Vector3 interactionPos;
-    [SerializeField]
+    // private Vector3 interactionPos;
     private bool isInteracting;
 
     void Update()
     {
         RaycastHit hit;
-        Debug.DrawRay(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, Color.green);
+        Debug.DrawRay(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, Color.blue);
+        bool interaction = Physics.Raycast(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, out hit);
 
-        if (Physics.Raycast(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, out hit)
-        && Input.GetKey(KeyCode.E)
-        && hit.collider.tag == "Interact" && !isInteracting)
+        if (interaction && Input.GetKey(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
         {
             // Sets bool to true, adds fixed joint component and links fixed joint from other gameobject to ours and turns off gravity.
             isInteracting = true;
@@ -36,7 +33,7 @@ public class PushandPull : MonoBehaviour
             Debug.LogWarning("Object Attached");
         }
 
-        if ((Input.GetKeyUp(KeyCode.E) && isInteracting))
+        if (Input.GetKeyUp(KeyCode.E) && isInteracting)
         {
             // Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
             Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());

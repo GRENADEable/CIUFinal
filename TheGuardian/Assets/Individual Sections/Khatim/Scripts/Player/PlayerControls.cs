@@ -10,10 +10,15 @@ public class PlayerControls : MonoBehaviour
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
     public float rotateSpeed;
+    [Header("Player Jump Variables")]
     public float jumpPower;
     public float jumpDelay;
+    [Header("Player Gravity Variables")]
     public float defaultGravity;
     public float gravityAfterRopeBreak;
+    [Header("Player Push and Pull Variables")]
+    public float interactionDistance;
+    public float interactionDistanceHeight;
     public float pushPower;
     [Header("Rope Variables")]
     public bool onRope;
@@ -27,8 +32,9 @@ public class PlayerControls : MonoBehaviour
     public GameObject cheatPanel;
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
+
     private Collider col;
-    [SerializeField]
+    private bool isInteracting;
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
@@ -103,6 +109,34 @@ public class PlayerControls : MonoBehaviour
         }
         // RaycastHit hit;
         // Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
+        RaycastHit hit;
+        Debug.DrawRay(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, Color.blue);
+        bool interaction = Physics.Raycast(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, out hit);
+
+        if (interaction && Input.GetKey(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
+        {
+            // Sets bool to true, adds fixed joint component and links fixed joint from other gameobject to ours and turns off gravity.
+            // hit.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            hit.collider.gameObject.AddComponent(typeof(FixedJoint));
+            hit.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+            hit.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            hit.rigidbody.useGravity = false;
+            hit.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+            hit.rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+            isInteracting = true;
+            Debug.LogWarning("Object Attached");
+        }
+
+        if (Input.GetKeyUp(KeyCode.E) && isInteracting)
+        {
+            // Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
+            Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());
+            hit.rigidbody.useGravity = true;
+            Destroy(hit.collider.gameObject.GetComponent<Rigidbody>());
+            // hit.rigidbody.constraints = RigidbodyConstraints.None;
+            isInteracting = false;
+            Debug.LogWarning("Object Detached");
+        }
 
         if (!onRope)
         {
@@ -134,7 +168,7 @@ public class PlayerControls : MonoBehaviour
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
-                if (moveDirection != Vector3.zero)
+                if (moveDirection != Vector3.zero && !isInteracting)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
@@ -142,7 +176,7 @@ public class PlayerControls : MonoBehaviour
                     moveDirection = moveDirection * runningSpeed;
                     // Debug.LogWarning("Running");
                 }
-                else if (Input.GetKey(KeyCode.C))
+                else if (Input.GetKey(KeyCode.C) && !isInteracting)
                 {
                     localHeight = playerHeight * 0.5f;
                     if (Input.GetKey(KeyCode.LeftShift))
@@ -162,7 +196,7 @@ public class PlayerControls : MonoBehaviour
                     // Debug.LogWarning("Walking");
                 }
 
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space) && !isInteracting)
                 {
                     Jump();
                 }

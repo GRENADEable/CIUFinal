@@ -1200,7 +1200,7 @@ Prefab:
         type: 0}
     - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
       propertyPath: m_Name
@@ -2361,7 +2361,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -2379,8 +2379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistance: 2
   interactionDistanceHeight: 0
-  interactionPos: {x: 0, y: 0, z: 0}
-  isInteracting: 0
 --- !u!1 &52969321
 GameObject:
   m_ObjectHideFlags: 0
@@ -9117,8 +9115,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistance: 0.2
   interactionDistanceHeight: 0.1
-  interactionPos: {x: 0, y: 0.1, z: 0.2}
-  isInteracting: 0
 --- !u!114 &197533515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9131,11 +9127,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainVirutalCam: {fileID: 987127328}
-  firstPuzzleCamPan: {fileID: 174161477}
-  secondPuzzleVirtualCam: {fileID: 1367099924}
-  thirdPuzzleVirtualCam: {fileID: 319000031}
-  thirdPuzzleCrateCam: {fileID: 1882781702}
-  thidpuzzleRopeCam: {fileID: 382519298}
+  atticFirstPuzzleCamPan: {fileID: 0}
+  atticSecondPuzzleVirtualCam: {fileID: 0}
+  atticThirdPuzzleVirtualCam: {fileID: 0}
+  atticThirdPuzzleCrateCam: {fileID: 0}
+  atticThirdpuzzleRopeCam: {fileID: 0}
   positiveScreenYCamOffset: 0
   negativeScreenYCamOffset: 0
   positiveScreenXCamOffset: 0
@@ -15207,8 +15203,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistance: 2
   interactionDistanceHeight: 0
-  interactionPos: {x: 0, y: 0, z: 2}
-  isInteracting: 0
 --- !u!1 &364732159
 GameObject:
   m_ObjectHideFlags: 0
@@ -32726,7 +32720,7 @@ GameObject:
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &887645457
 Transform:
   m_ObjectHideFlags: 0
@@ -70838,7 +70832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1861267301
 Transform:
   m_ObjectHideFlags: 0
