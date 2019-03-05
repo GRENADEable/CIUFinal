@@ -1692,7 +1692,7 @@ MonoBehaviour:
   secondPuzzleVirtualCam: {fileID: 0}
   thirdPuzzleVirtualCam: {fileID: 0}
   thirdPuzzleCrateCam: {fileID: 0}
-  thidpuzzleRopeCam: {fileID: 0}
+  thirdpuzzleRopeCam: {fileID: 0}
   positiveScreenYCamOffset: 0.8
   negativeScreenYCamOffset: 0.2
   positiveScreenXCamOffset: 0.2
@@ -1708,8 +1708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe10d6e3c1015d42b105415de90ab92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 0.6
-  runningSpeed: 1.2
+  walkingSpeed: 0.5
+  runningSpeed: 0.7
   crouchWalkSpeed: 0.4
   crouchRunSpeed: 0.5
   rotateSpeed: 250
@@ -1721,17 +1721,10 @@ MonoBehaviour:
   climbSpeed: 0.4
   raycastHeight: 0.07
   sprintClimbSpeed: 0.6
-  mainVirutalCam: {fileID: 0}
-  firstPuzzleCamPan: {fileID: 0}
-  secondPuzzleVirtualCam: {fileID: 0}
-  thirdPuzzleVirtualCam: {fileID: 0}
-  thirdPuzzleCrateCam: {fileID: 0}
-  thidpuzzleRopeCam: {fileID: 0}
-  foV: 90
   levelTitleText: {fileID: 0}
   pausePanel: {fileID: 0}
   cheatPanel: {fileID: 0}
-  trapDoor: {fileID: 0}
+  brokenBoardSection: {fileID: 0}
   flashSpeed: 5
   defaultRunningSpeed: 1.2
   superJump: 5
@@ -1884,7 +1877,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 0.2
-  m_Radius: 0.03
+  m_Radius: 0.055
   m_SlopeLimit: 60
   m_StepOffset: 0.001
   m_SkinWidth: 0.001

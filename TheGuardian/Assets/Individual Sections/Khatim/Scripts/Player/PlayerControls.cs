@@ -20,18 +20,11 @@ public class PlayerControls : MonoBehaviour
     // public float distanceFromRope;
     public float raycastHeight;
     public float sprintClimbSpeed;
-    [Header("Virtual Camera Reference")]
-    public GameObject mainVirutalCam;
-    public GameObject firstPuzzleCamPan;
-    public GameObject secondPuzzleVirtualCam;
-    public GameObject thirdPuzzleVirtualCam;
-    public GameObject thirdPuzzleCrateCam;
-    public GameObject thidpuzzleRopeCam;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
     public GameObject pausePanel;
     public GameObject cheatPanel;
-    public GameObject trapDoor;
+    public GameObject brokenBoardSection;
 
     private Collider col;
     private float gravity;
@@ -97,11 +90,14 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            PauseorUnpause();
+        if (cheatPanel != null && pausePanel != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                PauseorUnpause();
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-            CheatPanelToggle();
+            if (Input.GetKeyDown(KeyCode.Tab))
+                CheatPanelToggle();
+        }
         // RaycastHit hit;
         // Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
 
@@ -305,41 +301,16 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "FirstPuzzleCamPan")
-        {
-            firstPuzzleCamPan.SetActive(true);
-        }
-
-        if (other.gameObject.tag == "SecondPuzzleCamPan")
-        {
-            secondPuzzleVirtualCam.SetActive(true);
-        }
-
-        if (other.gameObject.tag == "ThirdPuzzleCamPan")
-        {
-            thirdPuzzleVirtualCam.SetActive(true);
-        }
-
-        if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
-        {
-            thirdPuzzleCrateCam.SetActive(true);
-        }
-
-        if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
-        {
-            thidpuzzleRopeCam.SetActive(true);
-        }
-
         if (other.tag == "Rope")
         {
             col = other;
         }
 
-        if (other.tag == "RopeBreak" && trapDoor != null)
+        if (other.tag == "RopeBreak" && brokenBoardSection != null)
         {
             Destroy(other.GetComponent<HingeJoint>());
             Destroy(other.GetComponent<Collider>());
-            trapDoor.SetActive(false);
+            brokenBoardSection.SetActive(false);
             // other.gameObject.SetActive(false);
             Debug.LogWarning("Rope Broken");
         }
@@ -357,35 +328,6 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "FirstPuzzleCamPan")
-        {
-            mainVirutalCam.SetActive(true);
-            firstPuzzleCamPan.SetActive(false);
-        }
-
-        if (other.gameObject.tag == "SecondPuzzleCamPan")
-        {
-            mainVirutalCam.SetActive(true);
-            secondPuzzleVirtualCam.SetActive(false);
-        }
-
-        if (other.gameObject.tag == "ThirdPuzzleCamPan")
-        {
-            mainVirutalCam.SetActive(true);
-            thirdPuzzleVirtualCam.SetActive(false);
-        }
-
-        if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
-        {
-            mainVirutalCam.SetActive(true);
-            thirdPuzzleCrateCam.SetActive(false);
-        }
-
-        if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
-        {
-            thirdPuzzleVirtualCam.SetActive(true);
-            thidpuzzleRopeCam.SetActive(false);
-        }
         if (other.tag == "Rope")
         {
             col = null;
