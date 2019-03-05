@@ -13,6 +13,7 @@ public class PlayerControls : MonoBehaviour
     public float jumpPower;
     public float jumpDelay;
     public float defaultGravity;
+    public float gravityAfterRopeBreak;
     public float pushPower;
     [Header("Rope Variables")]
     public bool onRope;
@@ -25,8 +26,9 @@ public class PlayerControls : MonoBehaviour
     public GameObject pausePanel;
     public GameObject cheatPanel;
     public GameObject brokenBoardSection;
-
+    public GameObject woodenPlank;
     private Collider col;
+    [SerializeField]
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
@@ -75,9 +77,10 @@ public class PlayerControls : MonoBehaviour
         //     thirdPuzzleCrateCam.SetActive(false);
         //     thidpuzzleRopeCam.SetActive(false);
         // }
-        if (levelTitleText != null)
+        if (levelTitleText != null && woodenPlank != null)
         {
             levelTitleText.SetActive(true);
+            woodenPlank.SetActive(true);
         }
 
         charController = GetComponent<CharacterController>();
@@ -311,7 +314,9 @@ public class PlayerControls : MonoBehaviour
             Destroy(other.GetComponent<HingeJoint>());
             Destroy(other.GetComponent<Collider>());
             brokenBoardSection.SetActive(false);
+            woodenPlank.SetActive(false);
             // other.gameObject.SetActive(false);
+            gravity = gravityAfterRopeBreak;
             Debug.LogWarning("Rope Broken");
         }
 

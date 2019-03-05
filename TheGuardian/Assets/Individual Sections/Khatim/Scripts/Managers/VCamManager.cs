@@ -5,13 +5,14 @@ using Cinemachine;
 
 public class VCamManager : MonoBehaviour
 {
-    [Header("Virtual Camera Reference")]
+    [Header("Main Camera Reference")]
     public GameObject mainVirutalCam;
-    public GameObject firstPuzzleCamPan;
-    public GameObject secondPuzzleVirtualCam;
-    public GameObject thirdPuzzleVirtualCam;
-    public GameObject thirdPuzzleCrateCam;
-    public GameObject thirdpuzzleRopeCam;
+    [Header("Attic Camera References")]
+    public GameObject atticFirstPuzzleCamPan;
+    public GameObject atticSecondPuzzleVirtualCam;
+    public GameObject atticThirdPuzzleVirtualCam;
+    public GameObject atticThirdPuzzleCrateCam;
+    public GameObject atticThirdpuzzleRopeCam;
     [Header("Virtual Camera Variables")]
     public float positiveScreenYCamOffset;
     public float negativeScreenYCamOffset;
@@ -20,18 +21,20 @@ public class VCamManager : MonoBehaviour
     private float defaultXCamOffset = 0.5f;
     private float defaultYCamOffset = 0.5f;
 
-    void Start()
+    void Awake()
     {
-        if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
-         && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thirdpuzzleRopeCam != null)
-        {
-            mainVirutalCam.SetActive(true);
-            firstPuzzleCamPan.SetActive(false);
-            secondPuzzleVirtualCam.SetActive(false);
-            thirdPuzzleVirtualCam.SetActive(false);
-            thirdPuzzleCrateCam.SetActive(false);
-            thirdpuzzleRopeCam.SetActive(false);
-        }
+        // if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
+        //  && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thirdpuzzleRopeCam != null)
+        // {
+        //     mainVirutalCam.SetActive(true);
+        //     firstPuzzleCamPan.SetActive(false);
+        //     secondPuzzleVirtualCam.SetActive(false);
+        //     thirdPuzzleVirtualCam.SetActive(false);
+        //     thirdPuzzleCrateCam.SetActive(false);
+        //     thirdpuzzleRopeCam.SetActive(false);
+        // }
+
+        mainVirutalCam = GameObject.FindGameObjectWithTag("MainVCam");
     }
 
     void Update()
@@ -84,32 +87,32 @@ public class VCamManager : MonoBehaviour
     {
         if (other.gameObject.tag == "FirstPuzzleCamPan")
         {
-            firstPuzzleCamPan.SetActive(true);
+            atticFirstPuzzleCamPan.SetActive(true);
             mainVirutalCam.SetActive(false);
         }
 
         if (other.gameObject.tag == "SecondPuzzleCamPan")
         {
-            secondPuzzleVirtualCam.SetActive(true);
+            atticSecondPuzzleVirtualCam.SetActive(true);
             mainVirutalCam.SetActive(false);
         }
 
         if (other.gameObject.tag == "ThirdPuzzleCamPan")
         {
-            thirdPuzzleVirtualCam.SetActive(true);
+            atticThirdPuzzleVirtualCam.SetActive(true);
             mainVirutalCam.SetActive(false);
         }
 
         if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
         {
-            thirdPuzzleVirtualCam.SetActive(false);
-            thirdPuzzleCrateCam.SetActive(true);
+            atticThirdPuzzleVirtualCam.SetActive(false);
+            atticThirdPuzzleCrateCam.SetActive(true);
         }
 
         if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
         {
-            thirdPuzzleCrateCam.SetActive(false);
-            thirdpuzzleRopeCam.SetActive(true);
+            atticThirdPuzzleCrateCam.SetActive(false);
+            atticThirdpuzzleRopeCam.SetActive(true);
         }
     }
 
@@ -118,21 +121,21 @@ public class VCamManager : MonoBehaviour
         if (other.gameObject.tag == "FirstPuzzleCamPan")
         {
             mainVirutalCam.SetActive(true);
-            firstPuzzleCamPan.SetActive(false);
+            atticFirstPuzzleCamPan.SetActive(false);
         }
 
         if (other.gameObject.tag == "SecondPuzzleCamPan")
         {
             mainVirutalCam.SetActive(true);
-            secondPuzzleVirtualCam.SetActive(false);
+            atticSecondPuzzleVirtualCam.SetActive(false);
         }
 
         if (other.gameObject.tag == "ThirdPuzzleCamPan")
         {
             mainVirutalCam.SetActive(true);
-            thirdPuzzleVirtualCam.SetActive(false);
-            thirdPuzzleCrateCam.SetActive(false);
-            thirdpuzzleRopeCam.SetActive(false);
+            atticThirdPuzzleVirtualCam.SetActive(false);
+            atticThirdPuzzleCrateCam.SetActive(false);
+            atticThirdpuzzleRopeCam.SetActive(false);
         }
 
         // if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
@@ -142,8 +145,8 @@ public class VCamManager : MonoBehaviour
 
         if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
         {
-            thirdPuzzleVirtualCam.SetActive(true);
-            thirdpuzzleRopeCam.SetActive(false);
+            atticThirdPuzzleVirtualCam.SetActive(true);
+            atticThirdpuzzleRopeCam.SetActive(false);
         }
     }
 }
