@@ -1515,7 +1515,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 15
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -15969,24 +15969,24 @@ MeshFilter:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1931838216958480, guid: ed1fd2bf180aba94ca435c3bda88a592,
     type: 2}
-  m_PrefabInternal: {fileID: 1527983052}
+  m_PrefabInternal: {fileID: 1561892437}
 --- !u!114 &415574537 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114418886295318254, guid: ed1fd2bf180aba94ca435c3bda88a592,
     type: 2}
-  m_PrefabInternal: {fileID: 1527983052}
+  m_PrefabInternal: {fileID: 1561892437}
   m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
 --- !u!114 &415574539 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
     type: 2}
-  m_PrefabInternal: {fileID: 1527983052}
+  m_PrefabInternal: {fileID: 1561892437}
   m_Script: {fileID: 11500000, guid: 6fe10d6e3c1015d42b105415de90ab92, type: 3}
 --- !u!4 &415574540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592,
     type: 2}
-  m_PrefabInternal: {fileID: 1527983052}
+  m_PrefabInternal: {fileID: 1561892437}
 --- !u!1 &416551297
 GameObject:
   m_ObjectHideFlags: 0
@@ -61874,88 +61874,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4349394801472252, guid: d174eb2c8c2e62b4f8ad64f4739fd5b0,
     type: 2}
   m_PrefabInternal: {fileID: 1524750236}
---- !u!1001 &1527983052
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.1608
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 12.2836
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -45.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: levelTitleText
-      value: 
-      objectReference: {fileID: 1457505325}
-    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: brokenBoardSection
-      value: 
-      objectReference: {fileID: 1218459619}
-    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: woodenPlank
-      value: 
-      objectReference: {fileID: 762099968}
-    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: atticFirstPuzzleCamPan
-      value: 
-      objectReference: {fileID: 665261747}
-    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: atticSecondPuzzleVirtualCam
-      value: 
-      objectReference: {fileID: 1077710691}
-    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: atticThirdPuzzleVirtualCam
-      value: 
-      objectReference: {fileID: 165425527}
-    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: atticThirdPuzzleCrateCam
-      value: 
-      objectReference: {fileID: 1343785860}
-    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
-        type: 2}
-      propertyPath: atticThirdpuzzleRopeCam
-      value: 
-      objectReference: {fileID: 467458117}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1528696231
 GameObject:
   m_ObjectHideFlags: 0
@@ -62957,6 +62875,88 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1559299030}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1561892437
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.1608
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 12.2836
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -45.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759642508028548, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: atticFirstPuzzleCamPan
+      value: 
+      objectReference: {fileID: 665261747}
+    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: atticSecondPuzzleVirtualCam
+      value: 
+      objectReference: {fileID: 1077710691}
+    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: atticThirdPuzzleVirtualCam
+      value: 
+      objectReference: {fileID: 165425527}
+    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: atticThirdPuzzleCrateCam
+      value: 
+      objectReference: {fileID: 1343785860}
+    - target: {fileID: 114815531357613886, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: atticThirdpuzzleRopeCam
+      value: 
+      objectReference: {fileID: 467458117}
+    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: levelTitleText
+      value: 
+      objectReference: {fileID: 1457505325}
+    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: brokenBoardSection
+      value: 
+      objectReference: {fileID: 1218459619}
+    - target: {fileID: 114964427382753318, guid: ed1fd2bf180aba94ca435c3bda88a592,
+        type: 2}
+      propertyPath: woodenPlank
+      value: 
+      objectReference: {fileID: 762099968}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ed1fd2bf180aba94ca435c3bda88a592, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1562989738
 GameObject:
   m_ObjectHideFlags: 0

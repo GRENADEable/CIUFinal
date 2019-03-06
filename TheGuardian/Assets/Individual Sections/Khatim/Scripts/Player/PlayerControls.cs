@@ -116,13 +116,11 @@ public class PlayerControls : MonoBehaviour
         if (interaction && Input.GetKey(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
         {
             // Sets bool to true, adds fixed joint component and links fixed joint from other gameobject to ours and turns off gravity.
-            // hit.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             hit.collider.gameObject.AddComponent(typeof(FixedJoint));
             hit.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
             hit.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            hit.rigidbody.isKinematic = false;
             hit.rigidbody.useGravity = false;
-            hit.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-            hit.rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
             isInteracting = true;
             Debug.LogWarning("Object Attached");
         }
@@ -132,8 +130,6 @@ public class PlayerControls : MonoBehaviour
             // Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
             Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());
             hit.rigidbody.useGravity = true;
-            Destroy(hit.collider.gameObject.GetComponent<Rigidbody>());
-            // hit.rigidbody.constraints = RigidbodyConstraints.None;
             isInteracting = false;
             Debug.LogWarning("Object Detached");
         }
