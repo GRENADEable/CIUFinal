@@ -44,7 +44,8 @@ public class LightMechanic : MonoBehaviour
         if (match.activeSelf)
         {
             fuelTimer -= Time.deltaTime;
-            OnFleeEnemy();
+            if (OnFleeEnemy != null)
+                OnFleeEnemy();
         }
         if (fuelTimer <= 0)
         {
