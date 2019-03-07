@@ -86,11 +86,15 @@ public class RatFSM : MonoBehaviour
             ratAnim.SetBool("isIdle", true);
             // Debug.LogWarning("Idle");
         }
+
         if (ratAgent.velocity.magnitude > 0.2f)
         {
             ratAnim.SetBool("isIdle", false);
             // Debug.LogWarning("Not Idle");
         }
+
+        if (!player.activeInHierarchy)
+            currCondition = 1;
     }
 
     void FixedUpdate()
