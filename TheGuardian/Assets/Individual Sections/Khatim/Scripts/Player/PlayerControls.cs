@@ -125,11 +125,12 @@ public class PlayerControls : MonoBehaviour
             Debug.LogWarning("Object Attached");
         }
 
-        if (Input.GetKeyUp(KeyCode.E) && isInteracting)
+        if (Input.GetKeyUp(KeyCode.E) && isInteracting && hit.collider.tag == "Interact")
         {
             // Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
             Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());
             hit.rigidbody.useGravity = true;
+            hit.rigidbody.isKinematic = true;
             isInteracting = false;
             Debug.LogWarning("Object Detached");
         }
@@ -213,12 +214,12 @@ public class PlayerControls : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
-                Debug.LogWarning("Sprint Climb?");
+                // Debug.LogWarning("Sprint Climb?");
             }
             else
             {
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
-                Debug.LogWarning("Climbing");
+                // Debug.LogWarning("Climbing");
             }
         }
 
@@ -239,7 +240,7 @@ public class PlayerControls : MonoBehaviour
         if (jumpTime > jumpDelay)
         {
             moveDirection.y = jumpPower;
-            Debug.LogWarning("Jump");
+            // Debug.LogWarning("Jump");
             jumpTime = 0f;
         }
     }
@@ -283,7 +284,6 @@ public class PlayerControls : MonoBehaviour
     public void CharacterControllerBodyModifier()
     {
         float latestRecordedHeight = charController.height;
-        //characterController.height = Mathf.Lerp(characterController.height);
     }
 
     #region Cheats :P
@@ -368,9 +368,4 @@ public class PlayerControls : MonoBehaviour
             col = null;
         }
     }
-
-    // public void ColliderHit()
-    // {
-    //     Debug.LogWarning("Grabbing Rope");
-    // }
 }
