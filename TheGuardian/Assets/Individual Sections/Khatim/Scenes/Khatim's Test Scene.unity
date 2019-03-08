@@ -1150,69 +1150,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 20121519}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &23117465
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.15999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 12.029
-      objectReference: {fileID: 0}
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -45.117
-      objectReference: {fileID: 0}
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 79541de588cc15d49ac5aefb4c143829, type: 2}
-    - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_Name
-      value: CourageV3
-      objectReference: {fileID: 0}
-    - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
-  m_IsPrefabAsset: 0
 --- !u!1 &26854405
 GameObject:
   m_ObjectHideFlags: 0
@@ -7928,7 +7865,7 @@ GameObject:
   - component: {fileID: 170300974}
   m_Layer: 0
   m_Name: ObjectThrowing
-  m_TagString: PickUp
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7994,7 +7931,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 170300973}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.559, y: -0.6150007, z: -7.517002}
+  m_LocalPosition: {x: 1.559, y: -0.7647, z: -7.517002}
   m_LocalScale: {x: 0.14807917, y: 0.14807917, z: 0.14807917}
   m_Children: []
   m_Father: {fileID: 171649996}
@@ -8009,9 +7946,9 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 30
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -9157,117 +9094,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 196430113}
   m_Mesh: {fileID: 4300508, guid: 25a185e1b600cd742857dcbefc0739c1, type: 3}
---- !u!1 &197533508 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7,
-    type: 3}
-  m_PrefabInternal: {fileID: 23117465}
---- !u!143 &197533509
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197533508}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.2
-  m_Radius: 0.03
-  m_SlopeLimit: 60
-  m_StepOffset: 0.001
-  m_SkinWidth: 0.001
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.1, z: 0.006}
---- !u!114 &197533511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197533508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4e4854ac7ba18c4c870a6aaae262813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkingSpeed: 0.5
-  runningSpeed: 0.7
-  jumpPower: 1.1
-  onRope: 0
-  climbSpeed: 0.2
-  pushPower: 0
-  sprintClimbSpeed: 0.5
-  defaultGravity: 5
-  trapDoor: {fileID: 1760540104}
-  runningCheat: 1.1
-  defaultRunningSpeed: 0.7
---- !u!114 &197533512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197533508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633459234d33df74391e0d55835e12dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  throwingForce: 5
-  objectToBeThrownPosition: {x: 0, y: 0.1, z: 0.2}
-  distance: 0.2
-  height: 0.1
-  isInteracting: 0
 --- !u!4 &197533513 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400098, guid: 16c0be0c59c41d94ebc06a3eab903be7,
-    type: 3}
-  m_PrefabInternal: {fileID: 23117465}
---- !u!114 &197533514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197533508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 933831b53d82d2347b4de5095f688889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionDistance: 0.2
-  interactionDistanceHeight: 0.1
---- !u!114 &197533515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197533508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd960a3f67ed77e4a9c1295dca8043e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainVirutalCam: {fileID: 987127328}
-  atticFirstPuzzleCamPan: {fileID: 0}
-  atticSecondPuzzleVirtualCam: {fileID: 0}
-  atticThirdPuzzleVirtualCam: {fileID: 0}
-  atticThirdPuzzleCrateCam: {fileID: 0}
-  atticThirdpuzzleRopeCam: {fileID: 0}
-  positiveScreenYCamOffset: 0
-  negativeScreenYCamOffset: 0
-  positiveScreenXCamOffset: 0
-  negativeScreenXCamOffset: 0
---- !u!135 &197533516
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197533508}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.06
-  m_Center: {x: 0, y: 0.1, z: 0.04}
+  m_CorrespondingSourceObject: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 266452512}
 --- !u!1 &198681223
 GameObject:
   m_ObjectHideFlags: 0
@@ -11646,6 +11477,83 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 265463708}
   m_Mesh: {fileID: 4300056, guid: d2833cd11c1df7648b0280f436fe5e1b, type: 3}
+--- !u!1001 &266452512
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.15999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 12.029
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -45.117
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628238859980422, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114399766814887448, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: trapDoor
+      value: 
+      objectReference: {fileID: 1760540104}
+    - target: {fileID: 114763500967856838, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: mainVirutalCam
+      value: 
+      objectReference: {fileID: 987127328}
+    - target: {fileID: 114763500967856838, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: atticFirstPuzzleCamPan
+      value: 
+      objectReference: {fileID: 174161477}
+    - target: {fileID: 114763500967856838, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: atticSecondPuzzleVirtualCam
+      value: 
+      objectReference: {fileID: 1367099924}
+    - target: {fileID: 114763500967856838, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: atticThirdPuzzleVirtualCam
+      value: 
+      objectReference: {fileID: 319000031}
+    - target: {fileID: 114763500967856838, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: atticThirdPuzzleCrateCam
+      value: 
+      objectReference: {fileID: 1882781702}
+    - target: {fileID: 114763500967856838, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: atticThirdpuzzleRopeCam
+      value: 
+      objectReference: {fileID: 382519298}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &269173303
 GameObject:
   m_ObjectHideFlags: 0
@@ -37696,12 +37604,16 @@ MonoBehaviour:
   walkingSpeed: 1
   runningSpeed: 2
   jumpPower: 0
+  jumpDelay: 0
   onRope: 0
   climbSpeed: 0
   pushPower: 0
   sprintClimbSpeed: 0
   defaultGravity: 9.81
   trapDoor: {fileID: 0}
+  interactionDistance: 0
+  interactionRadius: 0
+  interactionDistanceHeight: 0
   runningCheat: 0
   defaultRunningSpeed: 0
 --- !u!136 &1022049870
@@ -71702,12 +71614,16 @@ MonoBehaviour:
   walkingSpeed: 1.5
   runningSpeed: 5
   jumpPower: 0
+  jumpDelay: 0
   onRope: 0
   climbSpeed: 1.5
   pushPower: 0
   sprintClimbSpeed: 0
   defaultGravity: 9.81
   trapDoor: {fileID: 0}
+  interactionDistance: 0
+  interactionRadius: 0
+  interactionDistanceHeight: 0
   runningCheat: 0
   defaultRunningSpeed: 0
 --- !u!4 &1875852138 stripped
