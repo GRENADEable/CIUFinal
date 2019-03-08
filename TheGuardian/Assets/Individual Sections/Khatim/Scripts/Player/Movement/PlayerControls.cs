@@ -33,7 +33,13 @@ public class PlayerControls : MonoBehaviour
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
 
-    private Collider col;
+    public delegate void Grab();
+    public static event Grab onObjectDetatchEvent;
+
+    [SerializeField]
+    private Collider ropeCol;
+    [SerializeField]
+    private Collider interactCol;
     private bool isInteracting;
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
@@ -107,38 +113,29 @@ public class PlayerControls : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
                 CheatPanelToggle();
         }
-        // RaycastHit hit;
-        // Debug.DrawRay(transform.position + Vector3.up * raycastHeight, transform.TransformDirection(Vector3.forward) * distanceFromRope, Color.yellow);
-        RaycastHit hit;
-        Debug.DrawRay(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, Color.blue);
-        bool interaction = Physics.Raycast(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, out hit);
 
-        if (interaction && Input.GetKey(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
+        if (Input.GetKey(KeyCode.E) && interactCol != null && !isInteracting)
         {
-            // Sets bool to true, adds fixed joint component and links fixed joint from other gameobject to ours and turns off gravity.
-            hit.collider.gameObject.AddComponent(typeof(FixedJoint));
-            hit.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-            hit.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
-            hit.rigidbody.isKinematic = false;
-            hit.rigidbody.useGravity = false;
+            interactCol.gameObject.AddComponent(typeof(FixedJoint));
+            interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+            interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            interactCol.GetComponent<Rigidbody>().isKinematic = false;
+            interactCol.GetComponent<Rigidbody>().useGravity = false;
             isInteracting = true;
             Debug.LogWarning("Object Attached");
         }
 
-        if (Input.GetKeyUp(KeyCode.E) && isInteracting && hit.collider.tag == "Interact")
+        if ((Input.GetKeyUp(KeyCode.E) && isInteracting) || (interactCol == null && isInteracting))
         {
-            // Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
-            Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());
-            hit.rigidbody.useGravity = true;
-            hit.rigidbody.isKinematic = true;
+            if (onObjectDetatchEvent != null)
+                onObjectDetatchEvent();
+
             isInteracting = false;
-            Debug.LogWarning("Object Detached");
         }
 
         if (!onRope)
         {
             float localHeight = playerHeight;
-            // transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
             //Gets Player Inputs
             moveVertical = Input.GetAxis("Vertical");
             moveHorizontal = Input.GetAxis("Horizontal");
@@ -147,21 +144,13 @@ public class PlayerControls : MonoBehaviour
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
-                //Gets Player Inputs
-                // moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis("Vertical"));
                 //Animation Controls
                 if (moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0)
                     anim.SetBool("isWalking", true);
                 else
                     anim.SetBool("isWalking", false);
 
-                // if (Input.GetKey(KeyCode.S))
-                //     anim.SetBool("isWalkingBack", true);
-                // else
-                //     anim.SetBool("isWalkingBack", false);
-
                 //Applies Movement
-                // moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
@@ -223,7 +212,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        if (col != null && Input.GetKey(KeyCode.E))
+        if (ropeCol != null && Input.GetKey(KeyCode.E))
             onRope = true;
 
         else
@@ -313,30 +302,30 @@ public class PlayerControls : MonoBehaviour
     #endregion
 
     //Function which checks what hit the Character Controller's Collider
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody body = hit.collider.attachedRigidbody;
+    // void OnControllerColliderHit(ControllerColliderHit hit)
+    // {
+    //     Rigidbody body = hit.collider.attachedRigidbody;
 
-        // Return null if no Rigidbody
-        if (body == null || body.isKinematic)
-            return;
+    //     // Return null if no Rigidbody
+    //     if (body == null || body.isKinematic)
+    //         return;
 
-        // Return null as we don't want to push objects below us
-        if (hit.moveDirection.y < -0.3f)
-            return;
+    //     // Return null as we don't want to push objects below us
+    //     if (hit.moveDirection.y < -0.3f)
+    //         return;
 
-        // Calculate push direction from move direction, we only push objects to the sides never up and down
-        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+    //     // Calculate push direction from move direction, we only push objects to the sides never up and down
+    //     Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
 
-        // Apply the push on the object
-        body.velocity = pushDir * pushPower;
-    }
+    //     // Apply the push on the object
+    //     body.velocity = pushDir * pushPower;
+    // }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Rope")
         {
-            col = other;
+            ropeCol = other;
         }
 
         if (other.tag == "RopeBreak" && brokenBoardSection != null)
@@ -357,7 +346,12 @@ public class PlayerControls : MonoBehaviour
 
         if (other.tag == "Rope")
         {
-            col = other;
+            ropeCol = other;
+        }
+
+        if (other.tag == "Interact")
+        {
+            interactCol = other;
         }
     }
 
@@ -365,7 +359,12 @@ public class PlayerControls : MonoBehaviour
     {
         if (other.tag == "Rope")
         {
-            col = null;
+            ropeCol = null;
+        }
+
+        if (other.tag == "Interact")
+        {
+            interactCol = null;
         }
     }
 }

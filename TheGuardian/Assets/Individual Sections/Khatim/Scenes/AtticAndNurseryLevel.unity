@@ -1504,6 +1504,7 @@ GameObject:
   - component: {fileID: 60310921}
   - component: {fileID: 60310920}
   - component: {fileID: 60310919}
+  - component: {fileID: 60310924}
   m_Layer: 0
   m_Name: InteractCubePlaceholder
   m_TagString: Interact
@@ -1593,6 +1594,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &60310924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 60310918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7a59ca81f5ab445820480e7924c0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &66829799
 GameObject:
   m_ObjectHideFlags: 0
@@ -6410,6 +6422,7 @@ GameObject:
   - component: {fileID: 176605494}
   - component: {fileID: 176605493}
   - component: {fileID: 176605497}
+  - component: {fileID: 176605498}
   m_Layer: 0
   m_Name: MoveableCrates_3
   m_TagString: Interact
@@ -6522,6 +6535,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &176605498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 176605491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7a59ca81f5ab445820480e7924c0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &177587059
 GameObject:
   m_ObjectHideFlags: 0
@@ -25083,12 +25107,18 @@ MonoBehaviour:
   walkingSpeed: 1
   runningSpeed: 2
   jumpPower: 0
+  jumpDelay: 0
   onRope: 0
   climbSpeed: 0
   pushPower: 0
   sprintClimbSpeed: 0
   defaultGravity: 9.81
   trapDoor: {fileID: 0}
+  interactionDistance: 0
+  interactionDistanceHeight: 0
+  ropeCol: {fileID: 0}
+  interactCol: {fileID: 0}
+  isInteracting: 0
   runningCheat: 0
   defaultRunningSpeed: 0
 --- !u!4 &669079234 stripped
@@ -37067,6 +37097,7 @@ GameObject:
   - component: {fileID: 979011179}
   - component: {fileID: 979011178}
   - component: {fileID: 979011181}
+  - component: {fileID: 979011182}
   m_Layer: 0
   m_Name: MoveableCrates_2
   m_TagString: Interact
@@ -37161,6 +37192,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &979011182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979011176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7a59ca81f5ab445820480e7924c0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &983021869
 GameObject:
   m_ObjectHideFlags: 0
@@ -65953,6 +65995,7 @@ GameObject:
   - component: {fileID: 1679526555}
   - component: {fileID: 1679526554}
   - component: {fileID: 1679526557}
+  - component: {fileID: 1679526558}
   m_Layer: 0
   m_Name: MoveableCrates
   m_TagString: Interact
@@ -66047,6 +66090,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1679526558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1679526552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7a59ca81f5ab445820480e7924c0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1680368376
 GameObject:
   m_ObjectHideFlags: 0

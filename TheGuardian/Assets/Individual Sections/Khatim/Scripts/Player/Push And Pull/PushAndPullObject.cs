@@ -9,11 +9,14 @@ public class PushAndPullObject : MonoBehaviour
     void OnEnable()
     {
         PlayerControlTest.onObjectDetatchEvent += DetatchObjectEventReceived;
+        PlayerControls.onObjectDetatchEvent += DetatchObjectEventReceived;
     }
 
     void OnDisable()
     {
         PlayerControlTest.onObjectDetatchEvent -= DetatchObjectEventReceived;
+        PlayerControls.onObjectDetatchEvent -= DetatchObjectEventReceived;
+
     }
 
 
