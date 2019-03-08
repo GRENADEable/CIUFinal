@@ -7861,8 +7861,9 @@ GameObject:
   - component: {fileID: 170300977}
   - component: {fileID: 170300976}
   - component: {fileID: 170300975}
-  - component: {fileID: 170300978}
   - component: {fileID: 170300974}
+  - component: {fileID: 170300979}
+  - component: {fileID: 170300978}
   m_Layer: 0
   m_Name: ObjectThrowing
   m_TagString: Interact
@@ -7931,13 +7932,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 170300973}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.559, y: -0.7647, z: -7.517002}
-  m_LocalScale: {x: 0.14807917, y: 0.14807917, z: 0.14807917}
+  m_LocalPosition: {x: 1.559, y: -0.685, z: -7.517002}
+  m_LocalScale: {x: 0.29580295, y: 0.29580295, z: 0.29580295}
   m_Children: []
   m_Father: {fileID: 171649996}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &170300978
+--- !u!114 &170300978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 170300973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7a59ca81f5ab445820480e7924c0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &170300979
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11525,7 +11537,7 @@ Prefab:
         type: 2}
       propertyPath: mainVirutalCam
       value: 
-      objectReference: {fileID: 987127328}
+      objectReference: {fileID: 0}
     - target: {fileID: 114763500967856838, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
         type: 2}
       propertyPath: atticFirstPuzzleCamPan
@@ -11551,6 +11563,16 @@ Prefab:
       propertyPath: atticThirdpuzzleRopeCam
       value: 
       objectReference: {fileID: 382519298}
+    - target: {fileID: 114399766814887448, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: interactionRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 135582975067652164, guid: 6c8cb3cb63835a9408ffa52280b7f4dc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c8cb3cb63835a9408ffa52280b7f4dc, type: 2}
   m_IsPrefabAsset: 0
@@ -35950,7 +35972,7 @@ GameObject:
   - component: {fileID: 987127329}
   m_Layer: 0
   m_Name: MainVCam
-  m_TagString: Untagged
+  m_TagString: MainVCam
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37612,8 +37634,10 @@ MonoBehaviour:
   defaultGravity: 9.81
   trapDoor: {fileID: 0}
   interactionDistance: 0
-  interactionRadius: 0
   interactionDistanceHeight: 0
+  ropeCol: {fileID: 0}
+  interactCol: {fileID: 0}
+  isInteracting: 0
   runningCheat: 0
   defaultRunningSpeed: 0
 --- !u!136 &1022049870
@@ -71622,8 +71646,10 @@ MonoBehaviour:
   defaultGravity: 9.81
   trapDoor: {fileID: 0}
   interactionDistance: 0
-  interactionRadius: 0
   interactionDistanceHeight: 0
+  ropeCol: {fileID: 0}
+  interactCol: {fileID: 0}
+  isInteracting: 0
   runningCheat: 0
   defaultRunningSpeed: 0
 --- !u!4 &1875852138 stripped

@@ -20,11 +20,16 @@ public class PlayerControlTest : MonoBehaviour
     public GameObject trapDoor;
     [Header("Player Push and Pull Variables")]
     public float interactionDistance;
-    public float interactionRadius;
     public float interactionDistanceHeight;
 
+    public delegate void Grab();
+    public static event Grab onObjectDetatchEvent;
 
-    private Collider col;
+    [SerializeField]
+    private Collider ropeCol;
+    [SerializeField]
+    private Collider interactCol;
+    [SerializeField]
     private bool isInteracting;
     private float gravity;
     private float jumpTime;
@@ -76,31 +81,49 @@ public class PlayerControlTest : MonoBehaviour
             jumpTime += Time.deltaTime;
             // float moveCamVertical = Input.GetAxis("MoveCamVertical");
 
-            RaycastHit hit;
-            // Debug.DrawRay(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, Color.blue);
+            // RaycastHit hit;
+            // // Debug.DrawRay(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, Color.blue);
             // bool interaction = Physics.Raycast(transform.position + Vector3.up * interactionDistanceHeight, transform.TransformDirection(Vector3.forward) * interactionDistance, out hit);
-            bool interaction = Physics.SphereCast(transform.position + Vector3.up * interactionDistanceHeight, interactionRadius, transform.TransformDirection(Vector3.forward), out hit, interactionDistance);
 
-            if (interaction && Input.GetKey(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
+            // if (interaction && Input.GetKey(KeyCode.E) && hit.collider.tag == "Interact" && !isInteracting)
+            // {
+            //     // Sets bool to true, adds fixed joint component and links fixed joint from other gameobject to ours and turns off gravity.
+            //     hit.collider.gameObject.AddComponent(typeof(FixedJoint));
+            //     hit.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+            //     hit.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            //     hit.rigidbody.isKinematic = false;
+            //     hit.rigidbody.useGravity = false;
+            //     isInteracting = true;
+            //     Debug.LogWarning("Object Attached");
+            // }
+
+            // if (Input.GetKeyUp(KeyCode.E) && isInteracting && hit.collider.tag == "Interact")
+            // {
+            //     // Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
+            //     Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());
+            //     hit.rigidbody.useGravity = true;
+            //     hit.rigidbody.isKinematic = true;
+            //     isInteracting = false;
+            //     Debug.LogWarning("Object Detached");
+            // }
+
+            if (Input.GetKey(KeyCode.E) && interactCol != null && !isInteracting)
             {
-                // Sets bool to true, adds fixed joint component and links fixed joint from other gameobject to ours and turns off gravity.
-                hit.collider.gameObject.AddComponent(typeof(FixedJoint));
-                hit.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-                hit.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
-                hit.rigidbody.isKinematic = false;
-                hit.rigidbody.useGravity = false;
+                interactCol.gameObject.AddComponent(typeof(FixedJoint));
+                interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+                interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+                interactCol.GetComponent<Rigidbody>().isKinematic = false;
+                interactCol.GetComponent<Rigidbody>().useGravity = false;
                 isInteracting = true;
                 Debug.LogWarning("Object Attached");
             }
 
-            if (Input.GetKeyUp(KeyCode.E) && isInteracting && hit.collider.tag == "Interact")
+            if ((Input.GetKeyUp(KeyCode.E) && isInteracting) || (interactCol == null && isInteracting))
             {
-                // Sets bool to false, removes fixed joint from the other gameobject with ours, turns on  gravity of the other object and destroys the fixed joint component.
-                Destroy(hit.collider.gameObject.GetComponent<FixedJoint>());
-                hit.rigidbody.useGravity = true;
-                hit.rigidbody.isKinematic = true;
+                if (onObjectDetatchEvent != null)
+                    onObjectDetatchEvent();
+
                 isInteracting = false;
-                Debug.LogWarning("Object Detached");
             }
 
             if (charController.isGrounded)
@@ -153,9 +176,8 @@ public class PlayerControlTest : MonoBehaviour
         }
         charController.Move(moveDirection * Time.deltaTime);
 
-        if (col != null && Input.GetKey(KeyCode.E))
+        if (ropeCol != null && Input.GetKey(KeyCode.E))
             onRope = true;
-
         else
             onRope = false;
 
@@ -204,7 +226,7 @@ public class PlayerControlTest : MonoBehaviour
     {
         if (other.tag == "Rope")
         {
-            col = other;
+            ropeCol = other;
         }
 
         if (other.tag == "RopeBreak" && trapDoor != null)
@@ -216,9 +238,14 @@ public class PlayerControlTest : MonoBehaviour
             Debug.LogWarning("Rope Broken");
         }
 
-        if (other.gameObject.tag == "End")
+        if (other.tag == "End")
         {
             this.gameObject.SetActive(false);
+        }
+
+        if (other.tag == "Interact")
+        {
+            interactCol = other;
         }
     }
 
@@ -226,7 +253,12 @@ public class PlayerControlTest : MonoBehaviour
     {
         if (other.tag == "Rope")
         {
-            col = null;
+            ropeCol = null;
+        }
+
+        if (other.tag == "Interact")
+        {
+            interactCol = null;
         }
     }
 
