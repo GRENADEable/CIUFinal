@@ -329,10 +329,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c37439f37b48c43bba111227252ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation1: 120
-  rotation2: 90
-  rotation3: 60
-  timeToWait: 5
+  defaultLightDirection: {x: 0, y: 0, z: 0}
+  firstLightDirection: {x: 0, y: 0, z: 0}
+  secondLightDirection: {x: 0, y: 0, z: 0}
+  lighOnDuration: 0
+  lighOffDuration: 0
+  killDelay: 0
+  killTimer: 0
+  detectionFov: 0
+  angle: 0
+  player: {fileID: 0}
 --- !u!1 &78689545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &938964957
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1755,7 +1761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1212438945
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2408,7 +2414,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100098, guid: 16c0be0c59c41d94ebc06a3eab903be7, type: 3}
       propertyPath: m_TagString
@@ -2521,7 +2527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1449103912
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2597,8 +2603,8 @@ Rigidbody:
   m_GameObject: {fileID: 1449103911}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.5
+  m_Drag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2717,6 +2723,8 @@ MonoBehaviour:
   objectToBeThrownPosition: {x: 0, y: 0.1, z: 0.2}
   distance: 0.2
   height: 0.1
+  objectToBeThrown: {fileID: 0}
+  objectToBeThrownRB: {fileID: 0}
   isInteracting: 0
 --- !u!114 &1504049735
 MonoBehaviour:
@@ -2737,22 +2745,21 @@ MonoBehaviour:
   jumpPower: 2
   jumpDelay: 0
   defaultGravity: 9.81
+  gravityAfterRopeBreak: 0
+  interactionDistance: 0
+  interactionDistanceHeight: 0
   pushPower: 0
   onRope: 0
   climbSpeed: 1
   raycastHeight: 0.07
   sprintClimbSpeed: 1.5
-  mainVirutalCam: {fileID: 0}
-  firstPuzzleCamPan: {fileID: 0}
-  secondPuzzleVirtualCam: {fileID: 0}
-  thirdPuzzleVirtualCam: {fileID: 0}
-  thirdPuzzleCrateCam: {fileID: 0}
-  thidpuzzleRopeCam: {fileID: 0}
-  foV: 90
   levelTitleText: {fileID: 0}
   pausePanel: {fileID: 0}
   cheatPanel: {fileID: 0}
-  trapDoor: {fileID: 0}
+  brokenBoardSection: {fileID: 0}
+  woodenPlank: {fileID: 0}
+  ropeCol: {fileID: 0}
+  interactCol: {fileID: 0}
   flashSpeed: 0
   defaultRunningSpeed: 1.2
   superJump: 5
@@ -3038,7 +3045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1575654680
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3820,7 +3827,7 @@ MonoBehaviour:
   sprintSpeed: 18
   crouchSpeed: 4
   climbSpeed: 3
-  rotateSpeed: 10
+  rotateSpeed: 40
   lockRotation: 0
   magnitudeToClamp: 60
   jumpStrenght: 5
@@ -3922,7 +3929,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133229967}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e45d2de9016feee49b482df5d55b90d4, type: 3}
   m_Name: 
@@ -3949,15 +3956,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133229967}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 633459234d33df74391e0d55835e12dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwingForce: 10
-  objectToBeThrownPosition: {x: 0, y: 5, z: 1.3}
+  throwingForce: 1
+  objectToBeThrownPosition: {x: 0, y: 0, z: 1.5}
   distance: 10
   height: 0.2
+  objectToBeThrown: {fileID: 0}
+  objectToBeThrownRB: {fileID: 0}
   isInteracting: 0
 --- !u!114 &2133229977
 MonoBehaviour:

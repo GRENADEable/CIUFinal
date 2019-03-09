@@ -8,7 +8,8 @@ public class ObjectThrowing : MonoBehaviour
     public Vector3 objectToBeThrownPosition;
     public float distance;
     public float height;
-    // public GameObject objectToBeThrown;
+    public GameObject objectToBeThrown;
+    public Rigidbody objectToBeThrownRB;
     [SerializeField]
     private bool isInteracting;
     // public Vector3 objectToBeThrownOriginalPos;
@@ -22,26 +23,49 @@ public class ObjectThrowing : MonoBehaviour
         && hitInfo.collider.tag == "PickUp" && Input.GetKey(KeyCode.F)
         && !isInteracting)
         {
-            // objectToBeThrown = hitInfo.collider.gameObject;
-            // hitInfo.rigidbody.velocity = Vector3.zero;
-            // hitInfo.rigidbody.angularVelocity = Vector3.zero;
-            hitInfo.rigidbody.useGravity = false;
-            hitInfo.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            hitInfo.collider.transform.SetParent(this.gameObject.transform);
-            hitInfo.collider.gameObject.transform.localPosition = objectToBeThrownPosition;
+
+            //Rigidbody objectToBeThrownRB;
+            objectToBeThrown = hitInfo.transform.gameObject;
+            objectToBeThrownRB = objectToBeThrown.GetComponent<Rigidbody>();
+            objectToBeThrownRB.velocity = Vector3.zero;
+            objectToBeThrownRB.angularVelocity = Vector3.zero;
+            objectToBeThrownRB.useGravity = false;
+            objectToBeThrownRB.detectCollisions = true;
+            //objectToBeThrownRB.constraints = RigidbodyConstraints.FreezeAll;
+            objectToBeThrown.transform.SetParent(this.gameObject.transform);
+            objectToBeThrown.transform.localPosition = objectToBeThrownPosition;
             isInteracting = true;
             Debug.LogWarning("Object Picked Up");
         }
         if (Input.GetKeyDown(KeyCode.Space) && isInteracting)
         {
-            hitInfo.rigidbody.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
-            hitInfo.rigidbody.useGravity = true;
-            hitInfo.rigidbody.constraints = RigidbodyConstraints.None;
-            hitInfo.collider.transform.SetParent(null);
+            objectToBeThrownRB.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
+            objectToBeThrownRB.useGravity = true;
+            objectToBeThrownRB.constraints = RigidbodyConstraints.None;
+            objectToBeThrown.transform.SetParent(null);
             // objectToBeThrown = null;
             isInteracting = false;
             Debug.LogWarning("Object Thrown");
         }
+        if(Input.GetKeyDown(KeyCode.G) && isInteracting)
+        {
+            objectToBeThrownRB.useGravity = true;
+            objectToBeThrownRB.constraints = RigidbodyConstraints.None;
+            objectToBeThrown.transform.SetParent(null);
+            isInteracting = false;
+            Debug.LogWarning("Object LetGo");
+
+        }
+
+        if (objectToBeThrown != null)
+        {
+            objectToBeThrown.transform.localPosition = objectToBeThrownPosition;
+            objectToBeThrownRB.velocity = Vector3.zero;
+            objectToBeThrownRB.angularVelocity = Vector3.zero;
+            objectToBeThrownRB.useGravity = false;
+            objectToBeThrownRB.detectCollisions = true;
+        }
+           
     }
 }
 
