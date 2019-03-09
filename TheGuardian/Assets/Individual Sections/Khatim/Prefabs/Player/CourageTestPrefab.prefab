@@ -237,6 +237,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1273686844873436
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4854712534848958}
+  - component: {fileID: 108892828011967760}
+  - component: {fileID: 114707287223528836}
+  m_Layer: 0
+  m_Name: LightMatchstick
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1277464565880634
 GameObject:
   m_ObjectHideFlags: 1
@@ -697,11 +714,11 @@ GameObject:
   - component: {fileID: 4628238859980422}
   - component: {fileID: 95698283238882248}
   - component: {fileID: 143594294087680116}
-  - component: {fileID: 54756581878687148}
   - component: {fileID: 135582975067652164}
   - component: {fileID: 114399766814887448}
   - component: {fileID: 114868054195824176}
   - component: {fileID: 114763500967856838}
+  - component: {fileID: 114400920091665830}
   m_Layer: 0
   m_Name: CourageTestPrefab
   m_TagString: Player
@@ -932,6 +949,7 @@ Transform:
   m_LocalScale: {x: 1.0000029, y: 0.99999595, z: 1.0000017}
   m_Children:
   - {fileID: 4311814322988384}
+  - {fileID: 4854712534848958}
   m_Father: {fileID: 4946370359706984}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1328,6 +1346,19 @@ Transform:
   m_Father: {fileID: 4142479110228210}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4854712534848958
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273686844873436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4236342419949790}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4857142994996620
 Transform:
   m_ObjectHideFlags: 1
@@ -1502,21 +1533,6 @@ Transform:
   m_Father: {fileID: 4170168320650002}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54756581878687148
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1941995122771972}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!95 &95698283238882248
 Animator:
   serializedVersion: 3
@@ -1535,6 +1551,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!108 &108892828011967760
+Light:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273686844873436}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 1.3
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114399766814887448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1557,10 +1610,42 @@ MonoBehaviour:
   defaultGravity: 9.81
   trapDoor: {fileID: 0}
   interactionDistance: 0.1
-  interactionRadius: 0
   interactionDistanceHeight: 0.11
+  ropeCol: {fileID: 0}
+  interactCol: {fileID: 0}
+  isInteracting: 0
   runningCheat: 1.1
   defaultRunningSpeed: 0.7
+--- !u!114 &114400920091665830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941995122771972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFuelTimer: 1
+  matchesCount: 1
+  match: {fileID: 1273686844873436}
+  fuelTimer: 0
+--- !u!114 &114707287223528836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273686844873436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db33b8850aed8a4c9ce7bab5a80579f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 0}
+  minIntensity: 0.5
+  maxIntensity: 2
+  smoothing: 17
 --- !u!114 &114763500967856838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1577,6 +1662,7 @@ MonoBehaviour:
   atticSecondPuzzleVirtualCam: {fileID: 0}
   atticThirdPuzzleVirtualCam: {fileID: 0}
   atticThirdPuzzleCrateCam: {fileID: 0}
+  atticThirdPuzzleCrateCam_2: {fileID: 0}
   atticThirdpuzzleRopeCam: {fileID: 0}
   positiveScreenYCamOffset: 0
   negativeScreenYCamOffset: 0
@@ -1597,6 +1683,8 @@ MonoBehaviour:
   objectToBeThrownPosition: {x: 0, y: 0.1, z: 0.2}
   distance: 0.2
   height: 0.1
+  objectToBeThrown: {fileID: 0}
+  objectToBeThrownRB: {fileID: 0}
   isInteracting: 0
 --- !u!135 &135582975067652164
 SphereCollider:

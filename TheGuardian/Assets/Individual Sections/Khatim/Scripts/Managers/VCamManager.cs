@@ -11,6 +11,7 @@ public class VCamManager : MonoBehaviour
     public GameObject atticFirstPuzzleCamPan;
     public GameObject atticSecondPuzzleVirtualCam;
     public GameObject atticThirdPuzzleVirtualCam;
+    public GameObject atticThirdPuzzleCloseUpCam;
     public GameObject atticThirdPuzzleCrateCam;
     public GameObject atticThirdpuzzleRopeCam;
     [Header("Virtual Camera Variables")]
@@ -103,15 +104,21 @@ public class VCamManager : MonoBehaviour
             mainVirutalCam.SetActive(false);
         }
 
-        if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
+        if (other.gameObject.tag == "ThirdPuzzleCloseUpCamPan")
         {
             atticThirdPuzzleVirtualCam.SetActive(false);
+            atticThirdPuzzleCloseUpCam.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
+        {
+            atticThirdPuzzleCloseUpCam.SetActive(false);
             atticThirdPuzzleCrateCam.SetActive(true);
         }
 
         if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
         {
-            atticThirdPuzzleCrateCam.SetActive(false);
+            // atticThirdPuzzleCrateCam.SetActive(false);
             atticThirdpuzzleRopeCam.SetActive(true);
         }
     }
@@ -134,14 +141,21 @@ public class VCamManager : MonoBehaviour
         {
             mainVirutalCam.SetActive(true);
             atticThirdPuzzleVirtualCam.SetActive(false);
-            atticThirdPuzzleCrateCam.SetActive(false);
+            atticThirdPuzzleCloseUpCam.SetActive(false);
             atticThirdpuzzleRopeCam.SetActive(false);
         }
 
-        // if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
-        // {
-        //     thirdPuzzleCrateCam.SetActive(false);
-        // }
+        if (other.gameObject.tag == "ThirdPuzzleCloseUpCamPan")
+        {
+            atticThirdPuzzleCloseUpCam.SetActive(false);
+            atticThirdPuzzleVirtualCam.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "ThirdPuzzleCratesCamPan")
+        {
+            atticThirdPuzzleVirtualCam.SetActive(true);
+            atticThirdPuzzleCrateCam.SetActive(false);
+        }
 
         if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
         {
