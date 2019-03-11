@@ -107,10 +107,10 @@ public class PlayerControls : MonoBehaviour
     {
         if (cheatPanel != null && pausePanel != null)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
                 PauseorUnpause();
 
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
                 CheatPanelToggle();
         }
 
