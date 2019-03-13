@@ -11,7 +11,6 @@ public class ObjectThrowing : MonoBehaviour
     [SerializeField]
     private bool isInteracting;
     private RaycastHit hitInfo;
-    // public Vector3 objectToBeThrownOriginalPos;
 
     void Update()
     {
@@ -27,11 +26,11 @@ public class ObjectThrowing : MonoBehaviour
         {
             ThrowingFunctionality();
         }
-        
-        if(Input.GetKeyDown(KeyCode.G) && isInteracting)
+
+        if (Input.GetKeyDown(KeyCode.G) && isInteracting)
         {
             DroppingFunctionality();
-        }    
+        }
     }
 
     public void PickUpFunctionality()
