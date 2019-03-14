@@ -715,6 +715,7 @@ GameObject:
   - component: {fileID: 95698283238882248}
   - component: {fileID: 143594294087680116}
   - component: {fileID: 135582975067652164}
+  - component: {fileID: 136916096373078600}
   - component: {fileID: 114399766814887448}
   - component: {fileID: 114868054195824176}
   - component: {fileID: 114763500967856838}
@@ -1174,7 +1175,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1941995122771972}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15999997, y: 12.029, z: -45.117}
+  m_LocalPosition: {x: 0.228, y: 12.189, z: -24.813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4529787113336092}
@@ -1601,7 +1602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingSpeed: 0.5
   runningSpeed: 0.7
-  jumpPower: 1
+  jumpPower: 2
   jumpDelay: 1
   onRope: 0
   climbSpeed: 0.2
@@ -1614,8 +1615,10 @@ MonoBehaviour:
   ropeCol: {fileID: 0}
   interactCol: {fileID: 0}
   isInteracting: 0
-  runningCheat: 1.1
+  flashSpeed: 5
   defaultRunningSpeed: 0.7
+  superJump: 5
+  defaultJump: 2
 --- !u!114 &114400920091665830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1627,8 +1630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFuelTimer: 1
-  matchesCount: 1
+  maxFuelTimer: 5
+  matchesCount: 0
   match: {fileID: 1273686844873436}
   fuelTimer: 0
 --- !u!114 &114707287223528836
@@ -1661,13 +1664,13 @@ MonoBehaviour:
   atticFirstPuzzleCamPan: {fileID: 0}
   atticSecondPuzzleVirtualCam: {fileID: 0}
   atticThirdPuzzleVirtualCam: {fileID: 0}
+  atticThirdPuzzleCloseUpCam: {fileID: 0}
   atticThirdPuzzleCrateCam: {fileID: 0}
-  atticThirdPuzzleCrateCam_2: {fileID: 0}
   atticThirdpuzzleRopeCam: {fileID: 0}
-  positiveScreenYCamOffset: 0
-  negativeScreenYCamOffset: 0
-  positiveScreenXCamOffset: 0
-  negativeScreenXCamOffset: 0
+  positiveScreenYCamOffset: 0.8
+  negativeScreenYCamOffset: 0.2
+  positiveScreenXCamOffset: 0.2
+  negativeScreenXCamOffset: 0.8
 --- !u!114 &114868054195824176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1683,8 +1686,6 @@ MonoBehaviour:
   objectToBeThrownPosition: {x: 0, y: 0.1, z: 0.2}
   distance: 0.2
   height: 0.1
-  objectToBeThrown: {fileID: 0}
-  objectToBeThrownRB: {fileID: 0}
   isInteracting: 0
 --- !u!135 &135582975067652164
 SphereCollider:
@@ -1698,6 +1699,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.06
   m_Center: {x: 0, y: 0.1, z: 0.04}
+--- !u!136 &136916096373078600
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941995122771972}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 0.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.1, z: 0.006}
 --- !u!137 &137068055978252878
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

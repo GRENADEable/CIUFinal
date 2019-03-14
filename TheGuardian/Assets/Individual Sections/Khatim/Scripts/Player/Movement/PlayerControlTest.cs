@@ -22,13 +22,16 @@ public class PlayerControlTest : MonoBehaviour
     public float interactionDistance;
     public float interactionDistanceHeight;
 
-    public delegate void Grab();
-    public static event Grab onObjectDetatchEvent;
+    public delegate void SendEvents();
+    public static event SendEvents onObjectDetatchEvent;
+    public static event SendEvents onObjectBendPlank;
 
     [SerializeField]
     private Collider ropeCol;
     [SerializeField]
     private Collider interactCol;
+    [SerializeField]
+    private Collider col;
     [SerializeField]
     private bool isInteracting;
     private float gravity;
@@ -37,10 +40,15 @@ public class PlayerControlTest : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     [Header("Cheats Section :3")]
     [SerializeField]
-    private float runningCheat;
+    private float flashSpeed;
     [SerializeField]
     private float defaultRunningSpeed;
+    [SerializeField]
+    private float superJump;
     private EventManager eventMasterScript;
+    private GameObject cheatPanel;
+    [SerializeField]
+    private float defaultJump;
 
     void OnEnable()
     {
@@ -51,6 +59,16 @@ public class PlayerControlTest : MonoBehaviour
     void OnDisable()
     {
         eventMasterScript.myGeneralEvent -= HelloMessage;
+    }
+
+    void Awake()
+    {
+        cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
+
+        if (cheatPanel != null)
+        {
+            cheatPanel.SetActive(false);
+        }
     }
 
     void Start()
@@ -65,13 +83,11 @@ public class PlayerControlTest : MonoBehaviour
     }
     void Update()
     {
-        #region Cheats
-        if (Input.GetKey(KeyCode.G))
-            runningSpeed = runningCheat;
-
-        if (Input.GetKey(KeyCode.H))
-            runningSpeed = defaultRunningSpeed;
-        #endregion
+        if (cheatPanel != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+                CheatPanelToggle();
+        }
 
         if (!onRope)
         {
@@ -124,6 +140,14 @@ public class PlayerControlTest : MonoBehaviour
                     onObjectDetatchEvent();
 
                 isInteracting = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && col != null && col.tag == "BendPlank")
+            {
+                if (onObjectBendPlank != null)
+                    onObjectBendPlank();
+
+                Destroy(col.gameObject.GetComponent<Collider>());
             }
 
             if (charController.isGrounded)
@@ -187,6 +211,11 @@ public class PlayerControlTest : MonoBehaviour
             onRope = false;
     }
 
+    public void CheatPanelToggle()
+    {
+        cheatPanel.SetActive(!cheatPanel.activeSelf);
+    }
+
     void Jump()
     {
         if (jumpTime > jumpDelay)
@@ -196,6 +225,32 @@ public class PlayerControlTest : MonoBehaviour
             jumpTime = 0f;
         }
     }
+
+    #region Cheats :P
+    public void SuperJumpToggle(bool isSuperJump)
+    {
+        if (isSuperJump)
+        {
+            jumpPower = superJump;
+        }
+        else if (!isSuperJump)
+        {
+            jumpPower = defaultJump;
+        }
+    }
+
+    public void FlashSpeedToggle(bool isFlash)
+    {
+        if (isFlash)
+        {
+            runningSpeed = flashSpeed;
+        }
+        else if (!isFlash)
+        {
+            runningSpeed = defaultRunningSpeed;
+        }
+    }
+    #endregion
 
     // Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -247,6 +302,11 @@ public class PlayerControlTest : MonoBehaviour
         {
             interactCol = other;
         }
+
+        if (other.tag == "BendPlank")
+        {
+            col = other;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -259,6 +319,11 @@ public class PlayerControlTest : MonoBehaviour
         if (other.tag == "Interact")
         {
             interactCol = null;
+        }
+
+        if (other.tag == "BendPlank")
+        {
+            col = null;
         }
     }
 

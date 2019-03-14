@@ -28,11 +28,8 @@ public class PlayerControls : MonoBehaviour
     public float sprintClimbSpeed;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
-    public GameObject pausePanel;
-    public GameObject cheatPanel;
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
-
     public delegate void Grab();
     public static event Grab onObjectDetatchEvent;
 
@@ -53,6 +50,8 @@ public class PlayerControls : MonoBehaviour
     private float defaultRunningSpeed;
     [SerializeField]
     private float superJump;
+    private GameObject pausePanel;
+    private GameObject cheatPanel;
     [SerializeField]
     private float defaultJump;
     private Vector3 playerVector;
@@ -65,7 +64,7 @@ public class PlayerControls : MonoBehaviour
         pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
         cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
 
-        if (pausePanel != null && pausePanel != null)
+        if (pausePanel != null && cheatPanel != null)
         {
             pausePanel.SetActive(false);
             cheatPanel.SetActive(false);
