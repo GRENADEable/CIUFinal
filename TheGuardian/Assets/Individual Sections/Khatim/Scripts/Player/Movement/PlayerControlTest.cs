@@ -45,21 +45,9 @@ public class PlayerControlTest : MonoBehaviour
     private float defaultRunningSpeed;
     [SerializeField]
     private float superJump;
-    private EventManager eventMasterScript;
     private GameObject cheatPanel;
     [SerializeField]
     private float defaultJump;
-
-    void OnEnable()
-    {
-        SetInitialReferences();
-        eventMasterScript.myGeneralEvent += HelloMessage;
-    }
-
-    void OnDisable()
-    {
-        eventMasterScript.myGeneralEvent -= HelloMessage;
-    }
 
     void Awake()
     {
@@ -325,15 +313,5 @@ public class PlayerControlTest : MonoBehaviour
         {
             col = null;
         }
-    }
-
-    void SetInitialReferences()
-    {
-        eventMasterScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EventManager>();
-    }
-
-    void HelloMessage()
-    {
-        Debug.LogWarning("Hello World");
     }
 }

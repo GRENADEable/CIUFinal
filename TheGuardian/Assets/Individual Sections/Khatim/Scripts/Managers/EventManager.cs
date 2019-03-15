@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    public delegate void GeneralEvent();
-    public event GeneralEvent myGeneralEvent;
+    // public delegate void GeneralEvent();
+    // public event GeneralEvent myGeneralEvent;
 
-    public void CallMyGeneralEvent()
-    {
-        if (myGeneralEvent != null)
-        {
-            myGeneralEvent();
-        }
-    }
+    // public void CallMyGeneralEvent()
+    // {
+    //     if (myGeneralEvent != null)
+    //     {
+    //         myGeneralEvent();
+    //     }
+    // }
 }

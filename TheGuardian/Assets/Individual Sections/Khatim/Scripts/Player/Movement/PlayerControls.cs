@@ -136,8 +136,8 @@ public class PlayerControls : MonoBehaviour
         {
             float localHeight = playerHeight;
             //Gets Player Inputs
-            moveVertical = Input.GetAxis("Vertical");
-            moveHorizontal = Input.GetAxis("Horizontal");
+            moveVertical = Input.GetAxisRaw("Vertical");
+            moveHorizontal = Input.GetAxisRaw("Horizontal");
             jumpTime += Time.deltaTime;
 
             //Checks if the player is on the Ground
@@ -159,11 +159,13 @@ public class PlayerControls : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
                     moveDirection = moveDirection * runningSpeed;
+                    anim.SetBool("isRunning", true);
                     // Debug.LogWarning("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isInteracting)
                 {
                     localHeight = playerHeight * 0.5f;
+                    // anim.SetBool("isCrouching", true);
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
@@ -178,6 +180,7 @@ public class PlayerControls : MonoBehaviour
                 else
                 {
                     moveDirection = moveDirection * walkingSpeed;
+                    anim.SetBool("isRunning", false);
                     // Debug.LogWarning("Walking");
                 }
 
