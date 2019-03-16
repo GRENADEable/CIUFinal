@@ -24,11 +24,14 @@ public class UIManager : GameManager
     void OnEnable()
     {
         RatFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
+        RatBlockerFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
     }
 
     void OnDisable()
     {
         RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
+        RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
+
     }
     void Awake()
     {

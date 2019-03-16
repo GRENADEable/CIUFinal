@@ -50,6 +50,7 @@ public class RatFSM : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         // isAttacking = false;
+
         ratAgent = GetComponent<NavMeshAgent>();
         ratAgent.speed = ratSpeed;
         ratAnim = GetComponentInChildren<Animator>();
@@ -124,6 +125,7 @@ public class RatFSM : MonoBehaviour
             case 3: //Attack Condition
                 // isAttacking = true;
                 player.SetActive(false);
+
                 if (onDeadPlayerScreen != null)
                     onDeadPlayerScreen();
 
