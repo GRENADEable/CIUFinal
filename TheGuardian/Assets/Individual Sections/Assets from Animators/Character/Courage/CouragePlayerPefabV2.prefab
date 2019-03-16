@@ -506,10 +506,10 @@ GameObject:
   - component: {fileID: 54600406035500020}
   - component: {fileID: 135382249996805536}
   - component: {fileID: 143534936779746760}
-  - component: {fileID: 114066576464934320}
+  - component: {fileID: 114715774581298618}
   - component: {fileID: 114097789195023540}
   - component: {fileID: 114847062059770270}
-  - component: {fileID: 114715774581298618}
+  - component: {fileID: 114066576464934320}
   m_Layer: 0
   m_Name: CouragePlayerPefabV2
   m_TagString: Player
@@ -1152,7 +1152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1608, y: 12.2836, z: -45.74}
+  m_LocalPosition: {x: -11.609, y: 0.088, z: -12.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4246067982251884}
@@ -1420,21 +1420,14 @@ MonoBehaviour:
   runningSpeed: 0.6
   crouchWalkSpeed: 0.2
   crouchRunSpeed: 0.3
-  rotateSpeed: 250
   jumpPower: 2
   jumpDelay: 1
   defaultGravity: 9.81
   gravityAfterRopeBreak: 3
-  interactionDistance: 0.08
-  interactionDistanceHeight: 0.11
-  pushPower: 0
   onRope: 0
   climbSpeed: 0.4
-  raycastHeight: 0.07
   sprintClimbSpeed: 0.6
   levelTitleText: {fileID: 0}
-  brokenBoardSection: {fileID: 0}
-  woodenPlank: {fileID: 0}
   ropeCol: {fileID: 0}
   interactCol: {fileID: 0}
   flashSpeed: 5
@@ -1482,7 +1475,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.05
-  m_Center: {x: 0, y: 0.1, z: 0.04}
+  m_Center: {x: 0, y: 0.11, z: 0.04}
 --- !u!137 &137627735811182810
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -24,16 +24,19 @@ public class SceneManage : MonoBehaviour
     public void AtticLevel()
     {
         SceneManager.LoadScene("AtticAndNurseryLevel");
+        Time.timeScale = 1;
     }
 
     public void HallwayLevel()
     {
         SceneManager.LoadScene("HallwayLevel");
+        Time.timeScale = 1;
     }
 
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 
     public void Exit()

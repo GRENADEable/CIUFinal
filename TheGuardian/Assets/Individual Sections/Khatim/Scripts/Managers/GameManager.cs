@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     // public bool isGamePaused;
     // public bool isGameOver;
     // public delegate void ChangeState();
+
     void Awake()
     {
         //Makes Script Singleton
@@ -21,13 +22,18 @@ public class GameManager : MonoBehaviour
         else if (instance != null)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
     }
 
-    void Start()
-    {
+    // void OnEnable()
+    // {
+    //     PlayerControls.onRopeBreakMessage += OnRopeBreakMessageReceived;
+    // }
 
-    }
+    // void OnDisable()
+    // {
+    //     PlayerControls.onRopeBreakMessage -= OnRopeBreakMessageReceived;
+    // }
 
     void Update()
     {

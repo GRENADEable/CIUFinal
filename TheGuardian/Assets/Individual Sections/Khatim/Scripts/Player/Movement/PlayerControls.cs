@@ -9,29 +9,27 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
-    public float rotateSpeed;
     [Header("Player Jump Variables")]
     public float jumpPower;
     public float jumpDelay;
     [Header("Player Gravity Variables")]
     public float defaultGravity;
     public float gravityAfterRopeBreak;
-    [Header("Player Push and Pull Variables")]
-    public float interactionDistance;
-    public float interactionDistanceHeight;
-    public float pushPower;
+    // public float pushPower;
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
     // public float distanceFromRope;
-    public float raycastHeight;
     public float sprintClimbSpeed;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
-    public GameObject brokenBoardSection;
-    public GameObject woodenPlank;
+    // public GameObject brokenBoardSection;
+    // public GameObject woodenPlank;
     public delegate void Grab();
     public static event Grab onObjectDetatchEvent;
+
+    public delegate void SendEventsToManager();
+    public static event SendEventsToManager onRopeBreakMessage;
 
     [SerializeField]
     private Collider ropeCol;
@@ -88,10 +86,9 @@ public class PlayerControls : MonoBehaviour
         //     thirdPuzzleCrateCam.SetActive(false);
         //     thidpuzzleRopeCam.SetActive(false);
         // }
-        if (levelTitleText != null && woodenPlank != null)
+        if (levelTitleText != null)
         {
             levelTitleText.SetActive(true);
-            woodenPlank.SetActive(true);
         }
 
         charController = GetComponent<CharacterController>();
@@ -330,15 +327,17 @@ public class PlayerControls : MonoBehaviour
             ropeCol = other;
         }
 
-        if (other.tag == "RopeBreak" && brokenBoardSection != null)
+        if (other.tag == "RopeBreak")
         {
-            Destroy(other.GetComponent<HingeJoint>());
-            Destroy(other.GetComponent<Collider>());
-            brokenBoardSection.SetActive(false);
-            woodenPlank.SetActive(false);
-            // other.gameObject.SetActive(false);
+            // Destroy(other.GetComponent<HingeJoint>());
+            // Destroy(other.GetComponent<Collider>());
+            // brokenBoardSection.SetActive(false);
+            // woodenPlank.SetActive(false);
+            if (onRopeBreakMessage != null)
+                onRopeBreakMessage();
+
             gravity = gravityAfterRopeBreak;
-            Debug.LogWarning("Rope Broken");
+            //     // Debug.LogWarning("Rope Broken");
         }
 
         if (other.gameObject.tag == "End")

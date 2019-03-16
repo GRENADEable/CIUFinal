@@ -14,4 +14,30 @@ public class EventManager : MonoBehaviour
     //         myGeneralEvent();
     //     }
     // }
+
+    public GameObject brokenBoardSection;
+    public GameObject woodenPlank;
+
+    public Collider ropeBreakCol;
+
+    void OnEnable()
+    {
+        PlayerControls.onRopeBreakMessage += OnRopeBreakEventReceived;
+    }
+
+    void OnDisable()
+    {
+        PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
+    }
+    void OnRopeBreakEventReceived()
+    {
+        if (ropeBreakCol != null)
+        {
+            Destroy(ropeBreakCol.GetComponent<HingeJoint>());
+            Destroy(ropeBreakCol.GetComponent<Collider>());
+            brokenBoardSection.SetActive(false);
+            woodenPlank.SetActive(false);
+            Debug.LogWarning("Rope Broken");
+        }
+    }
 }
