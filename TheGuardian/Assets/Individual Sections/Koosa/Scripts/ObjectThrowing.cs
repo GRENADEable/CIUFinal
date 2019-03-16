@@ -32,7 +32,8 @@ public class ObjectThrowing : MonoBehaviour
             ThrowingFunctionality();
         }
 
-        if (Input.GetKeyUp(KeyCode.F) && isInteracting && pickupCol != null)
+        // if (Input.GetKeyUp(KeyCode.F) && isInteracting && pickupCol != null)
+        if ((Input.GetKey(KeyCode.G) && isInteracting) || (pickupCol == null && isInteracting))
         {
             DroppingFunctionality();
         }
@@ -44,6 +45,8 @@ public class ObjectThrowing : MonoBehaviour
         // hitInfo.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
         // hitInfo.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
         // hitInfo.rigidbody.useGravity = false;
+
+        //Replaced it with trigger collider because the raycast was not accurate when the distance was increased or decreased.
         pickupCol.gameObject.AddComponent(typeof(FixedJoint));
         pickupCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
         pickupCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
@@ -70,6 +73,8 @@ public class ObjectThrowing : MonoBehaviour
         // Destroy(hitInfo.collider.gameObject.GetComponent<FixedJoint>());
         // hitInfo.rigidbody.useGravity = true;
         // isInteracting = false;
+
+        //To avoid the three lines of code to not run. I moved those three lines of code under the DropObject Class.
         if (onObjectDropEvent != null)
             onObjectDropEvent();
 
