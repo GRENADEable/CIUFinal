@@ -30,6 +30,7 @@ public class PlayerControls : MonoBehaviour
 
     public delegate void SendEventsToManager();
     public static event SendEventsToManager onRopeBreakMessage;
+    public static event SendEventsToManager onDeadPlayer;
 
     [SerializeField]
     private Collider ropeCol;
@@ -48,8 +49,8 @@ public class PlayerControls : MonoBehaviour
     private float defaultRunningSpeed;
     [SerializeField]
     private float superJump;
-    private GameObject pausePanel;
-    private GameObject cheatPanel;
+    // private GameObject pausePanel;
+    // private GameObject cheatPanel;
     [SerializeField]
     private float defaultJump;
     private Vector3 playerVector;
@@ -57,17 +58,18 @@ public class PlayerControls : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
 
-    void Awake()
-    {
-        pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
-        cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
+    // void Awake()
+    // {
+    //     pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
+    //     cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
 
-        if (pausePanel != null && cheatPanel != null)
-        {
-            pausePanel.SetActive(false);
-            cheatPanel.SetActive(false);
-        }
-    }
+    //     if (pausePanel != null && cheatPanel != null)
+    //     {
+    //         pausePanel.SetActive(false);
+    //         cheatPanel.SetActive(false);
+    //     }
+    // }
+
     void Start()
     {
         // if (levelTitleText != null && pausePanel != null && trapDoor != null
@@ -101,14 +103,18 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (cheatPanel != null && pausePanel != null)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
-                PauseorUnpause();
+        if (!this.gameObject.activeInHierarchy && onDeadPlayer != null)
+            //Sends Event to UI Manager Class in GameManager Gameobject
+            onDeadPlayer();
 
-            if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
-                CheatPanelToggle();
-        }
+        // if (cheatPanel != null && pausePanel != null)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
+        //         PauseorUnpause();
+
+        //     if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
+        //         CheatPanelToggle();
+        // }
 
         if (Input.GetKey(KeyCode.E) && interactCol != null && !isInteracting)
         {
@@ -233,24 +239,24 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    public void PauseorUnpause()
-    {
-        pausePanel.SetActive(!pausePanel.activeSelf);
+    // public void PauseorUnpause()
+    // {
+    //     pausePanel.SetActive(!pausePanel.activeSelf);
 
-        if (pausePanel.activeSelf)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
-    }
+    //     if (pausePanel.activeSelf)
+    //     {
+    //         Time.timeScale = 0;
+    //     }
+    //     else
+    //     {
+    //         Time.timeScale = 1f;
+    //     }
+    // }
 
-    public void CheatPanelToggle()
-    {
-        cheatPanel.SetActive(!cheatPanel.activeSelf);
-    }
+    // public void CheatPanelToggle()
+    // {
+    //     cheatPanel.SetActive(!cheatPanel.activeSelf);
+    // }
 
     public void CrouchingCheck()
     {

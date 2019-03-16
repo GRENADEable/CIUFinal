@@ -4,14 +4,79 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : GameManager
 {
+    [Header("Main Menu UI")]
     public GameObject mainmenuPanel;
     public GameObject settingsPanel;
+
+    [Header("Main Menu UI")]
+    public GameObject deathScreen;
+
+    [SerializeField]
+    private GameObject pausePanel;
+    [SerializeField]
+    private GameObject cheatPanel;
+
+    // public delegate void SendEventToPlayer();
+    // public static event SendEventToPlayer onSendEvent;
+
+    void OnEnable()
+    {
+        PlayerControls.onDeadPlayer += OnDeadPlayerEventReceived;
+    }
+
+    void OnDisable()
+    {
+        PlayerControls.onDeadPlayer -= OnDeadPlayerEventReceived;
+    }
     void Awake()
     {
-        mainmenuPanel.SetActive(true);
-        settingsPanel.SetActive(false);
+        if (mainmenuPanel != null && settingsPanel != null)
+        {
+            mainmenuPanel.SetActive(true);
+            settingsPanel.SetActive(false);
+        }
+
+        pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
+        cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
+
+        if (pausePanel != null && cheatPanel != null)
+        {
+            pausePanel.SetActive(false);
+            cheatPanel.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if (cheatPanel != null && pausePanel != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
+                PauseorUnpause();
+
+            if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
+                CheatPanelToggle();
+        }
+    }
+
+    public void PauseorUnpause()
+    {
+        pausePanel.SetActive(!pausePanel.activeSelf);
+
+        if (pausePanel.activeSelf)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void CheatPanelToggle()
+    {
+        cheatPanel.SetActive(!cheatPanel.activeSelf);
     }
 
     public void Settings()
@@ -24,5 +89,12 @@ public class UIManager : MonoBehaviour
     {
         settingsPanel.SetActive(false);
         mainmenuPanel.SetActive(true);
+    }
+
+    void OnDeadPlayerEventReceived()
+    {
+        isPlayerDead = true;
+
+        deathScreen.SetActive(true);
     }
 }
