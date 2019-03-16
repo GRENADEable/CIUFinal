@@ -23,12 +23,12 @@ public class UIManager : GameManager
 
     void OnEnable()
     {
-        PlayerControls.onDeadPlayer += OnDeadPlayerEventReceived;
+        RatFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
     }
 
     void OnDisable()
     {
-        PlayerControls.onDeadPlayer -= OnDeadPlayerEventReceived;
+        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
     }
     void Awake()
     {
@@ -91,10 +91,9 @@ public class UIManager : GameManager
         mainmenuPanel.SetActive(true);
     }
 
-    void OnDeadPlayerEventReceived()
+    void OnDeadPlayerScreenReceived()
     {
         isPlayerDead = true;
-
         deathScreen.SetActive(true);
     }
 }

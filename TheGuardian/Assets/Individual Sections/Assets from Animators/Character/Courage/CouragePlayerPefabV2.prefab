@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 114715774581298618}
   - component: {fileID: 114097789195023540}
   - component: {fileID: 114847062059770270}
-  - component: {fileID: 114066576464934320}
+  - component: {fileID: 114859256158681970}
   m_Layer: 0
   m_Name: CouragePlayerPefabV2
   m_TagString: Player
@@ -1152,7 +1152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.609, y: 0.088, z: -12.073}
+  m_LocalPosition: {x: 0.1608, y: 12.2836, z: -45.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4246067982251884}
@@ -1368,29 +1368,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114066576464934320
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1823480461893372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd960a3f67ed77e4a9c1295dca8043e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainVirutalCam: {fileID: 0}
-  atticFirstPuzzleCamPan: {fileID: 0}
-  atticSecondPuzzleVirtualCam: {fileID: 0}
-  atticThirdPuzzleVirtualCam: {fileID: 0}
-  atticThirdPuzzleCloseUpCam: {fileID: 0}
-  atticThirdPuzzleCrateCam: {fileID: 0}
-  atticThirdpuzzleRopeCam: {fileID: 0}
-  hallwayUnderFloorWalkwayCam: {fileID: 0}
-  positiveScreenYCamOffset: 0.8
-  negativeScreenYCamOffset: 0.2
-  positiveScreenXCamOffset: 0.2
-  negativeScreenXCamOffset: 0.8
 --- !u!114 &114097789195023540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1403,8 +1380,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwingForce: 3
+  raycastDistance: 0.1
+  height: 0.1
   isInteracting: 0
-  pickupCol: {fileID: 0}
 --- !u!114 &114715774581298618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1449,6 +1427,29 @@ MonoBehaviour:
   matchesCount: 0
   match: {fileID: 1526383379790978}
   fuelTimer: 0
+--- !u!114 &114859256158681970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823480461893372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd960a3f67ed77e4a9c1295dca8043e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainVirutalCam: {fileID: 0}
+  atticFirstPuzzleCamPan: {fileID: 0}
+  atticSecondPuzzleVirtualCam: {fileID: 0}
+  atticThirdPuzzleVirtualCam: {fileID: 0}
+  atticThirdPuzzleCloseUpCam: {fileID: 0}
+  atticThirdPuzzleCrateCam: {fileID: 0}
+  atticThirdpuzzleRopeCam: {fileID: 0}
+  hallwayUnderFloorWalkwayCam: {fileID: 0}
+  positiveScreenYCamOffset: 0.8
+  negativeScreenYCamOffset: 0.2
+  positiveScreenXCamOffset: 0.2
+  negativeScreenXCamOffset: 0.8
 --- !u!114 &114928154910998986
 MonoBehaviour:
   m_ObjectHideFlags: 1

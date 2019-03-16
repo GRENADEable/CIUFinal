@@ -30,7 +30,6 @@ public class PlayerControls : MonoBehaviour
 
     public delegate void SendEventsToManager();
     public static event SendEventsToManager onRopeBreakMessage;
-    public static event SendEventsToManager onDeadPlayer;
 
     [SerializeField]
     private Collider ropeCol;
@@ -103,10 +102,6 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (!this.gameObject.activeInHierarchy && onDeadPlayer != null)
-            //Sends Event to UI Manager Class in GameManager Gameobject
-            onDeadPlayer();
-
         // if (cheatPanel != null && pausePanel != null)
         // {
         //     if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
