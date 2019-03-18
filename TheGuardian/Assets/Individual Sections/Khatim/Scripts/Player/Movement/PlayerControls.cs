@@ -163,7 +163,7 @@ public class PlayerControls : MonoBehaviour
                 else if (Input.GetKey(KeyCode.C) && !isInteracting)
                 {
                     localHeight = playerHeight * 0.5f;
-                    // anim.SetBool("isCrouching", true);
+                    anim.SetBool("isCrouching", true);
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;

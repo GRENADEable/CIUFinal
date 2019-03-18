@@ -146,7 +146,7 @@ public class RatFSM : MonoBehaviour
         }
     }
 
-    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         //Sets a random position inside the sphere and that is multiplied with the distance and the center of the sphere.
         Vector3 randomPos = Random.insideUnitSphere * dist;

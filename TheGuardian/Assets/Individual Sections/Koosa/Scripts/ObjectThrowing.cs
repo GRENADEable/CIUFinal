@@ -19,7 +19,7 @@ public class ObjectThrowing : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward) * raycastDistance, Color.red);
-        bool interact = Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward) * raycastDistance, out hitInfo);
+        bool interact = Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, raycastDistance);
 
         if (interact && hitInfo.collider.tag == "PickUp" && Input.GetKeyDown(KeyCode.F)
         && !isInteracting)
