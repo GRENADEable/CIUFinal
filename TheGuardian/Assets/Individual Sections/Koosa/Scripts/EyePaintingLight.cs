@@ -68,7 +68,9 @@ public class EyePaintingLight : MonoBehaviour
         while (true)
         {
             paintingEyeLight.enabled = true;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, defaultLightDirection.y, transform.rotation.eulerAngles.z);
+            // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, defaultLightDirection.y, transform.rotation.eulerAngles.z);
+            transform.localRotation = Quaternion.Euler(defaultLightDirection);
+            // transform.Rotate(defaultLightDirection);
             isEyesOpen = true;
             yield return new WaitForSeconds(lighOnDuration);
 
@@ -77,7 +79,11 @@ public class EyePaintingLight : MonoBehaviour
             yield return new WaitForSeconds(lighOffDuration);
 
             paintingEyeLight.enabled = true;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, firstLightDirection.y, transform.rotation.eulerAngles.z);
+            // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, firstLightDirection.y, transform.rotation.eulerAngles.z);
+            transform.localRotation = Quaternion.Euler(firstLightDirection);
+
+
+            // transform.Rotate(firstLightDirection);
             isEyesOpen = true;
             yield return new WaitForSeconds(lighOnDuration);
 
@@ -86,7 +92,9 @@ public class EyePaintingLight : MonoBehaviour
             yield return new WaitForSeconds(lighOffDuration);
 
             paintingEyeLight.enabled = true;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, defaultLightDirection.y, transform.rotation.eulerAngles.z);
+            // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, defaultLightDirection.y, transform.rotation.eulerAngles.z);
+            transform.localRotation = Quaternion.Euler(defaultLightDirection);
+            // transform.Rotate(defaultLightDirection);
             isEyesOpen = true;
             yield return new WaitForSeconds(lighOnDuration);
 
@@ -95,7 +103,9 @@ public class EyePaintingLight : MonoBehaviour
             yield return new WaitForSeconds(lighOffDuration);
 
             paintingEyeLight.enabled = true;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, secondLightDirection.y, transform.rotation.eulerAngles.z);
+            // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, secondLightDirection.y, transform.rotation.eulerAngles.z);
+            transform.localRotation = Quaternion.Euler(secondLightDirection);
+            // transform.Rotate(secondLightDirection);
             isEyesOpen = true;
             yield return new WaitForSeconds(lighOnDuration);
 

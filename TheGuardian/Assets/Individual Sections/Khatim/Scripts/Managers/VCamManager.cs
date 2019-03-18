@@ -14,6 +14,8 @@ public class VCamManager : MonoBehaviour
     public GameObject atticThirdPuzzleCloseUpCam;
     public GameObject atticThirdPuzzleCrateCam;
     public GameObject atticThirdpuzzleRopeCam;
+    [Header("Hallway Camera Referemces")]
+    public GameObject hallwayUnderFloorWalkwayCam;
     [Header("Virtual Camera Variables")]
     public float positiveScreenYCamOffset;
     public float negativeScreenYCamOffset;
@@ -121,6 +123,12 @@ public class VCamManager : MonoBehaviour
             // atticThirdPuzzleCrateCam.SetActive(false);
             atticThirdpuzzleRopeCam.SetActive(true);
         }
+
+        if (other.gameObject.tag == "UnderFloorWalkwayCamPan")
+        {
+            hallwayUnderFloorWalkwayCam.SetActive(true);
+            mainVirutalCam.SetActive(false);
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -161,6 +169,12 @@ public class VCamManager : MonoBehaviour
         {
             atticThirdPuzzleVirtualCam.SetActive(true);
             atticThirdpuzzleRopeCam.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "UnderFloorWalkwayCamPan")
+        {
+            mainVirutalCam.SetActive(true);
+            hallwayUnderFloorWalkwayCam.SetActive(false);
         }
     }
 }

@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4084693679500492}
   - component: {fileID: 114019508115561514}
   - component: {fileID: 114181358738241936}
+  - component: {fileID: 114637239295672360}
+  - component: {fileID: 114602204023055552}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -52,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731a2d61ac8a4e942a7fd527b0d974f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerDead: 0
 --- !u!114 &114181358738241936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -61,5 +64,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0623244ba6b79b747b524757472d420e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brokenBoardSection: {fileID: 0}
+  woodenPlank: {fileID: 0}
+  ropeBreakCol: {fileID: 0}
+--- !u!114 &114602204023055552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633990083266660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45d25258dd89f2f40b0d2be9c33a2006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerDead: 0
+  mainmenuPanel: {fileID: 0}
+  settingsPanel: {fileID: 0}
+  deathScreen: {fileID: 0}
+  pausePanel: {fileID: 0}
+  cheatPanel: {fileID: 0}
+--- !u!114 &114637239295672360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633990083266660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1852abe5af0ea34dadd4cccd899a215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

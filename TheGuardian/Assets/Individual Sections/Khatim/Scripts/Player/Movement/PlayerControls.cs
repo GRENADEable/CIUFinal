@@ -9,32 +9,27 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
-    public float rotateSpeed;
     [Header("Player Jump Variables")]
     public float jumpPower;
     public float jumpDelay;
     [Header("Player Gravity Variables")]
     public float defaultGravity;
     public float gravityAfterRopeBreak;
-    [Header("Player Push and Pull Variables")]
-    public float interactionDistance;
-    public float interactionDistanceHeight;
-    public float pushPower;
+    // public float pushPower;
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
     // public float distanceFromRope;
-    public float raycastHeight;
     public float sprintClimbSpeed;
     [Header("References Obejcts")]
     public GameObject levelTitleText;
-    public GameObject pausePanel;
-    public GameObject cheatPanel;
-    public GameObject brokenBoardSection;
-    public GameObject woodenPlank;
-
+    // public GameObject brokenBoardSection;
+    // public GameObject woodenPlank;
     public delegate void Grab();
     public static event Grab onObjectDetatchEvent;
+
+    public delegate void SendEventsToManager();
+    public static event SendEventsToManager onRopeBreakMessage;
 
     [SerializeField]
     private Collider ropeCol;
@@ -53,6 +48,8 @@ public class PlayerControls : MonoBehaviour
     private float defaultRunningSpeed;
     [SerializeField]
     private float superJump;
+    // private GameObject pausePanel;
+    // private GameObject cheatPanel;
     [SerializeField]
     private float defaultJump;
     private Vector3 playerVector;
@@ -60,17 +57,18 @@ public class PlayerControls : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
 
-    void Awake()
-    {
-        pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
-        cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
+    // void Awake()
+    // {
+    //     pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
+    //     cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
 
-        if (pausePanel != null && pausePanel != null)
-        {
-            pausePanel.SetActive(false);
-            cheatPanel.SetActive(false);
-        }
-    }
+    //     if (pausePanel != null && cheatPanel != null)
+    //     {
+    //         pausePanel.SetActive(false);
+    //         cheatPanel.SetActive(false);
+    //     }
+    // }
+
     void Start()
     {
         // if (levelTitleText != null && pausePanel != null && trapDoor != null
@@ -89,10 +87,9 @@ public class PlayerControls : MonoBehaviour
         //     thirdPuzzleCrateCam.SetActive(false);
         //     thidpuzzleRopeCam.SetActive(false);
         // }
-        if (levelTitleText != null && woodenPlank != null)
+        if (levelTitleText != null)
         {
             levelTitleText.SetActive(true);
-            woodenPlank.SetActive(true);
         }
 
         charController = GetComponent<CharacterController>();
@@ -105,14 +102,14 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (cheatPanel != null && pausePanel != null)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
-                PauseorUnpause();
+        // if (cheatPanel != null && pausePanel != null)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
+        //         PauseorUnpause();
 
-            if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
-                CheatPanelToggle();
-        }
+        //     if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
+        //         CheatPanelToggle();
+        // }
 
         if (Input.GetKey(KeyCode.E) && interactCol != null && !isInteracting)
         {
@@ -137,8 +134,8 @@ public class PlayerControls : MonoBehaviour
         {
             float localHeight = playerHeight;
             //Gets Player Inputs
-            moveVertical = Input.GetAxis("Vertical");
-            moveHorizontal = Input.GetAxis("Horizontal");
+            moveVertical = Input.GetAxisRaw("Vertical");
+            moveHorizontal = Input.GetAxisRaw("Horizontal");
             jumpTime += Time.deltaTime;
 
             //Checks if the player is on the Ground
@@ -160,11 +157,13 @@ public class PlayerControls : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
                     moveDirection = moveDirection * runningSpeed;
+                    anim.SetBool("isRunning", true);
                     // Debug.LogWarning("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isInteracting)
                 {
                     localHeight = playerHeight * 0.5f;
+                    // anim.SetBool("isCrouching", true);
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
@@ -179,6 +178,7 @@ public class PlayerControls : MonoBehaviour
                 else
                 {
                     moveDirection = moveDirection * walkingSpeed;
+                    anim.SetBool("isRunning", false);
                     // Debug.LogWarning("Walking");
                 }
 
@@ -234,24 +234,24 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    public void PauseorUnpause()
-    {
-        pausePanel.SetActive(!pausePanel.activeSelf);
+    // public void PauseorUnpause()
+    // {
+    //     pausePanel.SetActive(!pausePanel.activeSelf);
 
-        if (pausePanel.activeSelf)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
-    }
+    //     if (pausePanel.activeSelf)
+    //     {
+    //         Time.timeScale = 0;
+    //     }
+    //     else
+    //     {
+    //         Time.timeScale = 1f;
+    //     }
+    // }
 
-    public void CheatPanelToggle()
-    {
-        cheatPanel.SetActive(!cheatPanel.activeSelf);
-    }
+    // public void CheatPanelToggle()
+    // {
+    //     cheatPanel.SetActive(!cheatPanel.activeSelf);
+    // }
 
     public void CrouchingCheck()
     {
@@ -328,15 +328,17 @@ public class PlayerControls : MonoBehaviour
             ropeCol = other;
         }
 
-        if (other.tag == "RopeBreak" && brokenBoardSection != null)
+        if (other.tag == "RopeBreak")
         {
-            Destroy(other.GetComponent<HingeJoint>());
-            Destroy(other.GetComponent<Collider>());
-            brokenBoardSection.SetActive(false);
-            woodenPlank.SetActive(false);
-            // other.gameObject.SetActive(false);
+            // Destroy(other.GetComponent<HingeJoint>());
+            // Destroy(other.GetComponent<Collider>());
+            // brokenBoardSection.SetActive(false);
+            // woodenPlank.SetActive(false);
+            if (onRopeBreakMessage != null)
+                onRopeBreakMessage();
+
             gravity = gravityAfterRopeBreak;
-            Debug.LogWarning("Rope Broken");
+            //     // Debug.LogWarning("Rope Broken");
         }
 
         if (other.gameObject.tag == "End")

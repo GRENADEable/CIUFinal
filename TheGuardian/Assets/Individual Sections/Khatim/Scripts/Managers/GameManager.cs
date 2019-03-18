@@ -6,12 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    // public enum GameState { MainMenu, Started, Ended, Paused };
-    // public GameState currGameState;
-    // public bool isPlayerDead;
+    public bool isPlayerDead;
+    
+    public delegate void SendMessageToPlayer();
+    public SendMessageToPlayer onSendMessage;
+
+    // public static event SendMessageToPlayer onChangePlayerMovementVariables;
+
     // public bool isGamePaused;
     // public bool isGameOver;
     // public delegate void ChangeState();
+
     void Awake()
     {
         //Makes Script Singleton
@@ -21,37 +26,6 @@ public class GameManager : MonoBehaviour
         else if (instance != null)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(this.gameObject);
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        // Scene currScene = SceneManager.GetActiveScene();
-        // string sceneName = currScene.name;
-
-        // if (sceneName == "MainMenu")
-        // {
-        //     currGameState = GameState.MainMenu;
-        // }
-
-        // if (sceneName == "TheGuadianGameScene")
-        // {
-        //     currGameState = GameState.Started;
-        // }
-
-        // if (sceneName == "TheGuadianGameScene" && isPlayerDead)
-        // {
-        //     Debug.LogWarning("PlayerDead");
-        // }
-
-        // if (sceneName == "TheGuadianGameScene" && isGamePaused)
-        // {
-
-        // }
+        // DontDestroyOnLoad(this.gameObject);
     }
 }
