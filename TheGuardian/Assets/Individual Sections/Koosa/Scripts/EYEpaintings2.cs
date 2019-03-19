@@ -24,6 +24,6 @@ public class EYEpaintings2 : MonoBehaviour
     
     public void LightRotator( float delta)
     {
-       transform.rotation = Quaternion.Euler(new Vector3(delta * maxAngle, 0, 0));
+       transform.rotation = Quaternion.Euler(new Vector3(delta * maxAngle, transform.rotation.y, transform.rotation.z));
     }
 }
