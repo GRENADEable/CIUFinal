@@ -190,7 +190,6 @@ public class PlayerControls : MonoBehaviour
                 //Player Crouching
                 float latestRecordedHeight = charController.height;
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
-                playerVector.y += (charController.height - latestRecordedHeight) / 1.5f;
             }
             else
             {

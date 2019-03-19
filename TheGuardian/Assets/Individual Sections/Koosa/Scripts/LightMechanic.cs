@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class LightMechanic : MonoBehaviour
 {
-    public float maxFuelTimer;
-    public int matchesCount;
     public GameObject match;
     public delegate void FleeEnemy();
     public static event FleeEnemy OnFleeEnemy;
 
-    [SerializeField]
-    private float fuelTimer;
-    private Collider col;
+    public bool lightOn;
+   // [SerializeField]
+    //private Collider col;
 
     void Update()
     {
         //picking up a match comes here
-        if (col != null && Input.GetKey(KeyCode.E) && col.gameObject.tag == "Matchstick")
+        if (Input.GetKeyUp(KeyCode.E) && !lightOn)
         {
-            col.gameObject.SetActive(false);
-            matchesCount = 1;
+            match.SetActive(true);
+            lightOn = true;
         }
-
-        Matchlight();
+        else if(Input.GetKeyUp(KeyCode.E) && lightOn)
+        {
+            match.SetActive(false);
+            lightOn = false;
+        }
     }
 
+    /*
     void Matchlight()
     {
         if (Input.GetKeyDown(KeyCode.F) && matchesCount > 0 && !match.activeSelf)
@@ -60,7 +62,7 @@ public class LightMechanic : MonoBehaviour
         matchesCount++;
         Debug.LogWarning("Matchstick Aquired");
     }
-
+    
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Matchstick")
@@ -76,4 +78,5 @@ public class LightMechanic : MonoBehaviour
             col = null;
         }
     }
+    */
 }

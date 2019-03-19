@@ -4,61 +4,33 @@ using UnityEngine;
 
 public class Crouching : MonoBehaviour
 {
-    //For Khatim
-    //uses the character controller component attatched to its gameobject
+    public CharacterController ch;
+    public float startHeight;
 
-    public float crouchSpeed;
-    public float normalSpeed; // this is the walk speed in ur playercontrols script
-    private CharacterController characterController;
-    private Vector3 playerVector;
-    private float playerHeight;
-
-    void Start()
+    public void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        playerHeight = characterController.height;
-        playerVector = transform.position;
+        startHeight = ch.height;
     }
 
-    void Update()
+    public void Update()
     {
-        float localHeight = playerHeight;
-        float localSpeed = normalSpeed;
-        // Vector3 scale = new Vector3(1, characterController.height, 1);
-        // transform.localScale = scale;
+        float newH = startHeight;
 
-        if (/*if the player is on the floor subtitute booleon here from ur script*/ Input.GetKey(KeyCode.C))
+        if (Input.GetKey("c"))
         {
-            localHeight = playerHeight * 0.5f;
-            localSpeed = crouchSpeed;
+            // calculate new height
+            newH = 0.5f * startHeight;
         }
 
-        float latestRecordedHeight = characterController.height;
-        characterController.height = Mathf.Lerp(characterController.height, localHeight, 5 * Time.deltaTime);
-        playerVector.y += (characterController.height - latestRecordedHeight) / 1.5f;
-    }
+        var lastHeight = ch.height;
 
-    public void CrouchingCheck()
-    {
-        float localHeight = 0;
-        float localSpeed = 0;
+        // lerp CharacterController height
+        ch.height = Mathf.Lerp(ch.height, newH, 5.0f * Time.deltaTime);
 
-        if (/*if the player is on the floor subtitute booleon here from ur script*/ Input.GetKey(KeyCode.C))
-        {
-            CrouchingExecution(localSpeed, localHeight);
-        }
-
-    }
-
-    public void CrouchingExecution(float speed, float height)
-    {
-        height = playerHeight * 0.5f;
-        speed = crouchSpeed;
-    }
-
-    public void CharacterControllerBodyModifier()
-    {
-        float latestRecordedHeight = characterController.height;
-        //characterController.height = Mathf.Lerp(characterController.height);
+        // fix vertical position
+        Vector3 playerVector = transform.position;
+        playerVector.y += (ch.height - lastHeight) * 0.5f;
+        transform.position = new Vector3(transform.position.x, playerVector.y, transform.position.z);
     }
 }
+
