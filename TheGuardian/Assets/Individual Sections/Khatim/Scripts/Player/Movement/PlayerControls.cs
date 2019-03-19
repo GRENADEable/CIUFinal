@@ -19,12 +19,7 @@ public class PlayerControls : MonoBehaviour
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
-    // public float distanceFromRope;
     public float sprintClimbSpeed;
-    [Header("References Obejcts")]
-    public GameObject levelTitleText;
-    // public GameObject brokenBoardSection;
-    // public GameObject woodenPlank;
     public delegate void Grab();
     public static event Grab onObjectDetatchEvent;
 
@@ -48,26 +43,12 @@ public class PlayerControls : MonoBehaviour
     private float defaultRunningSpeed;
     [SerializeField]
     private float superJump;
-    // private GameObject pausePanel;
-    // private GameObject cheatPanel;
     [SerializeField]
     private float defaultJump;
     private Vector3 playerVector;
     private float playerHeight;
     private float moveHorizontal;
     private float moveVertical;
-
-    // void Awake()
-    // {
-    //     pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
-    //     cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
-
-    //     if (pausePanel != null && cheatPanel != null)
-    //     {
-    //         pausePanel.SetActive(false);
-    //         cheatPanel.SetActive(false);
-    //     }
-    // }
 
     void Start()
     {
@@ -87,11 +68,6 @@ public class PlayerControls : MonoBehaviour
         //     thirdPuzzleCrateCam.SetActive(false);
         //     thidpuzzleRopeCam.SetActive(false);
         // }
-        if (levelTitleText != null)
-        {
-            levelTitleText.SetActive(true);
-        }
-
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
@@ -102,15 +78,6 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        // if (cheatPanel != null && pausePanel != null)
-        // {
-        //     if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
-        //         PauseorUnpause();
-
-        //     if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
-        //         CheatPanelToggle();
-        // }
-
         if (Input.GetKey(KeyCode.E) && interactCol != null && !isInteracting)
         {
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
@@ -163,7 +130,7 @@ public class PlayerControls : MonoBehaviour
                 else if (Input.GetKey(KeyCode.C) && !isInteracting)
                 {
                     localHeight = playerHeight * 0.5f;
-                    anim.SetBool("isCrouching", true);
+                    // anim.SetBool("isCrouching", true);
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
@@ -232,25 +199,6 @@ public class PlayerControls : MonoBehaviour
             jumpTime = 0f;
         }
     }
-
-    // public void PauseorUnpause()
-    // {
-    //     pausePanel.SetActive(!pausePanel.activeSelf);
-
-    //     if (pausePanel.activeSelf)
-    //     {
-    //         Time.timeScale = 0;
-    //     }
-    //     else
-    //     {
-    //         Time.timeScale = 1f;
-    //     }
-    // }
-
-    // public void CheatPanelToggle()
-    // {
-    //     cheatPanel.SetActive(!cheatPanel.activeSelf);
-    // }
 
     public void CrouchingCheck()
     {
@@ -329,15 +277,11 @@ public class PlayerControls : MonoBehaviour
 
         if (other.tag == "RopeBreak")
         {
-            // Destroy(other.GetComponent<HingeJoint>());
-            // Destroy(other.GetComponent<Collider>());
-            // brokenBoardSection.SetActive(false);
-            // woodenPlank.SetActive(false);
             if (onRopeBreakMessage != null)
                 onRopeBreakMessage();
 
             gravity = gravityAfterRopeBreak;
-            //     // Debug.LogWarning("Rope Broken");
+            // Debug.LogWarning("Rope Broken");
         }
 
         if (other.gameObject.tag == "End")
