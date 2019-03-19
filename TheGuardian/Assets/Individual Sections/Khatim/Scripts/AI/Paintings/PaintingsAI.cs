@@ -5,6 +5,8 @@ using UnityEngine;
 public class PaintingsAI : MonoBehaviour
 {
     public float maxAngleY;
+    public float maxAngleX;
+    public float maxAngleZ;
     public float speed;
 
     private float time;
@@ -19,12 +21,12 @@ public class PaintingsAI : MonoBehaviour
     public void TimeChanger()
     {
         time = time + Time.deltaTime;
-        delta = Mathf.Sin(time / speed);
+        delta = Mathf.Sin(time * speed);
     }
 
     public void LightRotator(float delta)
     {
         // transform.localRotation = Quaternion.Euler(new Vector3(0, delta * maxAngleY, 0));
-        transform.localRotation = Quaternion.Euler(new Vector3(transform.localRotation.x, delta * maxAngleY, transform.localRotation.z));
+        transform.localRotation = Quaternion.Euler(maxAngleX, delta * maxAngleY, maxAngleZ);
     }
 }
