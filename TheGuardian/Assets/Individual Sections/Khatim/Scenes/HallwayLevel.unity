@@ -2818,6 +2818,12 @@ Transform:
   m_Father: {fileID: 816352535}
   m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+--- !u!114 &166805976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114715774581298618, guid: 1cbccea8eb991634d993143802220620,
+    type: 2}
+  m_PrefabInternal: {fileID: 1040198636}
+  m_Script: {fileID: 11500000, guid: 6fe10d6e3c1015d42b105415de90ab92, type: 3}
 --- !u!1001 &169200395
 Prefab:
   m_ObjectHideFlags: 0
@@ -7005,16 +7011,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 403684753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c37439f37b48c43bba111227252ae7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fb018c85a24e4b408b11d615a84f957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLightDirection: {x: 140, y: 0, z: 0}
-  firstLightDirection: {x: 140, y: 30, z: 0}
-  secondLightDirection: {x: 140, y: -30, z: 0}
-  lighOnDuration: 2
-  lighOffDuration: 0.7
-  killDelay: 2
-  killTimer: 0
+  rotationX: 140
+  maxAngleY: 40
+  rotationZ: 0
+  speed: 1
+  killDelay: 1
   detectionFov: 35
   angle: 0
   player: {fileID: 0}
@@ -11596,7 +11600,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 166805976}
         m_MethodName: FlashSpeedToggle
         m_Mode: 0
         m_Arguments:
@@ -19062,16 +19066,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1157165948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c37439f37b48c43bba111227252ae7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fb018c85a24e4b408b11d615a84f957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLightDirection: {x: 140, y: 0, z: 0}
-  firstLightDirection: {x: 140, y: 30, z: 0}
-  secondLightDirection: {x: 140, y: -30, z: 0}
-  lighOnDuration: 2
-  lighOffDuration: 0.7
-  killDelay: 2
-  killTimer: 0
+  rotationX: 140
+  maxAngleY: 40
+  rotationZ: 0
+  speed: 1
+  killDelay: 1
   detectionFov: 35
   angle: 0
   player: {fileID: 0}
@@ -32009,16 +32011,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1751002451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c37439f37b48c43bba111227252ae7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fb018c85a24e4b408b11d615a84f957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLightDirection: {x: 140, y: 0, z: 0}
-  firstLightDirection: {x: 140, y: 30, z: 0}
-  secondLightDirection: {x: 140, y: -30, z: 0}
-  lighOnDuration: 2
-  lighOffDuration: 0.7
-  killDelay: 2
-  killTimer: 0
+  rotationX: 140
+  maxAngleY: 40
+  rotationZ: 0
+  speed: 1
+  killDelay: 1
   detectionFov: 35
   angle: 0
   player: {fileID: 0}
@@ -33880,7 +33880,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 166805976}
         m_MethodName: SuperJumpToggle
         m_Mode: 0
         m_Arguments:
@@ -34000,7 +34000,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1858785736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37287,16 +37287,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2072209065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c37439f37b48c43bba111227252ae7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fb018c85a24e4b408b11d615a84f957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLightDirection: {x: 140, y: 0, z: 0}
-  firstLightDirection: {x: 140, y: 30, z: 0}
-  secondLightDirection: {x: 140, y: -30, z: 0}
-  lighOnDuration: 2
-  lighOffDuration: 0.7
-  killDelay: 2
-  killTimer: 0
+  rotationX: 140
+  maxAngleY: 40
+  rotationZ: 0
+  speed: 1
+  killDelay: 1
   detectionFov: 35
   angle: 0
   player: {fileID: 0}
