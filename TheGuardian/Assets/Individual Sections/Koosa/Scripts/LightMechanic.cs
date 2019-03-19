@@ -9,21 +9,29 @@ public class LightMechanic : MonoBehaviour
     public static event FleeEnemy OnFleeEnemy;
 
     public bool lightOn;
-   // [SerializeField]
-    //private Collider col;
+    [SerializeField]
+    private Collider col;
+    [SerializeField]
+    private int matchesCount;
 
     void Update()
     {
         //picking up a match comes here
-        if (Input.GetKeyUp(KeyCode.E) && !lightOn)
+        if (Input.GetKeyUp(KeyCode.E) && !lightOn && matchesCount > 0 && !match.activeSelf)
         {
             match.SetActive(true);
             lightOn = true;
         }
-        else if(Input.GetKeyUp(KeyCode.E) && lightOn)
+        else if (Input.GetKeyUp(KeyCode.E) && lightOn)
         {
             match.SetActive(false);
             lightOn = false;
+        }
+
+        if (match.activeSelf)
+        {
+            if (OnFleeEnemy != null)
+                OnFleeEnemy();
         }
     }
 
@@ -55,14 +63,14 @@ public class LightMechanic : MonoBehaviour
             fuelTimer = maxFuelTimer;
             match.SetActive(false);
         }
-    }
+    }*/
 
     public void GiveMatchStick()
     {
-        matchesCount++;
+        matchesCount = 1;
         Debug.LogWarning("Matchstick Aquired");
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Matchstick")
@@ -78,5 +86,4 @@ public class LightMechanic : MonoBehaviour
             col = null;
         }
     }
-    */
 }

@@ -10,13 +10,16 @@ public class UIManager : GameManager
     public GameObject mainmenuPanel;
     public GameObject settingsPanel;
 
-    [Header("Main Menu UI")]
+    [Header("In Game UI")]
     public GameObject deathScreen;
 
     [SerializeField]
     private GameObject pausePanel;
     [SerializeField]
     private GameObject cheatPanel;
+
+    [Header("References Obejcts")]
+    public GameObject levelOneTitleText;
 
     // public delegate void SendEventToPlayer();
     // public static event SendEventToPlayer onSendEvent;
@@ -48,6 +51,11 @@ public class UIManager : GameManager
         {
             pausePanel.SetActive(false);
             cheatPanel.SetActive(false);
+        }
+
+        if (levelOneTitleText != null)
+        {
+            levelOneTitleText.SetActive(true);
         }
     }
 
