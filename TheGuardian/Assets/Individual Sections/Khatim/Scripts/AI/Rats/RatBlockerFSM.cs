@@ -14,7 +14,10 @@ public class RatBlockerFSM : MonoBehaviour
     public Transform fleePos;
     public float ratSpeed;
     public float fleeSpeed;
-    public GameObject deathScreen;
+
+    public delegate void SendDeathMessage();
+    public static event SendDeathMessage onDeadPlayerScreen;
+
     [SerializeField]
     private GameObject player;
     private bool isFleeing;
@@ -34,8 +37,6 @@ public class RatBlockerFSM : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        if (deathScreen != null)
-            deathScreen.SetActive(false);
 
         ratAgent = GetComponent<NavMeshAgent>();
         ratAgent.speed = ratSpeed;
@@ -100,7 +101,9 @@ public class RatBlockerFSM : MonoBehaviour
 
             case 2: //Attack Condition
                 player.SetActive(false);
-                deathScreen.SetActive(true);
+
+                if (onDeadPlayerScreen != null)
+                    onDeadPlayerScreen();
                 break;
 
             case 3: //Flee Condition

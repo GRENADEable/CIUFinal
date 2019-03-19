@@ -23,6 +23,8 @@ public class DropObject : MonoBehaviour
 
     void DropObjectEventReceived()
     {
+        // Destroy(this.gameObject.GetComponent<FixedJoint>());
+        // rg.useGravity = true;
         Destroy(this.gameObject.GetComponent<FixedJoint>());
         rg.useGravity = true;
         Debug.LogWarning("Object Dropped");

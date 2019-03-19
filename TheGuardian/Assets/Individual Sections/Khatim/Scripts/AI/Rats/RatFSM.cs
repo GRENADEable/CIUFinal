@@ -16,8 +16,11 @@ public class RatFSM : MonoBehaviour
     [Header("Wander Variables")]
     public float wanderRadius;
     public float maxWanderTimer;
-    public GameObject deathScreen;
     public float baitDuration;
+
+    public delegate void SendDeathMessage();
+    public static event SendDeathMessage onDeadPlayerScreen;
+
     // [SerializeField]
     // private bool isAttacking;
     [SerializeField]
@@ -46,8 +49,8 @@ public class RatFSM : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        deathScreen.SetActive(false);
         // isAttacking = false;
+
         ratAgent = GetComponent<NavMeshAgent>();
         ratAgent.speed = ratSpeed;
         ratAnim = GetComponentInChildren<Animator>();
@@ -122,7 +125,11 @@ public class RatFSM : MonoBehaviour
             case 3: //Attack Condition
                 // isAttacking = true;
                 player.SetActive(false);
-                deathScreen.SetActive(true);
+
+                if (onDeadPlayerScreen != null)
+                    onDeadPlayerScreen();
+
+                // deathScreen.SetActive(true);
                 // Debug.LogWarning("Attacking");
                 break;
 
@@ -139,7 +146,7 @@ public class RatFSM : MonoBehaviour
         }
     }
 
-    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         //Sets a random position inside the sphere and that is multiplied with the distance and the center of the sphere.
         Vector3 randomPos = Random.insideUnitSphere * dist;
