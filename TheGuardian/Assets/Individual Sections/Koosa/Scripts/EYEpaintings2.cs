@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EYEpaintings2 : MonoBehaviour
 {
-    public float maxAngle;
+    public float maxAngleY;
+    public float maxAngleX;
+    public float maxAngleZ;
     public float speed;
 
     private float time;
@@ -24,6 +26,6 @@ public class EYEpaintings2 : MonoBehaviour
     
     public void LightRotator( float delta)
     {
-       transform.rotation = Quaternion.Euler(new Vector3(delta * maxAngle, transform.rotation.y, transform.rotation.z));
+       transform.rotation = Quaternion.Euler(new Vector3(delta * maxAngleX, maxAngleY, maxAngleZ));
     }
 }
