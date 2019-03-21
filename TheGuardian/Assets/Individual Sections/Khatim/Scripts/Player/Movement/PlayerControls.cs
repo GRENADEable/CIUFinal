@@ -7,7 +7,6 @@ public class PlayerControls : MonoBehaviour
     [Header("Player Movement Variables")]
     public float walkingSpeed;
     public float runningSpeed;
-    public float airTimeSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
     [Header("Player Jump Variables")]
@@ -21,16 +20,20 @@ public class PlayerControls : MonoBehaviour
     public bool onRope;
     public float climbSpeed;
     public float sprintClimbSpeed;
-    public delegate void Grab();
-    public static event Grab onObjectDetatchEvent;
 
-    public delegate void SendEventsToManager();
-    public static event SendEventsToManager onRopeBreakMessage;
+    public delegate void SendEvents();
+    public static event SendEvents onRopeBreakMessage;
+    public static event SendEvents onObjectDetatchEvent;
+    public static event SendEvents onObjectShakePlank;
+    public static event SendEvents onObjectStillPlank;
+    public static event SendEvents onObjectBendPlank;
 
     [SerializeField]
     private Collider ropeCol;
     [SerializeField]
     private Collider interactCol;
+    [SerializeField]
+    private Collider plankCol;
     private bool isInteracting;
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
@@ -96,6 +99,14 @@ public class PlayerControls : MonoBehaviour
                 onObjectDetatchEvent();
 
             isInteracting = false;
+        }
+
+        if (Input.GetKey(KeyCode.E) && plankCol != null)
+        {
+            if (onObjectBendPlank != null)
+            {
+                onObjectBendPlank();
+            }
         }
 
         if (!onRope)
@@ -197,7 +208,6 @@ public class PlayerControls : MonoBehaviour
         {
             moveDirection.y = jumpPower;
             anim.Play("CourageJump");
-            moveDirection = moveDirection * airTimeSpeed;
             Debug.LogWarning("Jump");
             jumpTime = 0f;
         }
@@ -301,6 +311,11 @@ public class PlayerControls : MonoBehaviour
         {
             interactCol = other;
         }
+
+        if (other.tag == "BendPlank")
+        {
+            plankCol = other;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -314,5 +329,30 @@ public class PlayerControls : MonoBehaviour
         {
             interactCol = null;
         }
+
+        if (other.tag == "BendPlank")
+        {
+            plankCol = null;
+        }
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // if (hit.gameObject.tag == "BendPlank" &&)
+        // {
+        //     if (onObjectShakePlank != null)
+        //     {
+        //         onObjectShakePlank();
+        //     }
+        // }
+
+        // if (hit.gameObject.tag == "BendPlank" && Input.GetKeyDown(KeyCode.E))
+        // {
+        //     if (onObjectBendPlank != null)
+        //     {
+        //         onObjectBendPlank();
+        //         Destroy(hit)
+        //     }
+        // }
     }
 }

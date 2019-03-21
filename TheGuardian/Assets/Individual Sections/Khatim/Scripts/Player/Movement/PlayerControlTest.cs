@@ -24,7 +24,8 @@ public class PlayerControlTest : MonoBehaviour
 
     public delegate void SendEvents();
     public static event SendEvents onObjectDetatchEvent;
-    public static event SendEvents onObjectBendPlank;
+    public static event SendEvents onObjectShakePlank;
+    public static event SendEvents onObjectStillPlank;
 
     [SerializeField]
     private Collider ropeCol;
@@ -128,14 +129,6 @@ public class PlayerControlTest : MonoBehaviour
                     onObjectDetatchEvent();
 
                 isInteracting = false;
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) && col != null && col.tag == "BendPlank")
-            {
-                if (onObjectBendPlank != null)
-                    onObjectBendPlank();
-
-                Destroy(col.gameObject.GetComponent<Collider>());
             }
 
             if (charController.isGrounded)
@@ -263,6 +256,21 @@ public class PlayerControlTest : MonoBehaviour
         //     onLadder = true;
         // else
         //     onLadder = false;
+
+        if (hit.gameObject.tag == "BendPlank")
+        {
+            if (onObjectShakePlank != null)
+            {
+                onObjectShakePlank();
+            }
+        }
+        else
+        {
+            if (onObjectStillPlank != null)
+            {
+                onObjectStillPlank();
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)

@@ -13,30 +13,30 @@ public class ObjectThrowing : MonoBehaviour
 
     [SerializeField]
     private bool isInteracting;
-    [SerializeField]
-    private Collider pickupCol;
-    // private RaycastHit hitInfo;
+    // [SerializeField]
+    // private Collider pickupCol;
+    private RaycastHit hitInfo;
 
     void Update()
     {
-        // Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward) * raycastDistance, Color.red);
-        // bool interact = Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, raycastDistance);
+        Debug.DrawRay(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward) * raycastDistance, Color.red);
+        bool interact = Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, raycastDistance);
 
-        // if (interact && hitInfo.collider.tag == "PickUp" && Input.GetKeyDown(KeyCode.F)
-        // && !isInteracting)
-        if (Input.GetKey(KeyCode.F) && pickupCol != null && !isInteracting)
+        if (interact && hitInfo.collider.tag == "PickUp" && Input.GetKeyDown(KeyCode.F)
+        && !isInteracting)
+        // if (Input.GetKey(KeyCode.F) && pickupCol != null && !isInteracting)
         {
             PickUpFunctionality();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isInteracting && pickupCol != null)
-        // if (Input.GetKeyDown(KeyCode.Space) && isInteracting)
+        // if (Input.GetKeyDown(KeyCode.Space) && isInteracting && pickupCol != null)
+        if (Input.GetKeyDown(KeyCode.Space) && isInteracting && interact)
         {
             ThrowingFunctionality();
         }
 
         // if (Input.GetKeyUp(KeyCode.F) && isInteracting && pickupCol != null)
-        if ((Input.GetKey(KeyCode.G) && isInteracting) || (pickupCol == null && isInteracting))
-        // if (Input.GetKeyDown(KeyCode.G) && isInteracting)
+        // if ((Input.GetKey(KeyCode.G) && isInteracting) || (pickupCol == null && isInteracting))
+        if (Input.GetKeyDown(KeyCode.G) && isInteracting)
         {
             DroppingFunctionality();
         }
@@ -44,29 +44,30 @@ public class ObjectThrowing : MonoBehaviour
 
     public void PickUpFunctionality()
     {
-        // hitInfo.collider.gameObject.AddComponent(typeof(FixedJoint));
-        // hitInfo.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-        // hitInfo.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
-        // hitInfo.rigidbody.useGravity = false;
+        hitInfo.collider.gameObject.AddComponent(typeof(FixedJoint));
+        hitInfo.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+        hitInfo.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+        hitInfo.rigidbody.useGravity = false;
 
         //Replaced it with trigger collider because the raycast was not accurate when the distance was increased or decreased.
-        pickupCol.gameObject.AddComponent(typeof(FixedJoint));
-        pickupCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-        pickupCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
-        pickupCol.GetComponent<Rigidbody>().useGravity = false;
+        // pickupCol.gameObject.AddComponent(typeof(FixedJoint));
+        // pickupCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+        // pickupCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+        // pickupCol.GetComponent<Rigidbody>().useGravity = false;
         isInteracting = true;
         Debug.LogWarning("Object Picked Up");
     }
 
     public void ThrowingFunctionality()
     {
-        // Destroy(hitInfo.collider.gameObject.GetComponent<FixedJoint>());
-        // hitInfo.rigidbody.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
-        // hitInfo.rigidbody.useGravity = true;
-        Destroy(pickupCol.gameObject.GetComponent<FixedJoint>());
-        Rigidbody objectRg = pickupCol.GetComponent<Rigidbody>();
-        objectRg.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
-        objectRg.useGravity = true;
+        Destroy(hitInfo.collider.gameObject.GetComponent<FixedJoint>());
+        hitInfo.rigidbody.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
+        hitInfo.rigidbody.useGravity = true;
+
+        // Destroy(pickupCol.gameObject.GetComponent<FixedJoint>());
+        // Rigidbody objectRg = pickupCol.GetComponent<Rigidbody>();
+        // objectRg.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
+        // objectRg.useGravity = true;
         isInteracting = false;
         Debug.LogWarning("Object Thrown");
     }
@@ -86,22 +87,22 @@ public class ObjectThrowing : MonoBehaviour
         // Debug.LogWarning("Object LetGo");
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "PickUp")
-        {
-            pickupCol = other;
-        }
-    }
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.tag == "PickUp")
+    //     {
+    //         pickupCol = other;
+    //     }
+    // }
 
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "PickUp")
-        {
-            pickupCol = null;
-        }
-    }
+    // void OnTriggerExit(Collider other)
+    // {
+    //     if (other.tag == "PickUp")
+    //     {
+    //         pickupCol = null;
+    //     }
+    // }
 
 
     void OnTriggerStay(Collider other)
@@ -110,7 +111,8 @@ public class ObjectThrowing : MonoBehaviour
         {
             if (onKeyDropEvent != null)
             {
-                Destroy(pickupCol.gameObject);
+                // Destroy(pickupCol.gameObject);
+                Destroy(hitInfo.collider.gameObject);
                 onKeyDropEvent();
             }
         }
