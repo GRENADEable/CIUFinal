@@ -25,6 +25,7 @@ public class PaintingsAI : MonoBehaviour
     private Light paintingEyeLight;
 
     private float time;
+    [SerializeField]
     private float delta;
 
     void Start()

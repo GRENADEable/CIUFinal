@@ -7,25 +7,48 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool isPlayerDead;
-    
+    public int keyCounter;
+    public GameObject endHallwayDoor;
+
     public delegate void SendMessageToPlayer();
     public SendMessageToPlayer onSendMessage;
 
-    // public static event SendMessageToPlayer onChangePlayerMovementVariables;
-
-    // public bool isGamePaused;
-    // public bool isGameOver;
-    // public delegate void ChangeState();
-
-    void Awake()
+    void OnEnable()
     {
-        //Makes Script Singleton
-        if (instance == null)
-            instance = this;
+        ObjectThrowing.onKeyDropEvent += OnKeyDropEventReceived;
+    }
 
-        else if (instance != null)
-            Destroy(gameObject);
+    void OnDisable()
+    {
+        ObjectThrowing.onKeyDropEvent -= OnKeyDropEventReceived;
+    }
+    // void Awake()
+    // {
+    //     //Makes Script Singleton
+    //     if (instance == null)
+    //         instance = this;
 
-        // DontDestroyOnLoad(this.gameObject);
+    //     else if (instance != null)
+    //         Destroy(gameObject);
+
+    //     // DontDestroyOnLoad(this.gameObject);
+    // }
+
+    void Update()
+    {
+        if (keyCounter >= 4)
+        {
+            endHallwayDoor.SetActive(false);
+        }
+        else
+        {
+            endHallwayDoor.SetActive(true);
+        }
+    }
+
+    void OnKeyDropEventReceived()
+    {
+        keyCounter++;
+        Debug.LogWarning("Key Received");
     }
 }

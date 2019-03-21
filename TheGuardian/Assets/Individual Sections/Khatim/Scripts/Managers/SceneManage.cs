@@ -6,14 +6,6 @@ using UnityEngine.SceneManagement;
 public class SceneManage : MonoBehaviour
 {
     public static SceneManage instance;
-    void Awake()
-    {
-        if (instance == null)
-            instance = this;
-
-        else if (instance != null)
-            Destroy(gameObject);
-    }
 
     public void NewGame()
     {

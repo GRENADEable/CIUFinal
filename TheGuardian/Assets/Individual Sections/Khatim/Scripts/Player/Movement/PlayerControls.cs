@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour
     [Header("Player Movement Variables")]
     public float walkingSpeed;
     public float runningSpeed;
+    public float airTimeSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
     [Header("Player Jump Variables")]
@@ -195,7 +196,9 @@ public class PlayerControls : MonoBehaviour
         if (jumpTime > jumpDelay)
         {
             moveDirection.y = jumpPower;
-            // Debug.LogWarning("Jump");
+            anim.Play("CourageJump");
+            moveDirection = moveDirection * airTimeSpeed;
+            Debug.LogWarning("Jump");
             jumpTime = 0f;
         }
     }
