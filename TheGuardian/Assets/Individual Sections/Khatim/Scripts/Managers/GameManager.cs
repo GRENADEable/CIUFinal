@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    // public static GameManager instance;
     public bool isPlayerDead;
     public int keyCounter;
     public GameObject endHallwayDoor;
 
-    public delegate void SendMessageToPlayer();
-    public SendMessageToPlayer onSendMessage;
+    public delegate void SendMessageToManagers();
+    public static event SendMessageToManagers onPaintingsAwakeMessage;
 
     void OnEnable()
     {
@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
             {
                 endHallwayDoor.SetActive(true);
             }
+        }
+
+        if (keyCounter >= 2 && onPaintingsAwakeMessage != null)
+        {
+            onPaintingsAwakeMessage();
         }
     }
 

@@ -7,15 +7,31 @@ public class ObjectThrowing : MonoBehaviour
     public float throwingForce;
     public float raycastDistance;
     public float height;
+    public Vector3 objectDistance;
+
     public delegate void ObjectThrowingMessage();
     public static event ObjectThrowingMessage onObjectDropEvent;
     public static event ObjectThrowingMessage onKeyDropEvent;
 
     [SerializeField]
-    private bool isInteracting;
+    private Rigidbody rgCourageRightHand;
+    [SerializeField]
+    private Transform player;
+
+    // [SerializeField]
+    // private bool isInteracting;
     // [SerializeField]
     // private Collider pickupCol;
     private RaycastHit hitInfo;
+    [SerializeField]
+    private PlayerControls plyControls;
+
+    void OnEnable()
+    {
+        plyControls = GetComponent<PlayerControls>();
+        rgCourageRightHand = GetComponentInChildren<Rigidbody>();
+        player = GetComponent<Transform>();
+    }
 
     void Update()
     {
@@ -23,20 +39,20 @@ public class ObjectThrowing : MonoBehaviour
         bool interact = Physics.Raycast(transform.position + Vector3.up * height, transform.TransformDirection(Vector3.forward), out hitInfo, raycastDistance);
 
         if (interact && hitInfo.collider.tag == "PickUp" && Input.GetKeyDown(KeyCode.F)
-        && !isInteracting)
+        && !plyControls.isPickingObject)
         // if (Input.GetKey(KeyCode.F) && pickupCol != null && !isInteracting)
         {
             PickUpFunctionality();
         }
         // if (Input.GetKeyDown(KeyCode.Space) && isInteracting && pickupCol != null)
-        if (Input.GetKeyDown(KeyCode.Space) && isInteracting && interact)
+        if (Input.GetKeyDown(KeyCode.Space) && plyControls.isPickingObject && interact)
         {
             ThrowingFunctionality();
         }
 
         // if (Input.GetKeyUp(KeyCode.F) && isInteracting && pickupCol != null)
         // if ((Input.GetKey(KeyCode.G) && isInteracting) || (pickupCol == null && isInteracting))
-        if (Input.GetKeyDown(KeyCode.G) && isInteracting)
+        if (Input.GetKeyDown(KeyCode.G) && plyControls.isPickingObject)
         {
             DroppingFunctionality();
         }
@@ -45,8 +61,11 @@ public class ObjectThrowing : MonoBehaviour
     public void PickUpFunctionality()
     {
         hitInfo.collider.gameObject.AddComponent(typeof(FixedJoint));
-        hitInfo.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-        hitInfo.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+        // hitInfo.collider.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+        // hitInfo.collider.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+        hitInfo.transform.position = player.transform.position + objectDistance;
+
+        hitInfo.collider.gameObject.GetComponent<FixedJoint>().connectedBody = rgCourageRightHand;
         hitInfo.rigidbody.useGravity = false;
 
         //Replaced it with trigger collider because the raycast was not accurate when the distance was increased or decreased.
@@ -54,7 +73,7 @@ public class ObjectThrowing : MonoBehaviour
         // pickupCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
         // pickupCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
         // pickupCol.GetComponent<Rigidbody>().useGravity = false;
-        isInteracting = true;
+        plyControls.isPickingObject = true;
         Debug.LogWarning("Object Picked Up");
     }
 
@@ -68,7 +87,7 @@ public class ObjectThrowing : MonoBehaviour
         // Rigidbody objectRg = pickupCol.GetComponent<Rigidbody>();
         // objectRg.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
         // objectRg.useGravity = true;
-        isInteracting = false;
+        plyControls.isPickingObject = false;
         Debug.LogWarning("Object Thrown");
     }
 
@@ -81,7 +100,7 @@ public class ObjectThrowing : MonoBehaviour
         //To avoid the three lines of code to not run. I moved those three lines of code under the DropObject Class.
         if (onObjectDropEvent != null)
         {
-            isInteracting = false;
+            plyControls.isPickingObject = false;
             onObjectDropEvent();
         }
         // Debug.LogWarning("Object LetGo");
@@ -107,7 +126,7 @@ public class ObjectThrowing : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "KeyCollector" && Input.GetKeyDown(KeyCode.G) && isInteracting)
+        if (other.tag == "KeyCollector" && Input.GetKeyDown(KeyCode.G) && plyControls.isPickingObject)
         {
             if (onKeyDropEvent != null)
             {

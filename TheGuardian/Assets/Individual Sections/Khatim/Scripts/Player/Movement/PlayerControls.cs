@@ -20,6 +20,7 @@ public class PlayerControls : MonoBehaviour
     public bool onRope;
     public float climbSpeed;
     public float sprintClimbSpeed;
+    public bool isPickingObject;
 
     public delegate void SendEvents();
     public static event SendEvents onRopeBreakMessage;
@@ -34,7 +35,8 @@ public class PlayerControls : MonoBehaviour
     private Collider interactCol;
     [SerializeField]
     private Collider plankCol;
-    private bool isInteracting;
+    [SerializeField]
+    private bool isPushingOrPulling;
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
@@ -56,22 +58,6 @@ public class PlayerControls : MonoBehaviour
 
     void OnEnable()
     {
-        // if (levelTitleText != null && pausePanel != null && trapDoor != null
-        //  && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
-        //  && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null
-        //  cheatPanel != null)
-        // {
-        //     levelTitleText.SetActive(true);
-        //     trapDoor.SetActive(true);
-        //     pausePanel.SetActive(false);
-        //     mainVirutalCam.SetActive(true);
-        //     cheatPanel.SetActive(false);
-        //     firstPuzzleCamPan.SetActive(false);
-        //     secondPuzzleVirtualCam.SetActive(false);
-        //     thirdPuzzleVirtualCam.SetActive(false);
-        //     thirdPuzzleCrateCam.SetActive(false);
-        //     thidpuzzleRopeCam.SetActive(false);
-        // }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
@@ -82,23 +68,23 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && interactCol != null && !isInteracting)
+        if (Input.GetKey(KeyCode.E) && interactCol != null && !isPushingOrPulling)
         {
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
             interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
             interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
             interactCol.GetComponent<Rigidbody>().isKinematic = false;
             interactCol.GetComponent<Rigidbody>().useGravity = false;
-            isInteracting = true;
+            isPushingOrPulling = true;
             Debug.LogWarning("Object Attached");
         }
 
-        if ((Input.GetKeyUp(KeyCode.E) && isInteracting) || (interactCol == null && isInteracting))
+        if ((Input.GetKeyUp(KeyCode.E) && isPushingOrPulling) || (interactCol == null && isPushingOrPulling))
         {
             if (onObjectDetatchEvent != null) //Sends message to Gameobject with DropObject Script
                 onObjectDetatchEvent();
 
-            isInteracting = false;
+            isPushingOrPulling = false;
         }
 
         if (Input.GetKey(KeyCode.E) && plankCol != null)
@@ -130,7 +116,7 @@ public class PlayerControls : MonoBehaviour
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
-                if (moveDirection != Vector3.zero && !isInteracting)
+                if (moveDirection != Vector3.zero && !isPushingOrPulling)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
@@ -139,7 +125,7 @@ public class PlayerControls : MonoBehaviour
                     anim.SetBool("isRunning", true);
                     // Debug.LogWarning("Running");
                 }
-                else if (Input.GetKey(KeyCode.C) && !isInteracting)
+                else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
                 {
                     localHeight = playerHeight * 0.5f;
                     // anim.SetBool("isCrouching", true);
@@ -161,7 +147,7 @@ public class PlayerControls : MonoBehaviour
                     // Debug.LogWarning("Walking");
                 }
 
-                if (Input.GetKey(KeyCode.Space) && !isInteracting)
+                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
                 {
                     Jump();
                 }

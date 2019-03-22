@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : GameManager
+public class UIManager : MonoBehaviour
 {
     [Header("Main Menu UI")]
     public GameObject mainmenuPanel;
@@ -20,6 +20,7 @@ public class UIManager : GameManager
 
     [Header("References Obejcts")]
     public GameObject levelOneTitleText;
+    private GameManager gm;
 
     // public delegate void SendEventToPlayer();
     // public static event SendEventToPlayer onSendEvent;
@@ -28,6 +29,7 @@ public class UIManager : GameManager
     {
         RatFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
         RatBlockerFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
+        gm = GetComponent<GameManager>();
     }
 
     void OnDisable()
@@ -104,7 +106,7 @@ public class UIManager : GameManager
 
     void OnDeadPlayerScreenReceived()
     {
-        isPlayerDead = true;
+        gm.isPlayerDead = true;
         deathScreen.SetActive(true);
     }
 }
