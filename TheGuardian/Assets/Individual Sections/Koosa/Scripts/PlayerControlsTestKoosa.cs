@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
-public class PlayerControls : MonoBehaviour
+
+public class PlayerControlsTestKoosa : MonoBehaviour
 {
     [Header("Player Movement Variables")]
     public float walkingSpeed;
@@ -14,41 +14,26 @@ public class PlayerControls : MonoBehaviour
     public float jumpDelay;
     [Header("Player Gravity Variables")]
     public float defaultGravity;
-    public float gravityAfterRopeBreak;
-    // public float pushPower;
+
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
     public float sprintClimbSpeed;
 
     public delegate void SendEvents();
-    public static event SendEvents onRopeBreakMessage;
     public static event SendEvents onObjectDetatchEvent;
-    public static event SendEvents onObjectShakePlank;
-    public static event SendEvents onObjectStillPlank;
-    public static event SendEvents onObjectBendPlank;
+
 
     [SerializeField]
     private Collider ropeCol;
     [SerializeField]
     private Collider interactCol;
-    [SerializeField]
-    private Collider plankCol;
     private bool isInteracting;
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
     private float jumpTime;
     private Animator anim;
-    [Header("Cheats Section :3")]
-    [SerializeField]
-    private float flashSpeed;
-    [SerializeField]
-    private float defaultRunningSpeed;
-    [SerializeField]
-    private float superJump;
-    [SerializeField]
-    private float defaultJump;
     private Vector3 playerVector;
     private float playerHeight;
     private float moveHorizontal;
@@ -56,22 +41,6 @@ public class PlayerControls : MonoBehaviour
 
     void OnEnable()
     {
-        // if (levelTitleText != null && pausePanel != null && trapDoor != null
-        //  && mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
-        //  && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thidpuzzleRopeCam != null
-        //  cheatPanel != null)
-        // {
-        //     levelTitleText.SetActive(true);
-        //     trapDoor.SetActive(true);
-        //     pausePanel.SetActive(false);
-        //     mainVirutalCam.SetActive(true);
-        //     cheatPanel.SetActive(false);
-        //     firstPuzzleCamPan.SetActive(false);
-        //     secondPuzzleVirtualCam.SetActive(false);
-        //     thirdPuzzleVirtualCam.SetActive(false);
-        //     thirdPuzzleCrateCam.SetActive(false);
-        //     thidpuzzleRopeCam.SetActive(false);
-        // }
         charController = GetComponent<CharacterController>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
@@ -99,14 +68,6 @@ public class PlayerControls : MonoBehaviour
                 onObjectDetatchEvent();
 
             isInteracting = false;
-        }
-
-        if (Input.GetKey(KeyCode.E) && plankCol != null)
-        {
-            if (onObjectBendPlank != null)
-            {
-                onObjectBendPlank();
-            }
         }
 
         if (!onRope)
@@ -235,46 +196,11 @@ public class PlayerControls : MonoBehaviour
         float latestRecordedHeight = charController.height;
     }
 
-    #region Cheats :P
-    public void SuperJumpToggle(bool isSuperJump)
-    {
-        if (isSuperJump)
-        {
-            jumpPower = superJump;
-        }
-        else if (!isSuperJump)
-        {
-            jumpPower = defaultJump;
-        }
-    }
-
-    public void FlashSpeedToggle(bool isFlash)
-    {
-        if (isFlash)
-        {
-            runningSpeed = flashSpeed;
-        }
-        else if (!isFlash)
-        {
-            runningSpeed = defaultRunningSpeed;
-        }
-    }
-    #endregion
-
-    void OnTriggerEnter(Collider other)
+	void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Rope")
         {
             ropeCol = other;
-        }
-
-        if (other.tag == "RopeBreak")
-        {
-            if (onRopeBreakMessage != null)
-                onRopeBreakMessage();
-
-            gravity = gravityAfterRopeBreak;
-            // Debug.LogWarning("Rope Broken");
         }
 
         if (other.gameObject.tag == "End")
@@ -291,14 +217,9 @@ public class PlayerControls : MonoBehaviour
         {
             interactCol = other;
         }
-
-        if (other.tag == "BendPlank")
-        {
-            plankCol = other;
-        }
     }
 
-    void OnTriggerExit(Collider other)
+	void OnTriggerExit(Collider other)
     {
         if (other.tag == "Rope")
         {
@@ -309,31 +230,11 @@ public class PlayerControls : MonoBehaviour
         {
             interactCol = null;
         }
-
-        if (other.tag == "BendPlank")
-        {
-            plankCol = null;
-        }
     }
 
-    //Function which checks what hit the Character Controller's Collider
+	 //Function which checks what hit the Character Controller's Collider
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // if (hit.gameObject.tag == "BendPlank" &&)
-        // {
-        //     if (onObjectShakePlank != null)
-        //     {
-        //         onObjectShakePlank();
-        //     }
-        // }
-
-        // if (hit.gameObject.tag == "BendPlank" && Input.GetKeyDown(KeyCode.E))
-        // {
-        //     if (onObjectBendPlank != null)
-        //     {
-        //         onObjectBendPlank();
-        //         Destroy(hit)
-        //     }
-        // }
+		
     }
 }

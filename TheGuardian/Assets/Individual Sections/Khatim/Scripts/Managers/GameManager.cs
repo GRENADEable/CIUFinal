@@ -36,13 +36,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (keyCounter >= 4)
+        if (endHallwayDoor != null)
         {
-            endHallwayDoor.SetActive(false);
-        }
-        else
-        {
-            endHallwayDoor.SetActive(true);
+            if (keyCounter >= 4)
+            {
+                endHallwayDoor.SetActive(false);
+            }
+            else
+            {
+                endHallwayDoor.SetActive(true);
+            }
         }
     }
 
