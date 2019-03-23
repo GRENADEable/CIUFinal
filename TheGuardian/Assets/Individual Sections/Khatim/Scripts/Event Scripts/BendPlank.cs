@@ -9,13 +9,20 @@ public class BendPlank : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerControlTest.onObjectBendPlank += BendPlankEventReceived;
+        PlayerControlTest.onObjectShakePlank += ShakePlankEventReceived;
 
+        PlayerControls.onObjectShakePlank += ShakePlankEventReceived;
+        PlayerControls.onObjectStillPlank += StillPlankEventReceived;
+        PlayerControls.onObjectBendPlank += BendPlankEvenetReceived;
     }
 
     void OnDisable()
     {
-        PlayerControlTest.onObjectBendPlank -= BendPlankEventReceived;
+        PlayerControlTest.onObjectShakePlank -= ShakePlankEventReceived;
+
+        PlayerControls.onObjectShakePlank += ShakePlankEventReceived;
+        PlayerControls.onObjectStillPlank -= StillPlankEventReceived;
+        PlayerControls.onObjectBendPlank -= BendPlankEvenetReceived;
     }
 
     void Start()
@@ -23,9 +30,23 @@ public class BendPlank : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void BendPlankEventReceived()
+    void ShakePlankEventReceived()
     {
-        anim.SetInteger("bendingValue", 2);
-        Debug.LogWarning("Plank Swinging");
+        anim.Play("LoosePlank");
+        Debug.LogWarning("Playing Loose Plank Animation");
+    }
+
+    void StillPlankEventReceived()
+    {
+        anim.Play("StillPlank");
+        Debug.LogWarning("Playing Still Plank Animation");
+    }
+
+    void BendPlankEvenetReceived()
+    {
+        // anim.SetBool("isBending", true);
+        anim.Play("BendPlank");
+        Destroy(GetComponent<SphereCollider>());
+        Debug.LogWarning("Playing Bend Plank Animation");
     }
 }

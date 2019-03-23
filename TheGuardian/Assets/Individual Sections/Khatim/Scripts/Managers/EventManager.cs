@@ -18,16 +18,20 @@ public class EventManager : MonoBehaviour
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
 
+    public GameObject[] paintingsEyes;
+
     public Collider ropeBreakCol;
 
     void OnEnable()
     {
         PlayerControls.onRopeBreakMessage += OnRopeBreakEventReceived;
+        GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
     }
 
     void OnDisable()
     {
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
+        GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
     }
     void OnRopeBreakEventReceived()
     {
@@ -39,5 +43,14 @@ public class EventManager : MonoBehaviour
             woodenPlank.SetActive(false);
             Debug.LogWarning("Rope Broken");
         }
+    }
+
+    void OnPaintingsAwakeMessageEventReceived()
+    {
+        for (int i = 0; i < paintingsEyes.Length; i++)
+        {
+            paintingsEyes[i].SetActive(true);
+        }
+        Debug.LogWarning("Paintings Awake");
     }
 }

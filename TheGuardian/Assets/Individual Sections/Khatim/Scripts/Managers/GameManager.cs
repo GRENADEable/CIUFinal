@@ -5,27 +5,58 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    // public static GameManager instance;
     public bool isPlayerDead;
-    
-    public delegate void SendMessageToPlayer();
-    public SendMessageToPlayer onSendMessage;
+    public int keyCounter;
+    public GameObject endHallwayDoor;
 
-    // public static event SendMessageToPlayer onChangePlayerMovementVariables;
+    public delegate void SendMessageToManagers();
+    public static event SendMessageToManagers onPaintingsAwakeMessage;
 
-    // public bool isGamePaused;
-    // public bool isGameOver;
-    // public delegate void ChangeState();
-
-    void Awake()
+    void OnEnable()
     {
-        //Makes Script Singleton
-        if (instance == null)
-            instance = this;
+        ObjectThrowing.onKeyDropEvent += OnKeyDropEventReceived;
+    }
 
-        else if (instance != null)
-            Destroy(gameObject);
+    void OnDisable()
+    {
+        ObjectThrowing.onKeyDropEvent -= OnKeyDropEventReceived;
+    }
+    // void Awake()
+    // {
+    //     //Makes Script Singleton
+    //     if (instance == null)
+    //         instance = this;
 
-        // DontDestroyOnLoad(this.gameObject);
+    //     else if (instance != null)
+    //         Destroy(gameObject);
+
+    //     // DontDestroyOnLoad(this.gameObject);
+    // }
+
+    void Update()
+    {
+        if (endHallwayDoor != null)
+        {
+            if (keyCounter >= 4)
+            {
+                endHallwayDoor.SetActive(false);
+            }
+            else
+            {
+                endHallwayDoor.SetActive(true);
+            }
+        }
+
+        if (keyCounter >= 2 && onPaintingsAwakeMessage != null)
+        {
+            onPaintingsAwakeMessage();
+        }
+    }
+
+    void OnKeyDropEventReceived()
+    {
+        keyCounter++;
+        Debug.LogWarning("Key Received");
     }
 }
