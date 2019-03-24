@@ -42,7 +42,7 @@ public class EYEpaintings2 : MonoBehaviour
             delta = Mathf.Sin(time / speed);
           //  transform.rotation= Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
             Debug.Log(rotationInt);
-            if(transform.rotation.y >= 30 && transform.rotation.y <= 35)
+            if(transform.rotation.y >= 30 && transform.rotation.eulerAngles.y <= 35)
             {
                 rotationInt++;
                 transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
