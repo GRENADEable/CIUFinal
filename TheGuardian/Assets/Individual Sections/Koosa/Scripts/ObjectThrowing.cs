@@ -15,8 +15,8 @@ public class ObjectThrowing : MonoBehaviour
 
     [SerializeField]
     private Rigidbody rgCourageRightHand;
-    [SerializeField]
-    private GameObject playerHead;
+    // [SerializeField]
+    // private GameObject playerHead;
 
     // [SerializeField]
     // private bool isInteracting;
@@ -30,7 +30,7 @@ public class ObjectThrowing : MonoBehaviour
     {
         plyControls = GetComponent<PlayerControls>();
         rgCourageRightHand = GetComponentInChildren<Rigidbody>();
-        playerHead = GameObject.FindGameObjectWithTag("PlayerHead");
+        // playerHead = GameObject.FindGameObjectWithTag("PlayerHead");
     }
 
     void Update()
@@ -71,7 +71,7 @@ public class ObjectThrowing : MonoBehaviour
         //Replaced it with trigger collider because the raycast was not accurate when the distance was increased or decreased.
         pickupCol.gameObject.AddComponent(typeof(FixedJoint));
         // pickupCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-        pickupCol.transform.position = playerHead.transform.position;
+        // pickupCol.transform.position = playerHead.transform.position;
 
         pickupCol.gameObject.GetComponent<FixedJoint>().connectedBody = rgCourageRightHand;
         pickupCol.GetComponent<Rigidbody>().useGravity = false;

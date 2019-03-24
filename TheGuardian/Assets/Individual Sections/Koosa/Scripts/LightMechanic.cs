@@ -6,7 +6,8 @@ public class LightMechanic : MonoBehaviour
 {
     public GameObject match;
     public delegate void FleeEnemy();
-    public static event FleeEnemy OnFleeEnemy;
+    public static event FleeEnemy onFleeEnemy;
+    public static event FleeEnemy onChasePlayer;
 
     public bool lightOn;
     [SerializeField]
@@ -17,12 +18,12 @@ public class LightMechanic : MonoBehaviour
     void Update()
     {
         //picking up a match comes here
-        if (Input.GetKeyUp(KeyCode.E) && !lightOn && matchesCount > 0 && !match.activeSelf)
+        if (Input.GetKeyDown(KeyCode.F) && !lightOn && matchesCount > 0 && !match.activeSelf)
         {
             match.SetActive(true);
             lightOn = true;
         }
-        else if (Input.GetKeyUp(KeyCode.E) && lightOn)
+        else if (Input.GetKeyDown(KeyCode.F) && lightOn)
         {
             match.SetActive(false);
             lightOn = false;
@@ -30,8 +31,21 @@ public class LightMechanic : MonoBehaviour
 
         if (match.activeSelf)
         {
-            if (OnFleeEnemy != null)
-                OnFleeEnemy();
+            if (onFleeEnemy != null)
+                onFleeEnemy();
+        }
+        else if (!match.activeSelf)
+        {
+            if (onChasePlayer != null)
+                onChasePlayer();
+        }
+
+
+        if (col != null && Input.GetKeyDown(KeyCode.E))
+        {
+            matchesCount = 1;
+            Destroy(col.gameObject);
+            col = null;
         }
     }
 

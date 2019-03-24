@@ -28,7 +28,7 @@ public class PushAndPullObject : MonoBehaviour
     void DetatchObjectEventReceived()
     {
         Destroy(this.gameObject.GetComponent<FixedJoint>());
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        // this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         rg.useGravity = true;
         Debug.LogWarning("Object Detached");
     }

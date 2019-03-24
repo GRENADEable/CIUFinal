@@ -23,6 +23,7 @@ public class PlayerControls : MonoBehaviour
     public bool isPickingObject;
 
     public delegate void SendEvents();
+    public static event SendEvents onChangeLevelToHallway;
     public static event SendEvents onRopeBreakMessage;
     public static event SendEvents onObjectDetatchEvent;
     public static event SendEvents onObjectShakePlank;
@@ -72,7 +73,7 @@ public class PlayerControls : MonoBehaviour
         {
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
             interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-            interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponentInChildren<Rigidbody>();
             interactCol.GetComponent<Rigidbody>().isKinematic = false;
             interactCol.GetComponent<Rigidbody>().useGravity = false;
             isPushingOrPulling = true;
@@ -193,7 +194,7 @@ public class PlayerControls : MonoBehaviour
         if (jumpTime > jumpDelay)
         {
             moveDirection.y = jumpPower;
-            anim.Play("CourageJump");
+            // anim.Play("CourageJump");
             Debug.LogWarning("Jump");
             jumpTime = 0f;
         }
@@ -265,7 +266,9 @@ public class PlayerControls : MonoBehaviour
 
         if (other.gameObject.tag == "End")
         {
-            SceneManage.instance.HallwayLevel();
+            // SceneManage.instance.HallwayLevel();
+            if (onChangeLevelToHallway != null)
+                onChangeLevelToHallway();
         }
 
         if (other.tag == "Rope")
