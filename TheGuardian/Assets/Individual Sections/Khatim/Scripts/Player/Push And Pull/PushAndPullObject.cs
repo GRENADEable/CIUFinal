@@ -16,7 +16,6 @@ public class PushAndPullObject : MonoBehaviour
     {
         PlayerControlTest.onObjectDetatchEvent -= DetatchObjectEventReceived;
         PlayerControls.onObjectDetatchEvent -= DetatchObjectEventReceived;
-
     }
 
 
