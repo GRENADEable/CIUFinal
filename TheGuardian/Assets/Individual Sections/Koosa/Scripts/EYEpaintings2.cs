@@ -14,8 +14,12 @@ public class EYEpaintings2 : MonoBehaviour
 
     public void Update()
     {
-        TimeChanger();
-        LightRotator(delta);
+       // TimeChanger();
+       // LightRotator(delta);
+    }
+    public void Start()
+    {
+       StartCoroutine(lighting());
     }
 
     public void TimeChanger()
@@ -27,5 +31,33 @@ public class EYEpaintings2 : MonoBehaviour
     public void LightRotator( float delta)
     {
        transform.rotation = Quaternion.Euler(new Vector3(delta * maxAngleX, maxAngleY, maxAngleZ));
+    }
+
+    IEnumerator lighting()
+    {
+        while (true)
+        {
+            int rotationInt = 0;
+            time = time + Time.deltaTime;
+            delta = Mathf.Sin(time / speed);
+          //  transform.rotation= Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+            Debug.Log(rotationInt);
+            if(transform.rotation.y >= 30 && transform.rotation.eulerAngles.y <= 35)
+            {
+                rotationInt++;
+                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+            }
+            else if (transform.rotation.y >= 10 && transform.rotation.y <= 0)
+            {
+                rotationInt++;
+                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+            }
+           else if (transform.rotation.y >= -30 && transform.rotation.y <= -35)
+            {
+                rotationInt++;
+                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+            }
+            yield return null;
+        }
     }
 }

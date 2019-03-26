@@ -9,8 +9,10 @@ public class RatBlockerFSM : MonoBehaviour
     public float attackDistance;
     public float chaseDistance;
     public float fleeDistance;
-    public float fleeDuration;
+    public float fleeLocation;
+    // public float fleeDuration;
     public float distanceToPlayer;
+    public float distanceToFleePos;
     public Transform fleePos;
     public float ratSpeed;
     public float fleeSpeed;
@@ -20,6 +22,7 @@ public class RatBlockerFSM : MonoBehaviour
 
     [SerializeField]
     private GameObject player;
+    [SerializeField]
     private bool isFleeing;
     private int currCondition;
     private NavMeshAgent ratAgent;
@@ -27,12 +30,14 @@ public class RatBlockerFSM : MonoBehaviour
 
     void OnEnable()
     {
-        LightMechanic.OnFleeEnemy += FleeEventReceived;
+        LightMechanic.onFleeEnemy += FleeEventReceived;
+        LightMechanic.onChasePlayer += ChaseEventReceived;
     }
 
     void OnDisable()
     {
-        LightMechanic.OnFleeEnemy -= FleeEventReceived;
+        LightMechanic.onFleeEnemy -= FleeEventReceived;
+        LightMechanic.onChasePlayer -= ChaseEventReceived;
     }
     void Start()
     {
@@ -47,6 +52,8 @@ public class RatBlockerFSM : MonoBehaviour
     {
         //Distance check to Player
         distanceToPlayer = Vector3.Distance(this.transform.position, player.transform.position);
+        distanceToFleePos = Vector3.Distance(transform.position, fleePos.transform.position);
+
         // Debug.DrawRay(transform.position, transform.forward * fleeDistance, Color.white);
         Debug.DrawRay(transform.position, transform.forward * chaseDistance, Color.green);
         Debug.DrawRay(transform.position, transform.forward * attackDistance, Color.red);
@@ -68,6 +75,13 @@ public class RatBlockerFSM : MonoBehaviour
             currCondition = 2;
         }
 
+        if (distanceToFleePos <= fleeLocation)
+        {
+            chaseDistance = 0;
+            currCondition = 4;
+            Debug.LogWarning("Rat Fleed");
+        }
+
         if (distanceToPlayer > chaseDistance && !isFleeing)
         {
             currCondition = 4;
@@ -82,6 +96,11 @@ public class RatBlockerFSM : MonoBehaviour
         {
             ratAnim.SetBool("isIdle", false);
             // Debug.LogWarning("Not Idle");
+        }
+
+        if (isFleeing)
+        {
+            currCondition = 3;
         }
 
         // if (!player.activeInHierarchy)
@@ -123,28 +142,36 @@ public class RatBlockerFSM : MonoBehaviour
 
     void FleeEventReceived()
     {
-        FleeEnemy();
-    }
-
-    void FleeEnemy()
-    {
-        StartCoroutine(Flee());
+        // FleeEnemy();
         // currCondition = 3;
+        if (distanceToPlayer < fleeDistance)
+            isFleeing = true;
     }
 
-    IEnumerator Flee()
+    void ChaseEventReceived()
     {
-        isFleeing = true;
-
-        if (distanceToPlayer < fleeDistance && isFleeing)
-        {
-            currCondition = 3;
-            ratAgent.speed = fleeSpeed;
-        }
-        yield return new WaitForSeconds(fleeDuration);
         isFleeing = false;
-        ratAgent.speed = ratSpeed;
     }
+
+    // void FleeEnemy()
+    // {
+    //     StartCoroutine(Flee());
+    //     // currCondition = 3;
+    // }
+
+    // IEnumerator Flee()
+    // {
+    //     isFleeing = true;
+
+    //     if (distanceToPlayer < fleeDistance && isFleeing)
+    //     {
+    //         currCondition = 3;
+    //         ratAgent.speed = fleeSpeed;
+    //     }
+    //     yield return new WaitForSeconds(fleeDuration);
+    //     isFleeing = false;
+    //     ratAgent.speed = ratSpeed;
+    // }
 
     void OnTriggerEnter(Collider other)
     {

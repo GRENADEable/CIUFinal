@@ -23,6 +23,7 @@ public class PlayerControls : MonoBehaviour
     public bool isPickingObject;
 
     public delegate void SendEvents();
+    public static event SendEvents onChangeLevelToHallway;
     public static event SendEvents onRopeBreakMessage;
     public static event SendEvents onObjectDetatchEvent;
     public static event SendEvents onObjectShakePlank;
@@ -42,6 +43,8 @@ public class PlayerControls : MonoBehaviour
     private CharacterController charController;
     private float jumpTime;
     private Animator anim;
+    [SerializeField]
+    private Rigidbody rg;
     [Header("Cheats Section :3")]
     [SerializeField]
     private float flashSpeed;
@@ -59,6 +62,7 @@ public class PlayerControls : MonoBehaviour
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
+        rg = GetComponent<Rigidbody>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
@@ -72,7 +76,7 @@ public class PlayerControls : MonoBehaviour
         {
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
             interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-            interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rg;
             interactCol.GetComponent<Rigidbody>().isKinematic = false;
             interactCol.GetComponent<Rigidbody>().useGravity = false;
             isPushingOrPulling = true;
@@ -81,7 +85,7 @@ public class PlayerControls : MonoBehaviour
 
         if ((Input.GetKeyUp(KeyCode.E) && isPushingOrPulling) || (interactCol == null && isPushingOrPulling))
         {
-            if (onObjectDetatchEvent != null) //Sends message to Gameobject with DropObject Script
+            if (onObjectDetatchEvent != null) //Sends message to Gameobject with Push and Pull Object Script
                 onObjectDetatchEvent();
 
             isPushingOrPulling = false;
@@ -193,7 +197,7 @@ public class PlayerControls : MonoBehaviour
         if (jumpTime > jumpDelay)
         {
             moveDirection.y = jumpPower;
-            anim.Play("CourageJump");
+            // anim.Play("CourageJump");
             Debug.LogWarning("Jump");
             jumpTime = 0f;
         }
@@ -265,7 +269,9 @@ public class PlayerControls : MonoBehaviour
 
         if (other.gameObject.tag == "End")
         {
-            SceneManage.instance.HallwayLevel();
+            // SceneManage.instance.HallwayLevel();
+            if (onChangeLevelToHallway != null)
+                onChangeLevelToHallway();
         }
 
         if (other.tag == "Rope")

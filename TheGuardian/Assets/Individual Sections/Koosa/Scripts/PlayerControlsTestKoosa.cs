@@ -203,10 +203,10 @@ public class PlayerControlsTestKoosa : MonoBehaviour
             ropeCol = other;
         }
 
-        if (other.gameObject.tag == "End")
-        {
-            SceneManage.instance.HallwayLevel();
-        }
+        // if (other.gameObject.tag == "End")
+        // {
+        //     SceneManage.instance.HallwayLevel();
+        // }
 
         if (other.tag == "Rope")
         {
