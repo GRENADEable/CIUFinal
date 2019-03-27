@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     {
         RatFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
         RatBlockerFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
+        PaintingsAI.onPlayerDeath += OnDeadPlayerScreenReceived;
         gm = GetComponent<GameManager>();
     }
 
@@ -36,7 +37,7 @@ public class UIManager : MonoBehaviour
     {
         RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
         RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-
+        PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
     }
     void Awake()
     {
@@ -48,11 +49,13 @@ public class UIManager : MonoBehaviour
 
         pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
         cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
+        deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
 
-        if (pausePanel != null && cheatPanel != null)
+        if (pausePanel != null && cheatPanel != null && deathScreen != null)
         {
             pausePanel.SetActive(false);
             cheatPanel.SetActive(false);
+            deathScreen.SetActive(false);
         }
 
         if (levelOneTitleText != null)
@@ -108,5 +111,6 @@ public class UIManager : MonoBehaviour
     {
         gm.isPlayerDead = true;
         deathScreen.SetActive(true);
+        Debug.LogWarning("Death Screen UI Activated");
     }
 }
