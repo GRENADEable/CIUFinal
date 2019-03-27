@@ -10,6 +10,7 @@ public class PaintingsAI : MonoBehaviour
     public float rotationZ;
     public float speed;
     public Vector3 raycastHeight;
+    public float lookatSpeed;
 
     [Header("Wait Timers")]
     public float killDelay;
@@ -94,7 +95,8 @@ public class PaintingsAI : MonoBehaviour
                     SwitchState(paintingState.Looking_Around);
                 }
                 // Need to Clamp the Y Rotation when Player is in the FoV of the AI 
-                transform.rotation = Quaternion.LookRotation(tarDir.normalized, Vector3.up);
+                Quaternion lookAtPlayerPos = Quaternion.LookRotation(tarDir.normalized, Vector3.up);
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookAtPlayerPos, lookatSpeed * Time.deltaTime);
 
                 curTimer += Time.deltaTime;
                 //Animation Playes;
