@@ -14,7 +14,6 @@ public class ObjectThrowing : MonoBehaviour
 
     [SerializeField]
     private Rigidbody rgCourageRightHand;
-
     // [SerializeField]
     // private bool isInteracting;
     [SerializeField]
@@ -26,7 +25,7 @@ public class ObjectThrowing : MonoBehaviour
     void OnEnable()
     {
         plyControls = GetComponent<PlayerControls>();
-        rgCourageRightHand = GameObject.FindGameObjectWithTag("CourageRightHand").GetComponent<Rigidbody>();
+        // rgCourageRightHand = GameObject.FindGameObjectWithTag("CourageRightHand").GetComponent<Rigidbody>();
         // playerHead = GameObject.FindGameObjectWithTag("PlayerHead");
     }
 
@@ -113,7 +112,6 @@ public class ObjectThrowing : MonoBehaviour
         }
     }
 
-
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "PickUp")
@@ -121,7 +119,6 @@ public class ObjectThrowing : MonoBehaviour
             pickupCol = null;
         }
     }
-
 
     void OnTriggerStay(Collider other)
     {
@@ -136,5 +133,3 @@ public class ObjectThrowing : MonoBehaviour
         }
     }
 }
-
-
