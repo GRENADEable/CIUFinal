@@ -5,19 +5,15 @@ using UnityEngine;
 public class ObjectThrowing : MonoBehaviour
 {
     public float throwingForce;
-    public float raycastDistance;
-    public float height;
-    public Vector3 objectDistance;
-
+    // public float raycastDistance;
+    // public float height;
+    public Transform pivotDummy;
     public delegate void ObjectThrowingMessage();
     public static event ObjectThrowingMessage onObjectDropEvent;
     public static event ObjectThrowingMessage onKeyDropEvent;
 
     [SerializeField]
     private Rigidbody rgCourageRightHand;
-    [SerializeField]
-    private GameObject playerHead;
-
     // [SerializeField]
     // private bool isInteracting;
     [SerializeField]
@@ -29,8 +25,8 @@ public class ObjectThrowing : MonoBehaviour
     void OnEnable()
     {
         plyControls = GetComponent<PlayerControls>();
-        rgCourageRightHand = GetComponentInChildren<Rigidbody>();
-        playerHead = GameObject.FindGameObjectWithTag("PlayerHead");
+        // rgCourageRightHand = GameObject.FindGameObjectWithTag("CourageRightHand").GetComponent<Rigidbody>();
+        // playerHead = GameObject.FindGameObjectWithTag("PlayerHead");
     }
 
     void Update()
@@ -71,7 +67,7 @@ public class ObjectThrowing : MonoBehaviour
         //Replaced it with trigger collider because the raycast was not accurate when the distance was increased or decreased.
         pickupCol.gameObject.AddComponent(typeof(FixedJoint));
         // pickupCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-        pickupCol.transform.position = playerHead.transform.position;
+        pickupCol.transform.position = pivotDummy.position;
 
         pickupCol.gameObject.GetComponent<FixedJoint>().connectedBody = rgCourageRightHand;
         pickupCol.GetComponent<Rigidbody>().useGravity = false;
@@ -116,7 +112,6 @@ public class ObjectThrowing : MonoBehaviour
         }
     }
 
-
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "PickUp")
@@ -124,7 +119,6 @@ public class ObjectThrowing : MonoBehaviour
             pickupCol = null;
         }
     }
-
 
     void OnTriggerStay(Collider other)
     {
@@ -139,5 +133,3 @@ public class ObjectThrowing : MonoBehaviour
         }
     }
 }
-
-

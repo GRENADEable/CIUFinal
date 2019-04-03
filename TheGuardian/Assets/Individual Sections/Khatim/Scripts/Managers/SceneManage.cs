@@ -5,7 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SceneManage : MonoBehaviour
 {
-    public static SceneManage instance;
+    // public static SceneManage instance;
+
+
+    void OnEnable()
+    {
+        PlayerControls.onChangeLevelToHallway += HallwayLevel;
+    }
+
+    void OnDisable()
+    {
+        PlayerControls.onChangeLevelToHallway -= HallwayLevel;
+    }
 
     public void NewGame()
     {
