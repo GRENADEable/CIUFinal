@@ -4,11 +4,14 @@ using UnityEngine;
 using Cinemachine;
 public class PlayerControls : MonoBehaviour
 {
+    #region  Player Variables
     [Header("Player Movement Variables")]
     public float walkingSpeed;
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
+    public float crouchColShrinkValue; //Initial Value is 0.5f
+    public float crouchColCenterValue; //Initial Value is 2
     [Header("Player Jump Variables")]
     public float jumpPower;
     public float jumpDelay;
@@ -21,7 +24,9 @@ public class PlayerControls : MonoBehaviour
     public float climbSpeed;
     public float sprintClimbSpeed;
     public bool isPickingObject;
+    #endregion
 
+    #region Events
     public delegate void SendEvents();
     public static event SendEvents onChangeLevelToHallway;
     public static event SendEvents onRopeBreakMessage;
@@ -29,13 +34,20 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onObjectShakePlank;
     public static event SendEvents onObjectStillPlank;
     public static event SendEvents onObjectBendPlank;
+    #endregion
 
+    public delegate void Interact();
+    Interact interactAction;
+
+    #region Trigger Colliders
     [SerializeField]
     private Collider ropeCol;
     [SerializeField]
     private Collider interactCol;
     [SerializeField]
     private Collider plankCol;
+    #endregion
+
     [SerializeField]
     private bool isPushingOrPulling;
     private float gravity;
@@ -45,6 +57,8 @@ public class PlayerControls : MonoBehaviour
     private Animator anim;
     [SerializeField]
     private Rigidbody rg;
+
+    #region Cheats
     [Header("Cheats Section :3")]
     [SerializeField]
     private float flashSpeed;
@@ -54,7 +68,8 @@ public class PlayerControls : MonoBehaviour
     private float superJump;
     [SerializeField]
     private float defaultJump;
-    private Vector3 playerVector;
+    #endregion
+
     private float playerHeight;
     private float moveHorizontal;
     private float moveVertical;
@@ -68,13 +83,17 @@ public class PlayerControls : MonoBehaviour
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerCenter = charController.center.y;
-        playerVector = transform.position;
         jumpTime = jumpDelay;
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && interactCol != null && !isPushingOrPulling)
+        if (Input.GetKeyDown(KeyCode.H) && interactAction != null)
+        {
+            interactAction();
+        }
+
+        if (Input.GetKey(KeyCode.E) && interactCol != null && !isPushingOrPulling && charController.isGrounded)
         {
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
             interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
@@ -85,7 +104,7 @@ public class PlayerControls : MonoBehaviour
             Debug.LogWarning("Object Attached");
         }
 
-        if ((Input.GetKeyUp(KeyCode.E) && isPushingOrPulling) || (interactCol == null && isPushingOrPulling))
+        if ((Input.GetKeyUp(KeyCode.E) && isPushingOrPulling) || (interactCol == null && isPushingOrPulling) || (!charController.isGrounded && interactCol == null && isPushingOrPulling))
         {
             if (onObjectDetatchEvent != null) //Sends message to Gameobject with Push and Pull Object Script
                 onObjectDetatchEvent();
@@ -134,9 +153,9 @@ public class PlayerControls : MonoBehaviour
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
                 {
-                    localHeight = playerHeight * 0.5f;
-                    localCenter = playerCenter / 2f;
-                     anim.SetBool("isCrouching", true);
+                    localHeight = playerHeight * crouchColShrinkValue;
+                    localCenter = playerCenter / crouchColCenterValue;
+                    anim.SetBool("isCrouching", true);
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
@@ -164,9 +183,9 @@ public class PlayerControls : MonoBehaviour
                 //Player Crouching
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
                 //Vector3 p = Vector3.zero;
-                charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime),0);
+                charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime), 0);
                 Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
-               // charController.center = p;
+                // charController.center = p;
             }
             else
             {
@@ -200,6 +219,16 @@ public class PlayerControls : MonoBehaviour
             onRope = false;
     }
 
+    void Pickup()
+    {
+        Debug.LogWarning("Object Picked Up");
+    }
+
+    void Drop()
+    {
+        Debug.LogWarning("Object Dropped");
+    }
+
     void Jump()
     {
         if (jumpTime > jumpDelay)
@@ -211,27 +240,27 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    public void CrouchingCheck()
-    {
-        float localHeight = 0;
-        float localSpeed = 0;
+    // public void CrouchingCheck()
+    // {
+    //     float localHeight = 0;
+    //     float localSpeed = 0;
 
-        if (Input.GetKey(KeyCode.C))
-        {
-            CrouchingExecution(localSpeed, localHeight);
-        }
-    }
+    //     if (Input.GetKey(KeyCode.C))
+    //     {
+    //         CrouchingExecution(localSpeed, localHeight);
+    //     }
+    // }
 
-    public void CrouchingExecution(float speed, float height)
-    {
-        height = playerHeight * 0.5f;
-        speed = crouchWalkSpeed;
-    }
+    // public void CrouchingExecution(float speed, float height)
+    // {
+    //     height = playerHeight * 0.5f;
+    //     speed = crouchWalkSpeed;
+    // }
 
-    public void CharacterControllerBodyModifier()
-    {
-        float latestRecordedHeight = charController.height;
-    }
+    // public void CharacterControllerBodyModifier()
+    // {
+    //     float latestRecordedHeight = charController.height;
+    // }
 
     #region Cheats :P
     public void SuperJumpToggle(bool isSuperJump)
@@ -261,6 +290,12 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "PickUp")
+        {
+            interactAction = GetComponent<ObjectThrowing>().PickUpFunctionality;
+            GetComponent<ObjectThrowing>().pickupCol = other;
+        }
+
         if (other.tag == "Rope")
         {
             ropeCol = other;
@@ -300,6 +335,12 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if (other.tag == "PickUp")
+        {
+            interactAction -= GetComponent<ObjectThrowing>().PickUpFunctionality;
+            GetComponent<ObjectThrowing>().pickupCol = null;
+        }
+
         if (other.tag == "Rope")
         {
             ropeCol = null;

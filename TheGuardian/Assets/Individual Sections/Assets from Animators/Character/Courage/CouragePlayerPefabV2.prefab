@@ -519,6 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4788824519829262}
   - component: {fileID: 95168395167116652}
+  - component: {fileID: 136405852182050678}
   - component: {fileID: 135382249996805536}
   - component: {fileID: 143534936779746760}
   - component: {fileID: 54466312129372566}
@@ -1138,7 +1139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1610843708632172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0094, y: 0.1064, z: 0.0062}
+  m_LocalPosition: {x: 0.0015, y: 0.1032, z: 0.006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4772414495160154}
@@ -1182,7 +1183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.174, y: 11.921, z: -12.92}
+  m_LocalPosition: {x: -0.073, y: 11.921, z: -8.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4246067982251884}
@@ -1495,6 +1496,7 @@ MonoBehaviour:
   atticThirdPuzzleCrateCam: {fileID: 0}
   atticThirdpuzzleRopeCam: {fileID: 0}
   hallwayUnderFloorWalkwayCam: {fileID: 0}
+  hallwayStackedObjectCam: {fileID: 0}
   positiveScreenYCamOffset: 0.8
   negativeScreenYCamOffset: 0.2
   positiveScreenXCamOffset: 0.2
@@ -1522,10 +1524,23 @@ SphereCollider:
   m_GameObject: {fileID: 1823480461893372}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.059656985
   m_Center: {x: 0, y: 0.09, z: 0.04965698}
+--- !u!136 &136405852182050678
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823480461893372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.046767604
+  m_Height: 0.11688693
+  m_Direction: 2
+  m_Center: {x: -0.000000003745334, y: 0.08160533, z: 0.04462252}
 --- !u!137 &137627735811182810
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1625,7 +1640,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 0.175
-  m_Radius: 0.03
+  m_Radius: 0.04
   m_SlopeLimit: 45
   m_StepOffset: 0.01
   m_SkinWidth: 0.011

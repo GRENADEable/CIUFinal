@@ -16,8 +16,8 @@ public class ObjectThrowing : MonoBehaviour
     private Rigidbody rgCourageRightHand;
     // [SerializeField]
     // private bool isInteracting;
-    [SerializeField]
-    private Collider pickupCol;
+
+    public Collider pickupCol;
     // private RaycastHit hitInfo;
     [SerializeField]
     private PlayerControls plyControls;

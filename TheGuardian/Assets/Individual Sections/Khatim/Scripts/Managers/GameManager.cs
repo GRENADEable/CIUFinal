@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public bool isPlayerDead;
     public int keyCounter;
     public GameObject endHallwayDoor;
-    public Collider[] keyCollectorCol;
+    public GameObject[] keyCollectorGameobject;
 
     public delegate void SendMessageToManagers();
     public static event SendMessageToManagers onPaintingsAwakeMessage;
@@ -58,6 +58,11 @@ public class GameManager : MonoBehaviour
     void OnKeyDropEventReceived()
     {
         keyCounter++;
+        Destroy(keyCollectorGameobject[keyCounter]);
+        // for (int i = 0; i < keyCollectorGameobject.Length; i++)
+        // {
+        //     Destroy(keyCollectorGameobject[keyCounter]);
+        // }
         Debug.LogWarning("Key Received");
     }
 }
