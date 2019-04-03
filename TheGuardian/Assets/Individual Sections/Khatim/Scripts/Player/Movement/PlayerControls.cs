@@ -55,6 +55,7 @@ public class PlayerControls : MonoBehaviour
     private float playerHeight;
     private float moveHorizontal;
     private float moveVertical;
+    private float playerCenter;
 
     void OnEnable()
     {
@@ -62,6 +63,7 @@ public class PlayerControls : MonoBehaviour
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
+        playerCenter = charController.center.y;
         playerVector = transform.position;
         jumpTime = jumpDelay;
     }
@@ -98,6 +100,7 @@ public class PlayerControls : MonoBehaviour
         if (!onRope)
         {
             float localHeight = playerHeight;
+            float localCenter = playerCenter;
             //Gets Player Inputs
             moveVertical = Input.GetAxisRaw("Vertical");
             moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -128,7 +131,8 @@ public class PlayerControls : MonoBehaviour
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
                 {
                     localHeight = playerHeight * 0.5f;
-                    // anim.SetBool("isCrouching", true);
+                    localCenter = playerCenter / 2f;
+                     anim.SetBool("isCrouching", true);
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
@@ -144,6 +148,7 @@ public class PlayerControls : MonoBehaviour
                 {
                     moveDirection = moveDirection * walkingSpeed;
                     anim.SetBool("isRunning", false);
+                    anim.SetBool("isCrouching", false);
                     // Debug.LogWarning("Walking");
                 }
 
@@ -153,8 +158,11 @@ public class PlayerControls : MonoBehaviour
                 }
 
                 //Player Crouching
-                float latestRecordedHeight = charController.height;
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
+                //Vector3 p = Vector3.zero;
+                charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime),0);
+                Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
+               // charController.center = p;
             }
             else
             {

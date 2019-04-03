@@ -8,6 +8,7 @@ public class EYEpaintings2 : MonoBehaviour
     public float maxAngleX;
     public float maxAngleZ;
     public float speed;
+    public int rotationInt;
 
     private float time;
     private float delta;
@@ -37,24 +38,26 @@ public class EYEpaintings2 : MonoBehaviour
     {
         while (true)
         {
-            int rotationInt = 0;
             time = time + Time.deltaTime;
             delta = Mathf.Sin(time / speed);
-          //  transform.rotation= Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+            transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
             Debug.Log(rotationInt);
-            if(transform.rotation.y >= 30 && transform.rotation.y <= 35)
+            if(transform.rotation.eulerAngles.y >= 30 && transform.rotation.eulerAngles.y <= 32)
             {
-                rotationInt++;
-                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+                Debug.Log("doing the first rotation");
+                yield return new WaitForSeconds(5f);
+               // transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
             }
-            else if (transform.rotation.y >= 10 && transform.rotation.y <= 0)
+            if (transform.rotation.eulerAngles.y >= 0 && transform.rotation.eulerAngles.y <= 2)
             {
-                rotationInt++;
-                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+                Debug.Log("doing the second rotation");
+                yield return new WaitForSeconds(5f);
+               // transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
             }
-           else if (transform.rotation.y >= -30 && transform.rotation.y <= -35)
+            if (transform.rotation.eulerAngles.y >= -35 && transform.rotation.eulerAngles.y <= -33)
             {
-                rotationInt++;
+                Debug.Log("doing the third rotation");
+                yield return new WaitForSeconds(5f);
                 transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
             }
             yield return null;
