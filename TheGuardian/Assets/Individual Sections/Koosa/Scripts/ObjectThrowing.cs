@@ -17,7 +17,7 @@ public class ObjectThrowing : MonoBehaviour
     // [SerializeField]
     // private bool isInteracting;
 
-    public Collider pickupCol;
+    private Collider pickupCol;
     // private RaycastHit hitInfo;
     [SerializeField]
     private PlayerControls plyControls;

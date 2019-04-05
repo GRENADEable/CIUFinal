@@ -26,20 +26,16 @@ public class PlayerController : MonoBehaviour
 
     private float moveInput;
     private float rotateInput;
-    private float playerHeight;
     private float moveSpeed;
     private float inputDelay = 0.1f;
 
     private Vector3 playerInput;
-    private Vector3 defaultVector;
 
 
     [SerializeField]
     private Rigidbody playerRb;
     [SerializeField]
     private Collider playerCollider;
-    [SerializeField]
-    private Transform playerTransform;
 
     private RaycastHit hit;
 
@@ -47,16 +43,13 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
-        playerTransform = GetComponent<Transform>();
-        playerHeight = this.gameObject.transform.localScale.y;
-        defaultVector = transform.localScale;
     }
 
     void Update()
     {
         //playerHeight = this.gameObject.transform.localScale.y;
         //transform.rotation = Quaternion.Euler(lockRotation, transform.rotation.eulerAngles.y, lockRotation);
-       // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void FixedUpdate()
@@ -83,9 +76,9 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 directionOfMovement = slopeModifier.playerCalculatedForwardVector.normalized * moveInput * moveSpeed * Time.fixedDeltaTime;
         Vector3 vectorOfMovement = Vector3.ClampMagnitude(directionOfMovement, magnitudeToClamp);
-         //playerRb.velocity = vectorOfMovement;
+        //playerRb.velocity = vectorOfMovement;
         playerRb.AddForce(vectorOfMovement, ForceMode.Impulse);
-       // playerRb.MovePosition(transform.position + vectorOfMovement.normalized * moveSpeed * Time.deltaTime);
+        // playerRb.MovePosition(transform.position + vectorOfMovement.normalized * moveSpeed * Time.deltaTime);
         // playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ ;
         // playerRb.velocity = moveSpeed * playerRb.velocity.normalized;
     }
@@ -94,13 +87,13 @@ public class PlayerController : MonoBehaviour
     {
         float distanceFromGround;
         distanceFromGround = playerCollider.bounds.extents.y;
-        return Physics.Raycast(transform.position, -Vector3.up, distanceFromGround+1);
+        return Physics.Raycast(transform.position, -Vector3.up, distanceFromGround + 1);
     }
 
     private void Jump()
     {
         playerRb.AddForce(new Vector3(0f, jumpStrenght, 0f), ForceMode.Impulse);
-       // playerRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        // playerRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
     public void OnCollisionStay(Collision collider)

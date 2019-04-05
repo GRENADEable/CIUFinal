@@ -12,18 +12,24 @@ public class PlayerControls : MonoBehaviour
     public float crouchRunSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
+    public float jumpDelay;
+    // [Header("Player Light Variables")]
+    // public GameObject match;
+    // public bool lightOn;
+    // public int matchesCount;
+
     [Header("Player Jump Variables")]
     public float jumpPower;
-    public float jumpDelay;
+
     [Header("Player Gravity Variables")]
     public float defaultGravity;
     public float gravityAfterRopeBreak;
     // public float pushPower;
+
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
     public float sprintClimbSpeed;
-    public bool isPickingObject;
     #endregion
 
     #region Events
@@ -34,22 +40,28 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onObjectShakePlank;
     public static event SendEvents onObjectStillPlank;
     public static event SendEvents onObjectBendPlank;
+    // public static event SendEvents onFleeEnemy;
+    // public static event SendEvents onChasePlayer;
     #endregion
 
+    #region  Object Interaction
+    [Header("Object Interaction Variables")]
+    public bool isPickingObject;
+    public bool isPushingOrPulling;
+    public float throwingForce;
+    public Transform pivotDummy;
+    // public static event SendEvents onObjectDropEvent;
     public delegate void Interact();
     Interact interactAction;
+    #endregion
 
     #region Trigger Colliders
-    [SerializeField]
-    private Collider ropeCol;
     [SerializeField]
     private Collider interactCol;
     [SerializeField]
     private Collider plankCol;
     #endregion
 
-    [SerializeField]
-    private bool isPushingOrPulling;
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
@@ -57,6 +69,9 @@ public class PlayerControls : MonoBehaviour
     private Animator anim;
     [SerializeField]
     private Rigidbody rg;
+    // private Collider pickupCol;
+    [SerializeField]
+    private Rigidbody rgCourageRightHand;
 
     #region Cheats
     [Header("Cheats Section :3")]
@@ -88,29 +103,31 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H) && interactAction != null)
+        if (Input.GetKeyDown(KeyCode.E) && charController.isGrounded && interactAction != null && !isPushingOrPulling && !isPickingObject && interactCol.tag == "PickUp")
         {
+            isPickingObject = true;
             interactAction();
         }
 
-        if (Input.GetKey(KeyCode.E) && interactCol != null && !isPushingOrPulling && charController.isGrounded)
+        if (Input.GetKey(KeyCode.E) && charController.isGrounded && interactAction != null && !isPushingOrPulling && !isPickingObject && interactCol.tag == "PushAndPull")
         {
-            interactCol.gameObject.AddComponent(typeof(FixedJoint));
-            interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-            interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rg;
-            interactCol.GetComponent<Rigidbody>().isKinematic = false;
-            interactCol.GetComponent<Rigidbody>().useGravity = false;
             isPushingOrPulling = true;
-            Debug.LogWarning("Object Attached");
+            ObjectPushandPull();
         }
 
-        if ((Input.GetKeyUp(KeyCode.E) && isPushingOrPulling) || (interactCol == null && isPushingOrPulling) || (!charController.isGrounded && interactCol == null && isPushingOrPulling))
+        if (Input.GetKeyUp(KeyCode.E) && interactAction != null && (isPushingOrPulling || isPickingObject))
         {
-            if (onObjectDetatchEvent != null) //Sends message to Gameobject with Push and Pull Object Script
-                onObjectDetatchEvent();
-
             isPushingOrPulling = false;
+            isPickingObject = false;
+            ObjectDrop();
         }
+
+        // if (Input.GetKey(KeyCode.E) && interactCol.tag == "Matchstick")
+        // {
+        //     matchesCount = 1;
+        //     Destroy(interactCol.gameObject);
+        //     interactCol = null;
+        // }
 
         if (Input.GetKey(KeyCode.E) && plankCol != null)
         {
@@ -120,10 +137,34 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
+        // if (Input.GetKeyDown(KeyCode.F) && !lightOn && matchesCount > 0 && !match.activeSelf)
+        // {
+        //     match.SetActive(true);
+        //     lightOn = true;
+        // }
+        // else if (Input.GetKeyDown(KeyCode.F) && lightOn)
+        // {
+        //     match.SetActive(false);
+        //     lightOn = false;
+        // }
+
+        // if (match.activeSelf)
+        // {
+        //     if (onFleeEnemy != null)
+        //         onFleeEnemy();
+        // }
+        // else if (!match.activeSelf)
+        // {
+        //     if (onChasePlayer != null)
+        //         onChasePlayer();
+        // }
+
         if (!onRope)
         {
+            //Storing Player's Character Controllers Height and Center
             float localHeight = playerHeight;
             float localCenter = playerCenter;
+
             //Gets Player Inputs
             moveVertical = Input.GetAxisRaw("Vertical");
             moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -153,6 +194,7 @@ public class PlayerControls : MonoBehaviour
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
                 {
+                    //Made Character Controller Collider Shrink Variables Dynamic
                     localHeight = playerHeight * crouchColShrinkValue;
                     localCenter = playerCenter / crouchColCenterValue;
                     anim.SetBool("isCrouching", true);
@@ -175,17 +217,16 @@ public class PlayerControls : MonoBehaviour
                     // Debug.LogWarning("Walking");
                 }
 
-                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
+                if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
                 {
                     Jump();
+                    // moveDirection.y = jumpPower;
                 }
 
                 //Player Crouching
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
-                //Vector3 p = Vector3.zero;
                 charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime), 0);
                 Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
-                // charController.center = p;
             }
             else
             {
@@ -207,7 +248,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        if (ropeCol != null && Input.GetKey(KeyCode.E))
+        if (interactCol != null && Input.GetKey(KeyCode.E) && interactCol.tag == "Rope")
             onRope = true;
 
         else
@@ -218,49 +259,6 @@ public class PlayerControls : MonoBehaviour
         if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
             onRope = false;
     }
-
-    void Pickup()
-    {
-        Debug.LogWarning("Object Picked Up");
-    }
-
-    void Drop()
-    {
-        Debug.LogWarning("Object Dropped");
-    }
-
-    void Jump()
-    {
-        if (jumpTime > jumpDelay)
-        {
-            moveDirection.y = jumpPower;
-            // anim.Play("CourageJump");
-            Debug.LogWarning("Jump");
-            jumpTime = 0f;
-        }
-    }
-
-    // public void CrouchingCheck()
-    // {
-    //     float localHeight = 0;
-    //     float localSpeed = 0;
-
-    //     if (Input.GetKey(KeyCode.C))
-    //     {
-    //         CrouchingExecution(localSpeed, localHeight);
-    //     }
-    // }
-
-    // public void CrouchingExecution(float speed, float height)
-    // {
-    //     height = playerHeight * 0.5f;
-    //     speed = crouchWalkSpeed;
-    // }
-
-    // public void CharacterControllerBodyModifier()
-    // {
-    //     float latestRecordedHeight = charController.height;
-    // }
 
     #region Cheats :P
     public void SuperJumpToggle(bool isSuperJump)
@@ -286,19 +284,30 @@ public class PlayerControls : MonoBehaviour
             runningSpeed = defaultRunningSpeed;
         }
     }
+
+    // public void GiveMatchStick()
+    // {
+    //     matchesCount = 1;
+    //     Debug.LogWarning("Matchstick Aquired");
+    // }
     #endregion
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "PickUp")
         {
-            interactAction = GetComponent<ObjectThrowing>().PickUpFunctionality;
-            GetComponent<ObjectThrowing>().pickupCol = other;
+            interactAction = ObjectPickup;
+            interactCol = other;
+        }
+
+        if (other.gameObject.tag == "Matchstick")
+        {
+            interactCol = other;
         }
 
         if (other.tag == "Rope")
         {
-            ropeCol = other;
+            interactCol = other;
         }
 
         if (other.tag == "RopeBreak")
@@ -312,18 +321,13 @@ public class PlayerControls : MonoBehaviour
 
         if (other.gameObject.tag == "End")
         {
-            // SceneManage.instance.HallwayLevel();
             if (onChangeLevelToHallway != null)
                 onChangeLevelToHallway();
         }
 
-        if (other.tag == "Rope")
+        if (other.tag == "PushAndPull")
         {
-            ropeCol = other;
-        }
-
-        if (other.tag == "Interact")
-        {
+            interactAction = ObjectPushandPull;
             interactCol = other;
         }
 
@@ -337,16 +341,22 @@ public class PlayerControls : MonoBehaviour
     {
         if (other.tag == "PickUp")
         {
-            interactAction -= GetComponent<ObjectThrowing>().PickUpFunctionality;
-            GetComponent<ObjectThrowing>().pickupCol = null;
+            interactAction -= ObjectPickup;
+            interactCol = null;
         }
 
         if (other.tag == "Rope")
         {
-            ropeCol = null;
+            interactCol = null;
         }
 
-        if (other.tag == "Interact")
+        if (other.tag == "PushAndPull")
+        {
+            interactAction -= ObjectPushandPull;
+            interactCol = null;
+        }
+
+        if (other.gameObject.tag == "Matchstick")
         {
             interactCol = null;
         }
@@ -376,5 +386,63 @@ public class PlayerControls : MonoBehaviour
         //         Destroy(hit)
         //     }
         // }
+    }
+
+    #region Object Interaction
+    void ObjectPickup()
+    {
+        //Replaced it with trigger collider because the raycast was not accurate when the distance was increased or decreased.
+        interactCol.gameObject.AddComponent(typeof(FixedJoint));
+        interactCol.transform.position = pivotDummy.position;
+
+        interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rgCourageRightHand;
+        interactCol.GetComponent<Rigidbody>().useGravity = false;
+        Debug.LogWarning("Object Picked Up");
+    }
+
+    void ObjectDrop()
+    {
+        //To avoid the three lines of code to not run. I moved those three lines of code under the DropObject Class.
+        // if (onObjectDropEvent != null)
+        // {
+        //     isPickingObject = false;
+        //     onObjectDropEvent();
+        // }
+
+        interactCol.GetComponent<Rigidbody>().useGravity = true;
+        Destroy(interactCol.gameObject.GetComponent<FixedJoint>());
+        Debug.LogWarning("Object LetGo");
+    }
+
+    void ObjectThrow()
+    {
+        Destroy(interactCol.gameObject.GetComponent<FixedJoint>());
+        Rigidbody objectRg = interactCol.GetComponent<Rigidbody>();
+        objectRg.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
+        objectRg.useGravity = true;
+        Debug.LogWarning("Object Thrown");
+    }
+
+    void ObjectPushandPull()
+    {
+        interactCol.gameObject.AddComponent(typeof(FixedJoint));
+        interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
+        interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rg;
+        interactCol.GetComponent<Rigidbody>().isKinematic = false;
+        interactCol.GetComponent<Rigidbody>().useGravity = false;
+        Debug.LogWarning("Object Attached");
+    }
+
+    #endregion
+
+    void Jump()
+    {
+        if (jumpTime > jumpDelay)
+        {
+            moveDirection.y = jumpPower;
+            anim.Play("CourageJump");
+            Debug.LogWarning("Jump");
+            jumpTime = 0f;
+        }
     }
 }

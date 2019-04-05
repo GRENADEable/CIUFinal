@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     public float yDistance;
     #endregion
     #region Private Variables
-    private Camera playerCamera;
+    // private Camera playerCamera;
     private float currentX = 0f;
     // private float sensitivityX = 4f;
     //private float sensitivityY = 1f;
@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         playerCameraTransform = transform;
-        playerCamera = gameObject.GetComponent<Camera>();
+        // playerCamera = gameObject.GetComponent<Camera>();
         lookAt = GameObject.FindGameObjectWithTag("Player").transform;
     }
 

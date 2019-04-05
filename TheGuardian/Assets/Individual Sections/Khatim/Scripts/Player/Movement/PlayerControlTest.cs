@@ -31,8 +31,7 @@ public class PlayerControlTest : MonoBehaviour
     private Collider ropeCol;
     [SerializeField]
     private Collider interactCol;
-    [SerializeField]
-    private Collider col;
+    // private Collider col;
     [SerializeField]
     private bool isInteracting;
     private float gravity;
@@ -163,7 +162,7 @@ public class PlayerControlTest : MonoBehaviour
             }
             else
             {
-                moveDirection.y -= defaultGravity * Time.deltaTime;
+                moveDirection.y -= gravity * Time.deltaTime;
             }
         }
         else
@@ -299,10 +298,10 @@ public class PlayerControlTest : MonoBehaviour
             interactCol = other;
         }
 
-        if (other.tag == "BendPlank")
-        {
-            col = other;
-        }
+        // if (other.tag == "BendPlank")
+        // {
+        //     col = other;
+        // }
     }
 
     void OnTriggerExit(Collider other)
@@ -317,9 +316,9 @@ public class PlayerControlTest : MonoBehaviour
             interactCol = null;
         }
 
-        if (other.tag == "BendPlank")
-        {
-            col = null;
-        }
+        // if (other.tag == "BendPlank")
+        // {
+        //     col = null;
+        // }
     }
 }

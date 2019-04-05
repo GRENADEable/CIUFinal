@@ -519,13 +519,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4788824519829262}
   - component: {fileID: 95168395167116652}
-  - component: {fileID: 136405852182050678}
-  - component: {fileID: 135382249996805536}
+  - component: {fileID: 65486910918436194}
   - component: {fileID: 143534936779746760}
   - component: {fileID: 54466312129372566}
   - component: {fileID: 114715774581298618}
-  - component: {fileID: 114097789195023540}
-  - component: {fileID: 114847062059770270}
+  - component: {fileID: 114202019760912982}
   - component: {fileID: 114859256158681970}
   m_Layer: 0
   m_Name: CouragePlayerPefabV2
@@ -1183,7 +1181,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.073, y: 11.921, z: -8.14}
+  m_LocalPosition: {x: -0.073, y: 11.9158, z: -8.68222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4246067982251884}
@@ -1359,6 +1357,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65486910918436194
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823480461893372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.054527, y: 0.11159134, z: 0.10431385}
+  m_Center: {x: 3.2138459e-10, y: 0.09025955, z: 0.059302807}
 --- !u!95 &95168395167116652
 Animator:
   serializedVersion: 3
@@ -1414,7 +1424,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114097789195023540
+--- !u!114 &114202019760912982
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1422,14 +1432,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1823480461893372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633459234d33df74391e0d55835e12dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwingForce: 1
-  pivotDummy: {fileID: 4694540870290230}
-  rgCourageRightHand: {fileID: 54577336604624708}
-  pickupCol: {fileID: 0}
-  plyControls: {fileID: 0}
+  match: {fileID: 1526383379790978}
+  lightOn: 0
+  col: {fileID: 0}
+  matchesCount: 0
 --- !u!114 &114715774581298618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1445,38 +1454,27 @@ MonoBehaviour:
   runningSpeed: 0.6
   crouchWalkSpeed: 0.2
   crouchRunSpeed: 0.3
-  jumpPower: 2
+  crouchColShrinkValue: 0.8
+  crouchColCenterValue: 1.1
   jumpDelay: 1
+  jumpPower: 2
   defaultGravity: 9.81
   gravityAfterRopeBreak: 3
   onRope: 0
   climbSpeed: 0.4
   sprintClimbSpeed: 0.6
   isPickingObject: 0
-  ropeCol: {fileID: 0}
+  isPushingOrPulling: 0
+  throwingForce: 0
+  pivotDummy: {fileID: 4694540870290230}
   interactCol: {fileID: 0}
   plankCol: {fileID: 0}
-  isPushingOrPulling: 0
   rg: {fileID: 0}
+  rgCourageRightHand: {fileID: 54577336604624708}
   flashSpeed: 5
   defaultRunningSpeed: 0.7
   superJump: 5
   defaultJump: 2
---- !u!114 &114847062059770270
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1823480461893372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908ea482f01ce304f8e3c2e0372518d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  match: {fileID: 1526383379790978}
-  lightOn: 0
-  col: {fileID: 0}
-  matchesCount: 0
 --- !u!114 &114859256158681970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1516,31 +1514,6 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 2
   smoothing: 13
---- !u!135 &135382249996805536
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1823480461893372}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.059656985
-  m_Center: {x: 0, y: 0.09, z: 0.04965698}
---- !u!136 &136405852182050678
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1823480461893372}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.046767604
-  m_Height: 0.11688693
-  m_Direction: 2
-  m_Center: {x: -0.000000003745334, y: 0.08160533, z: 0.04462252}
 --- !u!137 &137627735811182810
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

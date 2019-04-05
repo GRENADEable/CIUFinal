@@ -40,7 +40,6 @@ public class LightMechanic : MonoBehaviour
                 onChasePlayer();
         }
 
-
         if (col != null && Input.GetKeyDown(KeyCode.E))
         {
             matchesCount = 1;

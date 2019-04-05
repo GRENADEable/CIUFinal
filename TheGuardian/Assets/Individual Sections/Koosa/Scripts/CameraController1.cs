@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CameraController1 : MonoBehaviour
 {
-
-    public Transform lookAtTransform;
+    /*public Transform lookAtTransform;
     public Transform playerCameraTransform;
 
     public float zDistanceFromLookAt;
@@ -45,32 +44,5 @@ public class CameraController1 : MonoBehaviour
         //     transform.position = Vector3.SmoothDamp(transform.position, leverPosition, ref cameraVelocity, cameraSmoothing);
         //     ignore = true;
         // }
-
-        /*
-         if ((lookAtTransform.position.z - targetsToAdd[2].position.z) > -50)
-         {
-            foreach (Transform i in targetsToAdd)
-            {
-                if (!targetTransforms.Contains(i))
-                    targetTransforms.Add(i);
-            }
-            transform.position = Offset + lookAtTransform.position+ center;
-            //transform.position = Vector3.SmoothDamp(transform.position, (lookAtTransform.position + Offset + GetEncapsulatingBounds().center), ref cameraVelocity, cameraSmoothing);
-        }
-    }
-
-    public Bounds GetEncapsulatingBounds()
-    {
-        Bounds bounds = new Bounds(targetsToAdd[0].position, Vector3.zero);
-
-        for(int i = 0; i < targetsToAdd.Count; i++)
-        {
-            bounds.Encapsulate(targetsToAdd[i].position);
-        }
-
-        return bounds;
-
-    }
-    */
-    }
+    }*/
 }

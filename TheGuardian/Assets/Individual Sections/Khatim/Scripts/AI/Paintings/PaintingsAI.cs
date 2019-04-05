@@ -49,7 +49,8 @@ public class PaintingsAI : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, (player.transform.position + raycastHeight) - transform.position, Color.red);
-        bool ray = Physics.Raycast(transform.position, (player.transform.position + raycastHeight) - transform.position, out hit);
+        Physics.Raycast(transform.position, (player.transform.position + raycastHeight) - transform.position, out hit);
+        
         isPlayerHiding = !(hit.collider.tag == "Player");
 
         tarDir = player.transform.position - transform.position;
