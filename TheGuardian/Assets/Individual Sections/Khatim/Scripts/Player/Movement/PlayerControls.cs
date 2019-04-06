@@ -115,7 +115,7 @@ public class PlayerControls : MonoBehaviour
             ObjectPushandPull();
         }
 
-        if (Input.GetKeyUp(KeyCode.E) && interactAction != null && (isPushingOrPulling || isPickingObject))
+        if (Input.GetKeyUp(KeyCode.E) && interactAction != null && (isPushingOrPulling || isPickingObject) && (interactCol.tag == "PushAndPull" || interactCol.tag == "PickUp"))
         {
             isPushingOrPulling = false;
             isPickingObject = false;
