@@ -122,6 +122,12 @@ public class PlayerControls : MonoBehaviour
             ObjectDrop();
         }
 
+        if (Input.GetKey(KeyCode.Space) && interactAction != null && isPickingObject && !isPushingOrPulling)
+        {
+            isPickingObject = false;
+            ObjectThrow();
+        }
+
         // if (Input.GetKey(KeyCode.E) && interactCol.tag == "Matchstick")
         // {
         //     matchesCount = 1;
