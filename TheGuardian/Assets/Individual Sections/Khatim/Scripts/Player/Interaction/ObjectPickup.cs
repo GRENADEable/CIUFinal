@@ -13,12 +13,14 @@ public class ObjectPickup : PlayerInteraction
     public override void StartInteraction()
     {
         base.StartInteraction();
-        interactCol.gameObject.AddComponent(typeof(FixedJoint));
+        if (interactCol.GetComponent<FixedJoint>() == null)
+            interactCol.gameObject.AddComponent(typeof(FixedJoint));
+
         objectFixedJoint = interactCol.GetComponent<FixedJoint>();
         interactCol.transform.position = pivotDummy.position;
         objectFixedJoint.connectedBody = rgCourageRightHand;
         rgObject.useGravity = false;
-        Debug.LogWarning("Object Picked Up");
+        Debug.Log("Object Picked Up");
     }
     public override void UpdateInteraction()
     {
@@ -27,13 +29,13 @@ public class ObjectPickup : PlayerInteraction
             Destroy(objectFixedJoint);
             rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
             rgObject.useGravity = true;
-            Debug.LogWarning("Object Thrown");
+            Debug.Log("Object Thrown");
         }
     }
     public override void EndInteraction()
     {
         rgObject.useGravity = true;
         Destroy(objectFixedJoint);
-        Debug.LogWarning("Object Pickup Ended");
+        Debug.Log("Object Pickup Ended");
     }
 }

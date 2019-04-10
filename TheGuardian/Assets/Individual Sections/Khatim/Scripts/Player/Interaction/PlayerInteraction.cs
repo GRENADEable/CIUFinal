@@ -7,6 +7,7 @@ public class PlayerInteraction : MonoBehaviour
     public Collider interactCol;
     public Rigidbody rgPlayer;
     public Rigidbody rgObject;
+
     public virtual void StartInteraction()
     {
         rgPlayer = GetComponent<Rigidbody>();

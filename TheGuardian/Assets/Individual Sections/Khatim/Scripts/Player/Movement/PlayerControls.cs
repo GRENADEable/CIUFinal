@@ -20,7 +20,6 @@ public class PlayerControls : MonoBehaviour
     [Header("Player Gravity Variables")]
     public float defaultGravity;
     public float gravityAfterRopeBreak;
-    // public float pushPower;
 
     [Header("Rope Variables")]
     public bool onRope;
@@ -42,11 +41,6 @@ public class PlayerControls : MonoBehaviour
     [Header("Object Interaction Variables")]
     public bool isPickingObject;
     public bool isPushingOrPulling;
-    public float throwingForce;
-    public Transform pivotDummy;
-    [SerializeField]
-    private Collider objectInteractReference;
-    // public static event SendEvents onObjectDropEvent;
     #endregion
 
     #region Trigger Colliders
@@ -62,10 +56,6 @@ public class PlayerControls : MonoBehaviour
     private PlayerInteraction plyInteract;
     private float jumpTime;
     private Animator anim;
-    [SerializeField]
-    private Rigidbody rg;
-    [SerializeField]
-    private Rigidbody rgCourageRightHand;
 
     #region Cheats
     [Header("Cheats Section :3")]
@@ -87,7 +77,6 @@ public class PlayerControls : MonoBehaviour
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
-        rg = GetComponent<Rigidbody>();
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
@@ -109,30 +98,6 @@ public class PlayerControls : MonoBehaviour
         {
             plyInteract.EndInteraction();
         }
-
-        // if (Input.GetKeyDown(KeyCode.E) && interactAction != null)// && !isPushingOrPulling && !isPickingObject && interactCol.tag == "PickUp" && charController.isGrounded )
-        // {
-        //     //isPickingObject = true;
-        // }
-
-        /*if (Input.GetKey(KeyCode.E) && charController.isGrounded && interactAction != null && !isPushingOrPulling && !isPickingObject && interactCol.tag == "PushAndPull")
-        {
-            isPushingOrPulling = true;
-            ObjectPushandPull();
-        }
-
-        if (Input.GetKeyUp(KeyCode.E) && interactAction != null && (isPushingOrPulling || isPickingObject) && (interactCol.tag == "PushAndPull" || interactCol.tag == "PickUp"))
-        {
-            isPushingOrPulling = false;
-            isPickingObject = false;
-            ObjectDrop();
-        }*/
-
-        // if (Input.GetKey(KeyCode.Space) && interactAction != null && isPickingObject && !isPushingOrPulling)
-        // {
-        //     isPickingObject = false;
-        //     ObjectThrow();
-        // }
 
         if (Input.GetKey(KeyCode.E) && plankCol != null)
         {
@@ -273,22 +238,29 @@ public class PlayerControls : MonoBehaviour
     {
         if (other.tag == "PickUp" && plyInteract == null)
         {
-            //interactCol = other;
-            objectInteractReference = other;
             plyInteract = GetComponent<ObjectPickup>();
+            plyInteract.interactCol = other;
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                plyInteract.StartInteraction();
+            }
         }
 
         if (other.tag == "Rope" && plyInteract == null)
         {
             plyInteract = GetComponent<RopeClimbing>();
-            //interactCol = other;
         }
 
-        if (other.tag == "PushAndPull")
+        if (other.tag == "PushAndPull" && plyInteract == null)
         {
-            // interactCol = other;
             plyInteract = GetComponent<ObjectPushAndPull>();
             plyInteract.interactCol = other;
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                plyInteract.StartInteraction();
+            }
         }
 
         if (other.gameObject.tag == "Matchstick")
@@ -319,22 +291,24 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "PickUp" && objectInteractReference == other)
+        if (plyInteract != null)
         {
-            plyInteract = null;
-            // interactCol = null;
+            if (other.tag == "PickUp" && plyInteract.interactCol == other)
+            {
+                plyInteract.interactCol = null;
+                plyInteract = null;
+            }
+
+            if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
+            {
+                plyInteract.interactCol = null;
+                plyInteract = null;
+            }
         }
 
         if (other.tag == "Rope")
         {
             plyInteract = null;
-            // interactCol = null;
-        }
-
-        if (other.tag == "PushAndPull")
-        {
-            plyInteract = null;
-            // interactCol = null;
         }
 
         if (other.gameObject.tag == "Matchstick")
@@ -353,52 +327,6 @@ public class PlayerControls : MonoBehaviour
     {
 
     }
-
-    #region Object Interaction
-    // void ObjectPickup()
-    // {
-    //     //Replaced it with trigger collider because the raycast was not accurate when the distance was increased or decreased.
-    //     interactCol.gameObject.AddComponent(typeof(FixedJoint));
-    //     interactCol.transform.position = pivotDummy.position;
-
-    //     interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rgCourageRightHand;
-    //     interactCol.GetComponent<Rigidbody>().useGravity = false;
-    //     Debug.Log("Object Picked Up");
-    // }
-
-    // void ObjectDrop()
-    // {
-    //     //To avoid the three lines of code to not run. I moved those three lines of code under the DropObject Class.
-    //     // if (onObjectDropEvent != null)
-    //     // {
-    //     //     isPickingObject = false;
-    //     //     onObjectDropEvent();
-    //     // }
-
-    //     interactCol.GetComponent<Rigidbody>().useGravity = true;
-    //     Destroy(interactCol.gameObject.GetComponent<FixedJoint>());
-    //     Debug.Log("Object LetGo");
-    // }
-
-    // void ObjectThrow()
-    // {
-    //     Destroy(interactCol.gameObject.GetComponent<FixedJoint>());
-    //     Rigidbody objectRg = interactCol.GetComponent<Rigidbody>();
-    //     objectRg.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
-    //     objectRg.useGravity = true;
-    //     Debug.Log("Object Thrown");
-    // }
-
-    // void ObjectPushandPull()
-    // {
-    //     interactCol.gameObject.AddComponent(typeof(FixedJoint));
-    //     interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-    //     interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rg;
-    //     interactCol.GetComponent<Rigidbody>().isKinematic = false;
-    //     interactCol.GetComponent<Rigidbody>().useGravity = false;
-    //     Debug.Log("Object Attached");
-    // }
-    #endregion
 
     void Jump()
     {
