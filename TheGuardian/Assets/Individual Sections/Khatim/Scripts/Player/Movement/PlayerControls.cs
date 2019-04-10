@@ -173,7 +173,7 @@ public class PlayerControls : MonoBehaviour
                 {
                     moveDirection = moveDirection * runningSpeed;
                     anim.SetBool("isRunning", true);
-                    // Debug.LogWarning("Running");
+                    // Debug.Log("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
                 {
@@ -184,12 +184,12 @@ public class PlayerControls : MonoBehaviour
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
-                        // Debug.LogWarning("Crouch Run");
+                        // Debug.Log("Crouch Run");
                     }
                     else
                     {
                         moveDirection = moveDirection * crouchWalkSpeed;
-                        // Debug.LogWarning("Crouch Walk");
+                        // Debug.Log("Crouch Walk");
                     }
                 }
                 else
@@ -197,7 +197,7 @@ public class PlayerControls : MonoBehaviour
                     moveDirection = moveDirection * walkingSpeed;
                     anim.SetBool("isRunning", false);
                     anim.SetBool("isCrouching", false);
-                    // Debug.LogWarning("Walking");
+                    // Debug.Log("Walking");
                 }
 
                 if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
@@ -222,12 +222,12 @@ public class PlayerControls : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
-                // Debug.LogWarning("Sprint Climb?");
+                // Debug.Log("Sprint Climb?");
             }
             else
             {
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
-                // Debug.LogWarning("Climbing");
+                // Debug.Log("Climbing");
             }
         }
 
@@ -288,6 +288,7 @@ public class PlayerControls : MonoBehaviour
         {
             // interactCol = other;
             plyInteract = GetComponent<ObjectPushAndPull>();
+            plyInteract.interactCol = other;
         }
 
         if (other.gameObject.tag == "Matchstick")
@@ -301,7 +302,7 @@ public class PlayerControls : MonoBehaviour
                 onRopeBreakMessage();
 
             gravity = gravityAfterRopeBreak;
-            // Debug.LogWarning("Rope Broken");
+            // Debug.Log("Rope Broken");
         }
 
         if (other.gameObject.tag == "End")
@@ -362,7 +363,7 @@ public class PlayerControls : MonoBehaviour
 
     //     interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rgCourageRightHand;
     //     interactCol.GetComponent<Rigidbody>().useGravity = false;
-    //     Debug.LogWarning("Object Picked Up");
+    //     Debug.Log("Object Picked Up");
     // }
 
     // void ObjectDrop()
@@ -376,7 +377,7 @@ public class PlayerControls : MonoBehaviour
 
     //     interactCol.GetComponent<Rigidbody>().useGravity = true;
     //     Destroy(interactCol.gameObject.GetComponent<FixedJoint>());
-    //     Debug.LogWarning("Object LetGo");
+    //     Debug.Log("Object LetGo");
     // }
 
     // void ObjectThrow()
@@ -385,7 +386,7 @@ public class PlayerControls : MonoBehaviour
     //     Rigidbody objectRg = interactCol.GetComponent<Rigidbody>();
     //     objectRg.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
     //     objectRg.useGravity = true;
-    //     Debug.LogWarning("Object Thrown");
+    //     Debug.Log("Object Thrown");
     // }
 
     // void ObjectPushandPull()
@@ -395,7 +396,7 @@ public class PlayerControls : MonoBehaviour
     //     interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = rg;
     //     interactCol.GetComponent<Rigidbody>().isKinematic = false;
     //     interactCol.GetComponent<Rigidbody>().useGravity = false;
-    //     Debug.LogWarning("Object Attached");
+    //     Debug.Log("Object Attached");
     // }
     #endregion
 
@@ -405,7 +406,7 @@ public class PlayerControls : MonoBehaviour
         {
             moveDirection.y = jumpPower;
             anim.Play("CourageJump");
-            Debug.LogWarning("Jump");
+            Debug.Log("Jump");
             jumpTime = 0f;
         }
     }
