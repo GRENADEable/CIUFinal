@@ -8,18 +8,26 @@ public class EYEpaintings2 : MonoBehaviour
     public float maxAngleX;
     public float maxAngleZ;
     public float speed;
+    public float timeToWaitBetweenRotations;
+
+    public float firstRotationSmaller; // smaller value than the the bigger value 
+    public float firstRotationBigger;
+    public float secondRotationSmaller;
+    public float secondRotationBigger;
+    public float thirdRotationSmaller;
+    public float thirdRotationBigger;
 
     private float time;
     private float delta;
 
     public void Update()
     {
-       // TimeChanger();
-       // LightRotator(delta);
+        // TimeChanger();
+        // LightRotator(delta);
     }
     public void Start()
     {
-       StartCoroutine(lighting());
+        StartCoroutine(lighting());
     }
 
     public void TimeChanger()
@@ -27,10 +35,10 @@ public class EYEpaintings2 : MonoBehaviour
         time = time + Time.deltaTime;
         delta = Mathf.Sin(time / speed);
     }
-    
-    public void LightRotator( float delta)
+
+    public void LightRotator(float delta)
     {
-       transform.rotation = Quaternion.Euler(new Vector3(delta * maxAngleX, maxAngleY, maxAngleZ));
+        transform.rotation = Quaternion.Euler(new Vector3(delta * maxAngleX, maxAngleY, maxAngleZ));
     }
 
     IEnumerator lighting()
@@ -42,30 +50,30 @@ public class EYEpaintings2 : MonoBehaviour
             delta = Mathf.Sin(time / speed);
             transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
             Debug.Log(rotationInt);
-                if (transform.rotation.eulerAngles.y >= 30 && transform.rotation.eulerAngles.y <= 32)
-                {
-                    rotationInt++;
-                    transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
-                    Debug.Log("doing the first rotation");
-                    yield return new WaitForSeconds(2f);
-                    // transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
-                }
-                    if (transform.rotation.eulerAngles.y >= 0 && transform.rotation.eulerAngles.y <= 2)
-                    {
-                        rotationInt++;
-                        transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
-                        Debug.Log("doing the second rotation");
-                        yield return new WaitForSeconds(2f);
-                        // transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
-                    }
-                        if (transform.rotation.eulerAngles.y >= -35 && transform.rotation.eulerAngles.y <= -33)
-                        {
-                            rotationInt++;
-                             transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
-                             Debug.Log("doing the third rotation");
-                            yield return new WaitForSeconds(2f);
-                        }
-            yield return null;
+            if (transform.rotation.eulerAngles.y >= firstRotationSmaller && transform.rotation.eulerAngles.y <= firstRotationBigger)
+            {
+                rotationInt++;
+                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+                Debug.Log("doing the first rotation");
+                yield return new WaitForSeconds(timeToWaitBetweenRotations);
+                // transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+            }
+            if (transform.rotation.eulerAngles.y >= secondRotationSmaller && transform.rotation.eulerAngles.y <= secondRotationBigger)
+            {
+                rotationInt++;
+                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+                Debug.Log("doing the second rotation");
+                yield return new WaitForSeconds(timeToWaitBetweenRotations);
+                // transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+            }
+            if (transform.rotation.eulerAngles.y >= thirdRotationSmaller && transform.rotation.eulerAngles.y <= thirdRotationBigger)
+            {
+                rotationInt++;
+                transform.rotation = Quaternion.Euler(new Vector3(maxAngleX, delta * maxAngleY, maxAngleZ));
+                Debug.Log("doing the third rotation");
+                yield return new WaitForSeconds(timeToWaitBetweenRotations);
+            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

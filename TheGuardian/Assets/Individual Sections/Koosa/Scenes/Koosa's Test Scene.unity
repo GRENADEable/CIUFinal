@@ -333,6 +333,13 @@ MonoBehaviour:
   maxAngleX: 0
   maxAngleZ: 0
   speed: 2
+  timeToWaitBetweenRotations: 0.5
+  firstRotationSmaller: 30
+  firstRotationBigger: 32
+  secondRotationSmaller: 0
+  secondRotationBigger: 1.5
+  thirdRotationSmaller: 328
+  thirdRotationBigger: 330
 --- !u!1 &78689545
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +773,6 @@ MonoBehaviour:
   slopeModifier: {fileID: 415716587}
   playerRb: {fileID: 415716588}
   playerCollider: {fileID: 415716590}
-  playerTransform: {fileID: 415716594}
 --- !u!136 &415716590
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -780,11 +786,6 @@ CapsuleCollider:
   m_Height: 3.511759
   m_Direction: 1
   m_Center: {x: 0.000005602837, y: 0.0000011920928, z: -0.000017225742}
---- !u!4 &415716594 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 9f15207194692b0498da701d37a182bd,
-    type: 3}
-  m_PrefabInternal: {fileID: 868134037}
 --- !u!4 &612727094 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4976901064971854, guid: b850405320d31434da9783f0ceed6885,
@@ -1624,16 +1625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03482d0b6ff7fb0498002152fe8f3de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAtTransform: {fileID: 2133229973}
-  playerCameraTransform: {fileID: 1144840254}
-  zDistanceFromLookAt: -5
-  yDistanceFromLookAt: 3
-  xDistanceFromLookAt: 0
-  cameraSmoothing: 0
-  targetTransforms: []
-  targetsToAdd: []
-  distance: 0
-  ignore: 0
 --- !u!1 &1160947330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3851,7 +3842,6 @@ MonoBehaviour:
   throwingForce: 1
   pivotDummy: {fileID: 0}
   rgCourageRightHand: {fileID: 0}
-  pickupCol: {fileID: 0}
   plyControls: {fileID: 0}
 --- !u!114 &2133229977
 MonoBehaviour:
