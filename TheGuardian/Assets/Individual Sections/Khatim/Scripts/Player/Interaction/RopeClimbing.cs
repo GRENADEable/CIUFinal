@@ -7,16 +7,16 @@ public class RopeClimbing : PlayerInteraction
     public override void StartInteraction()
     {
         base.StartInteraction();
-        Debug.LogWarning("Rope Climibing Started");
+        Debug.Log("Rope Climibing Started");
     }
 
     public override void UpdateInteraction()
     {
-        Debug.LogWarning("Rope Climibing In Progress");
+        Debug.Log("Rope Climibing In Progress");
     }
 
     public override void EndInteraction()
     {
-        Debug.LogWarning("Rope Climibing Ended");
+        Debug.Log("Rope Climibing Ended");
     }
 }
