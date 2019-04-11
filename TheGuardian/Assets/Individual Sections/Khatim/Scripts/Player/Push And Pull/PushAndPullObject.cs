@@ -6,17 +6,17 @@ public class PushAndPullObject : MonoBehaviour
 {
     private Rigidbody rg;
 
-    void OnEnable()
-    {
-        PlayerControlTest.onObjectDetatchEvent += DetatchObjectEventReceived;
-        PlayerControls.onObjectDetatchEvent += DetatchObjectEventReceived;
-    }
+    // void OnEnable()
+    // {
+    //     PlayerControlTest.onObjectDetatchEvent += DetatchObjectEventReceived;
+    //     PlayerControls.onObjectDetatchEvent += DetatchObjectEventReceived;
+    // }
 
-    void OnDisable()
-    {
-        PlayerControlTest.onObjectDetatchEvent -= DetatchObjectEventReceived;
-        PlayerControls.onObjectDetatchEvent -= DetatchObjectEventReceived;
-    }
+    // void OnDisable()
+    // {
+    //     PlayerControlTest.onObjectDetatchEvent -= DetatchObjectEventReceived;
+    //     PlayerControls.onObjectDetatchEvent -= DetatchObjectEventReceived;
+    // }
 
 
     void Start()

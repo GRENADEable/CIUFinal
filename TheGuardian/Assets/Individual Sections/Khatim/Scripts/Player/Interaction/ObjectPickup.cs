@@ -9,7 +9,6 @@ public class ObjectPickup : PlayerInteraction
     public FixedJoint objectFixedJoint;
     public float throwingForce;
 
-
     public override void StartInteraction()
     {
         base.StartInteraction();
@@ -34,6 +33,7 @@ public class ObjectPickup : PlayerInteraction
     }
     public override void EndInteraction()
     {
+        base.EndInteraction();
         rgObject.useGravity = true;
         Destroy(objectFixedJoint);
         Debug.Log("Object Pickup Ended");

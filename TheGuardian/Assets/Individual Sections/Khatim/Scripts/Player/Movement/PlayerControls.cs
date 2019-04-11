@@ -31,7 +31,7 @@ public class PlayerControls : MonoBehaviour
     public delegate void SendEvents();
     public static event SendEvents onChangeLevelToHallway;
     public static event SendEvents onRopeBreakMessage;
-    public static event SendEvents onObjectDetatchEvent;
+    // public static event SendEvents onObjectDetatchEvent;
     public static event SendEvents onObjectShakePlank;
     public static event SendEvents onObjectStillPlank;
     public static event SendEvents onObjectBendPlank;
@@ -77,6 +77,10 @@ public class PlayerControls : MonoBehaviour
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
+
+        ObjectPushAndPull.constraints += PushAndPullConstraintsEventReceived;
+        ObjectPushAndPull.noConstraints += PushAndPullNoConstraintsEventReceived;
+
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
@@ -84,6 +88,17 @@ public class PlayerControls : MonoBehaviour
         jumpTime = jumpDelay;
     }
 
+    void OnDisable()
+    {
+        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
+        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
+    }
+
+    void OnDestroy()
+    {
+        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
+        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
@@ -128,11 +143,16 @@ public class PlayerControls : MonoBehaviour
                     anim.SetBool("isWalking", false);
 
                 //Applies Movement
-                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+                if (isPushingOrPulling)
+                    moveDirection = new Vector3(-moveVertical, 0.0f, 0.0f);
+                else
+                    moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
+
+
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
@@ -196,7 +216,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        if (interactCol != null && Input.GetKey(KeyCode.E) && interactCol.tag == "Rope")
+        if (interactCol != null && Input.GetKey(KeyCode.E))
             onRope = true;
 
         else
@@ -247,9 +267,9 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        if (other.tag == "Rope" && plyInteract == null)
+        if (other.tag == "Rope")
         {
-            plyInteract = GetComponent<RopeClimbing>();
+            interactCol = other;
         }
 
         if (other.tag == "PushAndPull" && plyInteract == null)
@@ -308,7 +328,7 @@ public class PlayerControls : MonoBehaviour
 
         if (other.tag == "Rope")
         {
-            plyInteract = null;
+            interactCol = null;
         }
 
         if (other.gameObject.tag == "Matchstick")
@@ -337,5 +357,15 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Jump");
             jumpTime = 0f;
         }
+    }
+
+    void PushAndPullConstraintsEventReceived()
+    {
+        isPushingOrPulling = true;
+    }
+
+    void PushAndPullNoConstraintsEventReceived()
+    {
+        isPushingOrPulling = false;
     }
 }

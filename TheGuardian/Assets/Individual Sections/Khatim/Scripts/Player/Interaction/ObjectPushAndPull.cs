@@ -5,6 +5,11 @@ using UnityEngine;
 public class ObjectPushAndPull : PlayerInteraction
 {
     public FixedJoint objectFixedJoint;
+
+    public delegate void SendEventsToPlayer();
+    public static event SendEventsToPlayer constraints;
+    public static event SendEventsToPlayer noConstraints;
+
     public override void StartInteraction()
     {
         base.StartInteraction();
@@ -17,6 +22,8 @@ public class ObjectPushAndPull : PlayerInteraction
         rgObject.isKinematic = false;
         rgObject.useGravity = false;
 
+        if (constraints != null)
+            constraints();
         Debug.Log("Object Push And Pull Started");
     }
 
@@ -30,7 +37,8 @@ public class ObjectPushAndPull : PlayerInteraction
         base.EndInteraction();
         rgObject.useGravity = true;
         Destroy(objectFixedJoint);
-
+        if (noConstraints != null)
+            noConstraints();
         Debug.Log("Object Push And Pull Ended");
     }
 }
