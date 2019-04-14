@@ -36,6 +36,8 @@ public class ObjectPushAndPull : PlayerInteraction
     {
         base.EndInteraction();
         rgObject.useGravity = true;
+        rgObject.isKinematic = true;
+
         Destroy(objectFixedJoint);
         if (noConstraints != null)
             noConstraints();

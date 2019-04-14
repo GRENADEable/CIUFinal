@@ -143,10 +143,7 @@ public class PlayerControls : MonoBehaviour
                     anim.SetBool("isWalking", false);
 
                 //Applies Movement
-                if (isPushingOrPulling)
-                    moveDirection = new Vector3(-moveVertical, 0.0f, 0.0f);
-                else
-                    moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)

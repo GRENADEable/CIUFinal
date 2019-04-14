@@ -51,6 +51,6 @@ public class EventManager : MonoBehaviour
         {
             paintingsEyes[i].SetActive(true);
         }
-        Debug.LogWarning("Paintings Awake");
+        Debug.Log("Paintings Awake");
     }
 }

@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class KeyCollector : MonoBehaviour
 {
-	void OnTriggerEnter(Collider other)
-	{
-		
-	}
+    public delegate void SendEventsToManager();
+    public static event SendEventsToManager onKeyDropEvent;
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "PickUp")
+        {
+            if (onKeyDropEvent != null)
+                onKeyDropEvent();
+
+            Destroy(this.gameObject);
+        }
+    }
 }

@@ -5,35 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // public static GameManager instance;
     public bool isPlayerDead;
     public int keyCounter;
     public GameObject endHallwayDoor;
-    public GameObject[] keyCollectorGameobject;
 
     public delegate void SendMessageToManagers();
     public static event SendMessageToManagers onPaintingsAwakeMessage;
 
     void OnEnable()
     {
-        ObjectThrowing.onKeyDropEvent += OnKeyDropEventReceived;
+        KeyCollector.onKeyDropEvent += OnKeyDropEventReceived;
     }
 
     void OnDisable()
     {
-        ObjectThrowing.onKeyDropEvent -= OnKeyDropEventReceived;
+        KeyCollector.onKeyDropEvent -= OnKeyDropEventReceived;
     }
-    // void Awake()
-    // {
-    //     //Makes Script Singleton
-    //     if (instance == null)
-    //         instance = this;
 
-    //     else if (instance != null)
-    //         Destroy(gameObject);
-
-    //     // DontDestroyOnLoad(this.gameObject);
-    // }
+    void OnDestroy()
+    {
+        KeyCollector.onKeyDropEvent -= OnKeyDropEventReceived;
+    }
 
     void Update()
     {
@@ -49,7 +41,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (keyCounter >= 2 && onPaintingsAwakeMessage != null)
+        if (keyCounter >= 1 && onPaintingsAwakeMessage != null)
         {
             onPaintingsAwakeMessage();
         }
@@ -58,11 +50,6 @@ public class GameManager : MonoBehaviour
     void OnKeyDropEventReceived()
     {
         keyCounter++;
-        Destroy(keyCollectorGameobject[keyCounter]);
-        // for (int i = 0; i < keyCollectorGameobject.Length; i++)
-        // {
-        //     Destroy(keyCollectorGameobject[keyCounter]);
-        // }
-        Debug.LogWarning("Key Received");
+        Debug.Log("Key Received");
     }
 }

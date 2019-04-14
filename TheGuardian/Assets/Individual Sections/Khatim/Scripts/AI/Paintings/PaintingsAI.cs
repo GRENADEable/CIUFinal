@@ -56,19 +56,6 @@ public class PaintingsAI : MonoBehaviour
         tarDir = player.transform.position - transform.position;
         angle = Vector3.Angle(tarDir, transform.forward);
 
-        // if (angle < detectionFov && !isPlayerHiding)
-        // {
-        //     currCondition = 2;
-        //     paintingEyeLight.color = Color.red;
-        // }
-
-        // else /*if (angle > detectionFov * 0.5f)*/ // Should I use another FoV Check Variable?
-        // {
-        //     killTimer = 0;
-        //     currCondition = 1;
-        //     paintingEyeLight.color = Color.white;
-        // }
-
         switch (currCondition)
         {
             case paintingState.Looking_Around:
@@ -85,7 +72,7 @@ public class PaintingsAI : MonoBehaviour
                         SwitchState(paintingState.Attack);
                 }
 
-                Debug.LogWarning("Looking Around");
+                Debug.Log("Looking Around");
                 break;
 
             case paintingState.Attack:
@@ -109,13 +96,13 @@ public class PaintingsAI : MonoBehaviour
                         onPlayerDeath();
 
                     player.SetActive(false);
-                    Debug.LogWarning("Player Dead");
+                    Debug.Log("Player Dead");
                     // killTimer = 0;
                 }
 
                 // Vector3 target = player.transform.position;
                 // target.y = transform.position.y;
-                Debug.LogWarning("Attacking Player");
+                Debug.Log("Attacking Player");
                 break;
 
             case paintingState.Wait:
