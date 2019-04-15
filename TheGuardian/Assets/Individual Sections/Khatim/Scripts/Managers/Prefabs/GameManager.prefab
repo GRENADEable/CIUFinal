@@ -55,6 +55,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerDead: 0
+  keyCounter: 0
+  endHallwayDoor: {fileID: 0}
 --- !u!114 &114181358738241936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,7 +70,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brokenBoardSection: {fileID: 0}
   woodenPlank: {fileID: 0}
+  paintingsEyes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ropeBreakCol: {fileID: 0}
+  moveForce: 15
+  keyReference: {fileID: 0}
 --- !u!114 &114602204023055552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,12 +89,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45d25258dd89f2f40b0d2be9c33a2006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerDead: 0
   mainmenuPanel: {fileID: 0}
   settingsPanel: {fileID: 0}
   deathScreen: {fileID: 0}
   pausePanel: {fileID: 0}
   cheatPanel: {fileID: 0}
+  levelOneTitleText: {fileID: 0}
 --- !u!114 &114637239295672360
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -17,9 +17,8 @@ public class ObjectPushAndPull : PlayerInteraction
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
 
         objectFixedJoint = interactCol.GetComponent<FixedJoint>();
-        objectFixedJoint.enableCollision = true;
         objectFixedJoint.connectedBody = rgPlayer;
-        rgObject.isKinematic = false;
+        // rgObject.isKinematic = false;
         rgObject.useGravity = false;
 
         if (constraints != null)
@@ -36,7 +35,7 @@ public class ObjectPushAndPull : PlayerInteraction
     {
         base.EndInteraction();
         rgObject.useGravity = true;
-        rgObject.isKinematic = true;
+        // rgObject.isKinematic = true;
 
         Destroy(objectFixedJoint);
         if (noConstraints != null)

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public delegate void SendMessageToManagers();
     public static event SendMessageToManagers onPaintingsAwakeMessage;
+    public static event SendMessageToManagers onKeyMove;
+    public static event SendMessageToManagers onIncreaseEyeSpeed;
 
     void OnEnable()
     {
@@ -31,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if (endHallwayDoor != null)
         {
-            if (keyCounter >= 4)
+            if (keyCounter >= 3)
             {
                 endHallwayDoor.SetActive(false);
             }
@@ -42,14 +44,20 @@ public class GameManager : MonoBehaviour
         }
 
         if (keyCounter >= 1 && onPaintingsAwakeMessage != null)
-        {
+
             onPaintingsAwakeMessage();
-        }
+
+
+        if (keyCounter >= 2 && onIncreaseEyeSpeed != null)
+            onIncreaseEyeSpeed();
     }
 
     void OnKeyDropEventReceived()
     {
         keyCounter++;
         Debug.Log("Key Received");
+
+        if (onKeyMove != null)
+            onKeyMove();
     }
 }

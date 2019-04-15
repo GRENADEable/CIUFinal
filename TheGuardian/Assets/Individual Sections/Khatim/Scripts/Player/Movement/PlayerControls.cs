@@ -35,6 +35,7 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onObjectShakePlank;
     public static event SendEvents onObjectStillPlank;
     public static event SendEvents onObjectBendPlank;
+    public static event SendEvents onKeyMove;
     #endregion
 
     #region  Object Interaction
@@ -112,6 +113,12 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.E) && plyInteract != null)
         {
             plyInteract.EndInteraction();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (onKeyMove != null)
+                onKeyMove();
         }
 
         if (Input.GetKey(KeyCode.E) && plankCol != null)
