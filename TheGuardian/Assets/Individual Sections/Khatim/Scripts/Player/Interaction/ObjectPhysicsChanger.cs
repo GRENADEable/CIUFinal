@@ -14,7 +14,7 @@ public class ObjectPhysicsChanger : MonoBehaviour
     void Update()
     {
         if (rg.velocity == Vector3.zero)
-            rg.isKinematic = false;
+            rg.isKinematic = true;
         // else if (rg.velocity != Vector3.zero)
         //     rg.isKinematic = true;
     }

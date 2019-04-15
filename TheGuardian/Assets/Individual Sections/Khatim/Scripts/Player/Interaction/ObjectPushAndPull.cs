@@ -34,7 +34,7 @@ public class ObjectPushAndPull : PlayerInteraction
     public override void EndInteraction()
     {
         base.EndInteraction();
-        rgObject.useGravity = true;
+        // rgObject.useGravity = true;
         // rgObject.isKinematic = true;
 
         Destroy(objectFixedJoint);

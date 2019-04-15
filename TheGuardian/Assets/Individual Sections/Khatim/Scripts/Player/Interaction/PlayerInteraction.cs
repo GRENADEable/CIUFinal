@@ -22,6 +22,6 @@ public class PlayerInteraction : MonoBehaviour
 
     public virtual void EndInteraction()
     {
-
+        rgObject = null;
     }
 }

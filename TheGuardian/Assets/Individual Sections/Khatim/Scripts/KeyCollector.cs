@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class KeyCollector : MonoBehaviour
 {
-    public delegate void SendEventsToManager();
-    public static event SendEventsToManager onKeyDropEvent;
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PickUp")
+        if (other.tag == "Player")
         {
-            if (onKeyDropEvent != null)
-                onKeyDropEvent();
-
-            Destroy(this.gameObject);
+            ObjectPickup.onKeyDrop += OnKeyDropEventReceived;
         }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            ObjectPickup.onKeyDrop -= OnKeyDropEventReceived;
+        }
+    }
+
+    void OnKeyDropEventReceived()
+    {
+        Debug.Log("Player Added Key to Keyhole");
     }
 }
