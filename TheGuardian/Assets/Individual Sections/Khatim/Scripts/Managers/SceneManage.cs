@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneManage : MonoBehaviour
 {
-    // public static SceneManage instance;
-
-
     void OnEnable()
     {
         PlayerControls.onChangeLevelToHallway += HallwayLevel;
@@ -20,19 +17,25 @@ public class SceneManage : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("AtticAndNurseryLevel");
+        SceneManager.LoadScene("AtticLevel");
         Time.timeScale = 1;
     }
 
     public void AtticLevel()
     {
-        SceneManager.LoadScene("AtticAndNurseryLevel");
+        SceneManager.LoadScene("AtticLevel");
         Time.timeScale = 1;
     }
 
     public void HallwayLevel()
     {
         SceneManager.LoadScene("HallwayLevel");
+        Time.timeScale = 1;
+    }
+
+    public void NurseryLevel()
+    {
+        SceneManager.LoadSceneAsync("NurseryLevel");
         Time.timeScale = 1;
     }
 
