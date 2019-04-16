@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPickup : PlayerInteraction
 {
     public delegate void SendEventToManager();
-    public static event SendEventToManager onKeyDrop;
+    public static event SendEventToManager onKeyDropEvent;
     public Transform pivotDummy;
     public Rigidbody rgCourageRightHand;
     public FixedJoint objectFixedJoint;
@@ -41,7 +41,7 @@ public class ObjectPickup : PlayerInteraction
         base.EndInteraction();
         Debug.Log("Object Pickup Ended");
 
-        if (onKeyDrop != null)
-            onKeyDrop();
+        if (onKeyDropEvent != null)
+            onKeyDropEvent();
     }
 }

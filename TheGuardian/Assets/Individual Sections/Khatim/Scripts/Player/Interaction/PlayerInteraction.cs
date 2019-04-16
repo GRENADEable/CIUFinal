@@ -7,11 +7,16 @@ public class PlayerInteraction : MonoBehaviour
     public Collider interactCol;
     public Rigidbody rgPlayer;
     public Rigidbody rgObject;
+    private LightMechanic playerLight;
 
     public virtual void StartInteraction()
     {
         rgPlayer = GetComponent<Rigidbody>();
         rgObject = interactCol.GetComponent<Rigidbody>();
+        playerLight = GetComponent<LightMechanic>();
+        playerLight.match.SetActive(false);
+        playerLight.lightOn = false;
+        playerLight.enabled = false;
         // any commog code .... 
     }
 
@@ -22,6 +27,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public virtual void EndInteraction()
     {
+        playerLight.enabled = true;
         rgObject = null;
     }
 }

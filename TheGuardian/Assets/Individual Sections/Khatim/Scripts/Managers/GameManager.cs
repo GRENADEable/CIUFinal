@@ -14,20 +14,20 @@ public class GameManager : MonoBehaviour
     public static event SendMessageToManagers onKeyMove;
     public static event SendMessageToManagers onIncreaseEyeSpeed;
 
-    // void OnEnable()
-    // {
-    //     KeyCollector.onKeyDropEvent += OnKeyDropEventReceived;
-    // }
+    void OnEnable()
+    {
+        KeyCollector.onKeyCounterUpdate += OnKeyDropEventReceived;
+    }
 
-    // void OnDisable()
-    // {
-    //     KeyCollector.onKeyDropEvent -= OnKeyDropEventReceived;
-    // }
+    void OnDisable()
+    {
+        KeyCollector.onKeyCounterUpdate -= OnKeyDropEventReceived;
+    }
 
-    // void OnDestroy()
-    // {
-    //     KeyCollector.onKeyDropEvent -= OnKeyDropEventReceived;
-    // }
+    void OnDestroy()
+    {
+        KeyCollector.onKeyCounterUpdate -= OnKeyDropEventReceived;
+    }
 
     void Update()
     {
