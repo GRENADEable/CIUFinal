@@ -4,34 +4,52 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    // public delegate void GeneralEvent();
-    // public event GeneralEvent myGeneralEvent;
-
-    // public void CallMyGeneralEvent()
-    // {
-    //     if (myGeneralEvent != null)
-    //     {
-    //         myGeneralEvent();
-    //     }
-    // }
-
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
 
     public GameObject[] paintingsEyes;
 
     public Collider ropeBreakCol;
+    public float moveForce;
+    public GameObject keyReference;
 
     void OnEnable()
     {
         PlayerControls.onRopeBreakMessage += OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
+        GameManager.onKeyMove += OnKeyMovementEventReceived;
+        PlayerControls.onKeyMove += OnKeyMovementEventReceived;
+
+        if (keyReference == null)
+            Debug.LogWarning("Add Key Reference");
+
+        if (brokenBoardSection == null)
+            Debug.LogWarning("Add Borken Board Reference");
+
+        if (woodenPlank == null)
+            Debug.LogWarning("Add Wooden Plank Reference");
+
+        if (ropeBreakCol == null)
+            Debug.LogWarning("Add Rope Break Collider Reference");
+
+        if (paintingsEyes == null)
+            Debug.LogWarning("Add Paintings Reference");
     }
 
     void OnDisable()
     {
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
+        GameManager.onKeyMove -= OnKeyMovementEventReceived;
+        PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.onKeyMove -= OnKeyMovementEventReceived;
+        PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
+        GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
+        PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
     }
     void OnRopeBreakEventReceived()
     {
@@ -51,6 +69,11 @@ public class EventManager : MonoBehaviour
         {
             paintingsEyes[i].SetActive(true);
         }
-        Debug.LogWarning("Paintings Awake");
+        Debug.Log("Paintings Awake");
+    }
+
+    void OnKeyMovementEventReceived()
+    {
+        keyReference.GetComponent<Rigidbody>().AddForce(keyReference.transform.up * moveForce + keyReference.transform.forward * moveForce);
     }
 }

@@ -35,6 +35,7 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onObjectShakePlank;
     public static event SendEvents onObjectStillPlank;
     public static event SendEvents onObjectBendPlank;
+    public static event SendEvents onKeyMove;
     #endregion
 
     #region  Object Interaction
@@ -114,6 +115,12 @@ public class PlayerControls : MonoBehaviour
             plyInteract.EndInteraction();
         }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (onKeyMove != null)
+                onKeyMove();
+        }
+
         if (Input.GetKey(KeyCode.E) && plankCol != null)
         {
             if (onObjectBendPlank != null)
@@ -143,10 +150,7 @@ public class PlayerControls : MonoBehaviour
                     anim.SetBool("isWalking", false);
 
                 //Applies Movement
-                if (isPushingOrPulling)
-                    moveDirection = new Vector3(-moveVertical, 0.0f, 0.0f);
-                else
-                    moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
@@ -315,14 +319,12 @@ public class PlayerControls : MonoBehaviour
         {
             if (other.tag == "PickUp" && plyInteract.interactCol == other)
             {
-                plyInteract.interactCol = null;
-                plyInteract = null;
+                ResetInteraction();
             }
 
             if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
             {
-                plyInteract.interactCol = null;
-                plyInteract = null;
+                ResetInteraction();
             }
         }
 
@@ -342,12 +344,6 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    //Function which checks what hit the Character Controller's Collider
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-
-    }
-
     void Jump()
     {
         if (jumpTime > jumpDelay)
@@ -357,6 +353,12 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Jump");
             jumpTime = 0f;
         }
+    }
+
+    public void ResetInteraction()
+    {
+        plyInteract.interactCol = null;
+        plyInteract = null;
     }
 
     void PushAndPullConstraintsEventReceived()

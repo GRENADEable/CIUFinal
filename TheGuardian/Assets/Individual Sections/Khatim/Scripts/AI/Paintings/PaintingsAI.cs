@@ -8,7 +8,7 @@ public class PaintingsAI : MonoBehaviour
     public float rotationX;
     public float maxAngleY;
     public float rotationZ;
-    public float speed;
+    public float lookaroundSpeed;
     public Vector3 raycastHeight;
     public float lookatSpeed;
 
@@ -44,37 +44,33 @@ public class PaintingsAI : MonoBehaviour
         paintingEyeLight = GetComponent<Light>();
         player = GameObject.FindGameObjectWithTag("Player");
         currCondition = paintingState.Looking_Around;
+        GameManager.onIncreaseEyeSpeed += OnIncreasedSpeedEventReceived;
+    }
+
+    void OnDisable()
+    {
+        GameManager.onIncreaseEyeSpeed -= OnIncreasedSpeedEventReceived;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.onIncreaseEyeSpeed -= OnIncreasedSpeedEventReceived;
     }
 
     void Update()
     {
         Debug.DrawRay(transform.position, (player.transform.position + raycastHeight) - transform.position, Color.red);
         Physics.Raycast(transform.position, (player.transform.position + raycastHeight) - transform.position, out hit);
-        
+
         isPlayerHiding = !(hit.collider.tag == "Player");
 
         tarDir = player.transform.position - transform.position;
         angle = Vector3.Angle(tarDir, transform.forward);
 
-        // if (angle < detectionFov && !isPlayerHiding)
-        // {
-        //     currCondition = 2;
-        //     paintingEyeLight.color = Color.red;
-        // }
-
-        // else /*if (angle > detectionFov * 0.5f)*/ // Should I use another FoV Check Variable?
-        // {
-        //     killTimer = 0;
-        //     currCondition = 1;
-        //     paintingEyeLight.color = Color.white;
-        // }
-
         switch (currCondition)
         {
             case paintingState.Looking_Around:
-                TimeChanger();
-                LightRotator(delta);
-
+                StartCoroutine(LookingAround());
                 paintingEyeLight.color = Color.white;
 
                 if (angle < detectionFov && !isPlayerHiding)
@@ -85,7 +81,7 @@ public class PaintingsAI : MonoBehaviour
                         SwitchState(paintingState.Attack);
                 }
 
-                Debug.LogWarning("Looking Around");
+                Debug.Log("Looking Around");
                 break;
 
             case paintingState.Attack:
@@ -103,19 +99,13 @@ public class PaintingsAI : MonoBehaviour
                 //Animation Playes;
                 if (curTimer >= killDelay)
                 {
-                    //Send Message To Kill the Player
-                    // OnSlowPlayer();
                     if (onPlayerDeath != null)
                         onPlayerDeath();
 
                     player.SetActive(false);
-                    Debug.LogWarning("Player Dead");
-                    // killTimer = 0;
+                    Debug.Log("Player Dead");
                 }
-
-                // Vector3 target = player.transform.position;
-                // target.y = transform.position.y;
-                Debug.LogWarning("Attacking Player");
+                Debug.Log("Attacking Player");
                 break;
 
             case paintingState.Wait:
@@ -128,14 +118,26 @@ public class PaintingsAI : MonoBehaviour
         currCondition = state;
     }
 
+    IEnumerator LookingAround()
+    {
+        TimeChanger();
+        LightRotator(delta);
+        yield return null;
+    }
+
     void TimeChanger()
     {
         time = time + Time.deltaTime;
-        delta = Mathf.Sin(time * speed);
+        delta = Mathf.Sin(time * lookaroundSpeed);
     }
 
     void LightRotator(float delta)
     {
         transform.localRotation = Quaternion.Euler(rotationX, delta * maxAngleY, rotationZ);
+    }
+
+    void OnIncreasedSpeedEventReceived()
+    {
+        lookaroundSpeed = 1.5f;
     }
 }

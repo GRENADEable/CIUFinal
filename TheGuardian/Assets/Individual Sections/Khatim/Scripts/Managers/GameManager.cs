@@ -5,41 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // public static GameManager instance;
     public bool isPlayerDead;
     public int keyCounter;
     public GameObject endHallwayDoor;
-    public GameObject[] keyCollectorGameobject;
 
     public delegate void SendMessageToManagers();
     public static event SendMessageToManagers onPaintingsAwakeMessage;
+    public static event SendMessageToManagers onKeyMove;
+    public static event SendMessageToManagers onIncreaseEyeSpeed;
 
     void OnEnable()
     {
-        ObjectThrowing.onKeyDropEvent += OnKeyDropEventReceived;
+        KeyCollector.onKeyCounterUpdate += OnKeyDropEventReceived;
     }
 
     void OnDisable()
     {
-        ObjectThrowing.onKeyDropEvent -= OnKeyDropEventReceived;
+        KeyCollector.onKeyCounterUpdate -= OnKeyDropEventReceived;
     }
-    // void Awake()
-    // {
-    //     //Makes Script Singleton
-    //     if (instance == null)
-    //         instance = this;
 
-    //     else if (instance != null)
-    //         Destroy(gameObject);
-
-    //     // DontDestroyOnLoad(this.gameObject);
-    // }
+    void OnDestroy()
+    {
+        KeyCollector.onKeyCounterUpdate -= OnKeyDropEventReceived;
+    }
 
     void Update()
     {
         if (endHallwayDoor != null)
         {
-            if (keyCounter >= 4)
+            if (keyCounter >= 3)
             {
                 endHallwayDoor.SetActive(false);
             }
@@ -49,20 +43,21 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (keyCounter >= 2 && onPaintingsAwakeMessage != null)
-        {
+        if (keyCounter >= 1 && onPaintingsAwakeMessage != null)
+
             onPaintingsAwakeMessage();
-        }
+
+
+        if (keyCounter >= 2 && onIncreaseEyeSpeed != null)
+            onIncreaseEyeSpeed();
     }
 
     void OnKeyDropEventReceived()
     {
         keyCounter++;
-        Destroy(keyCollectorGameobject[keyCounter]);
-        // for (int i = 0; i < keyCollectorGameobject.Length; i++)
-        // {
-        //     Destroy(keyCollectorGameobject[keyCounter]);
-        // }
-        Debug.LogWarning("Key Received");
+        Debug.Log("Key Received");
+
+        if (onKeyMove != null)
+            onKeyMove();
     }
 }
