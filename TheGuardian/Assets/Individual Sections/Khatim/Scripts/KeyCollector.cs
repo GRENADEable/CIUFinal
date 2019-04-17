@@ -6,8 +6,15 @@ public class KeyCollector : MonoBehaviour
 {
     [SerializeField]
     private GameObject key;
+    private PlayerControls ply;
     public delegate void SendEventsToManager();
     public static event SendEventsToManager onKeyCounterUpdate;
+
+
+    void Start()
+    {
+        ply = GameObject.FindObjectOfType<PlayerControls>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -30,7 +37,10 @@ public class KeyCollector : MonoBehaviour
     void OnKeyDropEventReceived()
     {
         key.transform.parent = this.transform;
-        // key.GetComponent<Rigidbody>().useGravity = false;
+        key.gameObject.tag = "Untagged";
+        key.GetComponent<Rigidbody>().isKinematic = true;
+        ply.ResetInteraction();
+        ObjectPickup.onKeyDropEvent -= OnKeyDropEventReceived;
         if (onKeyCounterUpdate != null) //Updates KeyCounter on GameManager GameObject
             onKeyCounterUpdate();
 

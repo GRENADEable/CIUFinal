@@ -319,14 +319,12 @@ public class PlayerControls : MonoBehaviour
         {
             if (other.tag == "PickUp" && plyInteract.interactCol == other)
             {
-                plyInteract.interactCol = null;
-                plyInteract = null;
+                ResetInteraction();
             }
 
             if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
             {
-                plyInteract.interactCol = null;
-                plyInteract = null;
+                ResetInteraction();
             }
         }
 
@@ -346,12 +344,6 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    //Function which checks what hit the Character Controller's Collider
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-
-    }
-
     void Jump()
     {
         if (jumpTime > jumpDelay)
@@ -361,6 +353,12 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Jump");
             jumpTime = 0f;
         }
+    }
+
+    public void ResetInteraction()
+    {
+        plyInteract.interactCol = null;
+        plyInteract = null;
     }
 
     void PushAndPullConstraintsEventReceived()
