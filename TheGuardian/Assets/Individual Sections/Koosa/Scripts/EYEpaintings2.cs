@@ -7,7 +7,7 @@ public class EYEpaintings2 : MonoBehaviour
     public float maxAngleY;
     public float maxAngleX;
     public float maxAngleZ;
-    public float speed;
+    public float lookaroundSpeed;
     public float timeToWaitBetweenRotations;
 
     public float firstRotationSmaller; // smaller value than the the bigger value 
@@ -20,18 +20,28 @@ public class EYEpaintings2 : MonoBehaviour
     private float time;
     private float delta;
 
-    public void Start()
+    void OnEnable()
     {
-        StartCoroutine(lighting());
+        StartCoroutine(LookAround());
     }
 
-    IEnumerator lighting()
+    // void OnDisable()
+    // {
+    //     StopCoroutine(LookAround());
+    // }
+
+    // void OnDestroy()
+    // {
+    //     StopCoroutine(LookAround());
+    // }
+
+    IEnumerator LookAround()
     {
         while (true)
         {
             int rotationInt = 0;
             time = time + Time.deltaTime;
-            delta = Mathf.Sin(time / speed);
+            delta = Mathf.Sin(time * lookaroundSpeed);
             transform.localRotation = Quaternion.Euler(maxAngleX, delta * maxAngleY, maxAngleZ);
             Debug.Log(rotationInt);
             // Debug.Log(transform.eulerAngles.y);
