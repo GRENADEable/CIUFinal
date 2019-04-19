@@ -9,6 +9,7 @@ public class PaintingsAI : MonoBehaviour
     public float maxAngleY;
     public float rotationZ;
     public float lookaroundSpeed;
+    public float increasedLookaroundSpeed;
     public Vector3 raycastHeight;
     public float lookatSpeed;
 
@@ -156,6 +157,8 @@ public class PaintingsAI : MonoBehaviour
 
     void OnIncreasedSpeedEventReceived()
     {
-        lookaroundSpeed = 5.0f;
+        lookaroundSpeed = increasedLookaroundSpeed;
+        GameManager.onIncreaseEyeSpeed -= OnIncreasedSpeedEventReceived;
+        Debug.Log("Paintings Speed Increased");
     }
 }

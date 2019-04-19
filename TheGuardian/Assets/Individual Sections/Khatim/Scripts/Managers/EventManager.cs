@@ -69,6 +69,7 @@ public class EventManager : MonoBehaviour
         {
             paintingsEyes[i].SetActive(true);
         }
+        GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         Debug.Log("Paintings Awake");
     }
 
