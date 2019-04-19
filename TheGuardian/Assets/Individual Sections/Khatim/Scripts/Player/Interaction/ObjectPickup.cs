@@ -25,7 +25,7 @@ public class ObjectPickup : PlayerInteraction
     }
     public override void UpdateInteraction()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             Destroy(objectFixedJoint);
             rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
