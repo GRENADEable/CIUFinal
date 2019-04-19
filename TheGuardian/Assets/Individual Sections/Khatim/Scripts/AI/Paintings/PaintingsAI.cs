@@ -5,26 +5,25 @@ using UnityEngine;
 public class PaintingsAI : MonoBehaviour
 {
     [Header("Paintings Variables")]
-    // public float rotationX;
-    // public float maxAngleY;
-    // public float rotationZ;
-    // public float lookaroundSpeed;
+    public float rotationX;
+    public float maxAngleY;
+    public float rotationZ;
+    public float lookaroundSpeed;
     public Vector3 raycastHeight;
     public float lookatSpeed;
 
     [Header("Wait Timers")]
     public float killDelay;
     public float detectionDelay;
-    // public float timeToWaitBetweenRotations;
-    // public float paintingWaitTime;
+    public float timeToWaitBetweenRotations;
 
-    // [Header("Rotation Pauses")]
-    // public float firstRotationSmaller; // smaller value than the the bigger value 
-    // public float firstRotationBigger;
-    // public float secondRotationSmaller;
-    // public float secondRotationBigger;
-    // public float thirdRotationSmaller;
-    // public float thirdRotationBigger;
+    [Header("Rotation Pauses")]
+    public float firstRotationSmaller; // smaller value than the the bigger value 
+    public float firstRotationBigger;
+    public float secondRotationSmaller;
+    public float secondRotationBigger;
+    public float thirdRotationSmaller;
+    public float thirdRotationBigger;
 
     public delegate void SendEventsToManager();
     public static event SendEventsToManager onPlayerDeath;
@@ -36,14 +35,13 @@ public class PaintingsAI : MonoBehaviour
     [SerializeField]
     private GameObject player;
     private Light paintingEyeLight;
-    // private float time;
-    // private float delta;
+    private float time;
+    private float delta;
     private RaycastHit hit;
     private float curTimer;
     [SerializeField]
     private bool isPlayerHiding;
     private Vector3 tarDir;
-    private EYEpaintings2 eyeLightMovement;
 
     private enum paintingState { Looking_Around, Attack, Wait };
     private paintingState currCondition;
@@ -51,7 +49,6 @@ public class PaintingsAI : MonoBehaviour
     void OnEnable()
     {
         paintingEyeLight = GetComponent<Light>();
-        eyeLightMovement = GetComponent<EYEpaintings2>();
         player = GameObject.FindGameObjectWithTag("Player");
         currCondition = paintingState.Looking_Around;
         GameManager.onIncreaseEyeSpeed += OnIncreasedSpeedEventReceived;
@@ -80,8 +77,7 @@ public class PaintingsAI : MonoBehaviour
         switch (currCondition)
         {
             case paintingState.Looking_Around:
-                // StartCoroutine(LookingAround());
-                eyeLightMovement.enabled = true;
+                LookAround();
                 paintingEyeLight.color = Color.white;
 
                 if (angle < detectionFov && !isPlayerHiding)
@@ -96,8 +92,6 @@ public class PaintingsAI : MonoBehaviour
                 break;
 
             case paintingState.Attack:
-                eyeLightMovement.enabled = false;
-                eyeLightMovement.StopAllCoroutines();
                 paintingEyeLight.color = Color.red;
 
                 if (angle > detectionFov || isPlayerHiding)
@@ -122,6 +116,13 @@ public class PaintingsAI : MonoBehaviour
                 break;
 
             case paintingState.Wait:
+                curTimer += Time.deltaTime;
+                if (angle < detectionFov && !isPlayerHiding)
+                    SwitchState(paintingState.Attack);
+                if (curTimer >= timeToWaitBetweenRotations)
+                    SwitchState(paintingState.Looking_Around);
+
+                Debug.Log("Waiting");
                 break;
         }
     }
@@ -131,19 +132,30 @@ public class PaintingsAI : MonoBehaviour
         currCondition = state;
     }
 
-    // void TimeChanger()
-    // {
-    //     time = time + Time.deltaTime;
-    //     delta = Mathf.Sin(time * lookaroundSpeed);
-    // }
-
-    // void LightRotator(float delta)
-    // {
-    //     transform.localRotation = Quaternion.Euler(rotationX, delta * maxAngleY, rotationZ);
-    // }
+    void LookAround()
+    {
+        time = time + Time.deltaTime;
+        delta = Mathf.Sin(time * lookaroundSpeed);
+        transform.localRotation = Quaternion.Euler(rotationX, delta * maxAngleY, rotationZ);
+        if ((transform.rotation.eulerAngles.y >= firstRotationSmaller && transform.rotation.eulerAngles.y <= firstRotationBigger) || (transform.rotation.eulerAngles.y >= firstRotationBigger && transform.rotation.eulerAngles.y <= firstRotationSmaller))
+        {
+            SwitchState(paintingState.Wait);
+            // Debug.Log("doing the first rotation");
+        }
+        if ((transform.rotation.eulerAngles.y >= secondRotationSmaller && transform.rotation.eulerAngles.y <= secondRotationBigger) || (transform.rotation.eulerAngles.y >= secondRotationBigger && transform.rotation.eulerAngles.y <= secondRotationSmaller))
+        {
+            SwitchState(paintingState.Wait);
+            // Debug.Log("doing the second rotation");
+        }
+        if ((transform.rotation.eulerAngles.y >= thirdRotationSmaller && transform.rotation.eulerAngles.y <= thirdRotationBigger) || (transform.rotation.eulerAngles.y >= thirdRotationBigger && transform.rotation.eulerAngles.y <= thirdRotationSmaller))
+        {
+            SwitchState(paintingState.Wait);
+            // Debug.Log("doing the third rotation");
+        }
+    }
 
     void OnIncreasedSpeedEventReceived()
     {
-        eyeLightMovement.lookaroundSpeed = 5f;
+        lookaroundSpeed = 5.0f;
     }
 }
