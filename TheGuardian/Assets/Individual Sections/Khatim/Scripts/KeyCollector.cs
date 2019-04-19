@@ -7,6 +7,7 @@ public class KeyCollector : MonoBehaviour
     [SerializeField]
     private GameObject key;
     private PlayerControls ply;
+    private Collider keyCollectorCol;
     public delegate void SendEventsToManager();
     public static event SendEventsToManager onKeyCounterUpdate;
 
@@ -14,6 +15,7 @@ public class KeyCollector : MonoBehaviour
     void Start()
     {
         ply = GameObject.FindObjectOfType<PlayerControls>();
+        keyCollectorCol = GetComponent<Collider>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -41,6 +43,7 @@ public class KeyCollector : MonoBehaviour
         key.GetComponent<Rigidbody>().isKinematic = true;
         ply.ResetInteraction();
         ObjectPickup.onKeyDropEvent -= OnKeyDropEventReceived;
+        this.keyCollectorCol.enabled = false;
         if (onKeyCounterUpdate != null) //Updates KeyCounter on GameManager GameObject
             onKeyCounterUpdate();
 
