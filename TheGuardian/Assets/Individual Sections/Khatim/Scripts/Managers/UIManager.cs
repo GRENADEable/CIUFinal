@@ -11,11 +11,10 @@ public class UIManager : MonoBehaviour
     public GameObject settingsPanel;
 
     [Header("In Game UI")]
-    public GameObject deathScreen;
+    public GameObject changeLevelPanel;
+    private GameObject deathScreen;
 
-    [SerializeField]
     private GameObject pausePanel;
-    [SerializeField]
     private GameObject cheatPanel;
 
     [Header("References Obejcts")]
@@ -28,6 +27,7 @@ public class UIManager : MonoBehaviour
         RatFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
         RatBlockerFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
         PaintingsAI.onPlayerDeath += OnDeadPlayerScreenReceived;
+        PlayerControls.onChangeLevelText += OnChangeLevelTextReceived;
         gm = GetComponent<GameManager>();
     }
 
@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
         RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
         RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
         PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
+        PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
     }
 
     void OnDestroy()
@@ -43,6 +44,7 @@ public class UIManager : MonoBehaviour
         RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
         RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
         PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
+        PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
     }
 
     void Awake()
@@ -77,6 +79,11 @@ public class UIManager : MonoBehaviour
             levelTwoTitleText.SetActive(true);
         else
             Debug.LogWarning("Add Level Two Text UI");
+
+        if (changeLevelPanel != null)
+            changeLevelPanel.SetActive(false);
+        else
+            Debug.LogWarning("Add Change Level Panel");
     }
 
     void Update()
@@ -127,5 +134,10 @@ public class UIManager : MonoBehaviour
         gm.isPlayerDead = true;
         deathScreen.SetActive(true);
         Debug.LogWarning("Death Screen UI Activated");
+    }
+
+    void OnChangeLevelTextReceived()
+    {
+        changeLevelPanel.SetActive(true);
     }
 }

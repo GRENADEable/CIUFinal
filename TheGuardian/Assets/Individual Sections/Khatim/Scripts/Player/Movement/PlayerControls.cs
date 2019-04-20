@@ -31,6 +31,7 @@ public class PlayerControls : MonoBehaviour
     #region Events
     public delegate void SendEvents();
     public static event SendEvents onChangeLevelToHallway;
+    public static event SendEvents onChangeLevelText;
     public static event SendEvents onRopeBreakMessage;
     // public static event SendEvents onObjectDetatchEvent;
     public static event SendEvents onObjectShakePlank;
@@ -305,8 +306,11 @@ public class PlayerControls : MonoBehaviour
 
         if (other.gameObject.tag == "End")
         {
-            if (onChangeLevelToHallway != null)
+            if (onChangeLevelToHallway != null && onChangeLevelText != null)
+            {
                 onChangeLevelToHallway();
+                onChangeLevelText();
+            }
         }
 
         if (other.tag == "BendPlank")
