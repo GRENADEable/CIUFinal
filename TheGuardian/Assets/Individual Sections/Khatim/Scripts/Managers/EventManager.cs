@@ -6,6 +6,7 @@ public class EventManager : MonoBehaviour
 {
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
+    public GameObject fadeToBlackObj;
 
     public GameObject[] paintingsEyes;
 
@@ -25,6 +26,11 @@ public class EventManager : MonoBehaviour
 
         if (brokenBoardSection == null)
             Debug.LogWarning("Add Borken Board Reference");
+
+        if (fadeToBlackObj == null)
+            Debug.LogWarning("Add Fade To Black Obj Reference");
+        else
+            fadeToBlackObj.SetActive(false);
 
         if (woodenPlank == null)
             Debug.LogWarning("Add Wooden Plank Reference");
@@ -59,6 +65,7 @@ public class EventManager : MonoBehaviour
             Destroy(ropeBreakCol.GetComponent<Collider>());
             brokenBoardSection.SetActive(false);
             woodenPlank.SetActive(false);
+            fadeToBlackObj.SetActive(true);
             Debug.LogWarning("Rope Broken");
         }
     }

@@ -15,8 +15,8 @@ public class PlayerControls : MonoBehaviour
 
     [Header("Player Jump Variables")]
     public float jumpPower;
-    // private float jumpTime;
-    // public float jumpDelay;
+    private float jumpTime;
+    public float jumpDelay;
 
     [Header("Player Gravity Variables")]
     public float defaultGravity;
@@ -87,7 +87,7 @@ public class PlayerControls : MonoBehaviour
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerCenter = charController.center.y;
-        // jumpTime = jumpDelay;
+        jumpTime = jumpDelay;
     }
 
     void OnDisable()
@@ -139,7 +139,7 @@ public class PlayerControls : MonoBehaviour
             //Gets Player Inputs
             moveVertical = Input.GetAxisRaw("Vertical");
             moveHorizontal = Input.GetAxisRaw("Horizontal");
-            // jumpTime += Time.deltaTime;
+            jumpTime += Time.deltaTime;
 
             //Checks if the player is on the Ground
             if (charController.isGrounded)
@@ -190,11 +190,11 @@ public class PlayerControls : MonoBehaviour
                     // Debug.Log("Walking");
                 }
 
-                if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
+                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
                 {
-                    // Jump();
-                    moveDirection.y = jumpPower;
-                    anim.Play("CourageJump");
+                    Jump();
+                    // moveDirection.y = jumpPower;
+                    // anim.Play("CourageJump");
                 }
 
                 //Player Crouching
@@ -365,16 +365,16 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    // void Jump()
-    // {
-    //     if (jumpTime > jumpDelay)
-    //     {
-    //         moveDirection.y = jumpPower;
-    //         anim.Play("CourageJump");
-    //         Debug.Log("Jump");
-    //         jumpTime = 0f;
-    //     }
-    // }
+    void Jump()
+    {
+        if (jumpTime > jumpDelay)
+        {
+            moveDirection.y = jumpPower;
+            anim.Play("CourageJump");
+            Debug.Log("Jump");
+            jumpTime = 0f;
+        }
+    }
 
     public void ResetInteraction()
     {
