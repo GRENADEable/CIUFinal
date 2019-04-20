@@ -10,7 +10,9 @@ public class PaintingsAI : MonoBehaviour
     public float rotationZ;
     public float lookaroundSpeed;
     public float increasedLookaroundSpeed;
-    public Vector3 raycastHeight;
+    public Vector3 playerHeadRaycast;
+    public Vector3 playerRightHandRaycast;
+    public Vector3 playerLeftHandRaycast;
     public float lookatSpeed;
 
     [Header("Wait Timers")]
@@ -67,8 +69,15 @@ public class PaintingsAI : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawRay(transform.position, (player.transform.position + raycastHeight) - transform.position, Color.red);
-        Physics.Raycast(transform.position, (player.transform.position + raycastHeight) - transform.position, out hit);
+        Debug.DrawRay(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, Color.red);
+        Debug.DrawRay(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, Color.blue);
+        Debug.DrawRay(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, Color.yellow);
+
+        Physics.Raycast(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, out hit);
+        Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
+        Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
+
+        Debug.Log(hit.collider);
 
         isPlayerHiding = !(hit.collider.tag == "Player");
 
@@ -89,7 +98,7 @@ public class PaintingsAI : MonoBehaviour
                         SwitchState(paintingState.Attack);
                 }
 
-                Debug.Log("Looking Around");
+                // Debug.Log("Looking Around");
                 break;
 
             case paintingState.Attack:
@@ -113,7 +122,7 @@ public class PaintingsAI : MonoBehaviour
                     player.SetActive(false);
                     Debug.Log("Player Dead");
                 }
-                Debug.Log("Attacking Player");
+                // Debug.Log("Attacking Player");
                 break;
 
             case paintingState.Wait:
@@ -123,7 +132,7 @@ public class PaintingsAI : MonoBehaviour
                 if (curTimer >= timeToWaitBetweenRotations)
                     SwitchState(paintingState.Looking_Around);
 
-                Debug.Log("Waiting");
+                // Debug.Log("Waiting");
                 break;
         }
     }
@@ -159,6 +168,6 @@ public class PaintingsAI : MonoBehaviour
     {
         lookaroundSpeed = increasedLookaroundSpeed;
         GameManager.onIncreaseEyeSpeed -= OnIncreasedSpeedEventReceived;
-        Debug.Log("Paintings Speed Increased");
+        // Debug.Log("Paintings Speed Increased");
     }
 }

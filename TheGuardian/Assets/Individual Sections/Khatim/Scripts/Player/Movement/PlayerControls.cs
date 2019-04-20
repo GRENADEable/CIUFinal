@@ -12,10 +12,11 @@ public class PlayerControls : MonoBehaviour
     public float crouchRunSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
-    public float jumpDelay;
 
     [Header("Player Jump Variables")]
     public float jumpPower;
+    // private float jumpTime;
+    // public float jumpDelay;
 
     [Header("Player Gravity Variables")]
     public float defaultGravity;
@@ -42,6 +43,7 @@ public class PlayerControls : MonoBehaviour
     [Header("Object Interaction Variables")]
     public bool isPickingObject;
     public bool isPushingOrPulling;
+    public float pushPower;
     #endregion
 
     #region Trigger Colliders
@@ -55,7 +57,6 @@ public class PlayerControls : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
     private PlayerInteraction plyInteract;
-    private float jumpTime;
     private Animator anim;
 
     #region Cheats
@@ -86,7 +87,7 @@ public class PlayerControls : MonoBehaviour
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerCenter = charController.center.y;
-        jumpTime = jumpDelay;
+        // jumpTime = jumpDelay;
     }
 
     void OnDisable()
@@ -138,7 +139,7 @@ public class PlayerControls : MonoBehaviour
             //Gets Player Inputs
             moveVertical = Input.GetAxisRaw("Vertical");
             moveHorizontal = Input.GetAxisRaw("Horizontal");
-            jumpTime += Time.deltaTime;
+            // jumpTime += Time.deltaTime;
 
             //Checks if the player is on the Ground
             if (charController.isGrounded)
@@ -191,8 +192,9 @@ public class PlayerControls : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
                 {
-                    Jump();
-                    // moveDirection.y = jumpPower;
+                    // Jump();
+                    moveDirection.y = jumpPower;
+                    anim.Play("CourageJump");
                 }
 
                 //Player Crouching
@@ -344,16 +346,35 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void Jump()
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (jumpTime > jumpDelay)
+        if (hit.collider.tag == "HallwayEndDoor" && Input.GetKey(KeyCode.E))
         {
-            moveDirection.y = jumpPower;
-            anim.Play("CourageJump");
-            Debug.Log("Jump");
-            jumpTime = 0f;
+            Rigidbody body = hit.collider.attachedRigidbody;
+
+            if (body == null || body.isKinematic)
+                return;
+
+            if (hit.moveDirection.y < -0.3f)
+                return;
+
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+            body.velocity = pushDir * pushPower;
+            Debug.Log("Pushing Door");
         }
     }
+
+    // void Jump()
+    // {
+    //     if (jumpTime > jumpDelay)
+    //     {
+    //         moveDirection.y = jumpPower;
+    //         anim.Play("CourageJump");
+    //         Debug.Log("Jump");
+    //         jumpTime = 0f;
+    //     }
+    // }
 
     public void ResetInteraction()
     {
