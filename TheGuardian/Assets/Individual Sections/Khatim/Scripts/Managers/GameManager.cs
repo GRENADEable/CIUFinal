@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void SendMessageToManagers();
     public static event SendMessageToManagers onPaintingsAwakeMessage;
-    public static event SendMessageToManagers onKeyMove;
+    // public static event SendMessageToManagers onKeyMove;
     public static event SendMessageToManagers onIncreaseEyeSpeed;
 
     void OnEnable()
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         keyCounter++;
         Debug.Log("Key Received");
 
-        if (onKeyMove != null)
-            onKeyMove();
+        // if (onKeyMove != null)
+        //     onKeyMove();
     }
 }

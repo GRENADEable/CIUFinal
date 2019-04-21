@@ -18,7 +18,7 @@ public class EventManager : MonoBehaviour
     {
         PlayerControls.onRopeBreakMessage += OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
-        GameManager.onKeyMove += OnKeyMovementEventReceived;
+        ParentsAruguingEvent.onKeyMove += OnKeyMovementEventReceived;
         PlayerControls.onKeyMove += OnKeyMovementEventReceived;
 
         if (keyReference == null)
@@ -46,13 +46,13 @@ public class EventManager : MonoBehaviour
     {
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
-        GameManager.onKeyMove -= OnKeyMovementEventReceived;
+        ParentsAruguingEvent.onKeyMove -= OnKeyMovementEventReceived;
         PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
     }
 
     void OnDestroy()
     {
-        GameManager.onKeyMove -= OnKeyMovementEventReceived;
+        ParentsAruguingEvent.onKeyMove -= OnKeyMovementEventReceived;
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
@@ -83,5 +83,6 @@ public class EventManager : MonoBehaviour
     void OnKeyMovementEventReceived()
     {
         keyReference.GetComponent<Rigidbody>().AddForce(keyReference.transform.up * moveForce + keyReference.transform.forward * moveForce);
+        Debug.Log("Key Moved");
     }
 }

@@ -77,7 +77,7 @@ public class PaintingsAI : MonoBehaviour
         Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
         Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
 
-        Debug.Log(hit.collider);
+        // Debug.Log(hit.collider);
 
         isPlayerHiding = !(hit.collider.tag == "Player");
 
