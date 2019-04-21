@@ -12,10 +12,11 @@ public class PlayerControls : MonoBehaviour
     public float crouchRunSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
-    public float jumpDelay;
 
     [Header("Player Jump Variables")]
     public float jumpPower;
+    private float jumpTime;
+    public float jumpDelay;
 
     [Header("Player Gravity Variables")]
     public float defaultGravity;
@@ -30,6 +31,7 @@ public class PlayerControls : MonoBehaviour
     #region Events
     public delegate void SendEvents();
     public static event SendEvents onChangeLevelToHallway;
+    public static event SendEvents onChangeLevelText;
     public static event SendEvents onRopeBreakMessage;
     // public static event SendEvents onObjectDetatchEvent;
     public static event SendEvents onObjectShakePlank;
@@ -42,6 +44,7 @@ public class PlayerControls : MonoBehaviour
     [Header("Object Interaction Variables")]
     public bool isPickingObject;
     public bool isPushingOrPulling;
+    public float pushPower;
     #endregion
 
     #region Trigger Colliders
@@ -55,7 +58,6 @@ public class PlayerControls : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
     private PlayerInteraction plyInteract;
-    private float jumpTime;
     private Animator anim;
 
     #region Cheats
@@ -189,10 +191,11 @@ public class PlayerControls : MonoBehaviour
                     // Debug.Log("Walking");
                 }
 
-                if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
+                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
                 {
                     Jump();
                     // moveDirection.y = jumpPower;
+                    // anim.Play("CourageJump");
                 }
 
                 //Player Crouching
@@ -303,8 +306,11 @@ public class PlayerControls : MonoBehaviour
 
         if (other.gameObject.tag == "End")
         {
-            if (onChangeLevelToHallway != null)
+            if (onChangeLevelToHallway != null && onChangeLevelText != null)
+            {
                 onChangeLevelToHallway();
+                onChangeLevelText();
+            }
         }
 
         if (other.tag == "BendPlank")
@@ -341,6 +347,25 @@ public class PlayerControls : MonoBehaviour
         if (other.tag == "BendPlank")
         {
             plankCol = null;
+        }
+    }
+
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.tag == "HallwayEndDoor" && Input.GetKey(KeyCode.E))
+        {
+            Rigidbody body = hit.collider.attachedRigidbody;
+
+            if (body == null || body.isKinematic)
+                return;
+
+            if (hit.moveDirection.y < -0.3f)
+                return;
+
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+            body.velocity = pushDir * pushPower;
+            Debug.Log("Pushing Door");
         }
     }
 

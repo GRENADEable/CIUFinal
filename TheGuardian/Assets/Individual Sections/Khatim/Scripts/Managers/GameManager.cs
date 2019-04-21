@@ -35,11 +35,11 @@ public class GameManager : MonoBehaviour
         {
             if (keyCounter >= 3)
             {
-                endHallwayDoor.SetActive(false);
+                endHallwayDoor.GetComponent<Rigidbody>().isKinematic = false;
             }
             else
             {
-                endHallwayDoor.SetActive(true);
+                endHallwayDoor.GetComponent<Rigidbody>().isKinematic = true;
             }
         }
 
