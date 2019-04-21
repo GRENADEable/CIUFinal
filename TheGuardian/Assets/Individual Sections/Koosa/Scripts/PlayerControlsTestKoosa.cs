@@ -1,78 +1,141 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerControlsTestKoosa : MonoBehaviour
 {
+    #region  Player Variables
     [Header("Player Movement Variables")]
     public float walkingSpeed;
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
+    public float crouchColShrinkValue; //Initial Value is 0.5f
+    public float crouchColCenterValue; //Initial Value is 2
+    public float jumpDelay;
+    public LightMechanic lightMechanic;
+
     [Header("Player Jump Variables")]
     public float jumpPower;
-    public float jumpDelay;
+
     [Header("Player Gravity Variables")]
     public float defaultGravity;
+    public float gravityAfterRopeBreak;
 
     [Header("Rope Variables")]
     public bool onRope;
     public float climbSpeed;
     public float sprintClimbSpeed;
+    #endregion
 
+    #region Events
     public delegate void SendEvents();
-    public static event SendEvents onObjectDetatchEvent;
+    public static event SendEvents onChangeLevelToHallway;
+    public static event SendEvents onRopeBreakMessage;
+    // public static event SendEvents onObjectDetatchEvent;
+    public static event SendEvents onObjectShakePlank;
+    public static event SendEvents onObjectStillPlank;
+    public static event SendEvents onObjectBendPlank;
+    public static event SendEvents onKeyMove;
+    #endregion
 
+    #region  Object Interaction
+    [Header("Object Interaction Variables")]
+    public bool isPickingObject;
+    public bool isPushingOrPulling;
+    #endregion
 
-    [SerializeField]
-    private Collider ropeCol;
+    #region Trigger Colliders
     [SerializeField]
     private Collider interactCol;
-    private bool isInteracting;
+    [SerializeField]
+    private Collider plankCol;
+    #endregion
+
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
+    private PlayerInteraction plyInteract;
     private float jumpTime;
     private Animator anim;
-    private Vector3 playerVector;
+
+    #region Cheats
+    [Header("Cheats Section :3")]
+    [SerializeField]
+    private float flashSpeed;
+    [SerializeField]
+    private float defaultRunningSpeed;
+    [SerializeField]
+    private float superJump;
+    [SerializeField]
+    private float defaultJump;
+    #endregion
+
     private float playerHeight;
     private float moveHorizontal;
     private float moveVertical;
-
+    private float playerCenter;
+    public bool crouching;
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
+
+        ObjectPushAndPull.constraints += PushAndPullConstraintsEventReceived;
+        ObjectPushAndPull.noConstraints += PushAndPullNoConstraintsEventReceived;
+
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
-        playerVector = transform.position;
+        playerCenter = charController.center.y;
         jumpTime = jumpDelay;
     }
 
+    void OnDisable()
+    {
+        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
+        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
+    }
+
+    void OnDestroy()
+    {
+        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
+        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
+    }
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && interactCol != null && !isInteracting)
+        if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
         {
-            interactCol.gameObject.AddComponent(typeof(FixedJoint));
-            interactCol.gameObject.GetComponent<FixedJoint>().enableCollision = true;
-            interactCol.gameObject.GetComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
-            interactCol.GetComponent<Rigidbody>().isKinematic = false;
-            interactCol.GetComponent<Rigidbody>().useGravity = false;
-            isInteracting = true;
-            Debug.LogWarning("Object Attached");
+            plyInteract.StartInteraction();
+        }
+        else if (Input.GetKey(KeyCode.E) && plyInteract != null)
+        {
+            plyInteract.UpdateInteraction();
+        }
+        if (Input.GetKeyUp(KeyCode.E) && plyInteract != null)
+        {
+            plyInteract.EndInteraction();
         }
 
-        if ((Input.GetKeyUp(KeyCode.E) && isInteracting) || (interactCol == null && isInteracting))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            if (onObjectDetatchEvent != null) //Sends message to Gameobject with DropObject Script
-                onObjectDetatchEvent();
+            if (onKeyMove != null)
+                onKeyMove();
+        }
 
-            isInteracting = false;
+        if (Input.GetKey(KeyCode.E) && plankCol != null)
+        {
+            if (onObjectBendPlank != null)
+            {
+                onObjectBendPlank();
+            }
         }
 
         if (!onRope)
         {
+            //Storing Player's Character Controllers Height and Center
             float localHeight = playerHeight;
+            float localCenter = playerCenter;
+
             //Gets Player Inputs
             moveVertical = Input.GetAxisRaw("Vertical");
             moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -81,55 +144,91 @@ public class PlayerControlsTestKoosa : MonoBehaviour
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
+                if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && !crouching && lightMechanic.lightOn)
+                {
+                    anim.SetBool("Light", true);
+                }
+                else
+                    anim.SetBool("Light", false);
+
+                if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && crouching && lightMechanic.lightOn)
+                {
+                    anim.SetBool("LightCrouch", true);
+                }
+                else
+                    anim.SetBool("LightCrouch", false);
+
+
                 //Animation Controls
-                if (moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0)
+                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && !lightMechanic.lightOn)
                     anim.SetBool("isWalking", true);
                 else
                     anim.SetBool("isWalking", false);
+                  if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
+                    anim.SetBool("isCrouchWalking", true);
+                  else
+                    anim.SetBool("isCrouchWalking", false);
+
+                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && lightMechanic.lightOn && crouching)
+                {
+                    anim.SetBool("LightCrouchWalk", true);
+                }
+                else
+                    anim.SetBool("LightCrouchWalk", false);
 
                 //Applies Movement
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
-                if (moveDirection != Vector3.zero && !isInteracting)
+                if (moveDirection != Vector3.zero && !isPushingOrPulling)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
+
+
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
                     moveDirection = moveDirection * runningSpeed;
                     anim.SetBool("isRunning", true);
-                    // Debug.LogWarning("Running");
+                    // Debug.Log("Running");
                 }
-                else if (Input.GetKey(KeyCode.C) && !isInteracting)
+                else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
                 {
-                    localHeight = playerHeight * 0.5f;
-                    // anim.SetBool("isCrouching", true);
+                    //Made Character Controller Collider Shrink Variables Dynamic
+                    localHeight = playerHeight * crouchColShrinkValue;
+                    localCenter = playerCenter / crouchColCenterValue;
+                    anim.SetBool("isCrouching", true);
+                    crouching = true;
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
-                        // Debug.LogWarning("Crouch Run");
+                        // Debug.Log("Crouch Run");
                     }
                     else
                     {
                         moveDirection = moveDirection * crouchWalkSpeed;
-                        // Debug.LogWarning("Crouch Walk");
+                        // Debug.Log("Crouch Walk");
+                        
                     }
                 }
                 else
                 {
                     moveDirection = moveDirection * walkingSpeed;
                     anim.SetBool("isRunning", false);
-                    // Debug.LogWarning("Walking");
+                    anim.SetBool("isCrouching", false);
+                    crouching = false;
+                    // Debug.Log("Walking");
                 }
 
-                if (Input.GetKey(KeyCode.Space) && !isInteracting)
+                if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
                 {
                     Jump();
+                    // moveDirection.y = jumpPower;
                 }
 
                 //Player Crouching
-                float latestRecordedHeight = charController.height;
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
+                charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime), 0);
+                Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
             }
             else
             {
@@ -142,16 +241,16 @@ public class PlayerControlsTestKoosa : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
-                // Debug.LogWarning("Sprint Climb?");
+                // Debug.Log("Sprint Climb?");
             }
             else
             {
                 moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
-                // Debug.LogWarning("Climbing");
+                // Debug.Log("Climbing");
             }
         }
 
-        if (ropeCol != null && Input.GetKey(KeyCode.E))
+        if (interactCol != null && Input.GetKey(KeyCode.E))
             onRope = true;
 
         else
@@ -163,78 +262,150 @@ public class PlayerControlsTestKoosa : MonoBehaviour
             onRope = false;
     }
 
+    #region Cheats :P
+    public void SuperJumpToggle(bool isSuperJump)
+    {
+        if (isSuperJump)
+        {
+            jumpPower = superJump;
+        }
+        else if (!isSuperJump)
+        {
+            jumpPower = defaultJump;
+        }
+    }
+
+    public void FlashSpeedToggle(bool isFlash)
+    {
+        if (isFlash)
+        {
+            runningSpeed = flashSpeed;
+        }
+        else if (!isFlash)
+        {
+            runningSpeed = defaultRunningSpeed;
+        }
+    }
+    #endregion
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "PickUp" && plyInteract == null)
+        {
+            plyInteract = GetComponent<ObjectPickup>();
+            plyInteract.interactCol = other;
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                plyInteract.StartInteraction();
+            }
+        }
+
+        if (other.tag == "Rope")
+        {
+            interactCol = other;
+        }
+
+        if (other.tag == "PushAndPull" && plyInteract == null)
+        {
+            plyInteract = GetComponent<ObjectPushAndPull>();
+            plyInteract.interactCol = other;
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                plyInteract.StartInteraction();
+                anim.Play("CouragePush");
+            }
+        }
+
+        if (other.gameObject.tag == "Matchstick")
+        {
+            interactCol = other;
+        }
+
+        if (other.tag == "RopeBreak")
+        {
+            if (onRopeBreakMessage != null)
+                onRopeBreakMessage();
+
+            gravity = gravityAfterRopeBreak;
+            // Debug.Log("Rope Broken");
+        }
+
+        if (other.gameObject.tag == "End")
+        {
+            if (onChangeLevelToHallway != null)
+                onChangeLevelToHallway();
+        }
+
+        if (other.tag == "BendPlank")
+        {
+            plankCol = other;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (plyInteract != null)
+        {
+            if (other.tag == "PickUp" && plyInteract.interactCol == other)
+            {
+                ResetInteraction();
+            }
+
+            if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
+            {
+                ResetInteraction();
+            }
+        }
+
+        if (other.tag == "Rope")
+        {
+            interactCol = null;
+        }
+
+        if (other.gameObject.tag == "Matchstick")
+        {
+            interactCol = null;
+        }
+
+        if (other.tag == "BendPlank")
+        {
+            plankCol = null;
+        }
+    }
+
     void Jump()
     {
-        if (jumpTime > jumpDelay)
+        if (jumpTime > jumpDelay && !lightMechanic.lightOn)
         {
             moveDirection.y = jumpPower;
             anim.Play("CourageJump");
-            Debug.LogWarning("Jump");
+            Debug.Log("Jump");
+            jumpTime = 0f;
+        }
+         if(jumpTime > jumpDelay && lightMechanic.lightOn)
+        {
+            moveDirection.y = jumpPower;
+            anim.Play("CourageJumpLight");
+            Debug.Log("Jump");
             jumpTime = 0f;
         }
     }
 
-    public void CrouchingCheck()
+    public void ResetInteraction()
     {
-        float localHeight = 0;
-        float localSpeed = 0;
-
-        if (Input.GetKey(KeyCode.C))
-        {
-            CrouchingExecution(localSpeed, localHeight);
-        }
+        plyInteract.interactCol = null;
+        plyInteract = null;
     }
 
-    public void CrouchingExecution(float speed, float height)
+    void PushAndPullConstraintsEventReceived()
     {
-        height = playerHeight * 0.5f;
-        speed = crouchWalkSpeed;
+        isPushingOrPulling = true;
     }
 
-    public void CharacterControllerBodyModifier()
+    void PushAndPullNoConstraintsEventReceived()
     {
-        float latestRecordedHeight = charController.height;
-    }
-
-	void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Rope")
-        {
-            ropeCol = other;
-        }
-
-        // if (other.gameObject.tag == "End")
-        // {
-        //     SceneManage.instance.HallwayLevel();
-        // }
-
-        if (other.tag == "Rope")
-        {
-            ropeCol = other;
-        }
-
-        if (other.tag == "Interact")
-        {
-            interactCol = other;
-        }
-    }
-
-	void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Rope")
-        {
-            ropeCol = null;
-        }
-
-        if (other.tag == "Interact")
-        {
-            interactCol = null;
-        }
-    }
-
-	 //Function which checks what hit the Character Controller's Collider
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-		
+        isPushingOrPulling = false;
     }
 }
