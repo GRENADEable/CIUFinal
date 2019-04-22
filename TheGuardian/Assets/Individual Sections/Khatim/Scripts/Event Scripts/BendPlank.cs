@@ -10,19 +10,11 @@ public class BendPlank : MonoBehaviour
     void OnEnable()
     {
         PlayerControlTest.onObjectShakePlank += ShakePlankEventReceived;
-
-        PlayerControls.onObjectShakePlank += ShakePlankEventReceived;
-        PlayerControls.onObjectStillPlank += StillPlankEventReceived;
-        PlayerControls.onObjectBendPlank += BendPlankEvenetReceived;
     }
 
     void OnDisable()
     {
         PlayerControlTest.onObjectShakePlank -= ShakePlankEventReceived;
-
-        PlayerControls.onObjectShakePlank += ShakePlankEventReceived;
-        PlayerControls.onObjectStillPlank -= StillPlankEventReceived;
-        PlayerControls.onObjectBendPlank -= BendPlankEvenetReceived;
     }
 
     void Start()

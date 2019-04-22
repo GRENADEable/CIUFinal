@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviour
         KeyCollector.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
         KeyCollector.onFirstKeyIllustration += OnSecondKeyIllustrationReceived;
         KeyCollector.onFirstKeyIllustration += OnThirdKeyIllustrationReceived;
+
+        OpeningAirVentEvent.onVentIllustration += OnVentIllustrationReceived;
         gm = GetComponent<GameManager>();
     }
 
@@ -51,6 +53,8 @@ public class UIManager : MonoBehaviour
         KeyCollector.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         KeyCollector.onFirstKeyIllustration -= OnSecondKeyIllustrationReceived;
         KeyCollector.onFirstKeyIllustration -= OnThirdKeyIllustrationReceived;
+
+        OpeningAirVentEvent.onVentIllustration -= OnVentIllustrationReceived;
     }
 
     void OnDestroy()
@@ -63,6 +67,8 @@ public class UIManager : MonoBehaviour
         KeyCollector.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         KeyCollector.onFirstKeyIllustration -= OnSecondKeyIllustrationReceived;
         KeyCollector.onFirstKeyIllustration -= OnThirdKeyIllustrationReceived;
+
+        OpeningAirVentEvent.onVentIllustration -= OnVentIllustrationReceived;
     }
 
     void Awake()

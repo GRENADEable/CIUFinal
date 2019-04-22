@@ -8,13 +8,13 @@ public class DropObject : MonoBehaviour
 
     void OnEnable()
     {
-        ObjectThrowing.onObjectDropEvent += DropObjectEventReceived;
+        // ObjectThrowing.onObjectDropEvent += DropObjectEventReceived;
         rg = GetComponent<Rigidbody>();
     }
 
     void OnDisable()
     {
-        ObjectThrowing.onObjectDropEvent -= DropObjectEventReceived;
+        // ObjectThrowing.onObjectDropEvent -= DropObjectEventReceived;
     }
 
     void DropObjectEventReceived()

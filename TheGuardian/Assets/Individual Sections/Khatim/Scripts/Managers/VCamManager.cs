@@ -15,7 +15,7 @@ public class VCamManager : MonoBehaviour
     public GameObject atticThirdPuzzleCrateCam;
     public GameObject atticThirdpuzzleRopeCam;
     [Header("Hallway Camera Referemces")]
-    public GameObject hallwayUnderFloorWalkwayCam;
+    public GameObject hallwayThirdKeyCam;
     public GameObject hallwayStackedObjectCam;
     [Header("Virtual Camera Variables")]
     public float positiveScreenYCamOffset;
@@ -27,17 +27,6 @@ public class VCamManager : MonoBehaviour
 
     void Awake()
     {
-        // if (mainVirutalCam != null && firstPuzzleCamPan != null && secondPuzzleVirtualCam != null
-        //  && thirdPuzzleVirtualCam != null && thirdPuzzleCrateCam != null && thirdpuzzleRopeCam != null)
-        // {
-        //     mainVirutalCam.SetActive(true);
-        //     firstPuzzleCamPan.SetActive(false);
-        //     secondPuzzleVirtualCam.SetActive(false);
-        //     thirdPuzzleVirtualCam.SetActive(false);
-        //     thirdPuzzleCrateCam.SetActive(false);
-        //     thirdpuzzleRopeCam.SetActive(false);
-        // }
-
         mainVirutalCam = GameObject.FindGameObjectWithTag("MainVCam");
     }
 
@@ -121,13 +110,12 @@ public class VCamManager : MonoBehaviour
 
         if (other.gameObject.tag == "ThirdPuzzleRopeCamPan")
         {
-            // atticThirdPuzzleCrateCam.SetActive(false);
             atticThirdpuzzleRopeCam.SetActive(true);
         }
 
-        if (other.gameObject.tag == "UnderFloorWalkwayCamPan")
+        if (other.gameObject.tag == "ThirdKeyCamPan")
         {
-            hallwayUnderFloorWalkwayCam.SetActive(true);
+            hallwayThirdKeyCam.SetActive(true);
             mainVirutalCam.SetActive(false);
         }
 
@@ -178,10 +166,10 @@ public class VCamManager : MonoBehaviour
             atticThirdpuzzleRopeCam.SetActive(false);
         }
 
-        if (other.gameObject.tag == "UnderFloorWalkwayCamPan")
+        if (other.gameObject.tag == "ThirdKeyCamPan")
         {
             mainVirutalCam.SetActive(true);
-            hallwayUnderFloorWalkwayCam.SetActive(false);
+            hallwayThirdKeyCam.SetActive(false);
         }
         if (other.gameObject.tag == "StackedObjectCamPan")
         {

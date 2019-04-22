@@ -34,15 +34,12 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onChangeLevelText;
     public static event SendEvents onRopeBreakMessage;
     // public static event SendEvents onObjectDetatchEvent;
-    public static event SendEvents onObjectShakePlank;
-    public static event SendEvents onObjectStillPlank;
-    public static event SendEvents onObjectBendPlank;
     public static event SendEvents onKeyMove;
     #endregion
 
     #region  Object Interaction
     [Header("Object Interaction Variables")]
-    public bool isPickingObject;
+    // public bool isPickingObject;
     public bool isPushingOrPulling;
     public float pushPower;
     #endregion
@@ -50,8 +47,6 @@ public class PlayerControls : MonoBehaviour
     #region Trigger Colliders
     [SerializeField]
     private Collider interactCol;
-    [SerializeField]
-    private Collider plankCol;
     #endregion
 
     private float gravity;
@@ -123,14 +118,6 @@ public class PlayerControls : MonoBehaviour
                 onKeyMove();
         }
 
-        if (Input.GetKey(KeyCode.E) && plankCol != null)
-        {
-            if (onObjectBendPlank != null)
-            {
-                onObjectBendPlank();
-            }
-        }
-
         if (!onRope)
         {
             //Storing Player's Character Controllers Height and Center
@@ -191,7 +178,7 @@ public class PlayerControls : MonoBehaviour
                     // Debug.Log("Walking");
                 }
 
-                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling && !isPickingObject)
+                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling)
                 {
                     Jump();
                     // moveDirection.y = jumpPower;
@@ -312,11 +299,6 @@ public class PlayerControls : MonoBehaviour
                 onChangeLevelText();
             }
         }
-
-        if (other.tag == "BendPlank")
-        {
-            plankCol = other;
-        }
     }
 
     void OnTriggerExit(Collider other)
@@ -342,11 +324,6 @@ public class PlayerControls : MonoBehaviour
         if (other.gameObject.tag == "Matchstick")
         {
             interactCol = null;
-        }
-
-        if (other.tag == "BendPlank")
-        {
-            plankCol = null;
         }
     }
 
