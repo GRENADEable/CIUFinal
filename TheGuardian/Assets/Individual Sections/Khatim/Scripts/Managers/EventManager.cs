@@ -20,6 +20,7 @@ public class EventManager : MonoBehaviour
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove += OnKeyMovementEventReceived;
         PlayerControls.onKeyMove += OnKeyMovementEventReceived;
+        GameManager.onEnableTransition += OnEnableTranistionReceived;
 
         if (keyReference == null)
             Debug.LogWarning("Add Key Reference");
@@ -48,6 +49,7 @@ public class EventManager : MonoBehaviour
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove -= OnKeyMovementEventReceived;
         PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
+        GameManager.onEnableTransition -= OnEnableTranistionReceived;
     }
 
     void OnDestroy()
@@ -56,6 +58,7 @@ public class EventManager : MonoBehaviour
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
+        GameManager.onEnableTransition -= OnEnableTranistionReceived;
     }
     void OnRopeBreakEventReceived()
     {
@@ -65,7 +68,8 @@ public class EventManager : MonoBehaviour
             Destroy(ropeBreakCol.GetComponent<Collider>());
             brokenBoardSection.SetActive(false);
             woodenPlank.SetActive(false);
-            fadeToBlackObj.SetActive(true);
+            // fadeToBlackObj.SetActive(true);
+            OnEnableTranistionReceived();
             Debug.LogWarning("Rope Broken");
         }
     }
@@ -84,5 +88,11 @@ public class EventManager : MonoBehaviour
     {
         keyReference.GetComponent<Rigidbody>().AddForce(keyReference.transform.up * moveForce + keyReference.transform.forward * moveForce);
         Debug.Log("Key Moved");
+    }
+
+    void OnEnableTranistionReceived()
+    {
+        fadeToBlackObj.SetActive(true);
+        Debug.Log("Fade To Black Obj Active");
     }
 }

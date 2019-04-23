@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static event SendMessageToManagers onPaintingsAwakeMessage;
     // public static event SendMessageToManagers onKeyMove;
     public static event SendMessageToManagers onIncreaseEyeSpeed;
+    public static event SendMessageToManagers onEnableTransition;
 
     void OnEnable()
     {
@@ -36,11 +37,14 @@ public class GameManager : MonoBehaviour
             if (keyCounter >= 3)
             {
                 endHallwayDoor.GetComponent<Rigidbody>().isKinematic = false;
+                if (onEnableTransition != null)
+                {
+                    onEnableTransition();
+                    onEnableTransition = null;
+                }
             }
             else
-            {
                 endHallwayDoor.GetComponent<Rigidbody>().isKinematic = true;
-            }
         }
 
         if (keyCounter >= 1 && onPaintingsAwakeMessage != null)
