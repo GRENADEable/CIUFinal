@@ -6,70 +6,78 @@ using UnityEngine.AI;
 public class DollsFSM : MonoBehaviour
 {
     [Header("Doll Variables")]
+    public float attackDistance;
+    public float chaseDistance;
+    public Vector3 rangeOffset;
+    public float distanceToPlayer;
     public float dollSpeed;
-    [Header("Wander Variables")]
-    public float wanderRadius;
-    public float maxWanderTimer;
+    public GameObject player;
+
+    public delegate void SendDeathMessage();
+    public static event SendDeathMessage onDeadPlayerScreen;
 
     private NavMeshAgent dollAgent;
     private Animator dollAnim;
-    private int currCondition;
-    private float timer;
+    private enum dollState { Idle, Chase, Attack };
+    private dollState currCondition;
 
-    void Start()
+    void OnEnable()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         dollAgent = GetComponent<NavMeshAgent>();
         dollAgent.speed = dollSpeed;
         dollAnim = GetComponent<Animator>();
-        timer = maxWanderTimer;
+    }
+
+
+    void OnDisable()
+    {
+
+    }
+
+    void OnDestroy()
+    {
+
     }
 
     void Update()
     {
-        if (dollAgent.velocity.magnitude < 0.1f)
+        distanceToPlayer = Vector3.Distance(this.transform.position + rangeOffset, player.transform.position);
+        Debug.DrawRay(transform.position + rangeOffset, transform.forward * chaseDistance, Color.green);
+        Debug.DrawRay(transform.position + rangeOffset, transform.forward * attackDistance, Color.red);
+
+        switch (currCondition)
         {
-            dollAnim.SetBool("isIdle", true);
-            Debug.LogWarning("Idle");
+            case dollState.Idle:
+                dollAnim.SetBool("isIdle", true);
+                Debug.Log("Doll Idle");
+
+                if (distanceToPlayer <= chaseDistance && player.activeInHierarchy)
+                    currCondition = dollState.Chase;
+                break;
+
+            case dollState.Chase:
+                dollAnim.SetBool("isIdle", false);
+                dollAgent.SetDestination(player.transform.position);
+                Debug.Log("Doll Chasing");
+
+                if (distanceToPlayer >= chaseDistance)
+                    currCondition = dollState.Idle;
+
+                // if (distanceToPlayer <= attackDistance && player.activeInHierarchy)
+                //     currCondition = dollState.Attack;
+                break;
+
+            case dollState.Attack:
+                player.SetActive(false);
+                Debug.Log("Attacking Player");
+
+                if (onDeadPlayerScreen != null)
+                    onDeadPlayerScreen();
+
+                if (!player.activeInHierarchy)
+                    currCondition = dollState.Idle;
+                break;
         }
-
-        if (dollAgent.velocity.magnitude > 0.2f)
-        {
-            dollAnim.SetBool("isIdle", false);
-            Debug.LogWarning("Not Idle");
-        }
-    }
-
-    void FixedUpdate()
-    {
-        timer += Time.deltaTime;
-
-        if (timer >= maxWanderTimer)
-        {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-            dollAgent.SetDestination(newPos);
-            timer = 0;
-        }
-    }
-
-    private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
-    {
-        //Sets a random position inside the sphere and that is multiplied with the distance and the center of the sphere.
-        Vector3 randomPos = Random.insideUnitSphere * dist;
-
-        //Vector 3 position is returned to the origin parameter.
-        randomPos += origin;
-
-        NavMeshHit hit;
-
-        //Bool check if the random position is suitable on the navmesh. If true, then return the hit position.
-        NavMesh.SamplePosition(randomPos, out hit, dist, layermask);
-
-        return hit.position;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, wanderRadius);
     }
 }

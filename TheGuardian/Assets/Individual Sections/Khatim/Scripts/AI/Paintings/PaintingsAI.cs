@@ -41,7 +41,7 @@ public class PaintingsAI : MonoBehaviour
     private float time;
     private float delta;
     private RaycastHit hit;
-    private float curTimer;
+    private float currTimer;
     [SerializeField]
     private bool isPlayerHiding;
     private Vector3 tarDir;
@@ -92,9 +92,9 @@ public class PaintingsAI : MonoBehaviour
 
                 if (angle < detectionFov && !isPlayerHiding)
                 {
-                    curTimer += Time.deltaTime;
+                    currTimer += Time.deltaTime;
 
-                    if (curTimer >= detectionDelay)
+                    if (currTimer >= detectionDelay)
                         SwitchState(paintingState.Attack);
                 }
 
@@ -105,16 +105,15 @@ public class PaintingsAI : MonoBehaviour
                 paintingEyeLight.color = Color.red;
 
                 if (angle > detectionFov || isPlayerHiding)
-                {
                     SwitchState(paintingState.Looking_Around);
-                }
+
                 // Need to Clamp the Y Rotation when Player is in the FoV of the AI 
                 Quaternion lookAtPlayerPos = Quaternion.LookRotation(tarDir.normalized, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, lookAtPlayerPos, lookatSpeed * Time.deltaTime);
 
-                curTimer += Time.deltaTime;
+                currTimer += Time.deltaTime;
                 //Animation Playes;
-                if (curTimer >= killDelay)
+                if (currTimer >= killDelay)
                 {
                     if (onPlayerDeath != null)
                         onPlayerDeath();
@@ -126,10 +125,10 @@ public class PaintingsAI : MonoBehaviour
                 break;
 
             case paintingState.Wait:
-                curTimer += Time.deltaTime;
+                currTimer += Time.deltaTime;
                 if (angle < detectionFov && !isPlayerHiding)
                     SwitchState(paintingState.Attack);
-                if (curTimer >= timeToWaitBetweenRotations)
+                if (currTimer >= timeToWaitBetweenRotations)
                     SwitchState(paintingState.Looking_Around);
 
                 // Debug.Log("Waiting");
@@ -138,7 +137,7 @@ public class PaintingsAI : MonoBehaviour
     }
     void SwitchState(paintingState state)
     {
-        curTimer = 0;
+        currTimer = 0;
         currCondition = state;
     }
 

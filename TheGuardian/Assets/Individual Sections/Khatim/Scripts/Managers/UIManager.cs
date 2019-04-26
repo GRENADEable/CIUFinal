@@ -155,6 +155,7 @@ public class UIManager : MonoBehaviour
         gm.isPlayerDead = true;
         deathScreen.SetActive(true);
         Debug.Log("Death Screen UI Activated");
+        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
     }
 
     void OnChangeLevelTextReceived()

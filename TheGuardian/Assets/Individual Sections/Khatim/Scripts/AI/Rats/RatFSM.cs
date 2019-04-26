@@ -21,15 +21,13 @@ public class RatFSM : MonoBehaviour
     public delegate void SendDeathMessage();
     public static event SendDeathMessage onDeadPlayerScreen;
 
-    // [SerializeField]
-    // private bool isAttacking;
     [SerializeField]
     private GameObject player;
-    private int currCondition;
+    private enum ratState { Wander, Chase, Wait, Distract, Attack };
+    private ratState currCondition;
     private NavMeshAgent ratAgent;
     private Vector3 tarDir;
     private float timer;
-    // private float attackTime;
     private Animator ratAnim;
     public GameObject bait;
     [SerializeField]
@@ -37,6 +35,12 @@ public class RatFSM : MonoBehaviour
 
     void OnEnable()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        ratAgent = GetComponent<NavMeshAgent>();
+        ratAgent.speed = ratSpeed;
+        ratAnim = GetComponentInChildren<Animator>();
+        timer = maxWanderTimer;
+        currCondition = ratState.Wander;
         DistractEnemyEvent.OnDistractEnemy += DistractEventReceived;
     }
 
@@ -44,17 +48,6 @@ public class RatFSM : MonoBehaviour
     void OnDisable()
     {
         DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
-    }
-
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        // isAttacking = false;
-
-        ratAgent = GetComponent<NavMeshAgent>();
-        ratAgent.speed = ratSpeed;
-        ratAnim = GetComponentInChildren<Animator>();
-        timer = maxWanderTimer;
     }
 
     void Update()
@@ -66,100 +59,83 @@ public class RatFSM : MonoBehaviour
         tarDir = player.transform.position - this.transform.position;
         angle = Vector3.Angle(this.tarDir, this.transform.forward);
 
-        if (distanceToPlayer > chaseDistance && !isDistracted)
-        {
-            //Wander
-            currCondition = 1;
-        }
-
-        if ((distanceToPlayer < chaseDistance && angle < fov || distanceToPlayer < closeDistance) && !isDistracted)
-        {
-            //Chase Player
-            currCondition = 2;
-        }
-
-        if (distanceToPlayer < attackDistance && !isDistracted && player != null)
-        {
-            //Attack Player
-            currCondition = 3;
-        }
-
         if (ratAgent.velocity.magnitude < 0.1f)
         {
             ratAnim.SetBool("isIdle", true);
-            // Debug.LogWarning("Idle");
+            // Debug.Log("Idle");
         }
 
         if (ratAgent.velocity.magnitude > 0.2f)
         {
             ratAnim.SetBool("isIdle", false);
-            // Debug.LogWarning("Not Idle");
+            // Debug.Log("Not Idle");
         }
 
-        if (!player.activeInHierarchy)
-            currCondition = 1;
-    }
-
-    void FixedUpdate()
-    {
         switch (currCondition)
         {
-            case 1: //Wander Condition
-                timer += Time.deltaTime;
+            case ratState.Wander:
+                Wander();
 
-                if (timer >= maxWanderTimer)
-                {
-                    Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-                    ratAgent.SetDestination(newPos);
-                    timer = 0;
-                }
-                // Debug.LogWarning("Wandering");
+                if ((distanceToPlayer <= chaseDistance && angle < fov || distanceToPlayer < closeDistance) && !isDistracted && player.activeInHierarchy)
+                    currCondition = ratState.Chase;
                 break;
 
-            case 2: //Chase Condition
+            case ratState.Chase:
                 ratAgent.SetDestination(player.transform.position);
-                // Debug.LogWarning("Chasing Player");
-                // isAttacking = false;
+                Debug.Log("Chasing Player");
+
+                if (distanceToPlayer >= chaseDistance && !isDistracted)
+                    currCondition = ratState.Wander;
+
+                if (distanceToPlayer <= attackDistance && !isDistracted && player.activeInHierarchy)
+                    currCondition = ratState.Attack;
                 break;
 
-            case 3: //Attack Condition
-                // isAttacking = true;
+            case ratState.Attack:
                 player.SetActive(false);
+                Debug.Log("Attacking Player");
 
                 if (onDeadPlayerScreen != null)
                     onDeadPlayerScreen();
 
-                // deathScreen.SetActive(true);
-                // Debug.LogWarning("Attacking");
+                if (!player.activeInHierarchy)
+                    currCondition = ratState.Wander;
                 break;
 
-            case 4: //Wait Condition
+            case ratState.Wait:
                 break;
 
-            case 5: //Distract Condition
+            case ratState.Distract:
                 ratAgent.SetDestination(bait.transform.position);
-                // Debug.LogWarning("Distracting Enemy");
-                break;
-
-            case 6: //Null Condition
+                Debug.Log("Distracting Enemy");
                 break;
         }
     }
 
-    private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         //Sets a random position inside the sphere and that is multiplied with the distance and the center of the sphere.
         Vector3 randomPos = Random.insideUnitSphere * dist;
 
         //Vector 3 position is returned to the origin parameter.
         randomPos += origin;
-
         NavMeshHit hit;
 
         //Bool check if the random position is suitable on the navmesh. If true, then return the hit position.
         NavMesh.SamplePosition(randomPos, out hit, dist, layermask);
-
         return hit.position;
+    }
+
+    void Wander()
+    {
+        timer += Time.deltaTime;
+        if (timer >= maxWanderTimer)
+        {
+            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            ratAgent.SetDestination(newPos);
+            timer = 0;
+        }
+        // Debug.Log("Wandering");
     }
 
     void OnDrawGizmosSelected()
@@ -171,7 +147,6 @@ public class RatFSM : MonoBehaviour
     void DistractEventReceived()
     {
         DistractEnemy();
-        // Debug.LogWarning("Enemy Distracted");
     }
 
     void DistractEnemy()
@@ -184,10 +159,10 @@ public class RatFSM : MonoBehaviour
         isDistracted = true;
 
         if (isDistracted)
-        {
-            currCondition = 5;
-        }
+            currCondition = ratState.Distract;
+
         yield return new WaitForSeconds(baitDuration);
         isDistracted = false;
+        currCondition = ratState.Wander;
     }
 }
