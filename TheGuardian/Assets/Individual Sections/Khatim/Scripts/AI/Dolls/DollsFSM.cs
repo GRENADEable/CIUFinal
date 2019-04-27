@@ -46,11 +46,23 @@ public class DollsFSM : MonoBehaviour
         Debug.DrawRay(transform.position + rangeOffset, transform.forward * chaseDistance, Color.green);
         Debug.DrawRay(transform.position + rangeOffset, transform.forward * attackDistance, Color.red);
 
+        // if (dollAgent.velocity.magnitude < 0.1f)
+        // {
+        //     dollAnim.SetBool("isIdle", true);
+        //     Debug.Log("Idle Animation");
+        // }
+
+        // if (dollAgent.velocity.magnitude > 0.2f)
+        // {
+        //     dollAnim.SetBool("isIdle", false);
+        //     Debug.Log("Not Idle Animation");
+        // }
+
         switch (currCondition)
         {
             case dollState.Idle:
                 dollAnim.SetBool("isIdle", true);
-                Debug.Log("Doll Idle");
+                Debug.Log("Doll Idle State");
 
                 if (distanceToPlayer <= chaseDistance && player.activeInHierarchy)
                     currCondition = dollState.Chase;
@@ -59,10 +71,10 @@ public class DollsFSM : MonoBehaviour
             case dollState.Chase:
                 dollAnim.SetBool("isIdle", false);
                 dollAgent.SetDestination(player.transform.position);
-                Debug.Log("Doll Chasing");
+                Debug.Log("Doll Chasing State");
 
-                if (distanceToPlayer >= chaseDistance)
-                    currCondition = dollState.Idle;
+                // if (distanceToPlayer >= chaseDistance)
+                //     currCondition = dollState.Idle;
 
                 // if (distanceToPlayer <= attackDistance && player.activeInHierarchy)
                 //     currCondition = dollState.Attack;
@@ -70,13 +82,17 @@ public class DollsFSM : MonoBehaviour
 
             case dollState.Attack:
                 player.SetActive(false);
-                Debug.Log("Attacking Player");
+                Debug.Log("Attacking Player State");
 
                 if (onDeadPlayerScreen != null)
                     onDeadPlayerScreen();
 
                 if (!player.activeInHierarchy)
                     currCondition = dollState.Idle;
+
+                if (distanceToPlayer >= attackDistance)
+                    currCondition = dollState.Chase;
+
                 break;
         }
     }
