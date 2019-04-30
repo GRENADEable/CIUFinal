@@ -1184,8 +1184,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 12.63, z: -13.428}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.038, y: 12.5905, z: 8.912}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4246067982251884}
@@ -1381,7 +1381,7 @@ Animator:
   m_GameObject: {fileID: 1823480461893372}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6713c3653c8f8b044a3c28b804a4862b, type: 3}
-  m_Controller: {fileID: 9100000, guid: f3f6ddc9e984d2748a3e5141cd887552, type: 2}
+  m_Controller: {fileID: 9100000, guid: b9c34a0263dbf024d9d962a313132e7d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1494,6 +1494,7 @@ MonoBehaviour:
   crouchColCenterValue: 1.1
   jumpPower: 2
   jumpDelay: 0.5
+  lightMechanic: {fileID: 0}
   defaultGravity: 9.81
   gravityAfterRopeBreak: 2
   onRope: 0
@@ -1506,6 +1507,7 @@ MonoBehaviour:
   defaultRunningSpeed: 0.7
   superJump: 5
   defaultJump: 2
+  crouching: 0
 --- !u!114 &114859256158681970
 MonoBehaviour:
   m_ObjectHideFlags: 1

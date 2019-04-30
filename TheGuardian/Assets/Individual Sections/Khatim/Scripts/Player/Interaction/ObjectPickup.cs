@@ -7,7 +7,7 @@ public class ObjectPickup : PlayerInteraction
     public delegate void SendEventToManager();
     public static event SendEventToManager onKeyDropEvent;
     public Transform pivotDummy;
-    public Rigidbody rgCourageRightHand;
+    public Rigidbody rgCourageHead;
     public FixedJoint objectFixedJoint;
     public float throwingForce;
 
@@ -19,9 +19,9 @@ public class ObjectPickup : PlayerInteraction
 
         objectFixedJoint = interactCol.GetComponent<FixedJoint>();
         interactCol.transform.position = pivotDummy.position;
-        objectFixedJoint.connectedBody = rgCourageRightHand;
+        objectFixedJoint.connectedBody = rgCourageHead;
         rgObject.useGravity = false;
-        Debug.Log("Object Picked Up");
+        // Debug.Log("Object Picked Up");
     }
     public override void UpdateInteraction()
     {
@@ -30,7 +30,7 @@ public class ObjectPickup : PlayerInteraction
             Destroy(objectFixedJoint);
             rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
             rgObject.useGravity = true;
-            Debug.Log("Object Thrown");
+            // Debug.Log("Object Thrown");
         }
     }
     public override void EndInteraction()
@@ -39,7 +39,7 @@ public class ObjectPickup : PlayerInteraction
         Destroy(objectFixedJoint);
         objectFixedJoint = null;
         base.EndInteraction();
-        Debug.Log("Object Pickup Ended");
+        // Debug.Log("Object Pickup Ended");
 
         if (onKeyDropEvent != null)
             onKeyDropEvent();
