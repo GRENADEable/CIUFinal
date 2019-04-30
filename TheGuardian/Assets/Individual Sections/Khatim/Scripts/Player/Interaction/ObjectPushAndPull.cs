@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectPushAndPull : PlayerInteraction
 {
     public FixedJoint objectFixedJoint;
+    public Rigidbody rgCourageHead;
 
     public delegate void SendEventsToPlayer();
     public static event SendEventsToPlayer constraints;
@@ -17,18 +18,18 @@ public class ObjectPushAndPull : PlayerInteraction
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
 
         objectFixedJoint = interactCol.GetComponent<FixedJoint>();
-        objectFixedJoint.connectedBody = rgPlayer;
+        objectFixedJoint.connectedBody = rgCourageHead;
         // rgObject.isKinematic = false;
         rgObject.useGravity = false;
 
         if (constraints != null)
             constraints();
-        Debug.Log("Object Push And Pull Started");
+        // Debug.Log("Object Push And Pull Started");
     }
 
     public override void UpdateInteraction()
     {
-        Debug.Log("Object Push And Pull In Progress");
+        // Debug.Log("Object Push And Pull In Progress");
     }
 
     public override void EndInteraction()
@@ -42,6 +43,6 @@ public class ObjectPushAndPull : PlayerInteraction
             noConstraints();
 
         base.EndInteraction();
-        Debug.Log("Object Push And Pull Ended");
+        // Debug.Log("Object Push And Pull Ended");
     }
 }

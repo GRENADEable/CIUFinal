@@ -10,6 +10,8 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
+    [Range(0f, 1.0f)]
+    public float rotationSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
 
@@ -17,6 +19,7 @@ public class PlayerControls : MonoBehaviour
     public float jumpPower;
     private float jumpTime;
     public float jumpDelay;
+    // private LightMechanic lightMechanic;
 
     [Header("Player Gravity Variables")]
     public float defaultGravity;
@@ -71,10 +74,12 @@ public class PlayerControls : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
     private float playerCenter;
+    public bool crouching;
 
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
+        // lightMechanic = GetComponent<LightMechanic>();
 
         ObjectPushAndPull.constraints += PushAndPullConstraintsEventReceived;
         ObjectPushAndPull.noConstraints += PushAndPullNoConstraintsEventReceived;
@@ -132,20 +137,38 @@ public class PlayerControls : MonoBehaviour
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
+                // if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && !crouching && lightMechanic.lightOn)
+                //     anim.SetBool("Light", true);
+                // else
+                //     anim.SetBool("Light", false);
+
+                // if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && crouching && lightMechanic.lightOn)
+                //     anim.SetBool("LightCrouch", true);
+                // else
+                //     anim.SetBool("LightCrouch", false);
+
                 //Animation Controls
-                if (moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0)
+                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching /*&& !lightMechanic.lightOn*/)
                     anim.SetBool("isWalking", true);
                 else
                     anim.SetBool("isWalking", false);
+
+                // if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
+                //     anim.SetBool("isCrouchWalking", true);
+                // else
+                //     anim.SetBool("isCrouchWalking", false);
+
+                // if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && lightMechanic.lightOn && crouching)
+                //     anim.SetBool("LightCrouchWalk", true);
+                // else
+                //     anim.SetBool("LightCrouchWalk", false);
 
                 //Applies Movement
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
-                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
-
-
+                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
@@ -159,6 +182,7 @@ public class PlayerControls : MonoBehaviour
                     localHeight = playerHeight * crouchColShrinkValue;
                     localCenter = playerCenter / crouchColCenterValue;
                     anim.SetBool("isCrouching", true);
+                    crouching = true;
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         moveDirection = moveDirection * crouchRunSpeed;
@@ -175,6 +199,7 @@ public class PlayerControls : MonoBehaviour
                     moveDirection = moveDirection * walkingSpeed;
                     anim.SetBool("isRunning", false);
                     anim.SetBool("isCrouching", false);
+                    crouching = false;
                     // Debug.Log("Walking");
                 }
 
@@ -191,9 +216,7 @@ public class PlayerControls : MonoBehaviour
                 Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
             }
             else
-            {
                 moveDirection.y -= gravity * Time.deltaTime;
-            }
         }
         else
         {
@@ -256,14 +279,9 @@ public class PlayerControls : MonoBehaviour
             plyInteract.interactCol = other;
 
             if (Input.GetKey(KeyCode.E))
-            {
                 plyInteract.StartInteraction();
-            }
-        }
 
-        if (other.tag == "Rope")
-        {
-            interactCol = other;
+            Debug.Log("Pickup Reference Added");
         }
 
         if (other.tag == "PushAndPull" && plyInteract == null)
@@ -272,9 +290,14 @@ public class PlayerControls : MonoBehaviour
             plyInteract.interactCol = other;
 
             if (Input.GetKey(KeyCode.E))
-            {
                 plyInteract.StartInteraction();
-            }
+
+            Debug.Log("Push and Pull Reference Added");
+        }
+
+        if (other.tag == "Rope")
+        {
+            interactCol = other;
         }
 
         if (other.gameObject.tag == "Matchstick")
@@ -306,25 +329,19 @@ public class PlayerControls : MonoBehaviour
         if (plyInteract != null)
         {
             if (other.tag == "PickUp" && plyInteract.interactCol == other)
-            {
                 ResetInteraction();
-            }
 
             if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
-            {
                 ResetInteraction();
-            }
+
+            Debug.Log("Interaction Script Reference Removed");
         }
 
         if (other.tag == "Rope")
-        {
             interactCol = null;
-        }
 
         if (other.gameObject.tag == "Matchstick")
-        {
             interactCol = null;
-        }
     }
 
 
@@ -342,19 +359,27 @@ public class PlayerControls : MonoBehaviour
 
             Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
             body.velocity = pushDir * pushPower;
-            Debug.Log("Pushing Door");
+            // Debug.Log("Pushing Door");
         }
     }
 
     void Jump()
     {
-        if (jumpTime > jumpDelay)
+        if (jumpTime > jumpDelay /*&& !lightMechanic.lightOn*/)
         {
             moveDirection.y = jumpPower;
             anim.Play("CourageJump");
-            Debug.Log("Jump");
+            // Debug.Log("Jump");
             jumpTime = 0f;
         }
+
+        // if (jumpTime > jumpDelay && lightMechanic.lightOn)
+        // {
+        //     moveDirection.y = jumpPower;
+        //     anim.Play("CourageJumpLight");
+        //     // Debug.Log("Jump");
+        //     jumpTime = 0f;
+        // }
     }
 
     public void ResetInteraction()

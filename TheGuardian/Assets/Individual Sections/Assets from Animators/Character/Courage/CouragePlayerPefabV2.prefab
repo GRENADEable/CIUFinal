@@ -461,7 +461,7 @@ GameObject:
   m_Layer: 0
   m_Name: Base HumanLDigit21
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -666,7 +666,7 @@ GameObject:
   m_Layer: 0
   m_Name: Base HumanRArmDigit22
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -809,7 +809,7 @@ Transform:
   m_LocalPosition: {x: -0.0019602375, y: -0.0003024357, z: 0.0026141226}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4929927065155900}
+  m_Father: {fileID: 4552217501195348}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4135359110071894
@@ -1077,6 +1077,7 @@ Transform:
   m_LocalScale: {x: 1.000004, y: 0.999996, z: 0.9999997}
   m_Children:
   - {fileID: 4623889015959494}
+  - {fileID: 4115429761962858}
   m_Father: {fileID: 4146273295120614}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1086,7 +1087,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1559079584904228}
-  m_LocalRotation: {x: 0.020469774, y: -0.08625651, z: -0.21322514, w: 0.9729727}
+  m_LocalRotation: {x: 0.020469775, y: -0.08625651, z: -0.21322516, w: 0.9729727}
   m_LocalPosition: {x: -0.007208802, y: 0, z: 0}
   m_LocalScale: {x: 0.9999997, y: 0.9999999, z: 1}
   m_Children: []
@@ -1166,7 +1167,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1097629924008582}
-  m_LocalRotation: {x: 0.011361114, y: -0.0058588274, z: -0.034906447, w: 0.9993088}
+  m_LocalRotation: {x: 0.011361116, y: -0.0058588274, z: -0.034906454, w: 0.9993088}
   m_LocalPosition: {x: -0.024300031, y: 0, z: 0}
   m_LocalScale: {x: 0.9999997, y: 0.9999998, z: 1.0000001}
   m_Children:
@@ -1183,8 +1184,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1608, y: 12.2836, z: -45.74}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.038, y: 11.979, z: 8.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4246067982251884}
@@ -1286,7 +1287,6 @@ Transform:
   m_LocalScale: {x: 1.000003, y: 0.9999972, z: 1.0000004}
   m_Children:
   - {fileID: 4881468362439008}
-  - {fileID: 4115429761962858}
   m_Father: {fileID: 4082418484535338}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   rgPlayer: {fileID: 0}
   rgObject: {fileID: 0}
   pivotDummy: {fileID: 4694540870290230}
-  rgCourageRightHand: {fileID: 54577336604624708}
+  rgCourageHead: {fileID: 54577336604624708}
   objectFixedJoint: {fileID: 0}
   throwingForce: 2
 --- !u!114 &114635365455125906
@@ -1475,6 +1475,7 @@ MonoBehaviour:
   rgPlayer: {fileID: 0}
   rgObject: {fileID: 0}
   objectFixedJoint: {fileID: 0}
+  rgCourageHead: {fileID: 54577336604624708}
 --- !u!114 &114715774581298618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1490,6 +1491,7 @@ MonoBehaviour:
   runningSpeed: 0.6
   crouchWalkSpeed: 0.2
   crouchRunSpeed: 0.3
+  rotationSpeed: 0.15
   crouchColShrinkValue: 0.8
   crouchColCenterValue: 1.1
   jumpPower: 2
@@ -1499,15 +1501,14 @@ MonoBehaviour:
   onRope: 0
   climbSpeed: 0.4
   sprintClimbSpeed: 0.6
-  isPickingObject: 0
   isPushingOrPulling: 0
   pushPower: 0.05
   interactCol: {fileID: 0}
-  plankCol: {fileID: 0}
   flashSpeed: 5
   defaultRunningSpeed: 0.7
   superJump: 5
   defaultJump: 2
+  crouching: 0
 --- !u!114 &114859256158681970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1526,8 +1527,11 @@ MonoBehaviour:
   atticThirdPuzzleCloseUpCam: {fileID: 0}
   atticThirdPuzzleCrateCam: {fileID: 0}
   atticThirdpuzzleRopeCam: {fileID: 0}
-  hallwayUnderFloorWalkwayCam: {fileID: 0}
-  hallwayStackedObjectCam: {fileID: 0}
+  hallwayThirdKeyCam: {fileID: 0}
+  airventSecondKeyCam: {fileID: 0}
+  lensFoV: 0
+  lerpTime: 0
+  bossCam: {fileID: 0}
   positiveScreenYCamOffset: 1
   negativeScreenYCamOffset: 0.2
   positiveScreenXCamOffset: 0.2
