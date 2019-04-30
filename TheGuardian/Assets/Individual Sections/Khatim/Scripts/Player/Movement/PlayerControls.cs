@@ -17,8 +17,7 @@ public class PlayerControls : MonoBehaviour
     public float jumpPower;
     private float jumpTime;
     public float jumpDelay;
-    [SerializeField]
-    private LightMechanic lightMechanic;
+    // private LightMechanic lightMechanic;
 
 
     [Header("Player Gravity Variables")]
@@ -79,7 +78,7 @@ public class PlayerControls : MonoBehaviour
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
-        lightMechanic = GetComponent<LightMechanic>();
+        // lightMechanic = GetComponent<LightMechanic>();
 
         ObjectPushAndPull.constraints += PushAndPullConstraintsEventReceived;
         ObjectPushAndPull.noConstraints += PushAndPullNoConstraintsEventReceived;
@@ -137,31 +136,31 @@ public class PlayerControls : MonoBehaviour
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
-                if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && !crouching && lightMechanic.lightOn)
-                    anim.SetBool("Light", true);
-                else
-                    anim.SetBool("Light", false);
+                // if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && !crouching && lightMechanic.lightOn)
+                //     anim.SetBool("Light", true);
+                // else
+                //     anim.SetBool("Light", false);
 
-                if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && crouching && lightMechanic.lightOn)
-                    anim.SetBool("LightCrouch", true);
-                else
-                    anim.SetBool("LightCrouch", false);
+                // if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && crouching && lightMechanic.lightOn)
+                //     anim.SetBool("LightCrouch", true);
+                // else
+                //     anim.SetBool("LightCrouch", false);
 
                 //Animation Controls
-                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && !lightMechanic.lightOn)
+                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching /*&& !lightMechanic.lightOn*/)
                     anim.SetBool("isWalking", true);
                 else
                     anim.SetBool("isWalking", false);
 
-                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
-                    anim.SetBool("isCrouchWalking", true);
-                else
-                    anim.SetBool("isCrouchWalking", false);
+                // if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
+                //     anim.SetBool("isCrouchWalking", true);
+                // else
+                //     anim.SetBool("isCrouchWalking", false);
 
-                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && lightMechanic.lightOn && crouching)
-                    anim.SetBool("LightCrouchWalk", true);
-                else
-                    anim.SetBool("LightCrouchWalk", false);
+                // if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && lightMechanic.lightOn && crouching)
+                //     anim.SetBool("LightCrouchWalk", true);
+                // else
+                //     anim.SetBool("LightCrouchWalk", false);
 
                 //Applies Movement
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
@@ -367,7 +366,7 @@ public class PlayerControls : MonoBehaviour
 
     void Jump()
     {
-        if (jumpTime > jumpDelay && !lightMechanic.lightOn)
+        if (jumpTime > jumpDelay /*&& !lightMechanic.lightOn*/)
         {
             moveDirection.y = jumpPower;
             anim.Play("CourageJump");
@@ -375,13 +374,13 @@ public class PlayerControls : MonoBehaviour
             jumpTime = 0f;
         }
 
-        if (jumpTime > jumpDelay && lightMechanic.lightOn)
-        {
-            moveDirection.y = jumpPower;
-            anim.Play("CourageJumpLight");
-            // Debug.Log("Jump");
-            jumpTime = 0f;
-        }
+        // if (jumpTime > jumpDelay && lightMechanic.lightOn)
+        // {
+        //     moveDirection.y = jumpPower;
+        //     anim.Play("CourageJumpLight");
+        //     // Debug.Log("Jump");
+        //     jumpTime = 0f;
+        // }
     }
 
     public void ResetInteraction()
