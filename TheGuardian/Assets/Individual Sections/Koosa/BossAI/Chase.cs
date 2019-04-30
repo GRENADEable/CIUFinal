@@ -20,14 +20,19 @@ public class Chase : Node
         targetDir = (BT.player.transform.position - BT.transform.position).normalized;
         Physics.Raycast(BT.transform.position, targetDir.normalized, out BT.hit);
         BT.angle = Vector3.Angle(targetDir.normalized, BT.transform.forward);
+        Debug.DrawRay(BT.transform.position, BT.player.transform.position - BT.transform.position, Color.red);
     }
     public void Detecting()
     {
         Targeting();
-        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < BT.maxDistance || BT.angle <= BT.vision && BT.hit.transform == BT.player.transform)
+        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < BT.maxDistance || BT.angle <= BT.vision && BT.hit.transform == BT.player.transform || BT.player.GetComponent<PlayerControlsTestKoosa>().running)
         {
             BT.playerSpotted = true;
             Chasing();
+        }
+        else if (BT.distraction)
+        {
+            Distracted();
         }
         else
             state = Node_State.faliure;
@@ -43,5 +48,14 @@ public class Chase : Node
         BT.transform.position += BT.transform.forward * BT.chaseSpeed * Time.deltaTime;
         state = Node_State.success;
     }
+
+    public void Distracted()
+    {
+
+        state = Node_State.success;
+    }
+
+        
+        
 
 }

@@ -18,7 +18,7 @@ public class BehaviourTree : MonoBehaviour
     public float angle;
     public float maxDistance;
     public float vision;
-
+    public bool distraction;
     public Transform target;
     public NavMeshAgent agent;
     public float timer;
@@ -48,18 +48,16 @@ public class BehaviourTree : MonoBehaviour
         root.Execute();
     }
 
+    void OnDrawGizmos()
+    {
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, maxDistance);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, vision);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, angle);
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 }
