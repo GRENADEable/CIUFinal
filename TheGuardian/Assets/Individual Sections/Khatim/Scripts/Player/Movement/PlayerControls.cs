@@ -299,8 +299,6 @@ public class PlayerControls : MonoBehaviour
             interactCol = other;
         }
 
-
-
         if (other.gameObject.tag == "Matchstick")
         {
             interactCol = other;

@@ -13,9 +13,9 @@ public class DollsFSM : MonoBehaviour
     public float dollSpeed;
     public GameObject player;
 
-    public delegate void SendMessages();
-    public static event SendMessages onDeadPlayerScreen;
-    public static event SendMessages onDollChaseStart;
+    // public delegate void SendMessages();
+    // public static event SendMessages onDeadPlayerScreen;
+    // public static event SendMessages onDollChaseStart;
 
     private NavMeshAgent dollAgent;
     private Animator dollAnim;
@@ -29,18 +29,18 @@ public class DollsFSM : MonoBehaviour
         dollAgent.speed = dollSpeed;
         dollAnim = GetComponent<Animator>();
 
-        DollsFSM.onDollChaseStart += OnDollChaseStartEventReceived;
+        // DollsFSM.onDollChaseStart += OnDollChaseStartEventReceived;
     }
 
 
     void OnDisable()
     {
-        DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
+        // DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
     }
 
     void OnDestroy()
     {
-        DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
+        // DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
     }
 
     void Update()
@@ -67,8 +67,8 @@ public class DollsFSM : MonoBehaviour
                 // dollAnim.SetBool("isIdle", true);
                 // Debug.Log("Doll Idle State");
 
-                // if (distanceToPlayer <= chaseDistance && player.activeInHierarchy)
-                //     currCondition = dollState.Chase;
+                if (distanceToPlayer <= chaseDistance && player.activeInHierarchy)
+                    currCondition = dollState.Chase;
                 break;
 
             case dollState.Chase:
@@ -87,8 +87,8 @@ public class DollsFSM : MonoBehaviour
                 player.SetActive(false);
                 // Debug.Log("Attacking Player State");
 
-                if (onDeadPlayerScreen != null)
-                    onDeadPlayerScreen();
+                // if (onDeadPlayerScreen != null)
+                //     onDeadPlayerScreen();
 
                 if (!player.activeInHierarchy)
                     currCondition = dollState.Idle;
@@ -100,18 +100,18 @@ public class DollsFSM : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player" && onDollChaseStart != null)
-            onDollChaseStart();
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.tag == "Player" && onDollChaseStart != null)
+    //         onDollChaseStart();
 
-        GetComponent<Collider>().enabled = false;
-    }
+    //     GetComponent<Collider>().enabled = false;
+    // }
 
-    void OnDollChaseStartEventReceived()
-    {
-        currCondition = dollState.Chase;
-        DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
-        Debug.Log("Doll Chase Event Started");
-    }
+    // void OnDollChaseStartEventReceived()
+    // {
+    //     currCondition = dollState.Chase;
+    //     DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
+    //     Debug.Log("Doll Chase Event Started");
+    // }
 }

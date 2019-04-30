@@ -7,6 +7,7 @@ public class VCamManager : MonoBehaviour
 {
     [Header("Main Camera Reference")]
     public GameObject mainVirutalCam;
+    private CinemachineVirtualCamera vCam;
     [Header("Attic Camera References")]
     public GameObject atticFirstPuzzleCamPan;
     public GameObject atticSecondPuzzleVirtualCam;
@@ -16,7 +17,9 @@ public class VCamManager : MonoBehaviour
     public GameObject atticThirdpuzzleRopeCam;
     [Header("Hallway Camera Referemces")]
     public GameObject hallwayThirdKeyCam;
-    public GameObject hallwayStackedObjectCam;
+    public GameObject airventSecondKeyCam;
+    public float lensFoV;
+    public float lerpTime;
     [Header("Virtual Camera Variables")]
     public float positiveScreenYCamOffset;
     public float negativeScreenYCamOffset;
@@ -28,6 +31,7 @@ public class VCamManager : MonoBehaviour
     void Awake()
     {
         mainVirutalCam = GameObject.FindGameObjectWithTag("MainVCam");
+        vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
     }
 
     void Update()
@@ -36,7 +40,6 @@ public class VCamManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
                 var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
                 camOffset.m_ScreenY = defaultYCamOffset;
                 camOffset.m_ScreenX = defaultXCamOffset;
@@ -44,7 +47,6 @@ public class VCamManager : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
-                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
                 var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
                 camOffset.m_ScreenY = defaultYCamOffset;
                 camOffset.m_ScreenX = defaultXCamOffset;
@@ -52,7 +54,6 @@ public class VCamManager : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
                 var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
                 camOffset.m_ScreenY = defaultYCamOffset;
                 camOffset.m_ScreenX = defaultXCamOffset;
@@ -60,7 +61,6 @@ public class VCamManager : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
                 var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
                 camOffset.m_ScreenY = defaultYCamOffset;
                 camOffset.m_ScreenX = defaultXCamOffset;
@@ -68,7 +68,6 @@ public class VCamManager : MonoBehaviour
             }
             else
             {
-                CinemachineVirtualCamera vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
                 var camOffset = vCam.GetCinemachineComponent<CinemachineComposer>();
                 camOffset.m_ScreenY = defaultYCamOffset;
                 camOffset.m_ScreenX = defaultXCamOffset;
@@ -118,12 +117,6 @@ public class VCamManager : MonoBehaviour
             hallwayThirdKeyCam.SetActive(true);
             mainVirutalCam.SetActive(false);
         }
-
-        if (other.gameObject.tag == "StackedObjectCamPan")
-        {
-            mainVirutalCam.SetActive(false);
-            hallwayStackedObjectCam.SetActive(true);
-        }
     }
 
     void OnTriggerExit(Collider other)
@@ -170,11 +163,6 @@ public class VCamManager : MonoBehaviour
         {
             mainVirutalCam.SetActive(true);
             hallwayThirdKeyCam.SetActive(false);
-        }
-        if (other.gameObject.tag == "StackedObjectCamPan")
-        {
-            hallwayStackedObjectCam.SetActive(false);
-            mainVirutalCam.SetActive(true);
         }
     }
 }
