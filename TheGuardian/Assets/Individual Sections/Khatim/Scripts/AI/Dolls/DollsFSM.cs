@@ -13,8 +13,9 @@ public class DollsFSM : MonoBehaviour
     public float dollSpeed;
     public GameObject player;
 
-    public delegate void SendDeathMessage();
-    public static event SendDeathMessage onDeadPlayerScreen;
+    public delegate void SendMessages();
+    public static event SendMessages onDeadPlayerScreen;
+    public static event SendMessages onDollChaseStart;
 
     private NavMeshAgent dollAgent;
     private Animator dollAnim;
@@ -27,17 +28,19 @@ public class DollsFSM : MonoBehaviour
         dollAgent = GetComponent<NavMeshAgent>();
         dollAgent.speed = dollSpeed;
         dollAnim = GetComponent<Animator>();
+
+        DollsFSM.onDollChaseStart += OnDollChaseStartEventReceived;
     }
 
 
     void OnDisable()
     {
-
+        DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
     }
 
     void OnDestroy()
     {
-
+        DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
     }
 
     void Update()
@@ -64,8 +67,8 @@ public class DollsFSM : MonoBehaviour
                 // dollAnim.SetBool("isIdle", true);
                 // Debug.Log("Doll Idle State");
 
-                if (distanceToPlayer <= chaseDistance && player.activeInHierarchy)
-                    currCondition = dollState.Chase;
+                // if (distanceToPlayer <= chaseDistance && player.activeInHierarchy)
+                //     currCondition = dollState.Chase;
                 break;
 
             case dollState.Chase:
@@ -95,5 +98,20 @@ public class DollsFSM : MonoBehaviour
 
                 break;
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" && onDollChaseStart != null)
+            onDollChaseStart();
+
+        GetComponent<Collider>().enabled = false;
+    }
+
+    void OnDollChaseStartEventReceived()
+    {
+        currCondition = dollState.Chase;
+        DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
+        Debug.Log("Doll Chase Event Started");
     }
 }
