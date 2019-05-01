@@ -8,9 +8,9 @@ public class MusicBaseClass
 {
     public AudioClip songClip;
 
-    [Range(0, 5)]
+    [Range(0, 1)]
     public float Songvolume;
-    [Range(0, 5)]
+    [Range(0, 1)]
     public float Songpitch;
 
     public string songClipName;

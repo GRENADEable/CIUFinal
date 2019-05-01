@@ -14,21 +14,18 @@ public class AudioManager : MonoBehaviour
     {
         foreach(MusicBaseClass m in backGroundMusicClips)
         {
-            m.audioSource.gameObject.AddComponent<AudioSource>();
+
             m.audioSource.clip = m.songClip;
             m.audioSource.volume = m.Songvolume;
             m.audioSource.pitch = m.Songpitch;
             m.audioSource.loop = m.loop;
-            m.audioSource.playOnAwake = m.playOnAwake;
         }
         foreach (MusicBaseClass m in effectClips)
         {
-            m.audioSource.gameObject.AddComponent<AudioSource>();
             m.audioSource.clip = m.songClip;
             m.audioSource.volume = m.Songvolume;
             m.audioSource.pitch = m.Songpitch;
             m.audioSource.loop = m.loop;
-            m.audioSource.playOnAwake = m.playOnAwake;
         }
 
         if (auidoInstance == null)
@@ -38,16 +35,12 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
     }
 
     public void PlaySingleMusicClip()
     {
         backGroundMusicSource.Play();
-    }
-    void Update()
-    {
-        if (!backGroundMusicSource.isPlaying) { }
-        //MusicShuffle();
     }
 
     public void StopSingleMusicClip()
@@ -90,7 +83,7 @@ public class AudioManager : MonoBehaviour
         backGroundMusicSource.Play();
     }
 
-    public void PlaySFX(AudioSource sourcePlay, int index, float startTime, float endTime, AudioClip[] audioClips)
+    public void PlaySFX(AudioSource sourcePlay, int index, float startTime, float endTime, AudioClip[] audioClips)// use this for music 
     {
         sourcePlay.clip = audioClips[index];
         sourcePlay.SetScheduledStartTime(startTime);
@@ -98,13 +91,8 @@ public class AudioManager : MonoBehaviour
         sourcePlay.Play();
     }
 
-    public void Playeffect(int index)
+    public void Playeffect(int index)// use this for effects
     {
         effectSource.PlayOneShot(effectClips[index].songClip);
-    }
-
-    public void PlaySpawn(int index)
-    {
-        backGroundMusicSource.PlayOneShot(effectClips[index].songClip);
     }
 }
