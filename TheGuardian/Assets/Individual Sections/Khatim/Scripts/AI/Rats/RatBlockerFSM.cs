@@ -86,7 +86,7 @@ public class RatBlockerFSM : MonoBehaviour
         switch (currCondition)
         {
             case ratState.Idle:
-                Debug.Log("Idle");
+                // Debug.Log("Idle");
 
                 if (distanceToPlayer < chaseDistance && !isFleeing)
                     currCondition = ratState.Chase;

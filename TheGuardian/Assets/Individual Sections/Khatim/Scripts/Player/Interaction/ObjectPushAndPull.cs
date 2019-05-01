@@ -5,11 +5,12 @@ using UnityEngine;
 public class ObjectPushAndPull : PlayerInteraction
 {
     public FixedJoint objectFixedJoint;
-    public Rigidbody rgCourageHead;
+    // public Rigidbody rgCourageHead;
 
     public delegate void SendEventsToPlayer();
     public static event SendEventsToPlayer constraints;
     public static event SendEventsToPlayer noConstraints;
+    public Animator courageAnim;
 
     public override void StartInteraction()
     {
@@ -18,9 +19,10 @@ public class ObjectPushAndPull : PlayerInteraction
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
 
         objectFixedJoint = interactCol.GetComponent<FixedJoint>();
-        objectFixedJoint.connectedBody = rgCourageHead;
+        objectFixedJoint.connectedBody = rgPlayer;
         // rgObject.isKinematic = false;
         rgObject.useGravity = false;
+        // courageAnim.Play("CouragePush");
 
         if (constraints != null)
             constraints();

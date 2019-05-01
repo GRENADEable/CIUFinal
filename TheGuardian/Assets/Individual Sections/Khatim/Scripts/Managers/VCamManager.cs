@@ -34,6 +34,9 @@ public class VCamManager : MonoBehaviour
     private float defaultXCamOffset = 0.5f;
     private float defaultYCamOffset = 0.5f;
 
+    public delegate void SendEvents();
+    public static event SendEvents onDollAIChange;
+
     void Awake()
     {
         mainVirutalCam = GameObject.FindGameObjectWithTag("MainVCam");
@@ -128,6 +131,9 @@ public class VCamManager : MonoBehaviour
         {
             bossCam.SetActive(true);
             mainVirutalCam.SetActive(false);
+
+            if (onDollAIChange != null)
+                onDollAIChange();
         }
     }
 
