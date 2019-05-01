@@ -24,7 +24,7 @@ public class Attack : Node
         if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 3)
         {
             // BT.enemy.SetInteger("enemyanm", 3);
-            BT.playerSpotted = false;
+            BT.playerSpotted = true;
             BT.attacking = true;
             Debug.Log("attack" + state);
             state = Node_State.success;

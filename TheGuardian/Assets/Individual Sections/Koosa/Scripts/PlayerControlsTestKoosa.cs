@@ -14,6 +14,7 @@ public class PlayerControlsTestKoosa : MonoBehaviour
     public float crouchColCenterValue; //Initial Value is 2
     public float jumpDelay;
     public LightMechanic lightMechanic;
+    public bool running;
 
     [Header("Player Jump Variables")]
     public float jumpPower;
@@ -158,10 +159,21 @@ public class PlayerControlsTestKoosa : MonoBehaviour
                 else
                     anim.SetBool("LightCrouch", false);
 
+                if((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && lightMechanic.lightOn)
+                {
+                    anim.SetBool("LightWalk", true);
+                }
+                else
+                    anim.SetBool("LightWalk", false);
+
+
 
                 //Animation Controls
                 if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && !lightMechanic.lightOn)
+                {
                     anim.SetBool("isWalking", true);
+                    running = false;
+                }
                 else
                     anim.SetBool("isWalking", false);
                   if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
@@ -185,14 +197,29 @@ public class PlayerControlsTestKoosa : MonoBehaviour
 
 
 
+
+                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C) && lightMechanic.lightOn)
+                {
+                    anim.SetBool("LightRun", true);
+
+                }
+                else
+                    anim.SetBool("LightRun", false);
+
+
+
+
+
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
                     moveDirection = moveDirection * runningSpeed;
                     anim.SetBool("isRunning", true);
+                    running = true;
                     // Debug.Log("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
                 {
+                    running = false;
                     //Made Character Controller Collider Shrink Variables Dynamic
                     localHeight = playerHeight * crouchColShrinkValue;
                     localCenter = playerCenter / crouchColCenterValue;

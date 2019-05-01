@@ -28,6 +28,7 @@ public class DollsFSM : MonoBehaviour
         dollAgent = GetComponent<NavMeshAgent>();
         dollAgent.speed = dollSpeed;
         dollAnim = GetComponent<Animator>();
+        VCamManager.onDollAIChange += OnDollAIChangeReceived;
 
         // DollsFSM.onDollChaseStart += OnDollChaseStartEventReceived;
     }
@@ -36,11 +37,13 @@ public class DollsFSM : MonoBehaviour
     void OnDisable()
     {
         // DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
+        VCamManager.onDollAIChange -= OnDollAIChangeReceived;
     }
 
     void OnDestroy()
     {
         // DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
+        VCamManager.onDollAIChange -= OnDollAIChangeReceived;
     }
 
     void Update()
@@ -114,4 +117,12 @@ public class DollsFSM : MonoBehaviour
     //     DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
     //     Debug.Log("Doll Chase Event Started");
     // }
+
+    void OnDollAIChangeReceived()
+    {
+        chaseDistance = 0;
+        currCondition = dollState.Idle;
+        VCamManager.onDollAIChange -= OnDollAIChangeReceived;
+        Debug.Log("Doll AI State Change Received");
+    }
 }
