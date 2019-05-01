@@ -10,6 +10,8 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
+    [Range(0f, 1.0f)]
+    public float rotationSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
 
@@ -18,7 +20,6 @@ public class PlayerControls : MonoBehaviour
     private float jumpTime;
     public float jumpDelay;
     // private LightMechanic lightMechanic;
-
 
     [Header("Player Gravity Variables")]
     public float defaultGravity;
@@ -167,7 +168,7 @@ public class PlayerControls : MonoBehaviour
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
-                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
+                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
@@ -298,8 +299,6 @@ public class PlayerControls : MonoBehaviour
         {
             interactCol = other;
         }
-
-
 
         if (other.gameObject.tag == "Matchstick")
         {
