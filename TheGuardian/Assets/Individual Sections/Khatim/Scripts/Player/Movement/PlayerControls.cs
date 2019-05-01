@@ -168,6 +168,12 @@ public class PlayerControls : MonoBehaviour
                 else
                     courageAnim.SetBool("LightCrouchWalk", false);
 
+                //Player Light Run  Animation
+                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && lightMechanic.lightOn)
+                    courageAnim.SetBool("LightWalk", true);
+                else
+                    courageAnim.SetBool("LightWalk", false);
+
                 //Player Light Run Animation
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C) && lightMechanic.lightOn)
                     courageAnim.SetBool("LightRun", true);
