@@ -25,7 +25,7 @@ public class Chase : Node
     public void Detecting()
     {
         Targeting();
-        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < BT.maxDistance || BT.angle <= BT.vision && BT.hit.transform == BT.player.transform || BT.player.GetComponent<PlayerControlsTestKoosa>().running)
+        if (BT.player.GetComponent<PlayerControlsTestKoosa>().running || Vector3.Distance(BT.transform.position, BT.player.transform.position) < BT.maxDistance || (BT.angle <= BT.vision && BT.hit.transform == BT.player.transform))
         {
             BT.playerSpotted = true;
             Chasing();

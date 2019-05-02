@@ -198,7 +198,7 @@ public class PlayerControlsTestKoosa : MonoBehaviour
 
 
 
-                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C) && lightMechanic.lightOn)
+                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C) && lightMechanic.lightOn && (moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0))
                 {
                     anim.SetBool("LightRun", true);
 
@@ -210,7 +210,7 @@ public class PlayerControlsTestKoosa : MonoBehaviour
 
 
 
-                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
+                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C) && (moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0))
                 {
                     moveDirection = moveDirection * runningSpeed;
                     anim.SetBool("isRunning", true);
