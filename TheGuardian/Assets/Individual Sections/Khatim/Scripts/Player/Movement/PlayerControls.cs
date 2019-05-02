@@ -220,7 +220,7 @@ public class PlayerControls : MonoBehaviour
                     // Debug.Log("Walking");
                 }
 
-                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling)
+                if (Input.GetButton("Jump") && !isPushingOrPulling)
                 {
                     Jump();
                     // moveDirection.y = jumpPower;
