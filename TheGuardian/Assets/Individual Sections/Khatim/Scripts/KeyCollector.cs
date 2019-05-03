@@ -41,6 +41,7 @@ public class KeyCollector : MonoBehaviour
     void OnKeyDropEventReceived()
     {
         key.transform.parent = this.transform;
+        key.transform.localEulerAngles = new Vector3(0f, 90f, 90f);
         key.gameObject.tag = "Untagged";
         key.GetComponent<Rigidbody>().isKinematic = true;
         ply.ResetInteraction();

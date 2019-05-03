@@ -41,6 +41,7 @@ public class PaintingsAI : MonoBehaviour
     private float time;
     private float delta;
     private RaycastHit hit;
+    [SerializeField]
     private float currTimer;
     [SerializeField]
     private bool isPlayerHiding;
@@ -69,13 +70,13 @@ public class PaintingsAI : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawRay(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, Color.red);
-        // Debug.DrawRay(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, Color.blue);
-        // Debug.DrawRay(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, Color.yellow);
+        // Debug.DrawRay(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, Color.red);
+        Debug.DrawRay(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, Color.blue);
+        Debug.DrawRay(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, Color.yellow);
 
-        Physics.Raycast(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, out hit);
-        // Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
-        // Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
+        // Physics.Raycast(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, out hit);
+        Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
+        Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
 
         Debug.Log(hit.collider);
 
