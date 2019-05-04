@@ -10,7 +10,7 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
-    [Range(0f, 1.0f)]
+    [Range(0f, 10.0f)]
     public float rotationSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
@@ -133,7 +133,7 @@ public class PlayerControls : MonoBehaviour
             //Gets Player Inputs
             moveVertical = Input.GetAxisRaw("Vertical");
             moveHorizontal = Input.GetAxisRaw("Horizontal");
-            jumpTime += Time.deltaTime;
+            // jumpTime += Time.deltaTime;
 
             //Checks if the player is on the Ground
             if (charController.isGrounded)
@@ -185,7 +185,7 @@ public class PlayerControls : MonoBehaviour
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
-                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
+                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed * Time.deltaTime);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
                 {
@@ -220,11 +220,13 @@ public class PlayerControls : MonoBehaviour
                     // Debug.Log("Walking");
                 }
 
-                if (Input.GetButton("Jump") && !isPushingOrPulling)
+                if (Input.GetButtonDown("Jump") && !isPushingOrPulling)
                 {
-                    Jump();
+                    // Jump();
                     // moveDirection.y = jumpPower;
-                    // anim.Play("CourageJump");
+                    courageAnim.Play("CourageJump");
+                    float jumpForce = Mathf.Sqrt(jumpPower * Mathf.Abs(defaultGravity) * 2);
+                    moveDirection.y = jumpForce;
                 }
 
                 //Player Crouching
@@ -381,24 +383,24 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void Jump()
-    {
-        if (jumpTime > jumpDelay && !lightMechanic.lightOn)
-        {
-            moveDirection.y = jumpPower;
-            courageAnim.Play("CourageJump");
-            // Debug.Log("Jump");
-            jumpTime = 0f;
-        }
+    // void Jump()
+    // {
+    //     if (jumpTime > jumpDelay && !lightMechanic.lightOn)
+    //     {
+    //         moveDirection.y = jumpPower;
+    //         courageAnim.Play("CourageJump");
+    //         // Debug.Log("Jump");
+    //         jumpTime = 0f;
+    //     }
 
-        if (jumpTime > jumpDelay && lightMechanic.lightOn)
-        {
-            moveDirection.y = jumpPower;
-            courageAnim.Play("CourageJumpLight");
-            // Debug.Log("Jump");
-            jumpTime = 0f;
-        }
-    }
+    //     if (jumpTime > jumpDelay && lightMechanic.lightOn)
+    //     {
+    //         moveDirection.y = jumpPower;
+    //         courageAnim.Play("CourageJumpLight");
+    //         // Debug.Log("Jump");
+    //         jumpTime = 0f;
+    //     }
+    // }
 
     public void ResetInteraction()
     {
