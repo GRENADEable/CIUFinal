@@ -181,7 +181,7 @@ public class PlayerControls : MonoBehaviour
                     courageAnim.SetBool("LightRun", false);
 
                 //Applies Movement
-                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal).normalized;
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
