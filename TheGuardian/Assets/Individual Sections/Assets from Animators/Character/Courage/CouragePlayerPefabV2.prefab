@@ -1167,7 +1167,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1097629924008582}
-  m_LocalRotation: {x: 0.011361116, y: -0.0058588274, z: -0.034906454, w: 0.9993088}
+  m_LocalRotation: {x: 0.011361117, y: -0.0058588274, z: -0.034906458, w: 0.9993088}
   m_LocalPosition: {x: -0.024300031, y: 0, z: 0}
   m_LocalScale: {x: 0.9999997, y: 0.9999998, z: 1.0000001}
   m_Children:
@@ -1184,8 +1184,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.038, y: 11.979, z: -44.854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7643, y: 12, z: -44.8214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4246067982251884}
@@ -1381,7 +1381,7 @@ Animator:
   m_GameObject: {fileID: 1823480461893372}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6713c3653c8f8b044a3c28b804a4862b, type: 3}
-  m_Controller: {fileID: 9100000, guid: b9c34a0263dbf024d9d962a313132e7d, type: 2}
+  m_Controller: {fileID: 9100000, guid: f3f6ddc9e984d2748a3e5141cd887552, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1491,13 +1491,13 @@ MonoBehaviour:
   runningSpeed: 0.6
   crouchWalkSpeed: 0.2
   crouchRunSpeed: 0.3
-  rotationSpeed: 0.15
+  rotationSpeed: 6
   crouchColShrinkValue: 0.8
   crouchColCenterValue: 1.1
-  jumpPower: 2
+  jumpPower: 0.25
   jumpDelay: 0.5
-  defaultGravity: 9.81
-  gravityAfterRopeBreak: 2
+  defaultGravity: 5
+  gravityAfterRopeBreak: 1.5
   onRope: 0
   climbSpeed: 0.4
   sprintClimbSpeed: 0.6
@@ -1528,9 +1528,7 @@ MonoBehaviour:
   atticThirdPuzzleCrateCam: {fileID: 0}
   atticThirdpuzzleRopeCam: {fileID: 0}
   hallwayThirdKeyCam: {fileID: 0}
-  airventSecondKeyCam: {fileID: 0}
-  lensFoV: 0
-  lerpTime: 0
+  hallwayKeyCollectorCam: {fileID: 0}
   bossCam: {fileID: 0}
   positiveScreenYCamOffset: 1
   negativeScreenYCamOffset: 0.2
@@ -1664,7 +1662,7 @@ CharacterController:
   m_Height: 0.175
   m_Radius: 0.04
   m_SlopeLimit: 45
-  m_StepOffset: 0.01
+  m_StepOffset: 0.05
   m_SkinWidth: 0.011
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.1, z: 0}
