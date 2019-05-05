@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     public Collider interactCol;
-    public Rigidbody rgPlayer;
     public Rigidbody rgObject;
     private LightMechanic playerLight;
 
