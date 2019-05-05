@@ -21,9 +21,8 @@ public class Attack : Node
 
     public void CheckForAttack()
     {
-        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 3)
+        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 0.01)
         {
-            // BT.enemy.SetInteger("enemyanm", 3);
             BT.playerSpotted = true;
             BT.attacking = true;
             Debug.Log("attack" + state);
