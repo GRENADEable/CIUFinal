@@ -14,6 +14,8 @@ public class PlayerControls : MonoBehaviour
     public bool isCrouching;
     [Range(0f, 10.0f)]
     public float rotationSpeed;
+    [Range(0f, 5f)]
+    public float pushRotationSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
 
@@ -78,7 +80,6 @@ public class PlayerControls : MonoBehaviour
     private float moveVertical;
     private float playerCenter;
 
-
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
@@ -92,11 +93,18 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
+        // if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
+        //     plyInteract.StartInteraction();
+        // else if (Input.GetKey(KeyCode.E) && plyInteract != null)
+        //     plyInteract.UpdateInteraction();
+        // if (Input.GetKeyUp(KeyCode.E) && plyInteract != null)
+        //     plyInteract.EndInteraction();
+
+        if (Input.GetMouseButtonDown(1) && plyInteract != null)
             plyInteract.StartInteraction();
-        else if (Input.GetKey(KeyCode.E) && plyInteract != null)
+        else if (Input.GetMouseButton(1) && plyInteract != null)
             plyInteract.UpdateInteraction();
-        if (Input.GetKeyUp(KeyCode.E) && plyInteract != null)
+        if (Input.GetMouseButtonUp(1) && plyInteract != null)
             plyInteract.EndInteraction();
 
         if (!onRope)
@@ -116,9 +124,15 @@ public class PlayerControls : MonoBehaviour
                 //Applies Movement
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal).normalized;
 
+                //Add Input Floats to Blend Tee "speed" Parameters
+
+
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed * Time.deltaTime);
+
+                if (isPushingOrPulling && moveDirection != Vector3.zero)
+                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), pushRotationSpeed * Time.deltaTime);
 
                 if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
                 {
