@@ -10,15 +10,17 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
-    [Range(0f, 1.0f)]
+    public float objectInteractSpeed;
+    public bool isCrouching;
+    [Range(0f, 10.0f)]
     public float rotationSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
 
     [Header("Player Jump Variables")]
     public float jumpPower;
-    private float jumpTime;
-    public float jumpDelay;
+    // private float jumpTime;
+    // public float jumpDelay;
     private LightMechanic lightMechanic;
 
     [Header("Player Gravity Variables")]
@@ -43,8 +45,8 @@ public class PlayerControls : MonoBehaviour
 
     #region  Object Interaction
     [Header("Object Interaction Variables")]
-    // public bool isPickingObject;
     public bool isPushingOrPulling;
+    public bool isPickingObject;
     public float pushPower;
     #endregion
 
@@ -75,54 +77,27 @@ public class PlayerControls : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
     private float playerCenter;
-    public bool crouching;
+
 
     void OnEnable()
     {
         charController = GetComponent<CharacterController>();
         lightMechanic = GetComponent<LightMechanic>();
-
-        ObjectPushAndPull.constraints += PushAndPullConstraintsEventReceived;
-        ObjectPushAndPull.noConstraints += PushAndPullNoConstraintsEventReceived;
-
         gravity = defaultGravity;
         courageAnim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerCenter = charController.center.y;
-        jumpTime = jumpDelay;
+        // jumpTime = jumpDelay;
     }
 
-    void OnDisable()
-    {
-        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
-        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
-    }
-
-    void OnDestroy()
-    {
-        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
-        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
-        {
             plyInteract.StartInteraction();
-        }
         else if (Input.GetKey(KeyCode.E) && plyInteract != null)
-        {
             plyInteract.UpdateInteraction();
-        }
         if (Input.GetKeyUp(KeyCode.E) && plyInteract != null)
-        {
             plyInteract.EndInteraction();
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (onKeyMove != null)
-                onKeyMove();
-        }
 
         if (!onRope)
         {
@@ -131,97 +106,49 @@ public class PlayerControls : MonoBehaviour
             float localCenter = playerCenter;
 
             //Gets Player Inputs
-            moveVertical = Input.GetAxisRaw("Vertical");
-            moveHorizontal = Input.GetAxisRaw("Horizontal");
-            jumpTime += Time.deltaTime;
+            moveVertical = Input.GetAxis("Vertical");
+            moveHorizontal = Input.GetAxis("Horizontal");
+            // jumpTime += Time.deltaTime;
 
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
-                //Player Light Idle Animation
-                if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && !crouching && lightMechanic.lightOn)
-                    courageAnim.SetBool("Light", true);
-                else
-                    courageAnim.SetBool("Light", false);
-
-                //Player Light Crouch Idle Animation
-                if ((moveVertical == 0 || moveVertical == 0 || moveHorizontal == 0 || moveHorizontal == 0) && crouching && lightMechanic.lightOn)
-                    courageAnim.SetBool("LightCrouch", true);
-                else
-                    courageAnim.SetBool("LightCrouch", false);
-
-                //Player Walking Animation
-                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && !lightMechanic.lightOn)
-                    courageAnim.SetBool("isWalking", true);
-                else
-                    courageAnim.SetBool("isWalking", false);
-
-                //Player Crouch Walk Animation
-                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
-                    courageAnim.SetBool("isCrouchWalking", true);
-                else
-                    courageAnim.SetBool("isCrouchWalking", false);
-
-                //Player Light Crouch Walk Animation
-                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && lightMechanic.lightOn && crouching)
-                    courageAnim.SetBool("LightCrouchWalk", true);
-                else
-                    courageAnim.SetBool("LightCrouchWalk", false);
-
-                //Player Light Run Animation
-                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C) && lightMechanic.lightOn)
-                    courageAnim.SetBool("LightRun", true);
-                else
-                    courageAnim.SetBool("LightRun", false);
-
                 //Applies Movement
-                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal).normalized;
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
-                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
+                    transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed * Time.deltaTime);
 
-                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.C))
+                if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
                 {
                     moveDirection = moveDirection * runningSpeed;
-                    courageAnim.SetBool("isRunning", true);
                     // Debug.Log("Running");
                 }
-                else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling)
+                else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
                 {
                     //Made Character Controller Collider Shrink Variables Dynamic
+                    //Player Crouching
                     localHeight = playerHeight * crouchColShrinkValue;
                     localCenter = playerCenter / crouchColCenterValue;
+                    isCrouching = true;
+                    moveDirection = moveDirection * crouchWalkSpeed;
                     courageAnim.SetBool("isCrouching", true);
-                    crouching = true;
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        moveDirection = moveDirection * crouchRunSpeed;
-                        // Debug.Log("Crouch Run");
-                    }
-                    else
-                    {
-                        moveDirection = moveDirection * crouchWalkSpeed;
-                        // Debug.Log("Crouch Walk");
-                    }
+                    // Debug.Log("Crouch Walk");
                 }
                 else
                 {
                     moveDirection = moveDirection * walkingSpeed;
-                    courageAnim.SetBool("isRunning", false);
+                    isCrouching = false;
                     courageAnim.SetBool("isCrouching", false);
-                    crouching = false;
                     // Debug.Log("Walking");
                 }
 
-                if (Input.GetKey(KeyCode.Space) && !isPushingOrPulling)
+                if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
                 {
                     Jump();
-                    // moveDirection.y = jumpPower;
-                    // anim.Play("CourageJump");
                 }
 
-                //Player Crouching
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
                 charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime), 0);
                 Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
@@ -245,15 +172,20 @@ public class PlayerControls : MonoBehaviour
         }
 
         if (interactCol != null && Input.GetKey(KeyCode.E))
+        {
             onRope = true;
-
+            courageAnim.SetBool("isOnRope", true);
+        }
         else
+        {
             onRope = false;
+            courageAnim.SetBool("isOnRope", false);
+        }
 
         charController.Move(moveDirection * Time.deltaTime);
 
-        if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
-            onRope = false;
+        // if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
+        //     onRope = false;
     }
 
     #region Cheats :P
@@ -377,36 +309,40 @@ public class PlayerControls : MonoBehaviour
 
     void Jump()
     {
-        if (jumpTime > jumpDelay && !lightMechanic.lightOn)
+        float jumpForce = Mathf.Sqrt(jumpPower * Mathf.Abs(defaultGravity) * 2);
+        moveDirection.y = jumpForce;
+
+        if (!lightMechanic.lightOn)
         {
-            moveDirection.y = jumpPower;
-            courageAnim.Play("CourageJump");
-            // Debug.Log("Jump");
-            jumpTime = 0f;
+            courageAnim.SetTrigger("isJumping");
+            // Courage Jump Animation
+        }
+        else
+        {
+            courageAnim.SetTrigger("isJumpingWithTorch");
+            // Courage Jump Animation with Light
         }
 
-        if (jumpTime > jumpDelay && lightMechanic.lightOn)
-        {
-            moveDirection.y = jumpPower;
-            courageAnim.Play("CourageJumpLight");
-            // Debug.Log("Jump");
-            jumpTime = 0f;
-        }
+        // if (jumpTime > jumpDelay && !lightMechanic.lightOn)
+        // {
+        //     moveDirection.y = jumpPower;
+        //     courageAnim.Play("CourageJump");
+        //     // Debug.Log("Jump");
+        //     jumpTime = 0f;
+        // }
+
+        // if (jumpTime > jumpDelay && lightMechanic.lightOn)
+        // {
+        //     moveDirection.y = jumpPower;
+        //     courageAnim.Play("CourageJumpLight");
+        //     // Debug.Log("Jump");
+        //     jumpTime = 0f;
+        // }
     }
 
     public void ResetInteraction()
     {
         plyInteract.interactCol = null;
         plyInteract = null;
-    }
-
-    void PushAndPullConstraintsEventReceived()
-    {
-        isPushingOrPulling = true;
-    }
-
-    void PushAndPullNoConstraintsEventReceived()
-    {
-        isPushingOrPulling = false;
     }
 }

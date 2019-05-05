@@ -19,9 +19,7 @@ public class VCamManager : MonoBehaviour
 
     [Header("Hallway Camera Referemces")]
     public GameObject hallwayThirdKeyCam;
-    public GameObject airventSecondKeyCam;
-    public float lensFoV;
-    public float lerpTime;
+    public GameObject hallwayKeyCollectorCam;
 
     [Header("Nursery Camera References")]
     public GameObject bossCam;
@@ -127,6 +125,12 @@ public class VCamManager : MonoBehaviour
             mainVirutalCam.SetActive(false);
         }
 
+        if (other.tag == "KeyCollectorCamPan")
+        {
+            hallwayKeyCollectorCam.SetActive(true);
+            mainVirutalCam.SetActive(false);
+        }
+
         if (other.tag == "NurseryBossCamPan")
         {
             bossCam.SetActive(true);
@@ -181,6 +185,12 @@ public class VCamManager : MonoBehaviour
         {
             mainVirutalCam.SetActive(true);
             hallwayThirdKeyCam.SetActive(false);
+        }
+
+        if (other.tag == "KeyCollectorCamPan")
+        {
+            mainVirutalCam.SetActive(true);
+            hallwayKeyCollectorCam.SetActive(false);
         }
 
         if (other.tag == "NurseryBossCamPan")
