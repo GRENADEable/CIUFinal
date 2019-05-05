@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class savetesting : SaveSystem {
-
-	// Use this for initialization
-	void Start ()
+public class savetesting : SaveSystem
+{
+    void Update()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		if( Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             SaveCharacter(this.gameObject, 0);
+            Debug.Log("Saved Player Position");
         }
 
-        if( Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-           transform.position = Loadharacter(0);
+            transform.position = Loadharacter(0);
+            Debug.Log("Loaded Player Position");
         }
     }
 }

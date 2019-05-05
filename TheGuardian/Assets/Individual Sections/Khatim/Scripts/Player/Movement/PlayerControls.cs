@@ -235,7 +235,7 @@ public class PlayerControls : MonoBehaviour
             plyInteract = GetComponent<ObjectPickup>();
             plyInteract.interactCol = other;
 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetMouseButton(1))
                 plyInteract.StartInteraction();
 
             Debug.Log("Pickup Reference Added");
@@ -246,7 +246,7 @@ public class PlayerControls : MonoBehaviour
             plyInteract = GetComponent<ObjectPushAndPull>();
             plyInteract.interactCol = other;
 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetMouseButton(1))
                 plyInteract.StartInteraction();
 
             Debug.Log("Push and Pull Reference Added");

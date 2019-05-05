@@ -6,9 +6,6 @@ public class ObjectPushAndPull : PlayerInteraction
 {
     public FixedJoint objectFixedJoint;
     public Rigidbody rgPlayer;
-    public delegate void SendEventsToPlayer();
-    public static event SendEventsToPlayer constraints;
-    public static event SendEventsToPlayer noConstraints;
     private Animator courageAnim;
     private PlayerControls plyControls;
 

@@ -33,9 +33,6 @@ public class PlayerControlsTestKoosa : MonoBehaviour
     public delegate void SendEvents();
     public static event SendEvents onChangeLevelToHallway;
     public static event SendEvents onRopeBreakMessage;
-    // public static event SendEvents onObjectDetatchEvent;
-    public static event SendEvents onObjectShakePlank;
-    public static event SendEvents onObjectStillPlank;
     public static event SendEvents onObjectBendPlank;
     public static event SendEvents onKeyMove;
     #endregion
@@ -81,9 +78,6 @@ public class PlayerControlsTestKoosa : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();
 
-        ObjectPushAndPull.constraints += PushAndPullConstraintsEventReceived;
-        ObjectPushAndPull.noConstraints += PushAndPullNoConstraintsEventReceived;
-
         gravity = defaultGravity;
         anim = GetComponent<Animator>();
         playerHeight = charController.height;
@@ -91,17 +85,6 @@ public class PlayerControlsTestKoosa : MonoBehaviour
         jumpTime = jumpDelay;
     }
 
-    void OnDisable()
-    {
-        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
-        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
-    }
-
-    void OnDestroy()
-    {
-        ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
-        ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
@@ -159,7 +142,7 @@ public class PlayerControlsTestKoosa : MonoBehaviour
                 else
                     anim.SetBool("LightCrouch", false);
 
-                if((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && lightMechanic.lightOn)
+                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && !crouching && lightMechanic.lightOn)
                 {
                     anim.SetBool("LightWalk", true);
                 }
@@ -176,9 +159,9 @@ public class PlayerControlsTestKoosa : MonoBehaviour
                 }
                 else
                     anim.SetBool("isWalking", false);
-                  if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
+                if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && crouching && !lightMechanic.lightOn)
                     anim.SetBool("isCrouchWalking", true);
-                  else
+                else
                     anim.SetBool("isCrouchWalking", false);
 
                 if ((moveVertical > 0 || moveVertical < 0 || moveHorizontal > 0 || moveHorizontal < 0) && lightMechanic.lightOn && crouching)
@@ -234,7 +217,7 @@ public class PlayerControlsTestKoosa : MonoBehaviour
                     {
                         moveDirection = moveDirection * crouchWalkSpeed;
                         // Debug.Log("Crouch Walk");
-                        
+
                     }
                 }
                 else
@@ -411,7 +394,7 @@ public class PlayerControlsTestKoosa : MonoBehaviour
             Debug.Log("Jump");
             jumpTime = 0f;
         }
-         if(jumpTime > jumpDelay && lightMechanic.lightOn)
+        if (jumpTime > jumpDelay && lightMechanic.lightOn)
         {
             moveDirection.y = jumpPower;
             anim.Play("CourageJumpLight");
@@ -424,15 +407,5 @@ public class PlayerControlsTestKoosa : MonoBehaviour
     {
         plyInteract.interactCol = null;
         plyInteract = null;
-    }
-
-    void PushAndPullConstraintsEventReceived()
-    {
-        isPushingOrPulling = true;
-    }
-
-    void PushAndPullNoConstraintsEventReceived()
-    {
-        isPushingOrPulling = false;
     }
 }
