@@ -22,7 +22,6 @@ public class ObjectPickup : PlayerInteraction
     public override void StartInteraction()
     {
         base.StartInteraction();
-        // interactCol.gameObject.layer = LayerMask.NameToLayer("PickUpObjects");
         courageAnim.SetBool("isInteracting", true);
         plyControls.isPickingObject = true;
         rgObject.useGravity = false;
@@ -34,6 +33,7 @@ public class ObjectPickup : PlayerInteraction
         // if (interactCol.GetComponent<FixedJoint>() == null)
         //     interactCol.gameObject.AddComponent(typeof(FixedJoint));
 
+        // interactCol.gameObject.layer = LayerMask.NameToLayer("PickUpObjects");
         // objectFixedJoint = interactCol.GetComponent<FixedJoint>();
         // interactCol.transform.position = pivotDummy.position;
         // // interactCol.transform.localEulerAngles = new Vector3(0f, 0, 90f);
@@ -52,7 +52,6 @@ public class ObjectPickup : PlayerInteraction
             rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
             rgObject.useGravity = true;
             plyControls.isPickingObject = false;
-
 
             // Destroy(objectFixedJoint);
             // rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
