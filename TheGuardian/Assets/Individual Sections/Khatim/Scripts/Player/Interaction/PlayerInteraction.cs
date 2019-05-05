@@ -11,7 +11,6 @@ public class PlayerInteraction : MonoBehaviour
 
     public virtual void StartInteraction()
     {
-        rgPlayer = GetComponent<Rigidbody>();
         rgObject = interactCol.GetComponent<Rigidbody>();
         playerLight = GetComponent<LightMechanic>();
         playerLight.match.SetActive(false);

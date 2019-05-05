@@ -10,7 +10,7 @@ public class ObjectPushAndPull : PlayerInteraction
     public delegate void SendEventsToPlayer();
     public static event SendEventsToPlayer constraints;
     public static event SendEventsToPlayer noConstraints;
-    public Animator courageAnim;
+    private Animator courageAnim;
     private PlayerControls plyControls;
 
     void OnEnable()

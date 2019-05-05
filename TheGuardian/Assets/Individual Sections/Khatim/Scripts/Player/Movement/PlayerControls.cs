@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
+    public float objectInteractSpeed;
     public bool isCrouching;
     [Range(0f, 10.0f)]
     public float rotationSpeed;
@@ -82,10 +83,6 @@ public class PlayerControls : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();
         lightMechanic = GetComponent<LightMechanic>();
-
-        // ObjectPushAndPull.constraints += PushAndPullConstraintsEventReceived;
-        // ObjectPushAndPull.noConstraints += PushAndPullNoConstraintsEventReceived;
-
         gravity = defaultGravity;
         courageAnim = GetComponent<Animator>();
         playerHeight = charController.height;
@@ -93,17 +90,6 @@ public class PlayerControls : MonoBehaviour
         // jumpTime = jumpDelay;
     }
 
-    // void OnDisable()
-    // {
-    //     ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
-    //     ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
-    // }
-
-    // void OnDestroy()
-    // {
-    //     ObjectPushAndPull.constraints -= PushAndPullConstraintsEventReceived;
-    //     ObjectPushAndPull.noConstraints -= PushAndPullNoConstraintsEventReceived;
-    // }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
@@ -161,8 +147,6 @@ public class PlayerControls : MonoBehaviour
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
                 {
                     Jump();
-                    // moveDirection.y = jumpPower;
-
                 }
 
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
@@ -361,14 +345,4 @@ public class PlayerControls : MonoBehaviour
         plyInteract.interactCol = null;
         plyInteract = null;
     }
-
-    // void PushAndPullConstraintsEventReceived()
-    // {
-    //     isPushingOrPulling = true;
-    // }
-
-    // void PushAndPullNoConstraintsEventReceived()
-    // {
-    //     isPushingOrPulling = false;
-    // }
 }

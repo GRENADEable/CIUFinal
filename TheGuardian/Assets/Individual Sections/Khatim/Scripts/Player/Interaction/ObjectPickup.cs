@@ -7,8 +7,8 @@ public class ObjectPickup : PlayerInteraction
     public delegate void SendEventToManager();
     public static event SendEventToManager onKeyDropEvent;
     public Transform pivotDummy;
-    public Rigidbody rgCourageHand;
-    public FixedJoint objectFixedJoint;
+    // public Rigidbody rgCourageHand;
+    // public FixedJoint objectFixedJoint;
     public float throwingForce;
     private PlayerControls plyControls;
     private Animator courageAnim;
