@@ -40,22 +40,15 @@ public class Chase : Node
     }
 
 
-
     public void Chasing()
     {
-        Quaternion rot = Quaternion.LookRotation(targetDir);
-        BT.transform.rotation = Quaternion.Slerp(BT.transform.rotation, rot, Time.deltaTime * 8);
-        BT.transform.position += BT.transform.forward * BT.chaseSpeed * Time.deltaTime;
+        BT.agent.SetDestination(BT.player.transform.position);
         state = Node_State.success;
     }
 
     public void Distracted()
     {
-
+        BT.agent.SetDestination(BT.distractObject.transform.position);
         state = Node_State.success;
     }
-
-        
-        
-
 }
