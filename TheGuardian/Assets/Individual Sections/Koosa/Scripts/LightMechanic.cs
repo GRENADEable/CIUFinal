@@ -14,6 +14,17 @@ public class LightMechanic : MonoBehaviour
     private Collider col;
     [SerializeField]
     private int matchesCount;
+    private Animator courageAnim;
+
+    void Start()
+    {
+        courageAnim = GetComponent<Animator>();
+    }
+
+    void OnDisable()
+    {
+        courageAnim.SetBool("isWithTorch", false);
+    }
 
     void Update()
     {
@@ -22,11 +33,13 @@ public class LightMechanic : MonoBehaviour
         {
             match.SetActive(true);
             lightOn = true;
+            courageAnim.SetBool("isWithTorch", true);
         }
         else if (Input.GetKeyDown(KeyCode.F) && lightOn)
         {
             match.SetActive(false);
             lightOn = false;
+            courageAnim.SetBool("isWithTorch", false);
         }
 
         if (match.activeSelf)

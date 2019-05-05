@@ -11,10 +11,19 @@ public class ObjectPushAndPull : PlayerInteraction
     public static event SendEventsToPlayer constraints;
     public static event SendEventsToPlayer noConstraints;
     public Animator courageAnim;
+    private PlayerControls plyControls;
+
+    void OnEnable()
+    {
+        plyControls = GetComponent<PlayerControls>();
+        courageAnim = GetComponent<Animator>();
+    }
 
     public override void StartInteraction()
     {
         base.StartInteraction();
+        courageAnim.SetBool("isPushing", true);
+        plyControls.isPushingOrPulling = true;
         if (interactCol.GetComponent<FixedJoint>() == null)
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
 
@@ -22,11 +31,6 @@ public class ObjectPushAndPull : PlayerInteraction
         objectFixedJoint.connectedBody = rgPlayer;
         // rgObject.isKinematic = false;
         rgObject.useGravity = false;
-        // courageAnim.Play("CouragePush");
-
-        if (constraints != null)
-            constraints();
-        // Debug.Log("Object Push And Pull Started");
     }
 
     public override void UpdateInteraction()
@@ -41,10 +45,8 @@ public class ObjectPushAndPull : PlayerInteraction
         Destroy(objectFixedJoint);
         objectFixedJoint = null;
         base.EndInteraction();
-        if (noConstraints != null)
-            noConstraints();
-
-        base.EndInteraction();
+        plyControls.isPushingOrPulling = false;
+        courageAnim.SetBool("isPushing", false);
         // Debug.Log("Object Push And Pull Ended");
     }
 }
