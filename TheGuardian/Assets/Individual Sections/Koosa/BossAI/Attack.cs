@@ -31,12 +31,24 @@ public class Attack : Node
             KillPlayer();
             BT.chaseSpeed = 0;
         }
+        
+        else if(Vector3.Distance(BT.transform.position, BT.distractObject.transform.position) < 3 && BT.distraction)
+        {
+            //play attack animation
+            state = Node_State.success;
+            BT.attacking = true;
+            Debug.Log("attack" + state);
+
+        }
+
         else
         {
             // BT.playerspotted = true;
             BT.attacking = false;
             state = Node_State.faliure;
             BT.chaseSpeed = BT.movespeed;
+            Debug.Log("attack" + state);
+
         }
     }
     public void KillPlayer()

@@ -23,6 +23,7 @@ public class BehaviourTree : MonoBehaviour
     public NavMeshAgent agent;
     public float timer;
 
+    public GameObject distractObject;
     public void Start()
     {
         SelectorNode selector = new SelectorNode();
@@ -59,5 +60,14 @@ public class BehaviourTree : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, angle);
         }
 
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "PickUp")
+        {
+            distraction = true;
+            distractObject = other.gameObject;
+        }
     }
 }

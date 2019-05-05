@@ -33,7 +33,7 @@ public  class SaveSystem : MonoBehaviour
         return position;
     }
 
-    public Vector3 LoadKeyPosition( int slot)
+    public Vector3 LoadKeyPosition(int slot)
     {
         float x = PlayerPrefs.GetFloat("vector1key" + slot);
         float y = PlayerPrefs.GetFloat("vector2key" + slot);
