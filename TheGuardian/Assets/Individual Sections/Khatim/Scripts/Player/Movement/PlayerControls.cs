@@ -290,7 +290,10 @@ public class PlayerControls : MonoBehaviour
                 ResetInteraction();
 
             if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
+            {
+                // plyInteract.EndInteraction();
                 ResetInteraction();
+            }
 
             Debug.Log("Interaction Script Reference Removed");
         }
