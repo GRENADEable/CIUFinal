@@ -5,11 +5,7 @@ using UnityEngine;
 public class ObjectPushAndPull : PlayerInteraction
 {
     public FixedJoint objectFixedJoint;
-    // public Rigidbody rgCourageHead;
-
-    public delegate void SendEventsToPlayer();
-    public static event SendEventsToPlayer constraints;
-    public static event SendEventsToPlayer noConstraints;
+    public Rigidbody rgPlayer;
     private Animator courageAnim;
     private PlayerControls plyControls;
 
@@ -29,7 +25,6 @@ public class ObjectPushAndPull : PlayerInteraction
 
         objectFixedJoint = interactCol.GetComponent<FixedJoint>();
         objectFixedJoint.connectedBody = rgPlayer;
-        // rgObject.isKinematic = false;
         rgObject.useGravity = false;
     }
 
@@ -41,7 +36,6 @@ public class ObjectPushAndPull : PlayerInteraction
     public override void EndInteraction()
     {
         rgObject.useGravity = true;
-        // rgObject.isKinematic = true;
         Destroy(objectFixedJoint);
         objectFixedJoint = null;
         base.EndInteraction();

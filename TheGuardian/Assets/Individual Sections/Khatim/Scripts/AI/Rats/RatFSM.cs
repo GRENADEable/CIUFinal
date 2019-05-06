@@ -59,23 +59,22 @@ public class RatFSM : MonoBehaviour
         tarDir = player.transform.position - this.transform.position;
         angle = Vector3.Angle(this.tarDir, this.transform.forward);
 
-        if (ratAgent.velocity.magnitude < 0.1f)
-        {
-            ratAnim.SetBool("isIdle", true);
-            // Debug.Log("Idle");
-        }
+        // if (ratAgent.velocity.magnitude < 0.1f)
+        // {
+        //     ratAnim.SetBool("isIdle", true);
+        //     // Debug.Log("Idle");
+        // }
 
-        if (ratAgent.velocity.magnitude > 0.2f)
-        {
-            ratAnim.SetBool("isIdle", false);
-            // Debug.Log("Not Idle");
-        }
+        // if (ratAgent.velocity.magnitude > 0.2f)
+        // {
+        //     ratAnim.SetBool("isIdle", false);
+        //     // Debug.Log("Not Idle");
+        // }
 
         switch (currCondition)
         {
             case ratState.Wander:
                 Wander();
-
                 if ((distanceToPlayer <= chaseDistance && angle < fov || distanceToPlayer < closeDistance) && !isDistracted && player.activeInHierarchy)
                     currCondition = ratState.Chase;
                 break;
@@ -92,14 +91,12 @@ public class RatFSM : MonoBehaviour
                 break;
 
             case ratState.Attack:
-                player.SetActive(false);
-                Debug.Log("Attacking Player");
-
-                if (onDeadPlayerScreen != null)
-                    onDeadPlayerScreen();
-
+                ratAnim.SetBool("isAttacking", true);
                 if (!player.activeInHierarchy)
                     currCondition = ratState.Wander;
+
+                if (distanceToPlayer >= attackDistance && !isDistracted && player.activeInHierarchy)
+                    currCondition = ratState.Chase;
                 break;
 
             case ratState.Wait:
@@ -124,6 +121,18 @@ public class RatFSM : MonoBehaviour
         //Bool check if the random position is suitable on the navmesh. If true, then return the hit position.
         NavMesh.SamplePosition(randomPos, out hit, dist, layermask);
         return hit.position;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            player.SetActive(false);
+            Debug.Log("Attacking Player");
+
+            if (onDeadPlayerScreen != null)
+                onDeadPlayerScreen();
+        }
     }
 
     void Wander()

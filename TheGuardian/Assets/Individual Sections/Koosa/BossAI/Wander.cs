@@ -9,28 +9,67 @@ public class Wander : Node
     public override void Execute()
     {
         base.Execute();
-        BT.timer += Time.deltaTime;
+        float min = BT.startPos.z;
+        float max = BT.startPos.z + 1.3f;
+        float max2 = BT.startPos.z - 0.01f;
 
-        if (BT.timer >= BT.wanderTimer)
-        {
-            Vector3 newPos = RandomNavSphere(BT.transform.position, BT.wanderRadius, -1);
-            BT.agent.SetDestination(newPos);
-            BT.timer = 0;
-        }
-        state=Node_State.running;
+
+        //MoveRight(min, max);
+        // MoveLeft(min, max2);
+
+        Waypoints();
+        // BT.wanderSpeed = Random.Range(0f, 1f);
+        // BT.wanderDelta = Random.Range(0f, 1f);
+        // BT.startPos.z += BT.wanderDelta * Mathf.Sin(BT.wanderSpeed * Time.time);
+        // BT.transform.position = BT.startPos;
+
+        state = Node_State.running;
     }
-    
-    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+
+    public void Waypoints()
     {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
+        // int number = Random.Range(0,4);
+        BT.transform.position = Vector3.MoveTowards(BT.transform.position, BT.waypoints[BT.waypointTarget].transform.position, BT.wanderSpeed);
+        if (Vector3.Distance(BT.transform.position, BT.waypoints[BT.waypointTarget].transform.position) < 0.1)
+        {
 
-        randDirection += origin;
+             BT.waypointTarget = Random.Range(0, 4);
+            if (BT.waypointTarget == BT.waypoints.Length)
+            {
 
-        NavMeshHit navHit;
-
-        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
-
-        return navHit.position;
+                Debug.Log("patrol" + state);
+            }
+        }
+        /*
+        if (number > 0 && (BT.waypointTarget >= 0 || BT.waypointTarget <= 4))
+        {
+            BT.waypointTarget++;
+            Debug.Log("yes");
+        }
+        if (number < 0 && (BT.waypointTarget >= 0 || BT.waypointTarget <= 4) && BT.waypointTarget>0)
+        {
+            Debug.Log("no");
+            BT.waypointTarget--;
+        }
+        */
+        else
+        {
+            state = Node_State.faliure;
+        }
     }
-    
+
+
+
+
+
+
+    public void MoveRight( float min, float max)
+    {
+        BT.transform.position = new Vector3(BT.transform.position.x, BT.transform.position.y, Mathf.PingPong(Time.time * BT.wanderSpeed, max - min) + min);
+    }
+    public void MoveLeft(float min, float max)
+    {
+        BT.transform.position = new Vector3(BT.transform.position.x, BT.transform.position.y, Mathf.PingPong(Time.time * BT.wanderSpeed, max - min) + min);
+
+    }
 }

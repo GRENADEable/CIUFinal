@@ -22,10 +22,15 @@ public class BehaviourTree : MonoBehaviour
     public Transform target;
     public NavMeshAgent agent;
     public float timer;
-
+    public Vector3 startPos;
+    public float wanderDelta;
+    public float wanderSpeed;
     public GameObject distractObject;
+    public int waypointTarget;
+    public GameObject[] waypoints;
     public void Start()
     {
+        startPos = transform.position;
         SelectorNode selector = new SelectorNode();
         root = selector;
 
@@ -44,7 +49,7 @@ public class BehaviourTree : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         timer = wanderTimer;
     }
-    private void Update()
+    public void Update()
     {
         root.Execute();
     }

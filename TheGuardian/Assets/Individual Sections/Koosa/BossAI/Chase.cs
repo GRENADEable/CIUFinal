@@ -25,7 +25,7 @@ public class Chase : Node
     public void Detecting()
     {
         Targeting();
-        if (BT.player.GetComponent<PlayerControlsTestKoosa>().running || Vector3.Distance(BT.transform.position, BT.player.transform.position) < BT.maxDistance || (BT.angle <= BT.vision && BT.hit.transform == BT.player.transform))
+        if (BT.player.GetComponent<PlayerControlsTestKoosa>().running)
         {
             BT.playerSpotted = true;
             Chasing();
@@ -42,7 +42,8 @@ public class Chase : Node
 
     public void Chasing()
     {
-        BT.agent.SetDestination(BT.player.transform.position);
+        Vector3 pos = new Vector3(BT.transform.position.x, BT.transform.position.y, BT.player.transform.position.z);
+        BT.transform.position = Vector3.MoveTowards(BT.transform.position, pos, BT.wanderSpeed);
         state = Node_State.success;
     }
 
