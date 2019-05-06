@@ -10,8 +10,7 @@ public class PlayerControls : MonoBehaviour
     public float runningSpeed;
     public float crouchWalkSpeed;
     public float crouchRunSpeed;
-    public float objectInteractSpeed;
-    public bool isCrouching;
+    public float maxClampValue;
     [Range(0f, 10.0f)]
     public float rotationSpeed;
     [Range(0f, 5f)]
@@ -21,8 +20,6 @@ public class PlayerControls : MonoBehaviour
 
     [Header("Player Jump Variables")]
     public float jumpPower;
-    // private float jumpTime;
-    // public float jumpDelay;
     private LightMechanic lightMechanic;
 
     [Header("Player Gravity Variables")]
@@ -30,7 +27,6 @@ public class PlayerControls : MonoBehaviour
     public float gravityAfterRopeBreak;
 
     [Header("Rope Variables")]
-    public bool onRope;
     public float climbSpeed;
     public float sprintClimbSpeed;
     #endregion
@@ -41,19 +37,19 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onChangeLevelText;
     public static event SendEvents onPlayHallwayOST;
     public static event SendEvents onRopeBreakMessage;
-    // public static event SendEvents onObjectDetatchEvent;
     public static event SendEvents onKeyMove;
     #endregion
 
-    #region  Object Interaction
-    [Header("Object Interaction Variables")]
+    #region Player Movement
+    [Header("Player Movement Variables")]
     public bool isPushingOrPulling;
     public bool isPickingObject;
     public float pushPower;
+    public bool onRope;
+    public bool isCrouching;
     #endregion
 
     #region Trigger Colliders
-    [SerializeField]
     private Collider interactCol;
     #endregion
 
@@ -79,6 +75,8 @@ public class PlayerControls : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
     private float playerCenter;
+    [SerializeField]
+    private float movementClamp;
 
     void OnEnable()
     {
@@ -88,23 +86,15 @@ public class PlayerControls : MonoBehaviour
         courageAnim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerCenter = charController.center.y;
-        // jumpTime = jumpDelay;
     }
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.E) && plyInteract != null)
-        //     plyInteract.StartInteraction();
-        // else if (Input.GetKey(KeyCode.E) && plyInteract != null)
-        //     plyInteract.UpdateInteraction();
-        // if (Input.GetKeyUp(KeyCode.E) && plyInteract != null)
-        //     plyInteract.EndInteraction();
-
-        if (Input.GetMouseButtonDown(1) && plyInteract != null)
+        if (Input.GetMouseButtonDown(1) && plyInteract != null && !isCrouching)
             plyInteract.StartInteraction();
-        else if (Input.GetMouseButton(1) && plyInteract != null)
+        else if (Input.GetMouseButton(1) && plyInteract != null && !isCrouching)
             plyInteract.UpdateInteraction();
-        if (Input.GetMouseButtonUp(1) && plyInteract != null)
+        if (Input.GetMouseButtonUp(1) && plyInteract != null && !isCrouching)
             plyInteract.EndInteraction();
 
         if (!onRope)
@@ -114,9 +104,11 @@ public class PlayerControls : MonoBehaviour
             float localCenter = playerCenter;
 
             //Gets Player Inputs
-            moveVertical = Input.GetAxis("Vertical");
-            moveHorizontal = Input.GetAxis("Horizontal");
-            // jumpTime += Time.deltaTime;
+            moveVertical = Input.GetAxisRaw("Vertical");
+            moveHorizontal = Input.GetAxisRaw("Horizontal");
+
+            var runningMultiplier = Mathf.Lerp(walkingSpeed, runningSpeed, Input.GetAxis("Run"));
+            var walkingMultiplier = Mathf.Lerp(0, walkingSpeed, movementClamp);
 
             //Checks if the player is on the Ground
             if (charController.isGrounded)
@@ -125,7 +117,11 @@ public class PlayerControls : MonoBehaviour
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal).normalized;
 
                 //Add Input Floats to Blend Tee "speed" Parameters
+                // movementClamp = Mathf.Clamp(Mathf.Abs(moveVertical) + Mathf.Abs(moveHorizontal), 0f, maxClampValue); //* (Input.GetKey(KeyCode.LeftShift) ? 1 : .5f);
+                movementClamp = Mathf.Abs(moveVertical) * Mathf.Abs(moveHorizontal);
 
+                // movementClamp = (Mathf.Abs(moveVertical) + Mathf.Abs(moveHorizontal)) / 2f;
+                courageAnim.SetFloat("speed", (walkingMultiplier / walkingSpeed) * (runningMultiplier / runningSpeed));
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
@@ -134,12 +130,7 @@ public class PlayerControls : MonoBehaviour
                 if (isPushingOrPulling && moveDirection != Vector3.zero)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), pushRotationSpeed * Time.deltaTime);
 
-                if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
-                {
-                    moveDirection = moveDirection * runningSpeed;
-                    // Debug.Log("Running");
-                }
-                else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
+                if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
                 {
                     //Made Character Controller Collider Shrink Variables Dynamic
                     //Player Crouching
@@ -152,11 +143,14 @@ public class PlayerControls : MonoBehaviour
                 }
                 else
                 {
-                    moveDirection = moveDirection * walkingSpeed;
+                    // moveDirection = moveDirection * walkingSpeed;
                     isCrouching = false;
                     courageAnim.SetBool("isCrouching", false);
                     // Debug.Log("Walking");
                 }
+
+                if (!isCrouching)
+                    moveDirection *= runningMultiplier;
 
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
                 {
@@ -172,17 +166,8 @@ public class PlayerControls : MonoBehaviour
         }
         else
         {
-            //Rope Climbing
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * sprintClimbSpeed, 0.0f);
-                // Debug.Log("Sprint Climb?");
-            }
-            else
-            {
-                moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
-                // Debug.Log("Climbing");
-            }
+            moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
+            // Debug.Log("Climbing");
         }
 
         if (interactCol != null && Input.GetKey(KeyCode.E))
@@ -197,9 +182,6 @@ public class PlayerControls : MonoBehaviour
         }
 
         charController.Move(moveDirection * Time.deltaTime);
-
-        // if (onRope && Input.GetKeyUp(KeyCode.E) && !charController.isGrounded)
-        //     onRope = false;
     }
 
     #region Cheats :P
@@ -305,7 +287,6 @@ public class PlayerControls : MonoBehaviour
             interactCol = null;
     }
 
-
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.collider.tag == "HallwayEndDoor" && Input.GetKey(KeyCode.E))
@@ -330,31 +311,10 @@ public class PlayerControls : MonoBehaviour
         moveDirection.y = jumpForce;
 
         if (!lightMechanic.lightOn)
-        {
-            courageAnim.SetTrigger("isJumping");
-            // Courage Jump Animation
-        }
+            courageAnim.SetTrigger("isJumping"); // Courage Jump Animation
+
         else
-        {
-            courageAnim.SetTrigger("isJumpingWithTorch");
-            // Courage Jump Animation with Light
-        }
-
-        // if (jumpTime > jumpDelay && !lightMechanic.lightOn)
-        // {
-        //     moveDirection.y = jumpPower;
-        //     courageAnim.Play("CourageJump");
-        //     // Debug.Log("Jump");
-        //     jumpTime = 0f;
-        // }
-
-        // if (jumpTime > jumpDelay && lightMechanic.lightOn)
-        // {
-        //     moveDirection.y = jumpPower;
-        //     courageAnim.Play("CourageJumpLight");
-        //     // Debug.Log("Jump");
-        //     jumpTime = 0f;
-        // }
+            courageAnim.SetTrigger("isJumpingWithTorch"); // Courage Jump Animation with Light
     }
 
     public void ResetInteraction()

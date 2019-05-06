@@ -41,13 +41,21 @@ public class RatFSM : MonoBehaviour
         ratAnim = GetComponentInChildren<Animator>();
         timer = maxWanderTimer;
         currCondition = ratState.Wander;
-        DistractEnemyEvent.OnDistractEnemy += DistractEventReceived;
-    }
 
+        DistractEnemyEvent.OnDistractEnemy += DistractEventReceived;
+        Broadcaster.onKillPlayerEvent += OnKillPlayerEventReceived;
+    }
 
     void OnDisable()
     {
         DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
+        Broadcaster.onKillPlayerEvent -= OnKillPlayerEventReceived;
+    }
+
+    void OnDestroy()
+    {
+        DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
+        Broadcaster.onKillPlayerEvent -= OnKillPlayerEventReceived;
     }
 
     void Update()
@@ -59,27 +67,19 @@ public class RatFSM : MonoBehaviour
         tarDir = player.transform.position - this.transform.position;
         angle = Vector3.Angle(this.tarDir, this.transform.forward);
 
-        // if (ratAgent.velocity.magnitude < 0.1f)
-        // {
-        //     ratAnim.SetBool("isIdle", true);
-        //     // Debug.Log("Idle");
-        // }
-
-        // if (ratAgent.velocity.magnitude > 0.2f)
-        // {
-        //     ratAnim.SetBool("isIdle", false);
-        //     // Debug.Log("Not Idle");
-        // }
+        ratAnim.SetFloat("speed", ratAgent.velocity.magnitude);
 
         switch (currCondition)
         {
             case ratState.Wander:
+                ratAnim.SetBool("isAttacking", false);
                 Wander();
                 if ((distanceToPlayer <= chaseDistance && angle < fov || distanceToPlayer < closeDistance) && !isDistracted && player.activeInHierarchy)
                     currCondition = ratState.Chase;
                 break;
 
             case ratState.Chase:
+                ratAnim.SetBool("isAttacking", false);
                 ratAgent.SetDestination(player.transform.position);
                 Debug.Log("Chasing Player");
 
@@ -97,9 +97,6 @@ public class RatFSM : MonoBehaviour
 
                 if (distanceToPlayer >= attackDistance && !isDistracted && player.activeInHierarchy)
                     currCondition = ratState.Chase;
-                break;
-
-            case ratState.Wait:
                 break;
 
             case ratState.Distract:
@@ -123,18 +120,6 @@ public class RatFSM : MonoBehaviour
         return hit.position;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            player.SetActive(false);
-            Debug.Log("Attacking Player");
-
-            if (onDeadPlayerScreen != null)
-                onDeadPlayerScreen();
-        }
-    }
-
     void Wander()
     {
         timer += Time.deltaTime;
@@ -153,12 +138,12 @@ public class RatFSM : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, wanderRadius);
     }
 
-    void DistractEventReceived()
-    {
-        DistractEnemy();
-    }
+    // void DistractEventReceived()
+    // {
+    //     DistractEnemy();
+    // }
 
-    void DistractEnemy()
+    void DistractEventReceived()
     {
         StartCoroutine(Distract());
     }
@@ -173,5 +158,17 @@ public class RatFSM : MonoBehaviour
         yield return new WaitForSeconds(baitDuration);
         isDistracted = false;
         currCondition = ratState.Wander;
+    }
+
+    void OnKillPlayerEventReceived()
+    {
+        if (distanceToPlayer < attackDistance)
+        {
+            player.SetActive(false);
+            // Debug.Log("Attacking Player");
+
+            if (onDeadPlayerScreen != null)
+                onDeadPlayerScreen();
+        }
     }
 }

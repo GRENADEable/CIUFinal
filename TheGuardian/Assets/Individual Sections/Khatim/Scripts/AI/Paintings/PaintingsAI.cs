@@ -8,6 +8,7 @@ public class PaintingsAI : MonoBehaviour
     public float rotationX;
     public float maxAngleY;
     public float rotationZ;
+
     public float lookaroundSpeed;
     public float increasedLookaroundSpeed;
     public Vector3 playerHeadRaycast;
@@ -19,6 +20,9 @@ public class PaintingsAI : MonoBehaviour
     public float killDelay;
     public float detectionDelay;
     public float timeToWaitBetweenRotations;
+    [Header("Distance Checks")]
+    public float distance;
+    public float lookRange;
 
     [Header("Rotation Pauses")]
     public float firstRotationSmaller; // smaller value than the the bigger value 
@@ -70,6 +74,8 @@ public class PaintingsAI : MonoBehaviour
 
     void Update()
     {
+        distance = Vector3.Distance(transform.position, player.transform.position);
+
         // Debug.DrawRay(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, Color.red);
         Debug.DrawRay(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, Color.blue);
         Debug.DrawRay(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, Color.yellow);
@@ -78,7 +84,7 @@ public class PaintingsAI : MonoBehaviour
         Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
         Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
 
-        Debug.Log(hit.collider);
+        // Debug.Log(hit.collider);
 
         isPlayerHiding = !(hit.collider.tag == "Player");
 
@@ -98,17 +104,15 @@ public class PaintingsAI : MonoBehaviour
                     if (currTimer >= detectionDelay)
                         SwitchState(paintingState.Attack);
                 }
-
-                // Debug.Log("Looking Around");
+                Debug.Log("Looking Around");
                 break;
 
             case paintingState.Attack:
                 paintingEyeLight.color = Color.red;
 
-                if (angle > detectionFov || isPlayerHiding)
+                if (angle > detectionFov || isPlayerHiding || distance >= lookRange)
                     SwitchState(paintingState.Looking_Around);
 
-                // Need to Clamp the Y Rotation when Player is in the FoV of the AI 
                 Quaternion lookAtPlayerPos = Quaternion.LookRotation(tarDir.normalized, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, lookAtPlayerPos, lookatSpeed * Time.deltaTime);
 
@@ -122,7 +126,7 @@ public class PaintingsAI : MonoBehaviour
                     player.SetActive(false);
                     Debug.Log("Player Dead");
                 }
-                // Debug.Log("Attacking Player");
+                Debug.Log("Attacking Player");
                 break;
 
             case paintingState.Wait:
@@ -132,7 +136,7 @@ public class PaintingsAI : MonoBehaviour
                 if (currTimer >= timeToWaitBetweenRotations)
                     SwitchState(paintingState.Looking_Around);
 
-                // Debug.Log("Waiting");
+                Debug.Log("Waiting");
                 break;
         }
     }

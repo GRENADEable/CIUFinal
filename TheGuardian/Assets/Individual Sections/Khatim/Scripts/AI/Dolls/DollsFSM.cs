@@ -13,9 +13,8 @@ public class DollsFSM : MonoBehaviour
     public float dollSpeed;
     public GameObject player;
 
-    // public delegate void SendMessages();
-    // public static event SendMessages onDeadPlayerScreen;
-    // public static event SendMessages onDollChaseStart;
+    public delegate void SendDeathMessage();
+    public static event SendDeathMessage onDeadPlayerScreen;
 
     private NavMeshAgent dollAgent;
     private Animator dollAnim;
@@ -29,20 +28,15 @@ public class DollsFSM : MonoBehaviour
         dollAgent.speed = dollSpeed;
         dollAnim = GetComponent<Animator>();
         VCamManager.onDollAIChange += OnDollAIChangeReceived;
-
-        // DollsFSM.onDollChaseStart += OnDollChaseStartEventReceived;
     }
-
 
     void OnDisable()
     {
-        // DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
         VCamManager.onDollAIChange -= OnDollAIChangeReceived;
     }
 
     void OnDestroy()
     {
-        // DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
         VCamManager.onDollAIChange -= OnDollAIChangeReceived;
     }
 
@@ -52,22 +46,12 @@ public class DollsFSM : MonoBehaviour
         Debug.DrawRay(transform.position + rangeOffset, transform.forward * chaseDistance, Color.green);
         Debug.DrawRay(transform.position + rangeOffset, transform.forward * attackDistance, Color.red);
 
-        // if (dollAgent.velocity.magnitude < 0.1f)
-        // {
-        //     dollAnim.SetBool("isIdle", true);
-        //     // Debug.Log("Idle Animation");
-        // }
-
-        // if (dollAgent.velocity.magnitude > 0.2f)
-        // {
-        //     dollAnim.SetBool("isIdle", false);
-        //     // Debug.Log("Not Idle Animation");
-        // }
+        dollAnim.SetFloat("speed", dollAgent.velocity.magnitude);
 
         switch (currCondition)
         {
             case dollState.Idle:
-                dollAnim.SetBool("isIdle", true);
+                dollAnim.SetBool("isAttacking", false);
                 // Debug.Log("Doll Idle State");
 
                 if (distanceToPlayer <= chaseDistance && player.activeInHierarchy)
@@ -75,48 +59,26 @@ public class DollsFSM : MonoBehaviour
                 break;
 
             case dollState.Chase:
-                dollAnim.SetBool("isIdle", false);
+                dollAnim.SetBool("isAttacking", false);
                 dollAgent.SetDestination(player.transform.position);
                 // Debug.Log("Doll Chasing State");
 
-                // if (distanceToPlayer >= chaseDistance)
-                //     currCondition = dollState.Idle;
-
-                // if (distanceToPlayer <= attackDistance && player.activeInHierarchy)
-                //     currCondition = dollState.Attack;
+                if (distanceToPlayer <= attackDistance && player.activeInHierarchy)
+                    currCondition = dollState.Attack;
                 break;
 
             case dollState.Attack:
-                player.SetActive(false);
+                dollAnim.SetBool("isAttacking", true);
                 // Debug.Log("Attacking Player State");
-
-                // if (onDeadPlayerScreen != null)
-                //     onDeadPlayerScreen();
 
                 if (!player.activeInHierarchy)
                     currCondition = dollState.Idle;
 
-                if (distanceToPlayer >= attackDistance)
+                if (distanceToPlayer >= attackDistance && player.activeInHierarchy)
                     currCondition = dollState.Chase;
-
                 break;
         }
     }
-
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.tag == "Player" && onDollChaseStart != null)
-    //         onDollChaseStart();
-
-    //     GetComponent<Collider>().enabled = false;
-    // }
-
-    // void OnDollChaseStartEventReceived()
-    // {
-    //     currCondition = dollState.Chase;
-    //     DollsFSM.onDollChaseStart -= OnDollChaseStartEventReceived;
-    //     Debug.Log("Doll Chase Event Started");
-    // }
 
     void OnDollAIChangeReceived()
     {
@@ -124,5 +86,17 @@ public class DollsFSM : MonoBehaviour
         currCondition = dollState.Idle;
         VCamManager.onDollAIChange -= OnDollAIChangeReceived;
         Debug.Log("Doll AI State Change Received");
+    }
+
+    void KillPlayer()
+    {
+        if (distanceToPlayer < attackDistance)
+        {
+            player.SetActive(false);
+            // Debug.Log("Attacking Player");
+
+            if (onDeadPlayerScreen != null)
+                onDeadPlayerScreen();
+        }
     }
 }
