@@ -4,15 +4,11 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public  class SaveSystem : MonoBehaviour
-{ 
-    public void Start()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+public class SaveSystem : MonoBehaviour
+{
     public void SaveCharacter(GameObject data, int slot)
     {
-        PlayerPrefs.SetFloat("vector1player"+ slot ,data.transform.position.x);
+        PlayerPrefs.SetFloat("vector1player" + slot, data.transform.position.x);
         PlayerPrefs.SetFloat("vector2player" + slot, data.transform.position.y);
         PlayerPrefs.SetFloat("vector3player" + slot, data.transform.position.z);
     }
@@ -26,7 +22,7 @@ public  class SaveSystem : MonoBehaviour
 
     public Vector3 Loadharacter(int slot)
     {
-        float x  =PlayerPrefs.GetFloat("vector1player" + slot);
+        float x = PlayerPrefs.GetFloat("vector1player" + slot);
         float y = PlayerPrefs.GetFloat("vector2player" + slot);
         float z = PlayerPrefs.GetFloat("vector3player" + slot);
         Vector3 position = new Vector3(x, y, z);
@@ -42,5 +38,3 @@ public  class SaveSystem : MonoBehaviour
         return position;
     }
 }
-	
-
