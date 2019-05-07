@@ -28,12 +28,14 @@ public class Wander : Node
 
     public void Waypoints()
     {
+        Debug.Log(BT.waypoints.Length);
+        Debug.Log(BT.waypointTarget);
         // int number = Random.Range(0,4);
         BT.transform.position = Vector3.MoveTowards(BT.transform.position, BT.waypoints[BT.waypointTarget].transform.position, BT.wanderSpeed);
         if (Vector3.Distance(BT.transform.position, BT.waypoints[BT.waypointTarget].transform.position) < 0.1)
         {
 
-             BT.waypointTarget = Random.Range(0, 4);
+             BT.waypointTarget = Random.Range(0,BT.waypoints.Length-1);
             if (BT.waypointTarget == BT.waypoints.Length)
             {
 

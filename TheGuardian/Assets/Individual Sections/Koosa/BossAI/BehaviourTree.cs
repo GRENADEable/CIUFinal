@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class BehaviourTree : MonoBehaviour
 {
-    public float wanderRadius;
-    public float wanderTimer;
     public Node root;
     public GameObject player;
     public float chaseSpeed;
@@ -14,13 +12,8 @@ public class BehaviourTree : MonoBehaviour
     public bool attacking;
     public bool playerSpotted;
     public float health;
-    public RaycastHit hit;
-    public float angle;
-    public float maxDistance;
-    public float vision;
     public bool distraction;
     public Transform target;
-    public NavMeshAgent agent;
     public float timer;
     public Vector3 startPos;
     public float wanderDelta;
@@ -28,6 +21,8 @@ public class BehaviourTree : MonoBehaviour
     public GameObject distractObject;
     public int waypointTarget;
     public GameObject[] waypoints;
+    public Animator anim;
+    public Animation attack;
     public void Start()
     {
         startPos = transform.position;
@@ -41,32 +36,11 @@ public class BehaviourTree : MonoBehaviour
         selector.children.Add(new Wander());
         root.BT = this;
         root.Start();
-        agent = GetComponent<NavMeshAgent>();
-        timer = wanderTimer;
-    }
-    void OnEnable()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        timer = wanderTimer;
     }
     public void Update()
     {
         root.Execute();
     }
-
-    void OnDrawGizmos()
-    {
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, maxDistance);
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, vision);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, angle);
-        }
-
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "PickUp")

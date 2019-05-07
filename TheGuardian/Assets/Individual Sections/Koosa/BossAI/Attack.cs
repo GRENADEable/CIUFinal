@@ -8,10 +8,6 @@ public class Attack : Node
     public float speed;
     public Animator animator;
 
-
-
-
-
     public override void Execute()
     {
         base.Execute();
@@ -21,7 +17,7 @@ public class Attack : Node
 
     public void CheckForAttack()
     {
-        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 0.01)
+        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 3)
         {
             BT.playerSpotted = true;
             BT.attacking = true;
@@ -29,15 +25,16 @@ public class Attack : Node
             state = Node_State.success;
             KillPlayer();
             BT.chaseSpeed = 0;
+            BT.anim.Play("FinalBossAttack");
         }
-        
+
         else if(Vector3.Distance(BT.transform.position, BT.distractObject.transform.position) < 3 && BT.distraction)
         {
             //play attack animation
             state = Node_State.success;
             BT.attacking = true;
             Debug.Log("attack" + state);
-
+           // BT.anim.Play("FinalBossAttack");
         }
 
         else
