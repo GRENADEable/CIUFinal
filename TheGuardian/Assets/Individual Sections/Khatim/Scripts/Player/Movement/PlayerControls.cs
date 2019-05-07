@@ -111,11 +111,12 @@ public class PlayerControls : MonoBehaviour
             if (charController.isGrounded)
             {
                 //Applies Movement
-                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal).normalized;
+                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+                var multiplier = Mathf.Clamp01(moveDirection.magnitude) * Mathf.Lerp(walkingSpeed, runningSpeed, Input.GetAxis("Run"));
+                moveDirection = moveDirection.normalized;
 
                 //Add Input Floats to Blend Tee "speed" Parameters
-                movementClamp = Mathf.Clamp(Mathf.Abs(moveVertical) + Mathf.Abs(moveHorizontal), 0f, maxClampValue);
-                courageAnim.SetFloat("speed", movementClamp);
+                courageAnim.SetFloat("speed", multiplier / runningSpeed);
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
@@ -126,7 +127,7 @@ public class PlayerControls : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
                 {
-                    moveDirection *= runningSpeed;
+                    moveDirection *= multiplier;
                     // Debug.Log("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
@@ -142,7 +143,7 @@ public class PlayerControls : MonoBehaviour
                 }
                 else
                 {
-                    moveDirection *= walkingSpeed;
+                    moveDirection *= multiplier;
                     isCrouching = false;
                     courageAnim.SetBool("isCrouching", false);
                     // Debug.Log("Walking");
