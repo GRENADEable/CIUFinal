@@ -104,24 +104,19 @@ public class PlayerControls : MonoBehaviour
             float localCenter = playerCenter;
 
             //Gets Player Inputs
-            moveVertical = Input.GetAxisRaw("Vertical");
-            moveHorizontal = Input.GetAxisRaw("Horizontal");
-
-            var runningMultiplier = Mathf.Lerp(walkingSpeed, runningSpeed, Input.GetAxis("Run"));
-            var walkingMultiplier = Mathf.Lerp(0, walkingSpeed, movementClamp);
+            moveVertical = Input.GetAxis("Vertical");
+            moveHorizontal = Input.GetAxis("Horizontal");
 
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
                 //Applies Movement
-                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal).normalized;
+                moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
+                var multiplier = Mathf.Clamp01(moveDirection.magnitude) * Mathf.Lerp(walkingSpeed, runningSpeed, Input.GetAxis("Run"));
+                moveDirection = moveDirection.normalized;
 
                 //Add Input Floats to Blend Tee "speed" Parameters
-                // movementClamp = Mathf.Clamp(Mathf.Abs(moveVertical) + Mathf.Abs(moveHorizontal), 0f, maxClampValue); //* (Input.GetKey(KeyCode.LeftShift) ? 1 : .5f);
-                movementClamp = Mathf.Abs(moveVertical) * Mathf.Abs(moveHorizontal);
-
-                // movementClamp = (Mathf.Abs(moveVertical) + Mathf.Abs(moveHorizontal)) / 2f;
-                courageAnim.SetFloat("speed", (walkingMultiplier / walkingSpeed) * (runningMultiplier / runningSpeed));
+                courageAnim.SetFloat("speed", multiplier / runningSpeed);
 
                 //Applies Roatation relative to What Key is Pressed
                 if (moveDirection != Vector3.zero && !isPushingOrPulling)
@@ -130,27 +125,29 @@ public class PlayerControls : MonoBehaviour
                 if (isPushingOrPulling && moveDirection != Vector3.zero)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), pushRotationSpeed * Time.deltaTime);
 
-                if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
+                if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
+                {
+                    moveDirection *= multiplier;
+                    // Debug.Log("Running");
+                }
+                else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
                 {
                     //Made Character Controller Collider Shrink Variables Dynamic
                     //Player Crouching
                     localHeight = playerHeight * crouchColShrinkValue;
                     localCenter = playerCenter / crouchColCenterValue;
                     isCrouching = true;
-                    moveDirection = moveDirection * crouchWalkSpeed;
+                    moveDirection *= crouchWalkSpeed;
                     courageAnim.SetBool("isCrouching", true);
                     // Debug.Log("Crouch Walk");
                 }
                 else
                 {
-                    // moveDirection = moveDirection * walkingSpeed;
+                    moveDirection *= multiplier;
                     isCrouching = false;
                     courageAnim.SetBool("isCrouching", false);
                     // Debug.Log("Walking");
                 }
-
-                if (!isCrouching)
-                    moveDirection *= runningMultiplier;
 
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
                 {
