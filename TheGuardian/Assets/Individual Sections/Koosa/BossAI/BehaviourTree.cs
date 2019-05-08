@@ -22,9 +22,11 @@ public class BehaviourTree : MonoBehaviour
     public int waypointTarget;
     public GameObject[] waypoints;
     public Animator anim;
-    public Animation attack;
+   // public AnimationClip approach;
+    public bool approaching;
     public void Start()
     {
+        approaching = false;
         startPos = transform.position;
         SelectorNode selector = new SelectorNode();
         root = selector;
@@ -39,14 +41,40 @@ public class BehaviourTree : MonoBehaviour
     }
     public void Update()
     {
+        if (!approaching)
+        {
+            anim.SetBool("Approach", true);
+        }
+        if (distractObject != null || distraction )
+        {
+            if (!distractObject.activeSelf || distractObject == null || health<=0)
+            {
+                distractObject = null;
+                distraction = false;
+            }
+        }
+        if (health <= 0)
+        {
+            attacking = false;
+            anim.SetBool("Approach", false);
+            anim.SetBool("injury", false);
+            anim.SetBool("attacking", false);
+            anim.SetBool("Retreating", true);
+        }
         root.Execute();
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PickUp")
+        if (other.gameObject.tag == "PickUp" && other.gameObject.activeSelf || other.gameObject != null && health>0)
         {
             distraction = true;
             distractObject = other.gameObject;
+            health--;
+        }
+        else
+        {
+            distractObject = null;
+            distraction = false;
         }
     }
 }

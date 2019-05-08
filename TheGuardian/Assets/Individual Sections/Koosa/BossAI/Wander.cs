@@ -28,8 +28,7 @@ public class Wander : Node
 
     public void Waypoints()
     {
-        Debug.Log(BT.waypoints.Length);
-        Debug.Log(BT.waypointTarget);
+        BT.anim.SetBool("attacking", false);
         // int number = Random.Range(0,4);
         BT.transform.position = Vector3.MoveTowards(BT.transform.position, BT.waypoints[BT.waypointTarget].transform.position, BT.wanderSpeed);
         if (Vector3.Distance(BT.transform.position, BT.waypoints[BT.waypointTarget].transform.position) < 0.1)

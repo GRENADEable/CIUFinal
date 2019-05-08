@@ -7282,7 +7282,7 @@ MonoBehaviour:
   - {fileID: 1573716023}
   - {fileID: 855970631}
   anim: {fileID: 0}
-  attack: {fileID: 0}
+  approaching: 0
 --- !u!95 &869179373
 Animator:
   serializedVersion: 3
@@ -15385,6 +15385,91 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0dbb53c34cda2749b4e2871718278bc, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1 &1735410777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1735410781}
+  - component: {fileID: 1735410780}
+  - component: {fileID: 1735410779}
+  - component: {fileID: 1735410778}
+  m_Layer: 0
+  m_Name: Cube (18)
+  m_TagString: PickUp
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1735410778
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1735410777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1735410779
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1735410777}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1735410780
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1735410777}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1735410781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1735410777}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.651, y: 12.57, z: 17.576}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1752086809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100088, guid: aa97b200852dc314fbd18b6027a0c4cd,
@@ -15406,7 +15491,7 @@ MonoBehaviour:
   movespeed: 0
   attacking: 0
   playerSpotted: 0
-  health: 0
+  health: 3
   distraction: 0
   target: {fileID: 0}
   timer: 0
@@ -15428,7 +15513,7 @@ MonoBehaviour:
   - {fileID: 1573716023}
   - {fileID: 855970631}
   anim: {fileID: 1752086811}
-  attack: {fileID: 0}
+  approaching: 0
 --- !u!95 &1752086811 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: aa97b200852dc314fbd18b6027a0c4cd,
@@ -15811,7 +15896,6 @@ GameObject:
   - component: {fileID: 1773753238}
   - component: {fileID: 1773753237}
   - component: {fileID: 1773753236}
-  - component: {fileID: 1773753235}
   m_Layer: 0
   m_Name: Cube (17)
   m_TagString: PickUp
@@ -15819,21 +15903,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!54 &1773753235
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1773753234}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &1773753236
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18806,7 +18875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &2133229968
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -18855,7 +18924,7 @@ MonoBehaviour:
   waypointTarget: 0
   waypoints: []
   anim: {fileID: 0}
-  attack: {fileID: 0}
+  approaching: 0
 --- !u!23 &2133229971
 MeshRenderer:
   m_ObjectHideFlags: 0
