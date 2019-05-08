@@ -11,7 +11,6 @@ public class TriggerDamageEvent : MonoBehaviour
     {
         if (other.gameObject.tag == "DamageBoss")
         {
-            other.gameObject.SetActive(false);
             damageBoss.Invoke();
         }
         if (other.gameObject.tag == "Player")
