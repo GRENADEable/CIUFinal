@@ -11,9 +11,10 @@ public class TriggerDamageEvent : MonoBehaviour
     {
         if (other.gameObject.tag == "DamageBoss")
         {
-            damageBoss.Invoke(); 
+            other.gameObject.SetActive(false);
+            damageBoss.Invoke();
         }
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             killPlayer.Invoke();
         }

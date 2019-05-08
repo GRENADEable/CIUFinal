@@ -26,6 +26,8 @@ public class PlayerInteraction : MonoBehaviour
     public virtual void EndInteraction()
     {
         playerLight.enabled = true;
+        rgObject.useGravity = true;
+        rgObject.isKinematic = false;
         rgObject = null;
     }
 }

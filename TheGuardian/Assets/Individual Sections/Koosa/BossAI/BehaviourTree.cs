@@ -50,9 +50,9 @@ public class BehaviourTree : MonoBehaviour
         {
             anim.SetBool("Approach", true);
         }
-        if (distractObject != null || distraction )
+        if (distractObject != null || distraction)
         {
-            if (!distractObject.activeSelf || distractObject == null || health<=0)
+            if (!distractObject.activeSelf || distractObject == null || health <= 0)
             {
                 distractObject = null;
                 distraction = false;
@@ -70,7 +70,7 @@ public class BehaviourTree : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PickUp" && other.gameObject.activeSelf || other.gameObject != null && health>0)
+        if (other.gameObject.tag == "PickUp" && other.gameObject.activeSelf || other.gameObject != null && health > 0)
         {
             distraction = true;
             distractObject = other.gameObject;
@@ -88,7 +88,9 @@ public class BehaviourTree : MonoBehaviour
     public void DamageBoss()
     {
         anim.Play("FinalBossInjury");
+        // anim.SetBool("attacking", false);
         health--;
+        Debug.Log("Damaged");
     }
-   
+
 }
