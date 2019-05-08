@@ -17,29 +17,33 @@ public class Attack : Node
 
     public void CheckForAttack()
     {
-        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 3)
+        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 3 && BT.health > 0)
         {
+            BT.approaching = true;
+            BT.anim.SetBool("Approach", false);
             BT.playerSpotted = true;
             BT.attacking = true;
             Debug.Log("attack" + state);
             state = Node_State.success;
             KillPlayer();
             BT.chaseSpeed = 0;
-            BT.anim.Play("FinalBossAttack");
+            BT.anim.SetBool("attacking", true);
         }
 
-        else if(Vector3.Distance(BT.transform.position, BT.distractObject.transform.position) < 3 && BT.distraction)
+        else if (Vector3.Distance(BT.transform.position, BT.distractObject.transform.position) < 3 && BT.distraction && BT.health > 0)
         {
             //play attack animation
+            BT.approaching = true;
+            BT.anim.SetBool("Approach", false);
             state = Node_State.success;
             BT.attacking = true;
             Debug.Log("attack" + state);
-           // BT.anim.Play("FinalBossAttack");
+            //BT.anim.Play("FinalBossAttack");
+            BT.anim.SetBool("attacking", true);
         }
-
         else
         {
-            // BT.playerspotted = true;
+            BT.anim.SetBool("attacking", false);
             BT.attacking = false;
             state = Node_State.faliure;
             BT.chaseSpeed = BT.movespeed;

@@ -34,7 +34,6 @@ public class Node
     {
         init = true;
         Debug.Log("I am  initialised");
-
     }
 }
 

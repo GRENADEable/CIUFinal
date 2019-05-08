@@ -22,9 +22,14 @@ public class BehaviourTree : MonoBehaviour
     public int waypointTarget;
     public GameObject[] waypoints;
     public Animator anim;
-    public Animation attack;
+    public float timeLeft = 30;
+    public Animator playerAnim;
+    // public AnimationClip approach;
+    public bool approaching;
     public void Start()
     {
+        playerAnim = player.gameObject.GetComponent<Animator>();
+        approaching = false;
         startPos = transform.position;
         SelectorNode selector = new SelectorNode();
         root = selector;
@@ -39,14 +44,53 @@ public class BehaviourTree : MonoBehaviour
     }
     public void Update()
     {
+        timeLeft -= Time.deltaTime;
+
+        if (!approaching)
+        {
+            anim.SetBool("Approach", true);
+        }
+        if (distractObject != null || distraction)
+        {
+            if (!distractObject.activeSelf || distractObject == null || health <= 0)
+            {
+                distractObject = null;
+                distraction = false;
+            }
+        }
+        if (health <= 0)
+        {
+            attacking = false;
+            anim.SetBool("Approach", false);
+            anim.SetBool("injury", false);
+            anim.SetBool("attacking", false);
+            anim.SetBool("Retreating", true);
+        }
         root.Execute();
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PickUp")
+        if (other.gameObject.tag == "PickUp" && other.gameObject.activeSelf || other.gameObject != null && health > 0)
         {
             distraction = true;
             distractObject = other.gameObject;
         }
+        else
+        {
+            distractObject = null;
+            distraction = false;
+        }
     }
+    public void KillPlayer()
+    {
+
+    }
+    public void DamageBoss()
+    {
+        anim.Play("FinalBossInjury");
+        // anim.SetBool("attacking", false);
+        health--;
+        Debug.Log("Damaged");
+    }
+
 }
