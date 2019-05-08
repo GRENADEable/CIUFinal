@@ -463,6 +463,91 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 18433549}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &24270425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 24270426}
+  - component: {fileID: 24270428}
+  - component: {fileID: 24270427}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &24270426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24270425}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.114, y: -0, z: 0.007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2069699432}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &24270427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24270425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec607f5c035e634cb81f9455060e510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageBoss:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1752086810}
+        m_MethodName: DamageBoss
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  killPlayer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1752086810}
+        m_MethodName: KillPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!135 &24270428
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24270425}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &27872330 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c0dbb53c34cda2749b4e2871718278bc,
@@ -3530,6 +3615,26 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ddaa7fcd0829e1447b53fc8a6666a688, type: 2}
+    - target: {fileID: 400008, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400020, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400026, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400014, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
   m_IsPrefabAsset: 0
@@ -4600,6 +4705,10 @@ Prefab:
     - target: {fileID: 400000, guid: 5560b789acccd8d4f9cc968760e8f6b9, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.83773535
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5560b789acccd8d4f9cc968760e8f6b9, type: 3}
+      propertyPath: m_TagString
+      value: DamageBoss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5560b789acccd8d4f9cc968760e8f6b9, type: 3}
@@ -7282,6 +7391,8 @@ MonoBehaviour:
   - {fileID: 1573716023}
   - {fileID: 855970631}
   anim: {fileID: 0}
+  timeLeft: 30
+  playerAnim: {fileID: 0}
   approaching: 0
 --- !u!95 &869179373
 Animator:
@@ -7733,6 +7844,10 @@ Prefab:
     - target: {fileID: 100000, guid: 0101f55eb9654934088c4c6195454dc0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0101f55eb9654934088c4c6195454dc0, type: 3}
+      propertyPath: m_TagString
+      value: DamageBoss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0101f55eb9654934088c4c6195454dc0, type: 3}
@@ -10208,6 +10323,92 @@ Transform:
   m_Father: {fileID: 1222949327}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1167963797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1167963798}
+  - component: {fileID: 1167963799}
+  - component: {fileID: 1167963800}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1167963798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1167963797}
+  m_LocalRotation: {x: -0.0152109, y: -0.17362754, z: -0.0026820933, w: 0.9846903}
+  m_LocalPosition: {x: -0.123, y: 0.13, z: -0.008}
+  m_LocalScale: {x: 1.0039549, y: 1.000779, z: 1.0046762}
+  m_Children: []
+  m_Father: {fileID: 1312504099}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -1.77, y: -20, z: 0}
+--- !u!114 &1167963799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1167963797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec607f5c035e634cb81f9455060e510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageBoss:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1752086810}
+        m_MethodName: DamageBoss
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  killPlayer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1752086810}
+        m_MethodName: KillPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!136 &1167963800
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1167963797}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.22548883
+  m_Height: 1.1
+  m_Direction: 2
+  m_Center: {x: 0.004619937, y: -0.19773921, z: 0.25}
 --- !u!1001 &1176421113
 Prefab:
   m_ObjectHideFlags: 0
@@ -11767,6 +11968,11 @@ Prefab:
     - {fileID: 82441651812777010, guid: b850405320d31434da9783f0ceed6885, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b850405320d31434da9783f0ceed6885, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &1312504099 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400034, guid: aa97b200852dc314fbd18b6027a0c4cd,
+    type: 3}
+  m_PrefabInternal: {fileID: 330019982}
 --- !u!1 &1321028488
 GameObject:
   m_ObjectHideFlags: 0
@@ -15398,7 +15604,7 @@ GameObject:
   - component: {fileID: 1735410778}
   m_Layer: 0
   m_Name: Cube (18)
-  m_TagString: PickUp
+  m_TagString: DamageBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15464,7 +15670,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1735410777}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.651, y: 12.57, z: 17.576}
+  m_LocalPosition: {x: 0.287, y: 12.57, z: 18.092}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -15491,13 +15697,13 @@ MonoBehaviour:
   movespeed: 0
   attacking: 0
   playerSpotted: 0
-  health: 3
+  health: 4
   distraction: 0
   target: {fileID: 0}
   timer: 0
   startPos: {x: 0, y: 0, z: 0}
   wanderDelta: 0
-  wanderSpeed: 0.01
+  wanderSpeed: 0.008
   distractObject: {fileID: 0}
   waypointTarget: 10
   waypoints:
@@ -15513,6 +15719,8 @@ MonoBehaviour:
   - {fileID: 1573716023}
   - {fileID: 855970631}
   anim: {fileID: 1752086811}
+  timeLeft: 2
+  playerAnim: {fileID: 0}
   approaching: 0
 --- !u!95 &1752086811 stripped
 Animator:
@@ -15529,8 +15737,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8414528, y: 0.5, z: 1}
-  m_Center: {x: 0.08754563, y: 0.19, z: 1.06}
+  m_Size: {x: 1.0114514, y: 0.34207454, z: 0.48761168}
+  m_Center: {x: 0.1348173, y: 0.2689627, z: 0.80380505}
 --- !u!1 &1755663271
 GameObject:
   m_ObjectHideFlags: 0
@@ -15898,7 +16106,7 @@ GameObject:
   - component: {fileID: 1773753236}
   m_Layer: 0
   m_Name: Cube (17)
-  m_TagString: PickUp
+  m_TagString: DamageBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15964,7 +16172,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1773753234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.651, y: 12.57, z: 17.992527}
+  m_LocalPosition: {x: 0.28699997, y: 12.57, z: 18.508526}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18158,6 +18366,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2059242102}
   m_Mesh: {fileID: 4300556, guid: 25a185e1b600cd742857dcbefc0739c1, type: 3}
+--- !u!4 &2069699432 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400076, guid: aa97b200852dc314fbd18b6027a0c4cd,
+    type: 3}
+  m_PrefabInternal: {fileID: 330019982}
 --- !u!1 &2072017898
 GameObject:
   m_ObjectHideFlags: 0
@@ -18924,6 +19137,8 @@ MonoBehaviour:
   waypointTarget: 0
   waypoints: []
   anim: {fileID: 0}
+  timeLeft: 30
+  playerAnim: {fileID: 0}
   approaching: 0
 --- !u!23 &2133229971
 MeshRenderer:

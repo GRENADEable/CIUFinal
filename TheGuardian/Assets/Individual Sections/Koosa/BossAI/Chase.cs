@@ -16,7 +16,7 @@ public class Chase : Node
     }
     public void Detecting()
     {
-        if (BT.player.GetComponent<PlayerControlsTestKoosa>().running)
+        if (BT.player.GetComponent<PlayerControlsTestKoosa>().running  && BT.playerAnim.GetCurrentAnimatorStateInfo(0).IsName("CourageRun"))
         {
             BT.playerSpotted = true;
             Chasing();

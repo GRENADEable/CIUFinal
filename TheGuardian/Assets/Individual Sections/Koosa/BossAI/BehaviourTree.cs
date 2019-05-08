@@ -22,10 +22,13 @@ public class BehaviourTree : MonoBehaviour
     public int waypointTarget;
     public GameObject[] waypoints;
     public Animator anim;
-   // public AnimationClip approach;
+    public float timeLeft = 30;
+    public Animator playerAnim;
+    // public AnimationClip approach;
     public bool approaching;
     public void Start()
     {
+        playerAnim = player.gameObject.GetComponent<Animator>();
         approaching = false;
         startPos = transform.position;
         SelectorNode selector = new SelectorNode();
@@ -41,6 +44,8 @@ public class BehaviourTree : MonoBehaviour
     }
     public void Update()
     {
+        timeLeft -= Time.deltaTime;
+
         if (!approaching)
         {
             anim.SetBool("Approach", true);
@@ -69,7 +74,6 @@ public class BehaviourTree : MonoBehaviour
         {
             distraction = true;
             distractObject = other.gameObject;
-            health--;
         }
         else
         {
@@ -77,4 +81,14 @@ public class BehaviourTree : MonoBehaviour
             distraction = false;
         }
     }
+    public void KillPlayer()
+    {
+
+    }
+    public void DamageBoss()
+    {
+        anim.Play("FinalBossInjury");
+        health--;
+    }
+   
 }
