@@ -10,6 +10,11 @@ public class OpeningAirVentEvent : MonoBehaviour
     public delegate void SendEvents();
     public static event SendEvents onVentIllustration;
 
+    void OnEnable()
+    {
+        key_2.SetActive(false);
+    }
+
     void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player" && Input.GetKey(KeyCode.E) && onVentIllustration != null)
