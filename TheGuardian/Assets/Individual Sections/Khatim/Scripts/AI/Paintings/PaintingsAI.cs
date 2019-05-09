@@ -104,7 +104,7 @@ public class PaintingsAI : MonoBehaviour
                     if (currTimer >= detectionDelay)
                         SwitchState(paintingState.Attack);
                 }
-                Debug.Log("Looking Around");
+                // Debug.Log("Looking Around");
                 break;
 
             case paintingState.Attack:
@@ -124,9 +124,9 @@ public class PaintingsAI : MonoBehaviour
                         onPlayerDeath();
 
                     player.SetActive(false);
-                    Debug.Log("Player Dead");
+                    // Debug.Log("Player Dead");
                 }
-                Debug.Log("Attacking Player");
+                // Debug.Log("Attacking Player");
                 break;
 
             case paintingState.Wait:
@@ -136,7 +136,7 @@ public class PaintingsAI : MonoBehaviour
                 if (currTimer >= timeToWaitBetweenRotations)
                     SwitchState(paintingState.Looking_Around);
 
-                Debug.Log("Waiting");
+                // Debug.Log("Waiting");
                 break;
         }
     }

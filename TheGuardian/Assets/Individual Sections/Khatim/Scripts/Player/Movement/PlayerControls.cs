@@ -91,6 +91,14 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetMouseButtonDown(1) && plyInteract != null && !isCrouching)
+            plyInteract.StartInteraction();
+        else if (Input.GetMouseButton(1) && plyInteract != null && !isCrouching)
+            plyInteract.UpdateInteraction();
+        if (Input.GetMouseButtonUp(1) && plyInteract != null && !isCrouching)
+            plyInteract.EndInteraction();
+
         if (!onRope)
         {
             //Storing Player's Character Controllers Height and Center
@@ -104,13 +112,6 @@ public class PlayerControls : MonoBehaviour
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
-                if (Input.GetMouseButtonDown(1) && plyInteract != null && !isCrouching)
-                    plyInteract.StartInteraction();
-                else if (Input.GetMouseButton(1) && plyInteract != null && !isCrouching)
-                    plyInteract.UpdateInteraction();
-                if (Input.GetMouseButtonUp(1) && plyInteract != null && !isCrouching)
-                    plyInteract.EndInteraction();
-
                 //Applies Movement
                 moveDirection = new Vector3(-moveVertical, 0.0f, moveHorizontal);
                 var multiplier = Mathf.Clamp01(moveDirection.magnitude) * Mathf.Lerp(walkingSpeed, runningSpeed, Input.GetAxis("Run"));
@@ -129,7 +130,7 @@ public class PlayerControls : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
                 {
                     moveDirection *= multiplier;
-                    Debug.Log("Running");
+                    // Debug.Log("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
                 {
@@ -140,14 +141,14 @@ public class PlayerControls : MonoBehaviour
                     isCrouching = true;
                     moveDirection *= crouchWalkSpeed;
                     courageAnim.SetBool("isCrouching", true);
-                    Debug.Log("Crouch Walk");
+                    // Debug.Log("Crouch Walk");
                 }
                 else
                 {
                     moveDirection *= multiplier;
                     isCrouching = false;
                     courageAnim.SetBool("isCrouching", false);
-                    Debug.Log("Walking");
+                    // Debug.Log("Walking");
                 }
 
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)

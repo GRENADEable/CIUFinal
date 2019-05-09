@@ -34,9 +34,9 @@ public class UIManager : MonoBehaviour
 
         PlayerControls.onChangeLevelText += OnChangeLevelTextReceived;
 
-        KeyCollector.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
-        KeyCollector.onFirstKeyIllustration += OnSecondKeyIllustrationReceived;
-        KeyCollector.onFirstKeyIllustration += OnThirdKeyIllustrationReceived;
+        GameManager.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
+        GameManager.onSecondKeyIllustration += OnSecondKeyIllustrationReceived;
+        GameManager.onThirdKeyIllustration += OnThirdKeyIllustrationReceived;
 
         OpeningAirVentEvent.onVentIllustration += OnVentIllustrationReceived;
         gm = GetComponent<GameManager>();
@@ -50,9 +50,9 @@ public class UIManager : MonoBehaviour
 
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
 
-        KeyCollector.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
-        KeyCollector.onFirstKeyIllustration -= OnSecondKeyIllustrationReceived;
-        KeyCollector.onFirstKeyIllustration -= OnThirdKeyIllustrationReceived;
+        GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
+        GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
+        GameManager.onThirdKeyIllustration -= OnThirdKeyIllustrationReceived;
 
         OpeningAirVentEvent.onVentIllustration -= OnVentIllustrationReceived;
     }
@@ -64,9 +64,9 @@ public class UIManager : MonoBehaviour
         PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
 
-        KeyCollector.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
-        KeyCollector.onFirstKeyIllustration -= OnSecondKeyIllustrationReceived;
-        KeyCollector.onFirstKeyIllustration -= OnThirdKeyIllustrationReceived;
+        GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
+        GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
+        GameManager.onThirdKeyIllustration -= OnThirdKeyIllustrationReceived;
 
         OpeningAirVentEvent.onVentIllustration -= OnVentIllustrationReceived;
     }
@@ -166,23 +166,24 @@ public class UIManager : MonoBehaviour
     void OnVentIllustrationReceived()
     {
         ventKeyIllustration.SetActive(true);
+        OpeningAirVentEvent.onVentIllustration -= OnVentIllustrationReceived;
     }
 
     void OnFirstKeyIllustrationReceived()
     {
         firstKeyIllustration.SetActive(true);
-        KeyCollector.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
+        GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
     }
 
     void OnSecondKeyIllustrationReceived()
     {
         secondKeyIllustration.SetActive(true);
-        KeyCollector.onFirstKeyIllustration -= OnSecondKeyIllustrationReceived;
+        GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
     }
 
     void OnThirdKeyIllustrationReceived()
     {
         thirdKeyIllustration.SetActive(true);
-        KeyCollector.onFirstKeyIllustration -= OnThirdKeyIllustrationReceived;
+        GameManager.onThirdKeyIllustration -= OnThirdKeyIllustrationReceived;
     }
 }

@@ -7,13 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public bool isPlayerDead;
     public int keyCounter;
-    public GameObject endHallwayDoor;
 
     public delegate void SendMessageToManagers();
     public static event SendMessageToManagers onPaintingsAwakeMessage;
+    public static event SendMessageToManagers onFirstKeyIllustration;
+    public static event SendMessageToManagers onSecondKeyIllustration;
+    public static event SendMessageToManagers onThirdKeyIllustration;
     // public static event SendMessageToManagers onKeyMove;
     public static event SendMessageToManagers onIncreaseEyeSpeed;
-    public static event SendMessageToManagers onEnableTransition;
 
     void OnEnable()
     {
@@ -32,28 +33,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (endHallwayDoor != null)
+        if (keyCounter >= 1 && onPaintingsAwakeMessage != null && onFirstKeyIllustration != null)
         {
-            if (keyCounter >= 3)
-            {
-                endHallwayDoor.GetComponent<Rigidbody>().isKinematic = false;
-                if (onEnableTransition != null)
-                {
-                    onEnableTransition();
-                    onEnableTransition = null;
-                }
-            }
-            else
-                endHallwayDoor.GetComponent<Rigidbody>().isKinematic = true;
+            onPaintingsAwakeMessage();
+            onFirstKeyIllustration();
         }
 
-        if (keyCounter >= 1 && onPaintingsAwakeMessage != null)
-
-            onPaintingsAwakeMessage();
-
-
-        if (keyCounter >= 2 && onIncreaseEyeSpeed != null)
+        if (keyCounter >= 2 && onIncreaseEyeSpeed != null && onSecondKeyIllustration != null)
+        {
             onIncreaseEyeSpeed();
+            onSecondKeyIllustration();
+        }
+
+        if (keyCounter >= 3 && onThirdKeyIllustration != null)
+            onThirdKeyIllustration();
     }
 
     void OnKeyDropEventReceived()

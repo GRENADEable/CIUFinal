@@ -40,7 +40,7 @@ public class ObjectPickup : PlayerInteraction
         // objectFixedJoint.connectedBody = pivotDummyForObjectPickup;
         // rgObject.useGravity = false;
         // // interactCol.GetComponent<Collider>().isTrigger = true;
-        // Debug.Log("Object Picked Up");
+        Debug.Log("Object Picked Up");
     }
     public override void UpdateInteraction()
     {
@@ -49,6 +49,7 @@ public class ObjectPickup : PlayerInteraction
             courageAnim.SetBool("isInteracting", false);
             courageAnim.SetTrigger("throw");
             interactCol.transform.parent = null;
+            rgObject.isKinematic = false;
             rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
             rgObject.useGravity = true;
             plyControls.isPickingObject = false;
@@ -61,7 +62,7 @@ public class ObjectPickup : PlayerInteraction
             // rgObject.useGravity = true;
             // // interactCol.GetComponent<Collider>().isTrigger = false;
             // plyControls.isPickingObject = false;
-            // // Debug.Log("Object Thrown");
+            Debug.Log("Object Thrown");
         }
     }
     public override void EndInteraction()
@@ -80,7 +81,7 @@ public class ObjectPickup : PlayerInteraction
         // // interactCol.GetComponent<Collider>().isTrigger = false;
         // base.EndInteraction();
         // plyControls.isPickingObject = false;
-        // Debug.Log("Object Pickup Ended");
+        Debug.Log("Object Pickup Ended");
 
         if (onKeyDropEvent != null)
             onKeyDropEvent();

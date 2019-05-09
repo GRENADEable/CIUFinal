@@ -20,7 +20,6 @@ public class EventManager : MonoBehaviour
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove += OnKeyMovementEventReceived;
         PlayerControls.onKeyMove += OnKeyMovementEventReceived;
-        GameManager.onEnableTransition += OnEnableTranistionReceived;
 
         if (keyReference == null)
             Debug.LogWarning("Add Key Reference");
@@ -49,7 +48,6 @@ public class EventManager : MonoBehaviour
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove -= OnKeyMovementEventReceived;
         PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
-        GameManager.onEnableTransition -= OnEnableTranistionReceived;
     }
 
     void OnDestroy()
@@ -58,7 +56,6 @@ public class EventManager : MonoBehaviour
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
-        GameManager.onEnableTransition -= OnEnableTranistionReceived;
     }
     void OnRopeBreakEventReceived()
     {
