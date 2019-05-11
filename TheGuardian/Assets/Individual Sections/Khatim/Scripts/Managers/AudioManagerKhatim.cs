@@ -20,7 +20,12 @@ public class AudioManagerKhatim : MonoBehaviour
         SceneManage.onNurserySceneMusic += OnNurserySceneMusicReceived;
 
         PlayerControls.onPlayHallwayOST += OnHallwaySceneMusicReceived;
+        PlayerControls.onPlayerJumpAudio += OnPlayerJumpAudioReceived;
+        PlayerControls.onRopeBreakAudio += OnRopeBreakAudioReceived;
 
+        LightMechanic.onStartLightAudio += OnStartLightAudioReceived;
+
+        ParentsAruguingEvent.onKeyDropAudio += OnKeyDropAudioReceived;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -32,6 +37,13 @@ public class AudioManagerKhatim : MonoBehaviour
         SceneManage.onNurserySceneMusic -= OnNurserySceneMusicReceived;
 
         PlayerControls.onPlayHallwayOST -= OnHallwaySceneMusicReceived;
+        PlayerControls.onPlayerJumpAudio -= OnPlayerJumpAudioReceived;
+        PlayerControls.onRopeBreakAudio -= OnRopeBreakAudioReceived;
+
+
+        LightMechanic.onStartLightAudio -= OnStartLightAudioReceived;
+
+        ParentsAruguingEvent.onKeyDropAudio -= OnKeyDropAudioReceived;
     }
 
     void OnDestroy()
@@ -42,6 +54,12 @@ public class AudioManagerKhatim : MonoBehaviour
         SceneManage.onNurserySceneMusic -= OnNurserySceneMusicReceived;
 
         PlayerControls.onPlayHallwayOST -= OnHallwaySceneMusicReceived;
+        PlayerControls.onPlayerJumpAudio -= OnPlayerJumpAudioReceived;
+        PlayerControls.onRopeBreakAudio -= OnRopeBreakAudioReceived;
+
+        LightMechanic.onStartLightAudio -= OnStartLightAudioReceived;
+
+        ParentsAruguingEvent.onKeyDropAudio -= OnKeyDropAudioReceived;
     }
 
     void StopAudio()
@@ -84,5 +102,25 @@ public class AudioManagerKhatim : MonoBehaviour
         StopAudio();
         // mainMenuOST.Play();
         // mainMenuOST.loop = true;
+    }
+
+    void OnStartLightAudioReceived()
+    {
+        AudioAccess(0);
+    }
+
+    void OnPlayerJumpAudioReceived()
+    {
+        AudioAccess(1);
+    }
+
+    void OnKeyDropAudioReceived()
+    {
+        AudioAccess(2);
+    }
+
+    void OnRopeBreakAudioReceived()
+    {
+        AudioAccess(3);
     }
 }

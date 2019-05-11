@@ -38,6 +38,9 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onPlayHallwayOST;
     public static event SendEvents onRopeBreakMessage;
     public static event SendEvents onKeyMove;
+    public static event SendEvents onPlayerJumpAudio;
+    public static event SendEvents onRopeBreakAudio;
+    public static event SendEvents onRopeBreakIllustration;
     #endregion
 
     #region Player Movement
@@ -54,6 +57,7 @@ public class PlayerControls : MonoBehaviour
     private Collider interactCol;
     #endregion
 
+    [SerializeField]
     private float gravity;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
@@ -67,7 +71,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField]
     private float defaultRunningSpeed;
     [SerializeField]
-    private float superJump;
+    private float superJumpGravity;
     [SerializeField]
     private float defaultJump;
     #endregion
@@ -188,11 +192,13 @@ public class PlayerControls : MonoBehaviour
     {
         if (isSuperJump)
         {
-            jumpPower = superJump;
+            // jumpPower = superJump;
+            gravity = superJumpGravity;
         }
         else if (!isSuperJump)
         {
-            jumpPower = defaultJump;
+            // jumpPower = defaultJump;
+            gravity = defaultGravity;
         }
     }
 
@@ -245,8 +251,12 @@ public class PlayerControls : MonoBehaviour
 
         if (other.tag == "RopeBreak")
         {
-            if (onRopeBreakMessage != null)
+            if (onRopeBreakMessage != null && onRopeBreakAudio != null && onRopeBreakIllustration != null)
+            {
                 onRopeBreakMessage();
+                onRopeBreakAudio();
+                onRopeBreakIllustration();
+            }
 
             gravity = gravityAfterRopeBreak;
             // Debug.Log("Rope Broken");
@@ -254,11 +264,12 @@ public class PlayerControls : MonoBehaviour
 
         if (other.gameObject.tag == "End")
         {
-            if (onChangeLevelToHallway != null && onChangeLevelText != null && onPlayHallwayOST != null)
+            if (onChangeLevelToHallway != null && onChangeLevelText != null)
             {
                 onChangeLevelToHallway();
                 onChangeLevelText();
-                onPlayHallwayOST();
+                if (onPlayHallwayOST != null)
+                    onPlayHallwayOST();
             }
         }
     }
@@ -308,6 +319,8 @@ public class PlayerControls : MonoBehaviour
     {
         float jumpForce = Mathf.Sqrt(jumpPower * Mathf.Abs(defaultGravity) * 2);
         moveDirection.y = jumpForce;
+        if (onPlayerJumpAudio != null)
+            onPlayerJumpAudio();
 
         if (!lightMechanic.lightOn)
             courageAnim.SetTrigger("isJumping"); // Courage Jump Animation

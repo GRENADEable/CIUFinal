@@ -18,8 +18,8 @@ public class EventManager : MonoBehaviour
     {
         PlayerControls.onRopeBreakMessage += OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
-        ParentsAruguingEvent.onKeyMove += OnKeyMovementEventReceived;
-        PlayerControls.onKeyMove += OnKeyMovementEventReceived;
+        ParentsAruguingEvent.onKeyMove += OnKeyMoveReceived;
+        PlayerControls.onKeyMove += OnKeyMoveReceived;
 
         if (keyReference == null)
             Debug.LogWarning("Add Key Reference");
@@ -46,16 +46,16 @@ public class EventManager : MonoBehaviour
     {
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
-        ParentsAruguingEvent.onKeyMove -= OnKeyMovementEventReceived;
-        PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
+        ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
+        PlayerControls.onKeyMove -= OnKeyMoveReceived;
     }
 
     void OnDestroy()
     {
-        ParentsAruguingEvent.onKeyMove -= OnKeyMovementEventReceived;
+        ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
         PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
-        PlayerControls.onKeyMove -= OnKeyMovementEventReceived;
+        PlayerControls.onKeyMove -= OnKeyMoveReceived;
     }
     void OnRopeBreakEventReceived()
     {
@@ -67,7 +67,7 @@ public class EventManager : MonoBehaviour
             woodenPlank.SetActive(false);
             // fadeToBlackObj.SetActive(true);
             OnEnableTranistionReceived();
-            Debug.LogWarning("Rope Broken");
+            Debug.Log("Rope Broken");
         }
     }
 
@@ -81,7 +81,7 @@ public class EventManager : MonoBehaviour
         Debug.Log("Paintings Awake");
     }
 
-    void OnKeyMovementEventReceived()
+    void OnKeyMoveReceived()
     {
         keyReference.GetComponent<Rigidbody>().AddForce(keyReference.transform.up * moveForce + keyReference.transform.forward * moveForce);
         Debug.Log("Key Moved");

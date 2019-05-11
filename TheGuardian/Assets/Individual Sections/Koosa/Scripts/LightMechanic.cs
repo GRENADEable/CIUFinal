@@ -5,9 +5,10 @@ using UnityEngine;
 public class LightMechanic : MonoBehaviour
 {
     public GameObject match;
-    public delegate void FleeEnemy();
-    public static event FleeEnemy onFleeEnemy;
-    public static event FleeEnemy onChasePlayer;
+    public delegate void SendEvents();
+    public static event SendEvents onFleeEnemy;
+    public static event SendEvents onChasePlayer;
+    public static event SendEvents onStartLightAudio;
 
     public bool lightOn;
     [SerializeField]
@@ -34,6 +35,8 @@ public class LightMechanic : MonoBehaviour
             match.SetActive(true);
             lightOn = true;
             courageAnim.SetBool("isWithTorch", true);
+            if (onStartLightAudio != null)
+                onStartLightAudio();
         }
         else if (Input.GetKeyDown(KeyCode.F) && lightOn)
         {
@@ -60,36 +63,6 @@ public class LightMechanic : MonoBehaviour
             col = null;
         }
     }
-
-    /*
-    void Matchlight()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && matchesCount > 0 && !match.activeSelf)
-        {
-            if (fuelTimer > 0)
-            {
-                match.SetActive(true);
-            }
-
-            if (fuelTimer < 0)
-            {
-                match.SetActive(false);
-            }
-        }
-
-        if (match.activeSelf)
-        {
-            fuelTimer -= Time.deltaTime;
-            if (OnFleeEnemy != null)
-                OnFleeEnemy();
-        }
-        if (fuelTimer <= 0)
-        {
-            matchesCount = 0;
-            fuelTimer = maxFuelTimer;
-            match.SetActive(false);
-        }
-    }*/
 
     public void GiveMatchStick()
     {

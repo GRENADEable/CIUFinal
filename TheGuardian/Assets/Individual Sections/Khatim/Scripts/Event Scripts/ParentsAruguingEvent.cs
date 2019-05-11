@@ -7,32 +7,88 @@ public class ParentsAruguingEvent : MonoBehaviour
     public float firstKeyMove;
     public float secondKeyMove;
 
-    public delegate void SendMessageToManagers();
-    public static event SendMessageToManagers onKeyMove;
+    public delegate void SendEvents();
+    public static event SendEvents onKeyMove;
+    public static event SendEvents onKeyDropAudio;
+    public float distance;
+    public float keyDropEventStart;
+    public GameObject player;
+    public AudioSource parentsAud;
 
     [SerializeField]
     private float time;
     private bool keyMovedOnce;
     private bool keyMovedTwice;
-    private bool keyMovedThrice;
-    void OnTriggerStay(Collider other)
+    [SerializeField]
+    private bool eventStarted;
+    private Collider eventCol;
+
+    void OnEnable()
     {
-        if (other.tag == "Player")
+        parentsAud = GetComponent<AudioSource>();
+        eventCol = GetComponent<Collider>();
+    }
+
+    void Update()
+    {
+        distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance <= keyDropEventStart)
         {
-            time += Time.deltaTime;
-
-            if (time >= firstKeyMove && onKeyMove != null && !keyMovedOnce)
+            eventStarted = true;
+            if (eventStarted)
             {
-                onKeyMove();
-                keyMovedOnce = true;
-            }
+                // time += Time.deltaTime;
+                time = parentsAud.time;
 
+                if (time >= firstKeyMove && onKeyMove != null && !keyMovedOnce)
+                {
+                    onKeyMove();
+                    keyMovedOnce = true;
+                }
 
-            if (time >= secondKeyMove && onKeyMove != null && keyMovedOnce && !keyMovedTwice)
-            {
-                onKeyMove();
-                keyMovedTwice = true;
+                if (time >= secondKeyMove && onKeyMove != null && keyMovedOnce && /*/onKeyDropAudio != null*/ !keyMovedTwice)
+                {
+                    onKeyMove();
+                    keyMovedTwice = true;
+                    eventCol.enabled = false;
+                    // onKeyDropAudio();
+                }
             }
         }
+        else if (distance >= keyDropEventStart)
+            eventStarted = false;
+    }
+
+    // void OnTriggerStay(Collider other)
+    // {
+    //     if (other.tag == "Player")
+    //     {
+    //         time += Time.deltaTime;
+
+    //         if (time >= firstKeyMove && onKeyMove != null && !keyMovedOnce)
+    //         {
+    //             onKeyMove();
+    //             keyMovedOnce = true;
+    //         }
+
+    //         if (time >= secondKeyMove && onKeyMove != null && keyMovedOnce && !keyMovedTwice)
+    //         {
+    //             onKeyMove();
+    //             keyMovedTwice = true;
+    //         }
+    //     }
+    // }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+            parentsAud.Play();
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+            parentsAud.Pause();
     }
 }
