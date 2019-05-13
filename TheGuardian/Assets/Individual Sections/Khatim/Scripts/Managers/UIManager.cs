@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour
 {
     [Header("Main Menu UI")]
     public GameObject mainmenuPanel;
-    public GameObject settingsPanel;
 
     [Header("In Game UI")]
     public GameObject changeLevelPanel;
@@ -75,10 +74,9 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        if (mainmenuPanel != null && settingsPanel != null)
+        if (mainmenuPanel != null)
         {
             mainmenuPanel.SetActive(true);
-            settingsPanel.SetActive(false);
         }
         else
             Debug.LogWarning("Main Menu UI");
@@ -138,18 +136,6 @@ public class UIManager : MonoBehaviour
     public void CheatPanelToggle()
     {
         cheatPanel.SetActive(!cheatPanel.activeSelf);
-    }
-
-    public void Settings()
-    {
-        mainmenuPanel.SetActive(false);
-        settingsPanel.SetActive(true);
-    }
-
-    public void SettingsToMainMenu()
-    {
-        settingsPanel.SetActive(false);
-        mainmenuPanel.SetActive(true);
     }
 
     void OnDeadPlayerScreenReceived()
