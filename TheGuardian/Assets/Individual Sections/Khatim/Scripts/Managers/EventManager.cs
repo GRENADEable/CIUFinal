@@ -16,10 +16,9 @@ public class EventManager : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerControls.onRopeBreakMessage += OnRopeBreakEventReceived;
+        PlayerControls.onRopeBreak += OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove += OnKeyMoveReceived;
-        PlayerControls.onKeyMove += OnKeyMoveReceived;
 
         if (keyReference == null)
             Debug.LogWarning("Add Key Reference");
@@ -44,18 +43,16 @@ public class EventManager : MonoBehaviour
 
     void OnDisable()
     {
-        PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
+        PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
-        PlayerControls.onKeyMove -= OnKeyMoveReceived;
     }
 
     void OnDestroy()
     {
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
-        PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
+        PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
-        PlayerControls.onKeyMove -= OnKeyMoveReceived;
     }
     void OnRopeBreakEventReceived()
     {

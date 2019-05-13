@@ -9,7 +9,7 @@ public class ParentsAruguingEvent : MonoBehaviour
 
     public delegate void SendEvents();
     public static event SendEvents onKeyMove;
-    public static event SendEvents onKeyDropAudio;
+    // public static event SendEvents onKeyDropAudio;
     public float distance;
     public float keyDropEventStart;
     public GameObject player;

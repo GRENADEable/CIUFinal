@@ -12,8 +12,6 @@ public class UIManager : MonoBehaviour
 
     [Header("In Game UI")]
     public GameObject changeLevelPanel;
-    [Header("Attic UI")]
-    public GameObject ropeBreakIllustration;
     [Header("Hallway UI")]
     public GameObject firstKeyIllustration;
     public GameObject secondKeyIllustration;
@@ -36,7 +34,6 @@ public class UIManager : MonoBehaviour
         PaintingsAI.onPlayerDeath += OnDeadPlayerScreenReceived;
 
         PlayerControls.onChangeLevelText += OnChangeLevelTextReceived;
-        PlayerControls.onRopeBreakIllustration += OnRopeBreakIllustrationReceived;
 
         GameManager.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration += OnSecondKeyIllustrationReceived;
@@ -53,7 +50,6 @@ public class UIManager : MonoBehaviour
         PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
 
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
-        PlayerControls.onRopeBreakIllustration -= OnRopeBreakIllustrationReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
@@ -69,7 +65,6 @@ public class UIManager : MonoBehaviour
         PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
 
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
-        PlayerControls.onRopeBreakIllustration -= OnRopeBreakIllustrationReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
@@ -192,10 +187,5 @@ public class UIManager : MonoBehaviour
     {
         thirdKeyIllustration.SetActive(true);
         GameManager.onThirdKeyIllustration -= OnThirdKeyIllustrationReceived;
-    }
-
-    void OnRopeBreakIllustrationReceived()
-    {
-        ropeBreakIllustration.SetActive(true);
     }
 }

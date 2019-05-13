@@ -8,7 +8,7 @@ public class LightMechanic : MonoBehaviour
     public delegate void SendEvents();
     public static event SendEvents onFleeEnemy;
     public static event SendEvents onChasePlayer;
-    public static event SendEvents onStartLightAudio;
+    public AudioSource litMatchstickAud;
 
     public bool lightOn;
     [SerializeField]
@@ -29,20 +29,20 @@ public class LightMechanic : MonoBehaviour
 
     void Update()
     {
-        //picking up a match comes here
+        //  Picking up a match comes here
         if (Input.GetKeyDown(KeyCode.F) && !lightOn && matchesCount > 0 && !match.activeSelf)
         {
             match.SetActive(true);
             lightOn = true;
             courageAnim.SetBool("isWithTorch", true);
-            if (onStartLightAudio != null)
-                onStartLightAudio();
+            litMatchstickAud.Play();
         }
         else if (Input.GetKeyDown(KeyCode.F) && lightOn)
         {
             match.SetActive(false);
             lightOn = false;
             courageAnim.SetBool("isWithTorch", false);
+            litMatchstickAud.Stop();
         }
 
         if (match.activeSelf)

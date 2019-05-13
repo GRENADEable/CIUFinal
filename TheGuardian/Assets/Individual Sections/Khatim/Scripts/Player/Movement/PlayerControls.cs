@@ -17,6 +17,14 @@ public class PlayerControls : MonoBehaviour
     public float pushRotationSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
+    [Header("Player Audio")]
+    public AudioSource jumpAud;
+    public AudioSource ropeBreakAud;
+    public AudioSource footStepAud;
+    // public float footStepStartTime;
+    // public float footStepEndTime;
+    public float lowPitchRange; // 0.75F;
+    public float highPitchRange; // 1.5F;
 
     [Header("Player Jump Variables")]
     public float jumpPower;
@@ -35,12 +43,7 @@ public class PlayerControls : MonoBehaviour
     public delegate void SendEvents();
     public static event SendEvents onChangeLevelToHallway;
     public static event SendEvents onChangeLevelText;
-    public static event SendEvents onPlayHallwayOST;
-    public static event SendEvents onRopeBreakMessage;
-    public static event SendEvents onKeyMove;
-    public static event SendEvents onPlayerJumpAudio;
-    public static event SendEvents onRopeBreakAudio;
-    public static event SendEvents onRopeBreakIllustration;
+    public static event SendEvents onRopeBreak;
     #endregion
 
     #region Player Movement
@@ -91,6 +94,9 @@ public class PlayerControls : MonoBehaviour
         courageAnim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerCenter = charController.center.y;
+
+        // footStepAud.SetScheduledStartTime(footStepStartTime);
+        // footStepAud.SetScheduledEndTime(footStepEndTime);
     }
 
     void Update()
@@ -251,12 +257,8 @@ public class PlayerControls : MonoBehaviour
 
         if (other.tag == "RopeBreak")
         {
-            if (onRopeBreakMessage != null && onRopeBreakAudio != null && onRopeBreakIllustration != null)
-            {
-                onRopeBreakMessage();
-                onRopeBreakAudio();
-                onRopeBreakIllustration();
-            }
+            if (onRopeBreak != null)
+                onRopeBreak();
 
             gravity = gravityAfterRopeBreak;
             // Debug.Log("Rope Broken");
@@ -268,8 +270,6 @@ public class PlayerControls : MonoBehaviour
             {
                 onChangeLevelToHallway();
                 onChangeLevelText();
-                if (onPlayHallwayOST != null)
-                    onPlayHallwayOST();
             }
         }
     }
@@ -319,12 +319,10 @@ public class PlayerControls : MonoBehaviour
     {
         float jumpForce = Mathf.Sqrt(jumpPower * Mathf.Abs(defaultGravity) * 2);
         moveDirection.y = jumpForce;
-        if (onPlayerJumpAudio != null)
-            onPlayerJumpAudio();
+        jumpAud.Play();
 
         if (!lightMechanic.lightOn)
             courageAnim.SetTrigger("isJumping"); // Courage Jump Animation
-
         else
             courageAnim.SetTrigger("isJumpingWithTorch"); // Courage Jump Animation with Light
     }
@@ -338,5 +336,12 @@ public class PlayerControls : MonoBehaviour
     void CanMove()
     {
         isPickingUp = false;
+    }
+
+    void PlayFootStep()
+    {
+        footStepAud.pitch = Random.Range(lowPitchRange, highPitchRange);
+        footStepAud.Play();
+        Debug.Log("Footstep Audio Playing");
     }
 }
