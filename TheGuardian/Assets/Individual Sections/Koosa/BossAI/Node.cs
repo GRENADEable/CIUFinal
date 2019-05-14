@@ -14,9 +14,6 @@ public class Node
     public Node_State state;
     public bool process;
 
-
-
-
     public void Start()
     {
         for (int i = 0; i < children.Count; i++)
@@ -33,15 +30,6 @@ public class Node
     public virtual void Execute()
     {
         init = true;
-        Debug.Log("I am  initialised");
+        // Debug.Log("I am  initialised");
     }
 }
-
-
-
-
-
-
-
-
-

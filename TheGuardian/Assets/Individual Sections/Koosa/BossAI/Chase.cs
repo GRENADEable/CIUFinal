@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Chase : Node
 {
-
-
-    public Vector3 targetDir;
-
     public override void Execute()
     {
         base.Execute();
@@ -15,21 +11,16 @@ public class Chase : Node
     }
     public void Detecting()
     {
-        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 1)
-        {
+        if (BT.distanceToPlayer < BT.distanceForPlayerToBeSpotted)
             BT.playerSpotted = true;
-        }
         else
             BT.playerSpotted = false;
-
-        
-
 
         if (BT.player.GetComponent<PlayerControls>().running || BT.playerSpotted)
         {
             BT.playerSpotted = true;
             Chasing();
-            if(Vector3.Distance(BT.transform.position, BT.player.transform.position) < 0.8)
+            if (BT.distanceToPlayer <= BT.distanceToAttackPlayer)
             {
                 state = Node_State.success;
             }
@@ -37,16 +28,13 @@ public class Chase : Node
         else if (BT.distraction)
         {
             Distracted();
-            if (BT.distraction && Vector3.Distance(BT.transform.position, BT.distractObject.transform.position) < 0.8)
-            {
+            if (BT.distraction && Vector3.Distance(BT.transform.position, BT.distractObject.transform.position) < BT.distanceToAttackDistractObject)
                 state = Node_State.success;
-            }
         }
         else
             state = Node_State.faliure;
         BT.playerSpotted = false;
     }
-
 
     public void Chasing()
     {

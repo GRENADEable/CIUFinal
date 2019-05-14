@@ -17,9 +17,9 @@ public class TriggerDamageEvent : MonoBehaviour
             Destroy(other);
             Debug.Log("yikes");
             entered = true;
-            other.gameObject.SetActive(false);
+            // other.gameObject.SetActive(false);
         }
-         if (other.gameObject.tag == "Player" && BT.attacking)
+        if (other.gameObject.tag == "Player" && BT.attacking)
         {
             killPlayer.Invoke();
         }
@@ -29,5 +29,4 @@ public class TriggerDamageEvent : MonoBehaviour
             other.gameObject.SetActive(false);
         }
     }
-
 }

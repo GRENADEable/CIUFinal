@@ -43,7 +43,7 @@ public class EYEpaintings2 : MonoBehaviour
             time = time + Time.deltaTime;
             delta = Mathf.Sin(time * lookaroundSpeed);
             transform.localRotation = Quaternion.Euler(maxAngleX, delta * maxAngleY, maxAngleZ);
-            Debug.Log(rotationInt);
+            // Debug.Log(rotationInt);
             // Debug.Log(transform.eulerAngles.y);
             if ((transform.rotation.eulerAngles.y >= firstRotationSmaller && transform.rotation.eulerAngles.y <= firstRotationBigger) || (transform.rotation.eulerAngles.y >= firstRotationBigger && transform.rotation.eulerAngles.y <= firstRotationSmaller))
             {

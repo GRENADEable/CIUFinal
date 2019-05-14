@@ -5,32 +5,34 @@ using UnityEngine.AI;
 
 public class BehaviourTree : MonoBehaviour
 {
-    public Node root;
-    public GameObject player;
-    public float chaseSpeed;
-    public float movespeed;
+    [Header("Distance Checks")]
+    public float distanceToAttackPlayer; //0.8
+    public float distanceToAttackDistractObject;//0.8
+    public float distanceForPlayerToBeSpotted; //1
+    public float distractionArea; //1.5
+    public float distanceToPlayer;
+
+    [Header("Bool Checks")]
     public bool attacking;
     public bool playerSpotted;
-    public float health;
     public bool distraction;
-    public Transform target;
-    public float timer;
-    public Vector3 startPos;
-    public float wanderDelta;
+    private Node root;
+    public GameObject player;
+    [Header("Boss Variables")]
+    public float health;
     public float wanderSpeed;
+    [HideInInspector]
     public GameObject distractObject;
+    [HideInInspector]
     public int waypointTarget;
     public GameObject[] waypoints;
     public Animator anim;
-    public float timeLeft = 30;
+    public float timeLeft;
     public Animator playerAnim;
-    // public AnimationClip approach;
-    public bool approaching;
+
     public void Start()
     {
         playerAnim = player.gameObject.GetComponent<Animator>();
-        approaching = false;
-        startPos = transform.position;
         SelectorNode selector = new SelectorNode();
         root = selector;
 
@@ -45,6 +47,8 @@ public class BehaviourTree : MonoBehaviour
     public void Update()
     {
         timeLeft -= Time.deltaTime;
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
         if (distractObject != null || distraction)
         {
             if (!distractObject.activeSelf || distractObject == null || health <= 0)
@@ -56,9 +60,6 @@ public class BehaviourTree : MonoBehaviour
         if (health <= 0)
         {
             attacking = false;
-            anim.SetBool("Approach", false);
-            anim.SetBool("injury", false);
-            anim.SetBool("attacking", false);
             anim.SetBool("Retreating", true);
         }
         root.Execute();
@@ -71,7 +72,7 @@ public class BehaviourTree : MonoBehaviour
             distraction = true;
             distractObject = other.gameObject;
         }
-        else if(other.gameObject.tag == "Player" && health > 0)
+        else if (other.gameObject.tag == "Player" && health > 0)
         {
             playerSpotted = true;
         }
@@ -89,7 +90,6 @@ public class BehaviourTree : MonoBehaviour
     public void DamageBoss()
     {
         anim.Play("FinalBossInjury");
-        // anim.SetBool("attacking", false);
         health--;
         Debug.Log("Damaged");
     }
@@ -97,15 +97,12 @@ public class BehaviourTree : MonoBehaviour
     {
         distractObject.SetActive(false);
     }
-    public void Distraction( GameObject obj)
+    public void Distraction(GameObject obj)
     {
-        if (Vector3.Distance(transform.position, obj.transform.position) < 1.5)
+        if (Vector3.Distance(transform.position, obj.transform.position) < distractionArea)
         {
-
-
             distraction = true;
             distractObject = obj;
         }
     }
-
 }

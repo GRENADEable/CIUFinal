@@ -10,10 +10,10 @@ public class Imapct : MonoBehaviour
     public float desiredMagnitude;
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.relativeVelocity.magnitude);
+        // Debug.Log(collision.relativeVelocity.magnitude);
         if (collision.relativeVelocity.magnitude > desiredMagnitude)
         {
-            Debug.Log("NICE NICE");
+            Debug.Log("Distracting Boss");
             distractEnemy.Invoke();
         }
     }
