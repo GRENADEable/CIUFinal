@@ -17,6 +17,12 @@ public class PlayerControls : MonoBehaviour
     public float pushRotationSpeed;
     public float crouchColShrinkValue; //Initial Value is 0.5f
     public float crouchColCenterValue; //Initial Value is 2
+    [Header("Player Audio")]
+    public AudioSource jumpAud;
+    public AudioSource ropeBreakAud;
+    public AudioSource footStepAud;
+    public float lowPitchRange; // 0.75F;
+    public float highPitchRange; // 1.5F;
 
     [Header("Player Jump Variables")]
     public float jumpPower;
@@ -36,12 +42,9 @@ public class PlayerControls : MonoBehaviour
     public delegate void SendEvents();
     public static event SendEvents onChangeLevelToHallway;
     public static event SendEvents onChangeLevelText;
-    public static event SendEvents onPlayHallwayOST;
-    public static event SendEvents onRopeBreakMessage;
-    public static event SendEvents onKeyMove;
-    public static event SendEvents onPlayerJumpAudio;
-    public static event SendEvents onRopeBreakAudio;
-    public static event SendEvents onRopeBreakIllustration;
+    public static event SendEvents onRopeBreak;
+    public static event SendEvents onDeadPlayer;
+    public static event SendEvents onFadeOut;
     #endregion
 
     #region Player Movement
@@ -92,10 +95,31 @@ public class PlayerControls : MonoBehaviour
         courageAnim = GetComponent<Animator>();
         playerHeight = charController.height;
         playerCenter = charController.center.y;
+
+        RatBlockerFSM.onPlayerDeath += OnPlayerDeathReceived;
+        RatFSM.onPlayerDeath += OnPlayerDeathReceived;
+        PaintingsAI.onPlayerDeath += OnPlayerDeathReceived;
+    }
+
+    void OnDisable()
+    {
+        RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived;
+        RatFSM.onPlayerDeath -= OnPlayerDeathReceived;
+        PaintingsAI.onPlayerDeath -= OnPlayerDeathReceived;
+    }
+
+    void OnDestroy()
+    {
+        RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived;
+        RatFSM.onPlayerDeath -= OnPlayerDeathReceived;
+        PaintingsAI.onPlayerDeath -= OnPlayerDeathReceived;
     }
 
     void Update()
     {
+        //Gets Player Inputs
+        moveVertical = Input.GetAxis("Vertical");
+        moveHorizontal = Input.GetAxis("Horizontal");
 
         if (Input.GetMouseButtonDown(1) && plyInteract != null && !isCrouching)
             plyInteract.StartInteraction();
@@ -110,10 +134,6 @@ public class PlayerControls : MonoBehaviour
             float localHeight = playerHeight;
             float localCenter = playerCenter;
 
-            //Gets Player Inputs
-            moveVertical = Input.GetAxis("Vertical");
-            moveHorizontal = Input.GetAxis("Horizontal");
-
             //Checks if the player is on the Ground
             if (charController.isGrounded)
             {
@@ -126,7 +146,7 @@ public class PlayerControls : MonoBehaviour
                 courageAnim.SetFloat("speed", multiplier / runningSpeed);
 
                 //Applies Roatation relative to What Key is Pressed
-                if (moveDirection != Vector3.zero && !isPushingOrPulling)
+                if (moveDirection != Vector3.zero && !isPushingOrPulling && !isPickingUp)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed * Time.deltaTime);
 
                 if (isPushingOrPulling && moveDirection != Vector3.zero)
@@ -157,9 +177,7 @@ public class PlayerControls : MonoBehaviour
                 }
 
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
-                {
                     Jump();
-                }
 
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
                 charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime), 0);
@@ -169,10 +187,8 @@ public class PlayerControls : MonoBehaviour
                 moveDirection.y -= gravity * Time.deltaTime;
         }
         else
-        {
-            moveDirection = new Vector3(0.0f, Input.GetAxis("Vertical") * climbSpeed, 0.0f);
-            // Debug.Log("Climbing");
-        }
+            moveDirection = new Vector3(0.0f, moveVertical * climbSpeed, 0.0f);
+        // Debug.Log("Climbing");
 
         if (interactCol != null && Input.GetMouseButton(1))
         {
@@ -194,30 +210,12 @@ public class PlayerControls : MonoBehaviour
     }
 
     #region Cheats :P
-    public void SuperJumpToggle(bool isSuperJump)
-    {
-        if (isSuperJump)
-        {
-            // jumpPower = superJump;
-            gravity = superJumpGravity;
-        }
-        else if (!isSuperJump)
-        {
-            // jumpPower = defaultJump;
-            gravity = defaultGravity;
-        }
-    }
-
     public void FlashSpeedToggle(bool isFlash)
     {
         if (isFlash)
-        {
             runningSpeed = flashSpeed;
-        }
-        else if (!isFlash)
-        {
+        else
             runningSpeed = defaultRunningSpeed;
-        }
     }
     #endregion
 
@@ -257,12 +255,8 @@ public class PlayerControls : MonoBehaviour
 
         if (other.tag == "RopeBreak")
         {
-            if (onRopeBreakMessage != null && onRopeBreakAudio != null && onRopeBreakIllustration != null)
-            {
-                onRopeBreakMessage();
-                onRopeBreakAudio();
-                onRopeBreakIllustration();
-            }
+            if (onRopeBreak != null)
+                onRopeBreak();
 
             gravity = gravityAfterRopeBreak;
             // Debug.Log("Rope Broken");
@@ -274,8 +268,6 @@ public class PlayerControls : MonoBehaviour
             {
                 onChangeLevelToHallway();
                 onChangeLevelText();
-                if (onPlayHallwayOST != null)
-                    onPlayHallwayOST();
             }
         }
     }
@@ -325,12 +317,10 @@ public class PlayerControls : MonoBehaviour
     {
         float jumpForce = Mathf.Sqrt(jumpPower * Mathf.Abs(defaultGravity) * 2);
         moveDirection.y = jumpForce;
-        if (onPlayerJumpAudio != null)
-            onPlayerJumpAudio();
+        jumpAud.Play();
 
         if (!lightMechanic.lightOn)
             courageAnim.SetTrigger("isJumping"); // Courage Jump Animation
-
         else
             courageAnim.SetTrigger("isJumpingWithTorch"); // Courage Jump Animation with Light
     }
@@ -344,5 +334,29 @@ public class PlayerControls : MonoBehaviour
     void CanMove()
     {
         isPickingUp = false;
+    }
+
+    void PlayFootStep()
+    {
+        footStepAud.pitch = Random.Range(lowPitchRange, highPitchRange);
+        footStepAud.Play();
+        Debug.Log("Footstep Audio Playing");
+    }
+
+    void OnPlayerDeathReceived()
+    {
+        courageAnim.SetTrigger("dead");
+    }
+
+    void ShowDeathUI()
+    {
+        if (onDeadPlayer != null)
+            onDeadPlayer();
+    }
+
+    void FadeOut()
+    {
+        if (onFadeOut != null)
+            onFadeOut();
     }
 }

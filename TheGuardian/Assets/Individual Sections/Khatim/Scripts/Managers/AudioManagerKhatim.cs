@@ -14,52 +14,33 @@ public class AudioManagerKhatim : MonoBehaviour
 
     void OnEnable()
     {
-        SceneManage.onStopAudioForMainMenu += OnStopAudioForMainMenu;
-        SceneManage.onAtticSceneMusic += OnAtticSceneMusicReceived;
-        SceneManage.onHallwaySceneMusic += OnHallwaySceneMusicReceived;
-        SceneManage.onNurserySceneMusic += OnNurserySceneMusicReceived;
+        // SceneManage.onStopAudioForMainMenu += OnStopAudioForMainMenu;
+        // SceneManage.onAtticSceneMusic += OnAtticSceneMusicReceived;
+        // SceneManage.onHallwaySceneMusic += OnHallwaySceneMusicReceived;
+        // SceneManage.onNurserySceneMusic += OnNurserySceneMusicReceived;
 
-        PlayerControls.onPlayHallwayOST += OnHallwaySceneMusicReceived;
-        PlayerControls.onPlayerJumpAudio += OnPlayerJumpAudioReceived;
-        PlayerControls.onRopeBreakAudio += OnRopeBreakAudioReceived;
-
-        LightMechanic.onStartLightAudio += OnStartLightAudioReceived;
-
-        ParentsAruguingEvent.onKeyDropAudio += OnKeyDropAudioReceived;
+        // PlayerControls.onPlayHallwayOST += OnHallwaySceneMusicReceived;
         DontDestroyOnLoad(this.gameObject);
     }
 
     void OnDisable()
     {
-        SceneManage.onStopAudioForMainMenu -= OnStopAudioForMainMenu;
-        SceneManage.onAtticSceneMusic -= OnAtticSceneMusicReceived;
-        SceneManage.onHallwaySceneMusic -= OnHallwaySceneMusicReceived;
-        SceneManage.onNurserySceneMusic -= OnNurserySceneMusicReceived;
+        // SceneManage.onStopAudioForMainMenu -= OnStopAudioForMainMenu;
+        // SceneManage.onAtticSceneMusic -= OnAtticSceneMusicReceived;
+        // SceneManage.onHallwaySceneMusic -= OnHallwaySceneMusicReceived;
+        // SceneManage.onNurserySceneMusic -= OnNurserySceneMusicReceived;
 
-        PlayerControls.onPlayHallwayOST -= OnHallwaySceneMusicReceived;
-        PlayerControls.onPlayerJumpAudio -= OnPlayerJumpAudioReceived;
-        PlayerControls.onRopeBreakAudio -= OnRopeBreakAudioReceived;
-
-
-        LightMechanic.onStartLightAudio -= OnStartLightAudioReceived;
-
-        ParentsAruguingEvent.onKeyDropAudio -= OnKeyDropAudioReceived;
+        // PlayerControls.onPlayHallwayOST -= OnHallwaySceneMusicReceived;
     }
 
     void OnDestroy()
     {
-        SceneManage.onStopAudioForMainMenu -= OnStopAudioForMainMenu;
-        SceneManage.onAtticSceneMusic -= OnAtticSceneMusicReceived;
-        SceneManage.onHallwaySceneMusic -= OnHallwaySceneMusicReceived;
-        SceneManage.onNurserySceneMusic -= OnNurserySceneMusicReceived;
+        // SceneManage.onStopAudioForMainMenu -= OnStopAudioForMainMenu;
+        // SceneManage.onAtticSceneMusic -= OnAtticSceneMusicReceived;
+        // SceneManage.onHallwaySceneMusic -= OnHallwaySceneMusicReceived;
+        // SceneManage.onNurserySceneMusic -= OnNurserySceneMusicReceived;
 
-        PlayerControls.onPlayHallwayOST -= OnHallwaySceneMusicReceived;
-        PlayerControls.onPlayerJumpAudio -= OnPlayerJumpAudioReceived;
-        PlayerControls.onRopeBreakAudio -= OnRopeBreakAudioReceived;
-
-        LightMechanic.onStartLightAudio -= OnStartLightAudioReceived;
-
-        ParentsAruguingEvent.onKeyDropAudio -= OnKeyDropAudioReceived;
+        // PlayerControls.onPlayHallwayOST -= OnHallwaySceneMusicReceived;
     }
 
     void StopAudio()
@@ -76,51 +57,29 @@ public class AudioManagerKhatim : MonoBehaviour
         fxSource.PlayOneShot(soundClips[index]);
     }
 
-    void OnAtticSceneMusicReceived()
-    {
-        StopAudio();
-        atticSceneOST.Play();
-        atticSceneOST.loop = true;
-    }
+    // void OnAtticSceneMusicReceived()
+    // {
+    //     StopAudio();
+    //     atticSceneOST.Play();
+    //     atticSceneOST.loop = true;
+    // }
 
-    void OnHallwaySceneMusicReceived()
-    {
-        StopAudio();
-        hallwaySceneOST.Play();
-        hallwaySceneOST.loop = true;
-    }
+    // void OnHallwaySceneMusicReceived()
+    // {
+    //     StopAudio();
+    //     hallwaySceneOST.Play();
+    //     hallwaySceneOST.loop = true;
+    // }
 
-    void OnNurserySceneMusicReceived()
-    {
-        StopAudio();
-        nurserySceneOST.Play();
-        nurserySceneOST.loop = true;
-    }
+    // void OnNurserySceneMusicReceived()
+    // {
+    //     StopAudio();
+    //     nurserySceneOST.Play();
+    //     nurserySceneOST.loop = true;
+    // }
 
-    void OnStopAudioForMainMenu()
-    {
-        StopAudio();
-        // mainMenuOST.Play();
-        // mainMenuOST.loop = true;
-    }
-
-    void OnStartLightAudioReceived()
-    {
-        AudioAccess(0);
-    }
-
-    void OnPlayerJumpAudioReceived()
-    {
-        AudioAccess(1);
-    }
-
-    void OnKeyDropAudioReceived()
-    {
-        AudioAccess(2);
-    }
-
-    void OnRopeBreakAudioReceived()
-    {
-        AudioAccess(3);
-    }
+    // void OnStopAudioForMainMenu()
+    // {
+    //     StopAudio();
+    // }
 }

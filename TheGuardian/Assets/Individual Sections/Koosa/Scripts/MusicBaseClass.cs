@@ -6,17 +6,16 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class MusicBaseClass
 {
-    public AudioClip songClip;
+    public string clipName;
+    public AudioClip clip;
 
     [Range(0, 1)]
-    public float Songvolume;
+    public float volume;
     [Range(0, 1)]
-    public float Songpitch;
-
-    public string songClipName;
-
-    public AudioSource audioSource;
+    public float pitch;
 
     public bool loop;
-    public bool playOnAwake;
+
+    [HideInInspector]
+    public AudioSource source;
 }

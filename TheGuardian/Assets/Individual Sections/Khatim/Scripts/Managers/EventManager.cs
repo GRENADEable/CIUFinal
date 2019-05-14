@@ -6,7 +6,7 @@ public class EventManager : MonoBehaviour
 {
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
-    public GameObject fadeToBlackObj;
+    public GameObject fadeOutObj;
 
     public GameObject[] paintingsEyes;
 
@@ -16,10 +16,9 @@ public class EventManager : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerControls.onRopeBreakMessage += OnRopeBreakEventReceived;
+        PlayerControls.onRopeBreak += OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove += OnKeyMoveReceived;
-        PlayerControls.onKeyMove += OnKeyMoveReceived;
 
         if (keyReference == null)
             Debug.LogWarning("Add Key Reference");
@@ -27,10 +26,8 @@ public class EventManager : MonoBehaviour
         if (brokenBoardSection == null)
             Debug.LogWarning("Add Borken Board Reference");
 
-        if (fadeToBlackObj == null)
+        if (fadeOutObj == null)
             Debug.LogWarning("Add Fade To Black Obj Reference");
-        else
-            fadeToBlackObj.SetActive(false);
 
         if (woodenPlank == null)
             Debug.LogWarning("Add Wooden Plank Reference");
@@ -44,18 +41,16 @@ public class EventManager : MonoBehaviour
 
     void OnDisable()
     {
-        PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
+        PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
-        PlayerControls.onKeyMove -= OnKeyMoveReceived;
     }
 
     void OnDestroy()
     {
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
-        PlayerControls.onRopeBreakMessage -= OnRopeBreakEventReceived;
+        PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
-        PlayerControls.onKeyMove -= OnKeyMoveReceived;
     }
     void OnRopeBreakEventReceived()
     {
@@ -89,7 +84,7 @@ public class EventManager : MonoBehaviour
 
     void OnEnableTranistionReceived()
     {
-        fadeToBlackObj.SetActive(true);
+        fadeOutObj.SetActive(true);
         Debug.Log("Fade To Black Obj Active");
     }
 }

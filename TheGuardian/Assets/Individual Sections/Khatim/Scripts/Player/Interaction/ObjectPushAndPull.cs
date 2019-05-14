@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPushAndPull : PlayerInteraction
 {
     public FixedJoint objectFixedJoint;
-    public Rigidbody pivotDummyforPush;
+    public Rigidbody pivotRgDummyPush;
     private Animator courageAnim;
     private PlayerControls plyControls;
 
@@ -24,7 +24,7 @@ public class ObjectPushAndPull : PlayerInteraction
             interactCol.gameObject.AddComponent(typeof(FixedJoint));
 
         objectFixedJoint = interactCol.GetComponent<FixedJoint>();
-        objectFixedJoint.connectedBody = pivotDummyforPush;
+        objectFixedJoint.connectedBody = pivotRgDummyPush;
         rgObject.useGravity = false;
     }
 

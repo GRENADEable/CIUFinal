@@ -17,7 +17,7 @@ public class RatBlockerFSM : MonoBehaviour
     public float fleeSpeed;
 
     public delegate void SendDeathMessage();
-    public static event SendDeathMessage onDeadPlayerScreen;
+    public static event SendDeathMessage onPlayerDeath;
 
     [SerializeField]
     private GameObject player;
@@ -108,8 +108,8 @@ public class RatBlockerFSM : MonoBehaviour
                 player.SetActive(false);
                 Debug.Log("Attacking");
 
-                if (onDeadPlayerScreen != null)
-                    onDeadPlayerScreen();
+                if (onPlayerDeath != null)
+                    onPlayerDeath();
                 break;
 
             case ratState.Flee:

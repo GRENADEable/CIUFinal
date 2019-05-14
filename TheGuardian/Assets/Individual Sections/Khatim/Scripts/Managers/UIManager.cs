@@ -8,12 +8,9 @@ public class UIManager : MonoBehaviour
 {
     [Header("Main Menu UI")]
     public GameObject mainmenuPanel;
-    public GameObject settingsPanel;
 
     [Header("In Game UI")]
     public GameObject changeLevelPanel;
-    [Header("Attic UI")]
-    public GameObject ropeBreakIllustration;
     [Header("Hallway UI")]
     public GameObject firstKeyIllustration;
     public GameObject secondKeyIllustration;
@@ -27,33 +24,23 @@ public class UIManager : MonoBehaviour
     [Header("References Obejcts")]
     public GameObject levelOneTitleText;
     public GameObject levelTwoTitleText;
-    private GameManager gm;
 
     void OnEnable()
     {
-        RatFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
-        RatBlockerFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
-        PaintingsAI.onPlayerDeath += OnDeadPlayerScreenReceived;
-
         PlayerControls.onChangeLevelText += OnChangeLevelTextReceived;
-        PlayerControls.onRopeBreakIllustration += OnRopeBreakIllustrationReceived;
+        PlayerControls.onDeadPlayer += OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration += OnSecondKeyIllustrationReceived;
         GameManager.onThirdKeyIllustration += OnThirdKeyIllustrationReceived;
 
         OpeningAirVentEvent.onVentIllustration += OnVentIllustrationReceived;
-        gm = GetComponent<GameManager>();
     }
 
     void OnDisable()
     {
-        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
-
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
-        PlayerControls.onRopeBreakIllustration -= OnRopeBreakIllustrationReceived;
+        PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
@@ -64,12 +51,8 @@ public class UIManager : MonoBehaviour
 
     void OnDestroy()
     {
-        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
-
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
-        PlayerControls.onRopeBreakIllustration -= OnRopeBreakIllustrationReceived;
+        PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
@@ -80,10 +63,9 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        if (mainmenuPanel != null && settingsPanel != null)
+        if (mainmenuPanel != null)
         {
             mainmenuPanel.SetActive(true);
-            settingsPanel.SetActive(false);
         }
         else
             Debug.LogWarning("Main Menu UI");
@@ -131,13 +113,9 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(!pausePanel.activeSelf);
 
         if (pausePanel.activeSelf)
-        {
             Time.timeScale = 0;
-        }
         else
-        {
             Time.timeScale = 1f;
-        }
     }
 
     public void CheatPanelToggle()
@@ -145,29 +123,15 @@ public class UIManager : MonoBehaviour
         cheatPanel.SetActive(!cheatPanel.activeSelf);
     }
 
-    public void Settings()
-    {
-        mainmenuPanel.SetActive(false);
-        settingsPanel.SetActive(true);
-    }
-
-    public void SettingsToMainMenu()
-    {
-        settingsPanel.SetActive(false);
-        mainmenuPanel.SetActive(true);
-    }
-
-    void OnDeadPlayerScreenReceived()
-    {
-        gm.isPlayerDead = true;
-        deathScreen.SetActive(true);
-        Debug.Log("Death Screen UI Activated");
-        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-    }
-
     void OnChangeLevelTextReceived()
     {
         changeLevelPanel.SetActive(true);
+    }
+
+    void OnDeadPlayerReceived()
+    {
+        deathScreen.SetActive(true);
+        PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
     }
 
     void OnVentIllustrationReceived()
@@ -192,10 +156,5 @@ public class UIManager : MonoBehaviour
     {
         thirdKeyIllustration.SetActive(true);
         GameManager.onThirdKeyIllustration -= OnThirdKeyIllustrationReceived;
-    }
-
-    void OnRopeBreakIllustrationReceived()
-    {
-        ropeBreakIllustration.SetActive(true);
     }
 }

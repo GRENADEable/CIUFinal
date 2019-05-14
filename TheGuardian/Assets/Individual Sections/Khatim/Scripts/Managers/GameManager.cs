@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isPlayerDead;
     public int keyCounter;
 
     public delegate void SendMessageToManagers();

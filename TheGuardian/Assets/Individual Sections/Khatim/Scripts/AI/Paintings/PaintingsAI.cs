@@ -123,7 +123,7 @@ public class PaintingsAI : MonoBehaviour
                     if (onPlayerDeath != null)
                         onPlayerDeath();
 
-                    player.SetActive(false);
+                    // player.SetActive(false);
                     // Debug.Log("Player Dead");
                 }
                 // Debug.Log("Attacking Player");
