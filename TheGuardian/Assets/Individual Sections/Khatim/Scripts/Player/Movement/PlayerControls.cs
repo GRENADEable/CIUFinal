@@ -21,8 +21,6 @@ public class PlayerControls : MonoBehaviour
     public AudioSource jumpAud;
     public AudioSource ropeBreakAud;
     public AudioSource footStepAud;
-    // public float footStepStartTime;
-    // public float footStepEndTime;
     public float lowPitchRange; // 0.75F;
     public float highPitchRange; // 1.5F;
 
@@ -100,9 +98,6 @@ public class PlayerControls : MonoBehaviour
         RatBlockerFSM.onPlayerDeath += OnPlayerDeathReceived;
         RatFSM.onPlayerDeath += OnPlayerDeathReceived;
         PaintingsAI.onPlayerDeath += OnPlayerDeathReceived;
-
-        // footStepAud.SetScheduledStartTime(footStepStartTime);
-        // footStepAud.SetScheduledEndTime(footStepEndTime);
     }
 
     void OnDisable()
@@ -181,9 +176,7 @@ public class PlayerControls : MonoBehaviour
                 }
 
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
-                {
                     Jump();
-                }
 
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
                 charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime), 0);
@@ -193,10 +186,8 @@ public class PlayerControls : MonoBehaviour
                 moveDirection.y -= gravity * Time.deltaTime;
         }
         else
-        {
             moveDirection = new Vector3(0.0f, moveVertical * climbSpeed, 0.0f);
-            // Debug.Log("Climbing");
-        }
+        // Debug.Log("Climbing");
 
         if (interactCol != null && Input.GetMouseButton(1))
         {
@@ -216,13 +207,9 @@ public class PlayerControls : MonoBehaviour
     public void FlashSpeedToggle(bool isFlash)
     {
         if (isFlash)
-        {
             runningSpeed = flashSpeed;
-        }
-        else if (!isFlash)
-        {
+        else
             runningSpeed = defaultRunningSpeed;
-        }
     }
     #endregion
 

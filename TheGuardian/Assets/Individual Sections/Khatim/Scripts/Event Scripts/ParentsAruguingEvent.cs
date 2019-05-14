@@ -6,13 +6,12 @@ public class ParentsAruguingEvent : MonoBehaviour
 {
     public float firstKeyMove;
     public float secondKeyMove;
-
     public delegate void SendEvents();
     public static event SendEvents onKeyMove;
-    // public static event SendEvents onKeyDropAudio;
     public float distance;
     public float keyDropEventStart;
     public GameObject player;
+    public Collider camTrigger;
     public AudioSource parentsAud;
 
     [SerializeField]
@@ -52,33 +51,13 @@ public class ParentsAruguingEvent : MonoBehaviour
                     onKeyMove();
                     keyMovedTwice = true;
                     eventCol.enabled = false;
-                    // onKeyDropAudio();
+                    camTrigger.enabled = false;
                 }
             }
         }
         else if (distance >= keyDropEventStart)
             eventStarted = false;
     }
-
-    // void OnTriggerStay(Collider other)
-    // {
-    //     if (other.tag == "Player")
-    //     {
-    //         time += Time.deltaTime;
-
-    //         if (time >= firstKeyMove && onKeyMove != null && !keyMovedOnce)
-    //         {
-    //             onKeyMove();
-    //             keyMovedOnce = true;
-    //         }
-
-    //         if (time >= secondKeyMove && onKeyMove != null && keyMovedOnce && !keyMovedTwice)
-    //         {
-    //             onKeyMove();
-    //             keyMovedTwice = true;
-    //         }
-    //     }
-    // }
 
     void OnTriggerEnter(Collider other)
     {

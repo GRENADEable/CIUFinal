@@ -27,7 +27,7 @@ public class FadeOut : MonoBehaviour
         }
     }
 
-    void OnFadeOutReceived()
+    public void OnFadeOutReceived()
     {
         startFading = true;
     }
