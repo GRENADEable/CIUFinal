@@ -22,8 +22,7 @@ public class UIManager : MonoBehaviour
     private GameObject cheatPanel;
 
     [Header("References Obejcts")]
-    public GameObject levelOneTitleText;
-    public GameObject levelTwoTitleText;
+    public GameObject levelTitleText;
 
     void OnEnable()
     {
@@ -83,15 +82,10 @@ public class UIManager : MonoBehaviour
         else
             Debug.LogWarning("Add Cheat Panel References");
 
-        if (levelOneTitleText != null)
-            levelOneTitleText.SetActive(true);
+        if (levelTitleText != null)
+            levelTitleText.SetActive(true);
         else
-            Debug.LogWarning("Add Level One Text UI");
-
-        if (levelTwoTitleText != null)
-            levelTwoTitleText.SetActive(true);
-        else
-            Debug.LogWarning("Add Level Two Text UI");
+            Debug.LogWarning("Add Level Text UI");
 
         if (changeLevelPanel != null)
             changeLevelPanel.SetActive(false);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class FadeOut : MonoBehaviour
 {
@@ -22,8 +23,10 @@ public class FadeOut : MonoBehaviour
             exposureWeight += Time.deltaTime;
             ppVolume.weight = exposureWeight;
 
-            if (exposureWeight >= 1)
-                this.enabled = false;
+            if (SceneManager.GetActiveScene().name == "HallwayLevel" && exposureWeight >= 1)
+            {
+                SceneManager.LoadScene("NurseryLevel");
+            }
         }
     }
 
