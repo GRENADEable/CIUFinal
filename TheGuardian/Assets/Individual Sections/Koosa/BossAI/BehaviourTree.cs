@@ -23,7 +23,6 @@ public class BehaviourTree : MonoBehaviour
     public float wanderSpeed;
     [HideInInspector]
     public GameObject distractObject;
-    [HideInInspector]
     public int waypointTarget;
     public GameObject[] waypoints;
     public Animator anim;

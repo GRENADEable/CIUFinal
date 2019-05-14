@@ -16,7 +16,7 @@ public class Chase : Node
         else
             BT.playerSpotted = false;
 
-        if (BT.player.GetComponent<PlayerControls>().running || BT.playerSpotted)
+        if ((BT.player.GetComponent<PlayerControls>().running && BT.distanceToPlayer < BT.distanceForPlayerToBeSpotted) || BT.playerSpotted)
         {
             BT.playerSpotted = true;
             Chasing();
