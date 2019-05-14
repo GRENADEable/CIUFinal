@@ -45,11 +45,6 @@ public class BehaviourTree : MonoBehaviour
     public void Update()
     {
         timeLeft -= Time.deltaTime;
-
-        if (!approaching)
-        {
-            anim.SetBool("Approach", true);
-        }
         if (distractObject != null || distraction)
         {
             if (!distractObject.activeSelf || distractObject == null || health <= 0)
@@ -70,10 +65,15 @@ public class BehaviourTree : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PickUp" && other.gameObject.activeSelf || other.gameObject != null && health > 0)
+        Debug.Log(other.name);
+        if (other.gameObject.tag == "PickUp" && (other.gameObject.activeSelf || other.gameObject != null) && health > 0)
         {
             distraction = true;
             distractObject = other.gameObject;
+        }
+        else if(other.gameObject.tag == "Player" && health > 0)
+        {
+            playerSpotted = true;
         }
         else
         {
@@ -83,7 +83,8 @@ public class BehaviourTree : MonoBehaviour
     }
     public void KillPlayer()
     {
-
+        anim.Play("FinalBossAttack");
+        player.gameObject.SetActive(false);
     }
     public void DamageBoss()
     {
@@ -91,6 +92,20 @@ public class BehaviourTree : MonoBehaviour
         // anim.SetBool("attacking", false);
         health--;
         Debug.Log("Damaged");
+    }
+    public void DestroyDistractionObject()
+    {
+        distractObject.SetActive(false);
+    }
+    public void Distraction( GameObject obj)
+    {
+        if (Vector3.Distance(transform.position, obj.transform.position) < 1.5)
+        {
+
+
+            distraction = true;
+            distractObject = obj;
+        }
     }
 
 }

@@ -11,19 +11,36 @@ public class Chase : Node
     public override void Execute()
     {
         base.Execute();
-        BT.playerSpotted = false;
         Detecting();
     }
     public void Detecting()
     {
-        if (BT.player.GetComponent<PlayerControlsTestKoosa>().running  && BT.playerAnim.GetCurrentAnimatorStateInfo(0).IsName("CourageRun"))
+        if (Vector3.Distance(BT.transform.position, BT.player.transform.position) < 1)
+        {
+            BT.playerSpotted = true;
+        }
+        else
+            BT.playerSpotted = false;
+
+        
+
+
+        if (BT.player.GetComponent<PlayerControls>().running || BT.playerSpotted)
         {
             BT.playerSpotted = true;
             Chasing();
+            if(Vector3.Distance(BT.transform.position, BT.player.transform.position) < 0.8)
+            {
+                state = Node_State.success;
+            }
         }
         else if (BT.distraction)
         {
             Distracted();
+            if (BT.distraction && Vector3.Distance(BT.transform.position, BT.distractObject.transform.position) < 0.8)
+            {
+                state = Node_State.success;
+            }
         }
         else
             state = Node_State.faliure;
@@ -35,13 +52,13 @@ public class Chase : Node
     {
         Vector3 pos = new Vector3(BT.transform.position.x, BT.transform.position.y, BT.player.transform.position.z);
         BT.transform.position = Vector3.MoveTowards(BT.transform.position, pos, BT.wanderSpeed);
-        state = Node_State.success;
+        state = Node_State.running;
     }
 
     public void Distracted()
     {
         Vector3 pos = new Vector3(BT.transform.position.x, BT.transform.position.y, BT.distractObject.transform.position.z);
         BT.transform.position = Vector3.MoveTowards(BT.transform.position, pos, BT.wanderSpeed);
-        state = Node_State.success;
+        state = Node_State.running;
     }
 }

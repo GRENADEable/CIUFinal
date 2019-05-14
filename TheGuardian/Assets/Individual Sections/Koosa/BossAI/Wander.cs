@@ -34,6 +34,7 @@ public class Wander : Node
         else
             BT.anim.SetBool("Approach", false);
         BT.anim.SetBool("attacking", false);
+        BT.attacking = false;
         // int number = Random.Range(0,4);
         if (!BT.anim.GetCurrentAnimatorStateInfo(0).IsName("FinalBossApproach"))
             BT.transform.position = Vector3.MoveTowards(BT.transform.position, BT.waypoints[BT.waypointTarget].transform.position, BT.wanderSpeed);
@@ -63,20 +64,5 @@ public class Wander : Node
         {
             state = Node_State.faliure;
         }
-    }
-
-
-
-
-
-
-    public void MoveRight( float min, float max)
-    {
-        BT.transform.position = new Vector3(BT.transform.position.x, BT.transform.position.y, Mathf.PingPong(Time.time * BT.wanderSpeed, max - min) + min);
-    }
-    public void MoveLeft(float min, float max)
-    {
-        BT.transform.position = new Vector3(BT.transform.position.x, BT.transform.position.y, Mathf.PingPong(Time.time * BT.wanderSpeed, max - min) + min);
-
     }
 }

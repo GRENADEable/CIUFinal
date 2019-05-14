@@ -21,6 +21,7 @@ public class PlayerControls : MonoBehaviour
     [Header("Player Jump Variables")]
     public float jumpPower;
     private LightMechanic lightMechanic;
+    public bool running;
 
     [Header("Player Gravity Variables")]
     public float defaultGravity;
@@ -185,6 +186,11 @@ public class PlayerControls : MonoBehaviour
         }
         if (!isPickingUp)
             charController.Move(moveDirection * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftShift))
+            running = true;
+        if (!Input.GetKey(KeyCode.LeftShift))
+            running = false;
     }
 
     #region Cheats :P
