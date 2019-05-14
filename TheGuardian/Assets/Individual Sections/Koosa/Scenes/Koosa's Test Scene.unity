@@ -488,7 +488,7 @@ Transform:
   m_GameObject: {fileID: 24270425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.14, y: 0.025, z: -0.002}
-  m_LocalScale: {x: 0.12720414, y: 0.12720414, z: 0.12720414}
+  m_LocalScale: {x: 0.23259316, y: 0.23259316, z: 0.23259316}
   m_Children: []
   m_Father: {fileID: 2069699432}
   m_RootOrder: 5
@@ -701,7 +701,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4788824519829262, guid: 1cbccea8eb991634d993143802220620, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.683
+      value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 4788824519829262, guid: 1cbccea8eb991634d993143802220620, type: 2}
       propertyPath: m_LocalPosition.y
@@ -764,7 +764,7 @@ Prefab:
     - target: {fileID: 114307120363224750, guid: 1cbccea8eb991634d993143802220620,
         type: 2}
       propertyPath: throwingForce
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1823480461893372, guid: 1cbccea8eb991634d993143802220620, type: 2}
       propertyPath: m_IsActive
@@ -2065,7 +2065,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!1 &135666594
 GameObject:
   m_ObjectHideFlags: 0
@@ -3827,6 +3827,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100088, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa97b200852dc314fbd18b6027a0c4cd, type: 3}
   m_IsPrefabAsset: 0
@@ -7630,7 +7635,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!54 &867048134
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9803,7 +9808,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!54 &1008945759
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10147,7 +10152,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!54 &1042778578
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10976,7 +10981,7 @@ Transform:
   m_GameObject: {fileID: 1167963797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.142, y: -0, z: 0.009}
-  m_LocalScale: {x: 0, y: 0.13942446, z: 0.13942446}
+  m_LocalScale: {x: 0, y: 0.25493807, z: 0.25493807}
   m_Children: []
   m_Father: {fileID: 1312504099}
   m_RootOrder: 0
@@ -12649,7 +12654,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!54 &1317142501
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14554,6 +14559,7 @@ GameObject:
   - component: {fileID: 1544699870}
   - component: {fileID: 1544699869}
   - component: {fileID: 1544699868}
+  - component: {fileID: 1544699871}
   - component: {fileID: 1544699867}
   m_Layer: 0
   m_Name: DamageArea (1)
@@ -14629,6 +14635,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: -180, y: 0, z: -180}
+--- !u!54 &1544699871
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1544699866}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1545242494
 GameObject:
   m_ObjectHideFlags: 0
@@ -15339,7 +15360,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!54 &1593398494
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16570,6 +16591,7 @@ GameObject:
   - component: {fileID: 1732462106}
   - component: {fileID: 1732462105}
   - component: {fileID: 1732462104}
+  - component: {fileID: 1732462102}
   - component: {fileID: 1732462103}
   m_Layer: 0
   m_Name: DamageArea
@@ -16578,6 +16600,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!54 &1732462102
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1732462101}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &1732462103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16662,15 +16699,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceToAttackPlayer: 0.6
-  distanceToAttackDistractObject: 0.8
-  distanceForPlayerToBeSpotted: 1
+  distanceToAttackDistractObject: 0.6
+  distanceForPlayerToBeSpotted: 0.7
   distractionArea: 1.5
   distanceToPlayer: 0
   attacking: 0
   playerSpotted: 0
   distraction: 0
   player: {fileID: 509542164}
-  health: 5
+  health: 2
   wanderSpeed: 0.008
   distractObject: {fileID: 0}
   waypointTarget: 10
@@ -17755,7 +17792,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!54 &1857130806
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19722,7 +19759,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  desiredMagnitude: 2
+  desiredMagnitude: 1
 --- !u!54 &2107432172
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20333,7 +20370,7 @@ GameObject:
   m_Layer: 0
   m_Name: TriggerDamageEventBack
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

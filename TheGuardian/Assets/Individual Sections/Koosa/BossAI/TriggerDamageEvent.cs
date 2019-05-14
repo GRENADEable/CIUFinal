@@ -14,7 +14,6 @@ public class TriggerDamageEvent : MonoBehaviour
         if (other.gameObject.tag == "DamageBoss" && BT.attacking)
         {
             damageBoss.Invoke();
-            Destroy(other);
             Debug.Log("yikes");
             entered = true;
             // other.gameObject.SetActive(false);
