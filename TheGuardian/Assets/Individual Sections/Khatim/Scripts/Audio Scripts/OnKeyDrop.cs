@@ -16,6 +16,7 @@ public class OnKeyDrop : MonoBehaviour
         {
             keyDropSource.Play();
             this.enabled = false;
+            other.gameObject.tag = "Untagged";
         }
     }
 }

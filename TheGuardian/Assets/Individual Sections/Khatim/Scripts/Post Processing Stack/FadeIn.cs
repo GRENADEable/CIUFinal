@@ -17,5 +17,8 @@ public class FadeIn : MonoBehaviour
     {
         exposureWeight -= Time.deltaTime;
         ppVolume.weight = exposureWeight;
+
+        if (exposureWeight <= 0)
+            this.enabled = false;
     }
 }

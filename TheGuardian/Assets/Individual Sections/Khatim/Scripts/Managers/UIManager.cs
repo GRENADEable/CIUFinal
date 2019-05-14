@@ -24,31 +24,23 @@ public class UIManager : MonoBehaviour
     [Header("References Obejcts")]
     public GameObject levelOneTitleText;
     public GameObject levelTwoTitleText;
-    private GameManager gm;
 
     void OnEnable()
     {
-        RatFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
-        RatBlockerFSM.onDeadPlayerScreen += OnDeadPlayerScreenReceived;
-        PaintingsAI.onPlayerDeath += OnDeadPlayerScreenReceived;
-
         PlayerControls.onChangeLevelText += OnChangeLevelTextReceived;
+        PlayerControls.onDeadPlayer += OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration += OnSecondKeyIllustrationReceived;
         GameManager.onThirdKeyIllustration += OnThirdKeyIllustrationReceived;
 
         OpeningAirVentEvent.onVentIllustration += OnVentIllustrationReceived;
-        gm = GetComponent<GameManager>();
     }
 
     void OnDisable()
     {
-        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
-
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
+        PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
@@ -59,11 +51,8 @@ public class UIManager : MonoBehaviour
 
     void OnDestroy()
     {
-        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        RatBlockerFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-        PaintingsAI.onPlayerDeath -= OnDeadPlayerScreenReceived;
-
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
+        PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
@@ -124,13 +113,9 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(!pausePanel.activeSelf);
 
         if (pausePanel.activeSelf)
-        {
             Time.timeScale = 0;
-        }
         else
-        {
             Time.timeScale = 1f;
-        }
     }
 
     public void CheatPanelToggle()
@@ -138,17 +123,15 @@ public class UIManager : MonoBehaviour
         cheatPanel.SetActive(!cheatPanel.activeSelf);
     }
 
-    void OnDeadPlayerScreenReceived()
-    {
-        gm.isPlayerDead = true;
-        deathScreen.SetActive(true);
-        Debug.Log("Death Screen UI Activated");
-        RatFSM.onDeadPlayerScreen -= OnDeadPlayerScreenReceived;
-    }
-
     void OnChangeLevelTextReceived()
     {
         changeLevelPanel.SetActive(true);
+    }
+
+    void OnDeadPlayerReceived()
+    {
+        deathScreen.SetActive(true);
+        PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
     }
 
     void OnVentIllustrationReceived()
