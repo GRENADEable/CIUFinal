@@ -11,7 +11,6 @@ public class ParentsAruguingEvent : MonoBehaviour
     public float distance;
     public float keyDropEventStart;
     public GameObject player;
-    public Collider camTrigger;
     public AudioSource parentsAud;
 
     [SerializeField]
@@ -51,7 +50,6 @@ public class ParentsAruguingEvent : MonoBehaviour
                     onKeyMove();
                     keyMovedTwice = true;
                     eventCol.enabled = false;
-                    camTrigger.enabled = false;
                 }
             }
         }

@@ -155,7 +155,7 @@ public class PlayerControls : MonoBehaviour
                     moveDirection *= multiplier;
                     // Debug.Log("Running");
                 }
-                else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
+                else if (Input.GetButton("Crouch") && !isPushingOrPulling && !isPickingObject)
                 {
                     //Made Character Controller Collider Shrink Variables Dynamic
                     //Player Crouching
@@ -226,7 +226,7 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if ((other.tag == "PickUp" || other.tag == "PickupCheese") && plyInteract == null)
+        if (other.tag == "PickUp" && plyInteract == null)
         {
             plyInteract = GetComponent<ObjectPickup>();
             plyInteract.interactCol = other;
@@ -281,7 +281,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (plyInteract != null)
         {
-            if ((other.tag == "PickUp" || other.tag == "PickupCheese") && plyInteract.interactCol == other)
+            if (other.tag == "PickUp" && plyInteract.interactCol == other)
                 ResetInteraction();
 
             if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
