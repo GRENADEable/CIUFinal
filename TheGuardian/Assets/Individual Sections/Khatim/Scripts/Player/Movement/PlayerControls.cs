@@ -153,7 +153,7 @@ public class PlayerControls : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
                 {
                     moveDirection *= multiplier;
-                    Debug.Log("Running");
+                    // Debug.Log("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
                 {
@@ -164,19 +164,19 @@ public class PlayerControls : MonoBehaviour
                     isCrouching = true;
                     moveDirection *= crouchWalkSpeed;
                     courageAnim.SetBool("isCrouching", true);
-                    Debug.Log("Crouch Walk");
+                    // Debug.Log("Crouch Walk");
                 }
                 else if (isPushingOrPulling || isPickingObject)
                 {
                     moveDirection *= interactionWalkSpeed;
-                    Debug.Log("Interaction Walk");
+                    // Debug.Log("Interaction Walk");
                 }
                 else
                 {
                     moveDirection *= multiplier;
                     isCrouching = false;
                     courageAnim.SetBool("isCrouching", false);
-                    Debug.Log("Walking");
+                    // Debug.Log("Walking");
                 }
 
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
