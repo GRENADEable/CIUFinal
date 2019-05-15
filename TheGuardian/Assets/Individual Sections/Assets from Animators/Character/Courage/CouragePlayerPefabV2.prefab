@@ -154,7 +154,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4939666857631190}
-  - component: {fileID: 135602273336632216}
   m_Layer: 0
   m_Name: Base HumanLFoot
   m_TagString: Untagged
@@ -697,7 +696,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4872385213518874}
-  - component: {fileID: 135734481465461932}
   m_Layer: 0
   m_Name: Base HumanRLegFoot
   m_TagString: Untagged
@@ -1216,8 +1214,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7643, y: 12, z: -44.8214}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.34, y: 11.919, z: -9.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4252960477919372}
@@ -1775,7 +1773,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactCol: {fileID: 0}
   rgObject: {fileID: 0}
-  pivotDummyForObjectPickup: {fileID: 54433161251612298}
+  pivotDummyForObjectPickup: {fileID: 4552217501195348}
+  pickedUpObj: {fileID: 0}
   objectFixedJoint: {fileID: 0}
   throwingForce: 2
 --- !u!114 &114635365455125906
@@ -1807,6 +1806,8 @@ MonoBehaviour:
   walkingSpeed: 0.25
   runningSpeed: 0.6
   crouchWalkSpeed: 0.2
+  interactionWalkSpeed: 0.15
+  climbSpeed: 0.1
   crouchRunSpeed: 0.3
   maxClampValue: 1
   rotationSpeed: 6
@@ -1819,10 +1820,9 @@ MonoBehaviour:
   lowPitchRange: 0.8
   highPitchRange: 1
   jumpPower: 0.25
+  running: 0
   defaultGravity: 5
   gravityAfterRopeBreak: 1.5
-  climbSpeed: 0.4
-  sprintClimbSpeed: 0.6
   isPushingOrPulling: 0
   isPickingObject: 0
   onRope: 0
@@ -1875,30 +1875,6 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 2
   smoothing: 13
---- !u!135 &135602273336632216
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1201061558732466}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.02
-  m_Center: {x: -0.01, y: 0, z: 0}
---- !u!135 &135734481465461932
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1975766114625706}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.02
-  m_Center: {x: -0.01, y: 0, z: 0}
 --- !u!136 &136452648570142828
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1911,7 +1887,7 @@ CapsuleCollider:
   m_Radius: 0.042
   m_Height: 0.13274875
   m_Direction: 2
-  m_Center: {x: 0.0010156333, y: 0.07816909, z: 0.03137444}
+  m_Center: {x: 0.0010156333, y: 0.05, z: 0.03137444}
 --- !u!137 &137627735811182810
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

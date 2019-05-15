@@ -52,6 +52,14 @@ public class EventManager : MonoBehaviour
         PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
     }
+
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+            OnKeyMoveReceived();
+    }
+
     void OnRopeBreakEventReceived()
     {
         if (ropeBreakCol != null)
@@ -78,7 +86,7 @@ public class EventManager : MonoBehaviour
 
     void OnKeyMoveReceived()
     {
-        keyReference.GetComponent<Rigidbody>().AddForce(keyReference.transform.up * moveForce + keyReference.transform.forward * moveForce);
+        keyReference.GetComponent<Rigidbody>().AddForce(Vector3.up * moveForce + Vector3.forward * moveForce);
         Debug.Log("Key Moved");
     }
 

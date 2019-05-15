@@ -68,9 +68,6 @@ public class ObjectPickup : PlayerInteraction
         // base.EndInteraction();
         // plyControls.isPickingObject = false;
         Debug.Log("Object Pickup Ended");
-
-        if (onKeyDropEvent != null)
-            onKeyDropEvent();
     }
 
     void PickObject()
@@ -90,6 +87,9 @@ public class ObjectPickup : PlayerInteraction
         pickedUpObj.isKinematic = false;
         pickedUpObj = null;
         plyControls.isPickingObject = false;
+
+        if (onKeyDropEvent != null)
+            onKeyDropEvent();
     }
 
     void ThrowObject()
