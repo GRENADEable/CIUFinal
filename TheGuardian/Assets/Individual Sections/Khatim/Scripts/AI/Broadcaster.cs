@@ -5,11 +5,11 @@ using UnityEngine;
 public class Broadcaster : MonoBehaviour
 {
     public delegate void KillPlayer();
-    public static event KillPlayer onKillPlayerEvent;
+    public static event KillPlayer onRatKillPlayerEvent;
 
     void Attack()
     {
-        if (onKillPlayerEvent != null)
-            onKillPlayerEvent();
+        if (onRatKillPlayerEvent != null)
+            onRatKillPlayerEvent();
     }
 }

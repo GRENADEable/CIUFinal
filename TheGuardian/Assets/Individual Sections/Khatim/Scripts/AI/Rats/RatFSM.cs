@@ -43,19 +43,19 @@ public class RatFSM : MonoBehaviour
         currCondition = ratState.Wander;
 
         DistractEnemyEvent.OnDistractEnemy += DistractEventReceived;
-        Broadcaster.onKillPlayerEvent += OnKillPlayerEventReceived;
+        Broadcaster.onRatKillPlayerEvent += OnKillPlayerEventReceived;
     }
 
     void OnDisable()
     {
         DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
-        Broadcaster.onKillPlayerEvent -= OnKillPlayerEventReceived;
+        Broadcaster.onRatKillPlayerEvent -= OnKillPlayerEventReceived;
     }
 
     void OnDestroy()
     {
         DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
-        Broadcaster.onKillPlayerEvent -= OnKillPlayerEventReceived;
+        Broadcaster.onRatKillPlayerEvent -= OnKillPlayerEventReceived;
     }
 
     void Update()

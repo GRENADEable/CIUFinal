@@ -13,6 +13,9 @@ public class EventManager : MonoBehaviour
     public Collider ropeBreakCol;
     public float moveForce;
     public GameObject keyReference;
+    public GameObject trunk;
+    // public GameObject areanaLockObj;
+    public float trunkMoveForce;
     public GameObject finalBoss;
 
     void OnEnable()
@@ -60,11 +63,11 @@ public class EventManager : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-            OnKeyMoveReceived();
-    }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.G))
+    //         FinalBossAppearReceived();
+    // }
 
     void OnRopeBreakEventReceived()
     {
@@ -105,5 +108,7 @@ public class EventManager : MonoBehaviour
     void FinalBossAppearReceived()
     {
         finalBoss.SetActive(true);
+        // areanaLockObj.SetActive(true);
+        trunk.GetComponent<Rigidbody>().AddForce(Vector3.right * trunkMoveForce);
     }
 }

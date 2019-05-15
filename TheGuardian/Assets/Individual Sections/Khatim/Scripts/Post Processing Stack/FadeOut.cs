@@ -8,6 +8,7 @@ public class FadeOut : MonoBehaviour
 {
     public float exposureWeight;
     public bool startFading;
+    public bool startEndFading;
     private PostProcessVolume ppVolume;
 
     void OnEnable()
@@ -23,6 +24,15 @@ public class FadeOut : MonoBehaviour
             exposureWeight += Time.deltaTime;
             ppVolume.weight = exposureWeight;
 
+            if (exposureWeight >= 1)
+                this.enabled = false;
+        }
+
+        if (startEndFading)
+        {
+            exposureWeight += Time.deltaTime;
+            ppVolume.weight = exposureWeight;
+
             if (SceneManager.GetActiveScene().name == "HallwayLevel" && exposureWeight >= 1)
             {
                 SceneManager.LoadScene("NurseryLevel");
@@ -33,5 +43,10 @@ public class FadeOut : MonoBehaviour
     public void OnFadeOutReceived()
     {
         startFading = true;
+    }
+
+    public void OnGameEndFadeOutReceived()
+    {
+        startEndFading = true;
     }
 }
