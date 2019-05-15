@@ -226,7 +226,7 @@ public class PlayerControls : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PickUp" && plyInteract == null)
+        if ((other.tag == "PickUp" || other.tag == "PickupCheese") && plyInteract == null)
         {
             plyInteract = GetComponent<ObjectPickup>();
             plyInteract.interactCol = other;
@@ -281,7 +281,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (plyInteract != null)
         {
-            if (other.tag == "PickUp" && plyInteract.interactCol == other)
+            if ((other.tag == "PickUp" || other.tag == "PickupCheese") && plyInteract.interactCol == other)
                 ResetInteraction();
 
             if (other.tag == "PushAndPull" && plyInteract.interactCol == other)

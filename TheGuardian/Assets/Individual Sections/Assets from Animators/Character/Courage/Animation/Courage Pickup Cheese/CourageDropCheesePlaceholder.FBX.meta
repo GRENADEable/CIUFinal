@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 356eabde6ff62ec4680805c67fcd3ff1
+guid: 01f4a7d6fe9a7ee4882bb459aaf562b6
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -44,9 +44,8 @@ ModelImporter:
     100076: Base HumanTail1
     100078: Base HumanTail2
     100080: Base HumanTail3
-    100082: cheese
-    100084: //RootNode
-    100086: fixed courage
+    100082: //RootNode
+    100084: fixed courage
     400000: Base HumanHead
     400002: Base HumanHeadBone001
     400004: Base HumanHeadBone001Bone001
@@ -88,16 +87,11 @@ ModelImporter:
     400076: Base HumanTail1
     400078: Base HumanTail2
     400080: Base HumanTail3
-    400082: cheese
-    400084: //RootNode
-    400086: fixed courage
-    2100000: No Name
-    2100002: 01 - Default
-    2300000: cheese
-    3300000: cheese
-    4300000: cheese
-    4300002: fixed courage
-    7400000: CouragePickupCheese
+    400082: //RootNode
+    400084: fixed courage
+    2100000: 01 - Default
+    4300000: fixed courage
+    7400000: CourageDropCheesePlaceholder
     9500000: //RootNode
     13700000: fixed courage
     2186277476908879412: ImportLogs
@@ -130,7 +124,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: CouragePickupCheese
+      name: CourageDropCheesePlaceholder
       takeName: Take 001
       firstFrame: 0
       lastFrame: 30
@@ -153,14 +147,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.06918239
-        functionName: PickCheese
+      - time: 0.29392907
+        functionName: DropObject
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6331237
+      - time: 0.9206109
         functionName: CanMove
         data: 
         objectReferenceParameter: {instanceID: 0}
