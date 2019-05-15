@@ -14,7 +14,7 @@ public class DollsFSM : MonoBehaviour
     public GameObject player;
 
     public delegate void SendDeathMessage();
-    public static event SendDeathMessage onDeadPlayerScreen;
+    public static event SendDeathMessage onDeadPlayer;
 
     private NavMeshAgent dollAgent;
     private Animator dollAnim;
@@ -95,8 +95,8 @@ public class DollsFSM : MonoBehaviour
             player.SetActive(false);
             // Debug.Log("Attacking Player");
 
-            if (onDeadPlayerScreen != null)
-                onDeadPlayerScreen();
+            if (onDeadPlayer != null)
+                onDeadPlayer();
         }
     }
 }

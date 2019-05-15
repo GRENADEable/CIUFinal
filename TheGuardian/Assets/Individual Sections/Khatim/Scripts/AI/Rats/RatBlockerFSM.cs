@@ -61,17 +61,7 @@ public class RatBlockerFSM : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward * chaseDistance, Color.green);
         Debug.DrawRay(transform.position, transform.forward * attackDistance, Color.red);
 
-        if (ratAgent.velocity.magnitude < 0.1f)
-        {
-            ratAnim.SetBool("isIdle", true);
-            // Debug.Log("Idle");
-        }
-
-        if (ratAgent.velocity.magnitude > 0.2f)
-        {
-            ratAnim.SetBool("isIdle", false);
-            // Debug.Log("Not Idle");
-        }
+        ratAnim.SetFloat("speed", ratAgent.velocity.magnitude);
 
         if (distanceToFleePos <= fleeLocation)
         {

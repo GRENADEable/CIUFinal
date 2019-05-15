@@ -9,6 +9,9 @@ public class TriggerDamageEvent : MonoBehaviour
     public UnityEvent killPlayer;
     public BehaviourTree BT;
     public bool entered = false;
+    public delegate void SendEvents();
+    public static event SendEvents onDeadPlayer;
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "DamageBoss" && BT.attacking)
@@ -21,6 +24,8 @@ public class TriggerDamageEvent : MonoBehaviour
         if (other.gameObject.tag == "Player" && BT.attacking)
         {
             killPlayer.Invoke();
+            if (onDeadPlayer != null)
+                onDeadPlayer();
         }
         if (other.gameObject.tag == "PickUp" && BT.attacking)
         {

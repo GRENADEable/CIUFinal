@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
     {
         PlayerControls.onChangeLevelText += OnChangeLevelTextReceived;
         PlayerControls.onDeadPlayer += OnDeadPlayerReceived;
+        DollsFSM.onDeadPlayer += OnDeadPlayerReceived;
+        TriggerDamageEvent.onDeadPlayer += OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration += OnSecondKeyIllustrationReceived;
@@ -40,6 +42,8 @@ public class UIManager : MonoBehaviour
     {
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
         PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
+        DollsFSM.onDeadPlayer -= OnDeadPlayerReceived;
+        TriggerDamageEvent.onDeadPlayer -= OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
@@ -52,6 +56,8 @@ public class UIManager : MonoBehaviour
     {
         PlayerControls.onChangeLevelText -= OnChangeLevelTextReceived;
         PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
+        DollsFSM.onDeadPlayer -= OnDeadPlayerReceived;
+        TriggerDamageEvent.onDeadPlayer -= OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
