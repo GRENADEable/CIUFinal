@@ -34,6 +34,7 @@ public class VCamManager : MonoBehaviour
 
     public delegate void SendEvents();
     public static event SendEvents onDollAIChange;
+    public static event SendEvents onFinalBossAppear;
 
     void Awake()
     {
@@ -138,6 +139,9 @@ public class VCamManager : MonoBehaviour
 
             if (onDollAIChange != null)
                 onDollAIChange();
+
+            if (onFinalBossAppear != null)
+                onFinalBossAppear();
         }
     }
 

@@ -13,12 +13,16 @@ public class EventManager : MonoBehaviour
     public Collider ropeBreakCol;
     public float moveForce;
     public GameObject keyReference;
+    public GameObject finalBoss;
 
     void OnEnable()
     {
         PlayerControls.onRopeBreak += OnRopeBreakEventReceived;
+
         GameManager.onPaintingsAwakeMessage += OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove += OnKeyMoveReceived;
+
+        VCamManager.onFinalBossAppear += FinalBossAppearReceived;
 
         if (keyReference == null)
             Debug.LogWarning("Add Key Reference");
@@ -44,6 +48,7 @@ public class EventManager : MonoBehaviour
         PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
+        VCamManager.onFinalBossAppear -= FinalBossAppearReceived;
     }
 
     void OnDestroy()
@@ -51,6 +56,7 @@ public class EventManager : MonoBehaviour
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
         PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
+        VCamManager.onFinalBossAppear -= FinalBossAppearReceived;
     }
 
 
@@ -94,5 +100,10 @@ public class EventManager : MonoBehaviour
     {
         fadeOutObj.SetActive(true);
         Debug.Log("Fade To Black Obj Active");
+    }
+
+    void FinalBossAppearReceived()
+    {
+        finalBoss.SetActive(true);
     }
 }
