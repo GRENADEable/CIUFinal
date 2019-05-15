@@ -9,6 +9,8 @@ public class PlayerControls : MonoBehaviour
     public float walkingSpeed;
     public float runningSpeed;
     public float crouchWalkSpeed;
+    public float interactionWalkSpeed;
+    public float climbSpeed;
     public float crouchRunSpeed;
     public float maxClampValue;
     [Range(0f, 10.0f)]
@@ -32,10 +34,6 @@ public class PlayerControls : MonoBehaviour
     [Header("Player Gravity Variables")]
     public float defaultGravity;
     public float gravityAfterRopeBreak;
-
-    [Header("Rope Variables")]
-    public float climbSpeed;
-    public float sprintClimbSpeed;
     #endregion
 
     #region Events
@@ -155,7 +153,7 @@ public class PlayerControls : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
                 {
                     moveDirection *= multiplier;
-                    // Debug.Log("Running");
+                    Debug.Log("Running");
                 }
                 else if (Input.GetKey(KeyCode.C) && !isPushingOrPulling && !isPickingObject)
                 {
@@ -166,14 +164,19 @@ public class PlayerControls : MonoBehaviour
                     isCrouching = true;
                     moveDirection *= crouchWalkSpeed;
                     courageAnim.SetBool("isCrouching", true);
-                    // Debug.Log("Crouch Walk");
+                    Debug.Log("Crouch Walk");
+                }
+                else if (isPushingOrPulling || isPickingObject)
+                {
+                    moveDirection *= interactionWalkSpeed;
+                    Debug.Log("Interaction Walk");
                 }
                 else
                 {
                     moveDirection *= multiplier;
                     isCrouching = false;
                     courageAnim.SetBool("isCrouching", false);
-                    // Debug.Log("Walking");
+                    Debug.Log("Walking");
                 }
 
                 if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
@@ -187,8 +190,10 @@ public class PlayerControls : MonoBehaviour
                 moveDirection.y -= gravity * Time.deltaTime;
         }
         else
+        {
             moveDirection = new Vector3(0.0f, moveVertical * climbSpeed, 0.0f);
-        // Debug.Log("Climbing");
+            courageAnim.SetFloat("speed", moveVertical);
+        }
 
         if (interactCol != null && Input.GetMouseButton(1))
         {
@@ -340,7 +345,7 @@ public class PlayerControls : MonoBehaviour
     {
         footStepAud.pitch = Random.Range(lowPitchRange, highPitchRange);
         footStepAud.Play();
-        Debug.Log("Footstep Audio Playing");
+        // Debug.Log("Footstep Audio Playing");
     }
 
     void OnPlayerDeathReceived()
