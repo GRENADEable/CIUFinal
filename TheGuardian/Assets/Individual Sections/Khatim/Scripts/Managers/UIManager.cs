@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Main Menu UI")]
-    public GameObject mainmenuPanel;
-
     [Header("In Game UI")]
     public GameObject changeLevelPanel;
     [Header("Hallway UI")]
@@ -77,13 +74,6 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        if (mainmenuPanel != null)
-        {
-            mainmenuPanel.SetActive(true);
-        }
-        else
-            Debug.LogWarning("Main Menu UI");
-
         pausePanel = GameObject.FindGameObjectWithTag("PausePanel");
         cheatPanel = GameObject.FindGameObjectWithTag("CheatPanel");
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
