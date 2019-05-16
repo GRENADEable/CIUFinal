@@ -8,7 +8,6 @@ public class ObjectPickup : PlayerInteraction
     public static event SendEventToManager onKeyDropEvent;
     public Transform pivotDummyForObjectPickup;
     public Rigidbody pickedUpObj;
-    public FixedJoint objectFixedJoint;
     public float throwingForce;
     private PlayerControls plyControls;
     private Animator courageAnim;
@@ -26,14 +25,9 @@ public class ObjectPickup : PlayerInteraction
 
         courageAnim.SetBool("isInteracting", true);
 
-        // if (pickedUpObj.tag == "PickupCheese")
-        //     courageAnim.SetBool("isInteractingCheese", true);
-
         // if (interactCol.GetComponent<FixedJoint>() == null)
         //     interactCol.gameObject.AddComponent(typeof(FixedJoint));
 
-        // courageAnim.SetBool("isInteracting", true);
-        // plyControls.isPickingObject = true;
         // objectFixedJoint = interactCol.GetComponent<FixedJoint>();
         // interactCol.transform.position = pivotDummyForObjectPickup.position;
         // interactCol.transform.localEulerAngles = new Vector3(0f, 0, 90f);
@@ -43,19 +37,10 @@ public class ObjectPickup : PlayerInteraction
     }
     public override void UpdateInteraction()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButton("Throw"))
         {
             courageAnim.SetBool("isInteracting", false);
             courageAnim.SetTrigger("throw");
-
-            // if (pickedUpObj.tag == "PickupCheese")
-            // {
-            //     courageAnim.SetBool("isInteractingCheese", false);
-            //     courageAnim.SetTrigger("throw");
-            // }
-
-            // courageAnim.SetBool("isInteracting", false);
-            // courageAnim.SetTrigger("throw");
 
             // Destroy(objectFixedJoint);
             // rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
@@ -68,12 +53,6 @@ public class ObjectPickup : PlayerInteraction
     {
         courageAnim.SetBool("isInteracting", false);
         courageAnim.SetTrigger("drop");
-
-        // if (pickedUpObj.tag == "PickupCheese")
-        // {
-        //     courageAnim.SetBool("isInteractingCheese", false);
-        //     courageAnim.SetTrigger("drop");
-        // }
         base.EndInteraction();
 
         // courageAnim.SetBool("isInteracting", false);
@@ -95,16 +74,6 @@ public class ObjectPickup : PlayerInteraction
         pickedUpObj.transform.localPosition = new Vector3(0f, -0.0045f, -0.0009f);
         pickedUpObj.transform.localEulerAngles = new Vector3(125.973f, -104.731f, -257.542f);
     }
-
-    // void PickCheese()
-    // {
-    //     plyControls.isPickingObject = true;
-    //     pickedUpObj.useGravity = false;
-    //     pickedUpObj.isKinematic = true;
-    //     pickedUpObj.transform.parent = pivotDummyForObjectPickup;
-    //     pickedUpObj.transform.localPosition = new Vector3(-0.0712f, 0.0132f, 0.0384f);
-    //     pickedUpObj.transform.localEulerAngles = new Vector3(46.156f, 104.135f, -53.658f);
-    // }
 
     void DropObject()
     {

@@ -33,7 +33,7 @@ public class RatBlockerFSM : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         ratAgent = GetComponent<NavMeshAgent>();
         ratAgent.speed = ratSpeed;
-        ratAnim = GetComponentInChildren<Animator>();
+        ratAnim = GetComponent<Animator>();
         currCondition = ratState.Idle;
 
         LightMechanic.onFleeEnemy += FleeEventReceived;
@@ -76,8 +76,6 @@ public class RatBlockerFSM : MonoBehaviour
         switch (currCondition)
         {
             case ratState.Idle:
-                // Debug.Log("Idle");
-
                 if (distanceToPlayer < chaseDistance && !isFleeing)
                     currCondition = ratState.Chase;
 
@@ -115,8 +113,6 @@ public class RatBlockerFSM : MonoBehaviour
 
     void FleeEventReceived()
     {
-        // FleeEnemy();
-        // currCondition = 3;
         if (distanceToPlayer < fleeDistance)
             isFleeing = true;
     }
@@ -125,24 +121,4 @@ public class RatBlockerFSM : MonoBehaviour
     {
         isFleeing = false;
     }
-
-    // void FleeEnemy()
-    // {
-    //     StartCoroutine(Flee());
-    //     // currCondition = 3;
-    // }
-
-    // IEnumerator Flee()
-    // {
-    //     isFleeing = true;
-
-    //     if (distanceToPlayer < fleeDistance && isFleeing)
-    //     {
-    //         currCondition = 3;
-    //         ratAgent.speed = fleeSpeed;
-    //     }
-    //     yield return new WaitForSeconds(fleeDuration);
-    //     isFleeing = false;
-    //     ratAgent.speed = ratSpeed;
-    // }
 }

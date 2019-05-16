@@ -15,7 +15,6 @@ public class PlayerInteraction : MonoBehaviour
         playerLight.match.SetActive(false);
         playerLight.lightOn = false;
         playerLight.enabled = false;
-        // any commog code .... 
     }
 
     public virtual void UpdateInteraction()
@@ -26,8 +25,6 @@ public class PlayerInteraction : MonoBehaviour
     public virtual void EndInteraction()
     {
         playerLight.enabled = true;
-        // rgObject.useGravity = true;
-        // rgObject.isKinematic = false;
         rgObject = null;
     }
 }

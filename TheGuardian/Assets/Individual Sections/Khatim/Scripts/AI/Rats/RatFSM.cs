@@ -38,24 +38,21 @@ public class RatFSM : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         ratAgent = GetComponent<NavMeshAgent>();
         ratAgent.speed = ratSpeed;
-        ratAnim = GetComponentInChildren<Animator>();
+        ratAnim = GetComponent<Animator>();
         timer = maxWanderTimer;
         currCondition = ratState.Wander;
 
         DistractEnemyEvent.OnDistractEnemy += DistractEventReceived;
-        Broadcaster.onRatKillPlayerEvent += OnKillPlayerEventReceived;
     }
 
     void OnDisable()
     {
         DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
-        Broadcaster.onRatKillPlayerEvent -= OnKillPlayerEventReceived;
     }
 
     void OnDestroy()
     {
         DistractEnemyEvent.OnDistractEnemy -= DistractEventReceived;
-        Broadcaster.onRatKillPlayerEvent -= OnKillPlayerEventReceived;
     }
 
     void Update()
@@ -129,7 +126,6 @@ public class RatFSM : MonoBehaviour
             ratAgent.SetDestination(newPos);
             timer = 0;
         }
-        // Debug.Log("Wandering");
     }
 
     void OnDrawGizmosSelected()
@@ -137,11 +133,6 @@ public class RatFSM : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, wanderRadius);
     }
-
-    // void DistractEventReceived()
-    // {
-    //     DistractEnemy();
-    // }
 
     void DistractEventReceived()
     {
@@ -164,9 +155,6 @@ public class RatFSM : MonoBehaviour
     {
         if (distanceToPlayer < attackDistance)
         {
-            // player.SetActive(false);
-            // Debug.Log("Attacking Player");
-
             if (onPlayerDeath != null)
                 onPlayerDeath();
         }

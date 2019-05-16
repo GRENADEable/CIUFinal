@@ -119,11 +119,11 @@ public class PlayerControls : MonoBehaviour
         moveVertical = Input.GetAxis("Vertical");
         moveHorizontal = Input.GetAxis("Horizontal");
 
-        if (Input.GetMouseButtonDown(1) && plyInteract != null && !isCrouching)
+        if (Input.GetButtonDown("Interact") && plyInteract != null && !isCrouching)
             plyInteract.StartInteraction();
-        else if (Input.GetMouseButton(1) && plyInteract != null && !isCrouching)
+        else if (Input.GetButton("Interact") && plyInteract != null && !isCrouching)
             plyInteract.UpdateInteraction();
-        if (Input.GetMouseButtonUp(1) && plyInteract != null && !isCrouching)
+        if (Input.GetButtonUp("Interact") && plyInteract != null && !isCrouching)
             plyInteract.EndInteraction();
 
         if (!onRope)
@@ -150,7 +150,7 @@ public class PlayerControls : MonoBehaviour
                 if (isPushingOrPulling && moveDirection != Vector3.zero)
                     transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(moveDirection), pushRotationSpeed * Time.deltaTime);
 
-                if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isPickingObject && !isPushingOrPulling)
+                if (Input.GetButton("Run") && !isCrouching && !isPickingObject && !isPushingOrPulling)
                 {
                     moveDirection *= multiplier;
                     // Debug.Log("Running");
@@ -179,7 +179,7 @@ public class PlayerControls : MonoBehaviour
                     // Debug.Log("Walking");
                 }
 
-                if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isCrouching && !isPickingObject)
+                if (Input.GetButtonDown("Jump") && !isPushingOrPulling && !isPickingObject)
                     Jump();
 
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
@@ -195,7 +195,7 @@ public class PlayerControls : MonoBehaviour
             courageAnim.SetFloat("speed", moveVertical);
         }
 
-        if (interactCol != null && Input.GetMouseButton(1))
+        if (interactCol != null && Input.GetButton("Interact") && interactCol.tag == "Rope")
         {
             onRope = true;
             courageAnim.SetBool("isOnRope", true);
@@ -208,9 +208,9 @@ public class PlayerControls : MonoBehaviour
         if (!isPickingUp)
             charController.Move(moveDirection * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetButton("Run"))
             running = true;
-        if (!Input.GetKey(KeyCode.LeftShift))
+        if (!Input.GetButton("Run"))
             running = false;
     }
 
@@ -231,10 +231,10 @@ public class PlayerControls : MonoBehaviour
             plyInteract = GetComponent<ObjectPickup>();
             plyInteract.interactCol = other;
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetButton("Interact"))
                 plyInteract.StartInteraction();
 
-            Debug.Log("Pickup Reference Added");
+            Debug.Log("Key Reference Added");
         }
 
         if (other.tag == "PushAndPull" && plyInteract == null)
@@ -242,18 +242,24 @@ public class PlayerControls : MonoBehaviour
             plyInteract = GetComponent<ObjectPushAndPull>();
             plyInteract.interactCol = other;
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetButton("Interact"))
                 plyInteract.StartInteraction();
 
             Debug.Log("Push and Pull Reference Added");
         }
 
-        if (other.tag == "Rope")
+        if (other.tag == "PickupCheese" && plyInteract == null)
         {
-            interactCol = other;
+            plyInteract = GetComponent<ObjectCheesePickup>();
+            plyInteract.interactCol = other;
+
+            if (Input.GetButton("Interact"))
+                plyInteract.StartInteraction();
+
+            Debug.Log("Cheese Reference Added");
         }
 
-        if (other.gameObject.tag == "Matchstick")
+        if (other.tag == "Rope")
         {
             interactCol = other;
         }
@@ -285,37 +291,16 @@ public class PlayerControls : MonoBehaviour
                 ResetInteraction();
 
             if (other.tag == "PushAndPull" && plyInteract.interactCol == other)
-            {
-                // plyInteract.EndInteraction();
                 ResetInteraction();
-            }
+
+            if (other.tag == "PickupCheese" && plyInteract.interactCol == other)
+                ResetInteraction();
 
             Debug.Log("Interaction Script Reference Removed");
         }
 
         if (other.tag == "Rope")
             interactCol = null;
-
-        if (other.gameObject.tag == "Matchstick")
-            interactCol = null;
-    }
-
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.collider.tag == "HallwayEndDoor" && Input.GetKey(KeyCode.E))
-        {
-            Rigidbody body = hit.collider.attachedRigidbody;
-
-            if (body == null || body.isKinematic)
-                return;
-
-            if (hit.moveDirection.y < -0.3f)
-                return;
-
-            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-            body.velocity = pushDir * pushPower;
-            // Debug.Log("Pushing Door");
-        }
     }
 
     void Jump()

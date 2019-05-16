@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 114715774581298618}
   - component: {fileID: 114202019760912982}
   - component: {fileID: 114307120363224750}
+  - component: {fileID: 114966781707387038}
   - component: {fileID: 114635365455125906}
   - component: {fileID: 114859256158681970}
   m_Layer: 0
@@ -1775,7 +1776,6 @@ MonoBehaviour:
   rgObject: {fileID: 0}
   pivotDummyForObjectPickup: {fileID: 4552217501195348}
   pickedUpObj: {fileID: 0}
-  objectFixedJoint: {fileID: 0}
   throwingForce: 2
 --- !u!114 &114635365455125906
 MonoBehaviour:
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823480461893372}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd960a3f67ed77e4a9c1295dca8043e5, type: 3}
   m_Name: 
@@ -1875,6 +1875,22 @@ MonoBehaviour:
   minIntensity: 0
   maxIntensity: 2
   smoothing: 13
+--- !u!114 &114966781707387038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823480461893372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b769c1fcc42a7e4380033aa994a586d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactCol: {fileID: 0}
+  rgObject: {fileID: 0}
+  pivotDummyForObjectPickup: {fileID: 4552217501195348}
+  pickedUpObj: {fileID: 0}
+  throwingForce: 2
 --- !u!136 &136452648570142828
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1884,10 +1900,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.042
+  m_Radius: 0.05432052
   m_Height: 0.13274875
   m_Direction: 2
-  m_Center: {x: 0.0010156333, y: 0.05, z: 0.03137444}
+  m_Center: {x: 0.0010156333, y: 0.062320523, z: 0.03137444}
 --- !u!137 &137627735811182810
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

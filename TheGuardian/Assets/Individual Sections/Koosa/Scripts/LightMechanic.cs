@@ -30,14 +30,14 @@ public class LightMechanic : MonoBehaviour
     void Update()
     {
         //  Picking up a match comes here
-        if (Input.GetKeyDown(KeyCode.F) && !lightOn && matchesCount > 0 && !match.activeSelf)
+        if (Input.GetButtonDown("Light") && !lightOn && matchesCount > 0 && !match.activeSelf)
         {
             match.SetActive(true);
             lightOn = true;
             courageAnim.SetBool("isWithTorch", true);
             litMatchstickAud.Play();
         }
-        else if (Input.GetKeyDown(KeyCode.F) && lightOn)
+        else if (Input.GetButtonDown("Light") && lightOn)
         {
             match.SetActive(false);
             lightOn = false;
@@ -56,7 +56,7 @@ public class LightMechanic : MonoBehaviour
                 onChasePlayer();
         }
 
-        if (col != null && Input.GetKeyDown(KeyCode.E))
+        if (col != null && Input.GetButton("Interact"))
         {
             matchesCount = 1;
             Destroy(col.gameObject);
@@ -73,16 +73,12 @@ public class LightMechanic : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Matchstick")
-        {
             col = other;
-        }
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Matchstick")
-        {
             col = null;
-        }
     }
 }

@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour
         DollsFSM.onDeadPlayer += OnDeadPlayerReceived;
         TriggerDamageEvent.onDeadPlayer += OnDeadPlayerReceived;
 
+        RatFSM.onPlayerDeath += OnDeadPlayerReceived;
+        RatBlockerFSM.onPlayerDeath += OnDeadPlayerReceived;
+
         GameManager.onFirstKeyIllustration += OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration += OnSecondKeyIllustrationReceived;
         GameManager.onThirdKeyIllustration += OnThirdKeyIllustrationReceived;
@@ -45,6 +48,9 @@ public class UIManager : MonoBehaviour
         DollsFSM.onDeadPlayer -= OnDeadPlayerReceived;
         TriggerDamageEvent.onDeadPlayer -= OnDeadPlayerReceived;
 
+        RatFSM.onPlayerDeath -= OnDeadPlayerReceived;
+        RatBlockerFSM.onPlayerDeath -= OnDeadPlayerReceived;
+
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
         GameManager.onThirdKeyIllustration -= OnThirdKeyIllustrationReceived;
@@ -58,6 +64,9 @@ public class UIManager : MonoBehaviour
         PlayerControls.onDeadPlayer -= OnDeadPlayerReceived;
         DollsFSM.onDeadPlayer -= OnDeadPlayerReceived;
         TriggerDamageEvent.onDeadPlayer -= OnDeadPlayerReceived;
+
+        RatFSM.onPlayerDeath -= OnDeadPlayerReceived;
+        RatBlockerFSM.onPlayerDeath -= OnDeadPlayerReceived;
 
         GameManager.onFirstKeyIllustration -= OnFirstKeyIllustrationReceived;
         GameManager.onSecondKeyIllustration -= OnSecondKeyIllustrationReceived;
