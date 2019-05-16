@@ -42,7 +42,6 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onChangeLevelText;
     public static event SendEvents onRopeBreak;
     public static event SendEvents onDeadPlayer;
-    public static event SendEvents onFadeOut;
     #endregion
 
     #region Player Movement
@@ -94,22 +93,22 @@ public class PlayerControls : MonoBehaviour
         playerHeight = charController.height;
         playerCenter = charController.center.y;
 
-        RatBlockerFSM.onPlayerDeath += OnPlayerDeathReceived;
-        RatFSM.onPlayerDeath += OnPlayerDeathReceived;
+        RatFSM.onPlayerDeath += OnPlayerDeathReceived_2;
+        RatBlockerFSM.onPlayerDeath += OnPlayerDeathReceived_2;
         PaintingsAI.onPlayerDeath += OnPlayerDeathReceived;
     }
 
     void OnDisable()
     {
-        RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived;
-        RatFSM.onPlayerDeath -= OnPlayerDeathReceived;
+        RatFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
+        RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
         PaintingsAI.onPlayerDeath -= OnPlayerDeathReceived;
     }
 
     void OnDestroy()
     {
-        RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived;
-        RatFSM.onPlayerDeath -= OnPlayerDeathReceived;
+        RatFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
+        RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
         PaintingsAI.onPlayerDeath -= OnPlayerDeathReceived;
     }
 
@@ -338,15 +337,15 @@ public class PlayerControls : MonoBehaviour
         courageAnim.SetTrigger("dead");
     }
 
+    void OnPlayerDeathReceived_2()
+    {
+        courageAnim.SetTrigger("dead_2");
+        isPickingUp = true;
+    }
+
     void ShowDeathUI()
     {
         if (onDeadPlayer != null)
             onDeadPlayer();
-    }
-
-    void FadeOut()
-    {
-        if (onFadeOut != null)
-            onFadeOut();
     }
 }

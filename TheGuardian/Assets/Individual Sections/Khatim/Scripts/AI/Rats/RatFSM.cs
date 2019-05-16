@@ -78,7 +78,7 @@ public class RatFSM : MonoBehaviour
             case ratState.Chase:
                 ratAnim.SetBool("isAttacking", false);
                 ratAgent.SetDestination(player.transform.position);
-                Debug.Log("Chasing Player");
+                // Debug.Log("Chasing Player");
 
                 if (distanceToPlayer >= chaseDistance && !isDistracted)
                     currCondition = ratState.Wander;
@@ -89,6 +89,10 @@ public class RatFSM : MonoBehaviour
 
             case ratState.Attack:
                 ratAnim.SetBool("isAttacking", true);
+                Vector3 target = player.transform.position;
+                target.y = transform.position.y;
+                transform.LookAt(target);
+
                 if (!player.activeInHierarchy)
                     currCondition = ratState.Wander;
 
@@ -98,7 +102,8 @@ public class RatFSM : MonoBehaviour
 
             case ratState.Distract:
                 ratAgent.SetDestination(bait.transform.position);
-                Debug.Log("Distracting Enemy");
+                ratSpeed = 0.5f;
+                // Debug.Log("Distracting Enemy");
                 break;
         }
     }

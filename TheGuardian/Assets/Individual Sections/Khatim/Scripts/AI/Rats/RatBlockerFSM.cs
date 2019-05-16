@@ -67,7 +67,7 @@ public class RatBlockerFSM : MonoBehaviour
         {
             chaseDistance = 0;
             currCondition = ratState.Idle;
-            Debug.Log("Rat Fleed");
+            // Debug.Log("Rat Fleed");
         }
 
         if (isFleeing)
@@ -83,7 +83,8 @@ public class RatBlockerFSM : MonoBehaviour
 
             case ratState.Chase:
                 ratAgent.SetDestination(player.transform.position);
-                Debug.Log("Chasing");
+                ratAnim.SetBool("isAttacking", false);
+                // Debug.Log("Chasing");
 
                 if (distanceToPlayer > chaseDistance && !isFleeing)
                     currCondition = ratState.Idle;
@@ -93,20 +94,21 @@ public class RatBlockerFSM : MonoBehaviour
                 break;
 
             case ratState.Attack:
-                player.SetActive(false);
-                Debug.Log("Attacking");
+                ratAnim.SetBool("isAttacking", true);
+                Vector3 target = player.transform.position;
+                target.y = transform.position.y;
+                transform.LookAt(target);
 
-                if (onPlayerDeath != null)
-                    onPlayerDeath();
+                if (distanceToPlayer >= attackDistance && player.activeInHierarchy)
+                    currCondition = ratState.Chase;
                 break;
 
             case ratState.Flee:
                 ratAgent.SetDestination(fleePos.transform.position);
-                Debug.Log("Fleeing");
+                // Debug.Log("Fleeing");
 
                 if (!isFleeing)
                     currCondition = ratState.Chase;
-
                 break;
         }
     }
@@ -120,5 +122,14 @@ public class RatBlockerFSM : MonoBehaviour
     void ChaseEventReceived()
     {
         isFleeing = false;
+    }
+
+    void OnKillPlayerEventReceived()
+    {
+        if (distanceToPlayer < attackDistance)
+        {
+            if (onPlayerDeath != null)
+                onPlayerDeath();
+        }
     }
 }

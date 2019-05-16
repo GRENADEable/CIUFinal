@@ -18,6 +18,9 @@ public class EventManager : MonoBehaviour
     public float trunkMoveForce;
     public GameObject finalBoss;
 
+    public delegate void SendEvents();
+    public static event SendEvents onAtticFadeOut;
+
     void OnEnable()
     {
         PlayerControls.onRopeBreak += OnRopeBreakEventReceived;
@@ -62,13 +65,6 @@ public class EventManager : MonoBehaviour
         VCamManager.onFinalBossAppear -= FinalBossAppearReceived;
     }
 
-
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.G))
-    //         FinalBossAppearReceived();
-    // }
-
     void OnRopeBreakEventReceived()
     {
         if (ropeBreakCol != null)
@@ -77,9 +73,10 @@ public class EventManager : MonoBehaviour
             Destroy(ropeBreakCol.GetComponent<Collider>());
             brokenBoardSection.SetActive(false);
             woodenPlank.SetActive(false);
-            // fadeToBlackObj.SetActive(true);
-            OnEnableTranistionReceived();
-            Debug.Log("Rope Broken");
+            if (onAtticFadeOut != null)
+                onAtticFadeOut();
+
+            // Debug.Log("Rope Broken");
         }
     }
 
@@ -97,12 +94,6 @@ public class EventManager : MonoBehaviour
     {
         keyReference.GetComponent<Rigidbody>().AddForce(Vector3.up * moveForce + Vector3.forward * moveForce);
         Debug.Log("Key Moved");
-    }
-
-    void OnEnableTranistionReceived()
-    {
-        fadeOutObj.SetActive(true);
-        Debug.Log("Fade To Black Obj Active");
     }
 
     void FinalBossAppearReceived()

@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class FadeOut : MonoBehaviour
 {
-    public float exposureWeight;
+    public float exposureWeightAttic;
+    public float exposureWeightHallway;
     public bool startFading;
     public bool startEndFading;
     private PostProcessVolume ppVolume;
@@ -14,26 +15,36 @@ public class FadeOut : MonoBehaviour
     void OnEnable()
     {
         ppVolume = GetComponent<PostProcessVolume>();
-        PlayerControls.onFadeOut += OnFadeOutReceived;
+        EventManager.onAtticFadeOut += OnFadeOutReceived;
+    }
+
+    void OnDisable()
+    {
+        EventManager.onAtticFadeOut -= OnFadeOutReceived;
+    }
+
+    void OnDestroy()
+    {
+        EventManager.onAtticFadeOut -= OnFadeOutReceived;
     }
 
     void Update()
     {
         if (startFading)
         {
-            exposureWeight += Time.deltaTime;
-            ppVolume.weight = exposureWeight;
+            exposureWeightAttic += Time.deltaTime;
+            ppVolume.weight = exposureWeightAttic;
 
-            if (exposureWeight >= 1)
+            if (exposureWeightAttic >= 1)
                 this.enabled = false;
         }
 
         if (startEndFading)
         {
-            exposureWeight += Time.deltaTime;
-            ppVolume.weight = exposureWeight;
+            exposureWeightHallway += Time.deltaTime;
+            ppVolume.weight = exposureWeightHallway;
 
-            if (SceneManager.GetActiveScene().name == "HallwayLevel" && exposureWeight >= 1)
+            if (SceneManager.GetActiveScene().name == "HallwayLevel" && exposureWeightHallway >= 1)
             {
                 SceneManager.LoadScene("NurseryLevel");
             }
