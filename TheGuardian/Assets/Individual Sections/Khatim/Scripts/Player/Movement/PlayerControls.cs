@@ -42,6 +42,7 @@ public class PlayerControls : MonoBehaviour
     public static event SendEvents onChangeLevelText;
     public static event SendEvents onRopeBreak;
     public static event SendEvents onDeadPlayer;
+    public static event SendEvents onHallwayFadeout;
     #endregion
 
     #region Player Movement
@@ -233,7 +234,7 @@ public class PlayerControls : MonoBehaviour
             if (Input.GetButton("Interact"))
                 plyInteract.StartInteraction();
 
-            Debug.Log("Key Reference Added");
+            // Debug.Log("Key Reference Added");
         }
 
         if (other.tag == "PushAndPull" && plyInteract == null)
@@ -244,7 +245,7 @@ public class PlayerControls : MonoBehaviour
             if (Input.GetButton("Interact"))
                 plyInteract.StartInteraction();
 
-            Debug.Log("Push and Pull Reference Added");
+            // Debug.Log("Push and Pull Reference Added");
         }
 
         if (other.tag == "PickupCheese" && plyInteract == null)
@@ -255,7 +256,7 @@ public class PlayerControls : MonoBehaviour
             if (Input.GetButton("Interact"))
                 plyInteract.StartInteraction();
 
-            Debug.Log("Cheese Reference Added");
+            // Debug.Log("Cheese Reference Added");
         }
 
         if (other.tag == "Rope")
@@ -295,7 +296,7 @@ public class PlayerControls : MonoBehaviour
             if (other.tag == "PickupCheese" && plyInteract.interactCol == other)
                 ResetInteraction();
 
-            Debug.Log("Interaction Script Reference Removed");
+            // Debug.Log("Interaction Script Reference Removed");
         }
 
         if (other.tag == "Rope")
@@ -347,5 +348,11 @@ public class PlayerControls : MonoBehaviour
     {
         if (onDeadPlayer != null)
             onDeadPlayer();
+    }
+
+    void FadeOut()
+    {
+        if (onHallwayFadeout != null)
+            onHallwayFadeout();
     }
 }

@@ -16,16 +16,19 @@ public class FadeOut : MonoBehaviour
     {
         ppVolume = GetComponent<PostProcessVolume>();
         EventManager.onAtticFadeOut += OnFadeOutReceived;
+        PlayerControls.onHallwayFadeout += OnFadeOutReceived;
     }
 
     void OnDisable()
     {
         EventManager.onAtticFadeOut -= OnFadeOutReceived;
+        PlayerControls.onHallwayFadeout -= OnFadeOutReceived;
     }
 
     void OnDestroy()
     {
         EventManager.onAtticFadeOut -= OnFadeOutReceived;
+        PlayerControls.onHallwayFadeout -= OnFadeOutReceived;
     }
 
     void Update()

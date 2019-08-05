@@ -33,7 +33,7 @@ public class ObjectPickup : PlayerInteraction
         // interactCol.transform.localEulerAngles = new Vector3(0f, 0, 90f);
         // objectFixedJoint.connectedBody = pivotDummyForObjectPickup;
         // rgObject.useGravity = false;
-        Debug.Log("Object Picked Up");
+        // Debug.Log("Object Picked Up");
     }
     public override void UpdateInteraction()
     {
@@ -46,7 +46,7 @@ public class ObjectPickup : PlayerInteraction
             // rgObject.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
             // rgObject.useGravity = true;
             // plyControls.isPickingObject = false;
-            Debug.Log("Object Thrown");
+            // Debug.Log("Object Thrown");
         }
     }
     public override void EndInteraction()
@@ -62,7 +62,7 @@ public class ObjectPickup : PlayerInteraction
         // objectFixedJoint = null;
         // base.EndInteraction();
         // plyControls.isPickingObject = false;
-        Debug.Log("Object Pickup Ended");
+        // Debug.Log("Object Pickup Ended");
     }
 
     void PickObject()
