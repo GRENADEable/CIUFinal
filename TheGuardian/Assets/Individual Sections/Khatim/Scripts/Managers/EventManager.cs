@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour
     public GameObject[] paintingsEyes;
 
     public Collider ropeBreakCol;
+    public AudioSource ropeBreakAud;
     public float moveForce;
     public GameObject keyReference;
     public GameObject trunk;
@@ -73,6 +74,7 @@ public class EventManager : MonoBehaviour
             Destroy(ropeBreakCol.GetComponent<Collider>());
             brokenBoardSection.SetActive(false);
             woodenPlank.SetActive(false);
+            ropeBreakAud.Play();
             if (onAtticFadeOut != null)
                 onAtticFadeOut();
 
