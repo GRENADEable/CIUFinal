@@ -97,6 +97,7 @@ public class PlayerControls : MonoBehaviour
         RatFSM.onPlayerDeath += OnPlayerDeathReceived_2;
         RatBlockerFSM.onPlayerDeath += OnPlayerDeathReceived_2;
         PaintingsAI.onPlayerDeath += OnPlayerDeathReceived;
+        EventManager.onAtticFadeOut += OnPlayerFallReceived;
     }
 
     void OnDisable()
@@ -104,6 +105,7 @@ public class PlayerControls : MonoBehaviour
         RatFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
         RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
         PaintingsAI.onPlayerDeath -= OnPlayerDeathReceived;
+        EventManager.onAtticFadeOut -= OnPlayerFallReceived;
     }
 
     void OnDestroy()
@@ -111,6 +113,7 @@ public class PlayerControls : MonoBehaviour
         RatFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
         RatBlockerFSM.onPlayerDeath -= OnPlayerDeathReceived_2;
         PaintingsAI.onPlayerDeath -= OnPlayerDeathReceived;
+        EventManager.onAtticFadeOut -= OnPlayerFallReceived;
     }
 
     void Update()
@@ -342,6 +345,11 @@ public class PlayerControls : MonoBehaviour
     {
         courageAnim.SetTrigger("dead_2");
         isPickingUp = true;
+    }
+
+    void OnPlayerFallReceived()
+    {
+        courageAnim.SetTrigger("dead_2");
     }
 
     void ShowDeathUI()
