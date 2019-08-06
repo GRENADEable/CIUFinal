@@ -9,6 +9,7 @@ public class ObjectPickup : PlayerInteraction
     public Transform pivotDummyForObjectPickup;
     public Rigidbody pickedUpObj;
     public float throwingForce;
+    public Vector3 initalKeyScale;
     private PlayerControls plyControls;
     private Animator courageAnim;
 
@@ -22,7 +23,8 @@ public class ObjectPickup : PlayerInteraction
     {
         base.StartInteraction();
         pickedUpObj = interactCol.GetComponentInParent<Rigidbody>();
-
+        if (pickedUpObj.gameObject.tag == "PickUp")
+            pickedUpObj.transform.localScale = initalKeyScale;
         courageAnim.SetBool("isInteracting", true);
 
         // if (interactCol.GetComponent<FixedJoint>() == null)
@@ -90,6 +92,9 @@ public class ObjectPickup : PlayerInteraction
     void ThrowObject()
     {
         pickedUpObj.transform.parent = null;
+        if (pickedUpObj.gameObject.tag == "PickUp")
+            pickedUpObj.transform.localScale = initalKeyScale;
+
         pickedUpObj.isKinematic = false;
         pickedUpObj.AddForce(this.gameObject.transform.up * throwingForce + this.gameObject.transform.forward * throwingForce, ForceMode.Impulse);
         pickedUpObj.useGravity = true;
