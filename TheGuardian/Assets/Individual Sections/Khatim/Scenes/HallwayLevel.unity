@@ -1514,11 +1514,11 @@ MonoBehaviour:
   maxAngleY: 25
   rotationZ: 0
   lookaroundSpeed: 1
-  playerHeadRaycast: {x: 0, y: 0.15, z: 0}
-  playerRightHandRaycast: {x: 0, y: 0.1, z: 0.03}
-  playerLeftHandRaycast: {x: 0, y: 0.1, z: -0.03}
+  playerHead: {fileID: 823829488}
+  playerRightHand: {fileID: 1315022541}
+  playerLeftHand: {fileID: 1340225140}
   lookatSpeed: 5
-  killDelay: 90
+  killDelay: 1.5
   detectionDelay: 0.9
   timeToWaitBetweenRotations: 0.5
   distance: 0
@@ -8978,11 +8978,11 @@ MonoBehaviour:
   maxAngleY: 37
   rotationZ: 0
   lookaroundSpeed: 1
-  playerHeadRaycast: {x: 0, y: 0.15, z: 0}
-  playerRightHandRaycast: {x: 0, y: 0.1, z: 0.03}
-  playerLeftHandRaycast: {x: 0, y: 0.1, z: -0.03}
+  playerHead: {fileID: 823829488}
+  playerRightHand: {fileID: 1315022541}
+  playerLeftHand: {fileID: 1340225140}
   lookatSpeed: 5
-  killDelay: 90
+  killDelay: 1.5
   detectionDelay: 0.9
   timeToWaitBetweenRotations: 0.5
   distance: 0
@@ -11627,11 +11627,11 @@ MonoBehaviour:
   maxAngleY: 25
   rotationZ: 0
   lookaroundSpeed: 1
-  playerHeadRaycast: {x: 0, y: 0.15, z: 0}
-  playerRightHandRaycast: {x: 0, y: 0.1, z: 0.03}
-  playerLeftHandRaycast: {x: 0, y: 0.1, z: -0.03}
+  playerHead: {fileID: 823829488}
+  playerRightHand: {fileID: 1315022541}
+  playerLeftHand: {fileID: 1340225140}
   lookatSpeed: 5
-  killDelay: 90
+  killDelay: 1.5
   detectionDelay: 0.9
   timeToWaitBetweenRotations: 0.5
   distance: 0
@@ -19248,6 +19248,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b8505ec432269e42879800a1b7c490c, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &823829488 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4929301751802028, guid: 1cbccea8eb991634d993143802220620,
+    type: 2}
+  m_PrefabInternal: {fileID: 1040198636}
 --- !u!1 &824737769
 GameObject:
   m_ObjectHideFlags: 0
@@ -23702,7 +23707,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4788824519829262, guid: 1cbccea8eb991634d993143802220620, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -11.908
+      value: -11.871
       objectReference: {fileID: 0}
     - target: {fileID: 4788824519829262, guid: 1cbccea8eb991634d993143802220620, type: 2}
       propertyPath: m_LocalPosition.y
@@ -23742,6 +23747,11 @@ Prefab:
       propertyPath: hallwayKeyCollectorCam
       value: 
       objectReference: {fileID: 1862078014}
+    - target: {fileID: 1773491648816732, guid: 1cbccea8eb991634d993143802220620, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cbccea8eb991634d993143802220620, type: 2}
   m_IsPrefabAsset: 0
@@ -30654,6 +30664,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 38424f2bcf346f746b3c62f4a9514417,
     type: 3}
   m_PrefabInternal: {fileID: 1312317826}
+--- !u!4 &1315022541 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4429250296395078, guid: 1cbccea8eb991634d993143802220620,
+    type: 2}
+  m_PrefabInternal: {fileID: 1040198636}
 --- !u!1 &1321226870
 GameObject:
   m_ObjectHideFlags: 0
@@ -31087,6 +31102,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339509642}
   m_Mesh: {fileID: 4300000, guid: f106634db5d1cd74cb5849e0c22664a7, type: 3}
+--- !u!4 &1340225140 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4552217501195348, guid: 1cbccea8eb991634d993143802220620,
+    type: 2}
+  m_PrefabInternal: {fileID: 1040198636}
 --- !u!4 &1342840925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e28e0f5e8891066449efd32cd7cc57a5,
@@ -42762,11 +42782,11 @@ MonoBehaviour:
   maxAngleY: 30
   rotationZ: 0
   lookaroundSpeed: 1
-  playerHeadRaycast: {x: 0, y: 0.15, z: 0}
-  playerRightHandRaycast: {x: 0, y: 0.1, z: 0.03}
-  playerLeftHandRaycast: {x: 0, y: 0.1, z: -0.03}
+  playerHead: {fileID: 823829488}
+  playerRightHand: {fileID: 1315022541}
+  playerLeftHand: {fileID: 1340225140}
   lookatSpeed: 5
-  killDelay: 90
+  killDelay: 1.5
   detectionDelay: 0.9
   timeToWaitBetweenRotations: 0.5
   distance: 0
@@ -50501,11 +50521,11 @@ MonoBehaviour:
   maxAngleY: 33
   rotationZ: 0
   lookaroundSpeed: 1
-  playerHeadRaycast: {x: 0, y: 0.15, z: 0}
-  playerRightHandRaycast: {x: 0, y: 0.1, z: 0.03}
-  playerLeftHandRaycast: {x: 0, y: 0.1, z: -0.03}
+  playerHead: {fileID: 823829488}
+  playerRightHand: {fileID: 1315022541}
+  playerLeftHand: {fileID: 1340225140}
   lookatSpeed: 5
-  killDelay: 90
+  killDelay: 1.5
   detectionDelay: 0.9
   timeToWaitBetweenRotations: 0.5
   distance: 0

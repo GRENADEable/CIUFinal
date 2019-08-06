@@ -10,9 +10,9 @@ public class PaintingsAI : MonoBehaviour
     public float rotationZ;
 
     public float lookaroundSpeed;
-    public Vector3 playerHeadRaycast;
-    public Vector3 playerRightHandRaycast;
-    public Vector3 playerLeftHandRaycast;
+    public Transform playerHead;
+    public Transform playerRightHand;
+    public Transform playerLeftHand;
     public float lookatSpeed;
 
     [Header("Wait Timers")]
@@ -64,13 +64,13 @@ public class PaintingsAI : MonoBehaviour
     {
         distance = Vector3.Distance(transform.position, player.transform.position);
 
-        Debug.DrawRay(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, Color.red);
-        // Debug.DrawRay(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, Color.blue);
-        // Debug.DrawRay(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, Color.yellow);
+        Debug.DrawRay(transform.position, (playerHead.transform.position) - transform.position, Color.red);
+        // Debug.DrawRay(transform.position, (playerLeftHand.transform.position) - transform.position, Color.blue);
+        // Debug.DrawRay(transform.position, (playerRightHand.transform.position) - transform.position, Color.yellow);
 
-        Physics.Raycast(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, out hit);
-        // Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
-        // Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
+        Physics.Raycast(transform.position, (playerHead.transform.position) - transform.position, out hit);
+        // Physics.Raycast(transform.position, (playerLeftHand.transform.position) - transform.position, out hit);
+        // Physics.Raycast(transform.position, (playerRightHand.transform.position) - transform.position, out hit);
 
         // Debug.Log(hit.collider);
 
@@ -152,6 +152,6 @@ public class PaintingsAI : MonoBehaviour
             SwitchState(paintingState.Wait);
             // Debug.Log("doing the third rotation");
         }
-        Debug.Log(transform.rotation.eulerAngles.y);
+        // Debug.Log(transform.rotation.eulerAngles.y);
     }
 }

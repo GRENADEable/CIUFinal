@@ -103,10 +103,10 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !cheatPanel.activeSelf)
             PauseorUnpause();
 
-#if UNITY_EDITOR
+        // #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Tab) && !pausePanel.activeSelf)
             CheatPanelToggle();
-#endif
+        // #endif
     }
 
     public void PauseorUnpause()
