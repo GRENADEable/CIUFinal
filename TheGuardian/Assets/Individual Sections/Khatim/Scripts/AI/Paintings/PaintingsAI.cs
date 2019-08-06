@@ -10,7 +10,6 @@ public class PaintingsAI : MonoBehaviour
     public float rotationZ;
 
     public float lookaroundSpeed;
-    public float increasedLookaroundSpeed;
     public Vector3 playerHeadRaycast;
     public Vector3 playerRightHandRaycast;
     public Vector3 playerLeftHandRaycast;
@@ -153,11 +152,6 @@ public class PaintingsAI : MonoBehaviour
             SwitchState(paintingState.Wait);
             // Debug.Log("doing the third rotation");
         }
-    }
-
-    void OnIncreasedSpeedEventReceived()
-    {
-        lookaroundSpeed = increasedLookaroundSpeed;
-        // Debug.Log("Paintings Speed Increased");
+        Debug.Log(transform.rotation.eulerAngles.y);
     }
 }
