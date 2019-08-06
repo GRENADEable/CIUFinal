@@ -8,27 +8,35 @@ public class FadeOut : MonoBehaviour
 {
     public float exposureWeightAttic;
     public float exposureWeightHallway;
+    public float exposureWeightNursery;
     public bool startFading;
-    public bool startEndFading;
+    public bool startHallwayEndFade;
+    public bool startNurseryEndFade;
     private PostProcessVolume ppVolume;
+
+    public delegate void SendEvents();
+    public static event SendEvents onUITitle;
 
     void OnEnable()
     {
         ppVolume = GetComponent<PostProcessVolume>();
         EventManager.onAtticFadeOut += OnFadeOutReceived;
         PlayerControls.onHallwayFadeout += OnFadeOutReceived;
+        LightEnable.onFadeOut += OnFadeOutReceived;
     }
 
     void OnDisable()
     {
         EventManager.onAtticFadeOut -= OnFadeOutReceived;
         PlayerControls.onHallwayFadeout -= OnFadeOutReceived;
+        LightEnable.onFadeOut -= OnFadeOutReceived;
     }
 
     void OnDestroy()
     {
         EventManager.onAtticFadeOut -= OnFadeOutReceived;
         PlayerControls.onHallwayFadeout -= OnFadeOutReceived;
+        LightEnable.onFadeOut -= OnFadeOutReceived;
     }
 
     void Update()
@@ -39,10 +47,12 @@ public class FadeOut : MonoBehaviour
             ppVolume.weight = exposureWeightAttic;
 
             if (exposureWeightAttic >= 1)
+            {
                 this.enabled = false;
+            }
         }
 
-        if (startEndFading)
+        if (startHallwayEndFade)
         {
             exposureWeightHallway += Time.deltaTime;
             ppVolume.weight = exposureWeightHallway;
@@ -50,6 +60,18 @@ public class FadeOut : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "HallwayLevel" && exposureWeightHallway >= 1)
             {
                 SceneManager.LoadScene("NurseryLevel");
+            }
+        }
+
+        if (startNurseryEndFade)
+        {
+            exposureWeightNursery += Time.deltaTime;
+            ppVolume.weight = exposureWeightNursery;
+
+            if (exposureWeightAttic >= 1 && onUITitle != null)
+            {
+                this.enabled = false;
+                onUITitle();
             }
         }
     }
@@ -61,6 +83,6 @@ public class FadeOut : MonoBehaviour
 
     public void OnGameEndFadeOutReceived()
     {
-        startEndFading = true;
+        startHallwayEndFade = true;
     }
 }

@@ -29,6 +29,9 @@ public class BehaviourTree : MonoBehaviour
     public float timeLeft;
     public Animator playerAnim;
 
+    public delegate void SendEvents();
+    public static event SendEvents onEnableFinalCam;
+
     public void Start()
     {
         playerAnim = player.gameObject.GetComponent<Animator>();
@@ -56,10 +59,11 @@ public class BehaviourTree : MonoBehaviour
                 distraction = false;
             }
         }
-        if (health <= 0)
+        if (health <= 0 && onEnableFinalCam != null)
         {
             attacking = false;
             anim.SetBool("Retreating", true);
+            onEnableFinalCam();
         }
         root.Execute();
     }

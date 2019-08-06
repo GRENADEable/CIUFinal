@@ -7,6 +7,7 @@ public class EventManager : MonoBehaviour
     public GameObject brokenBoardSection;
     public GameObject woodenPlank;
     public GameObject fadeOutObj;
+    public Collider bossCamCol;
 
     public GameObject[] paintingsEyes;
 
@@ -30,6 +31,7 @@ public class EventManager : MonoBehaviour
         ParentsAruguingEvent.onKeyMove += OnKeyMoveReceived;
 
         VCamManager.onFinalBossAppear += FinalBossAppearReceived;
+        BehaviourTree.onEnableFinalCam += OnFinalCamReceived;
 
         if (keyReference == null)
             Debug.LogWarning("Add Key Reference");
@@ -53,17 +55,23 @@ public class EventManager : MonoBehaviour
     void OnDisable()
     {
         PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
+
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
+
         VCamManager.onFinalBossAppear -= FinalBossAppearReceived;
+        BehaviourTree.onEnableFinalCam -= OnFinalCamReceived;
     }
 
     void OnDestroy()
     {
         ParentsAruguingEvent.onKeyMove -= OnKeyMoveReceived;
         PlayerControls.onRopeBreak -= OnRopeBreakEventReceived;
+
         GameManager.onPaintingsAwakeMessage -= OnPaintingsAwakeMessageEventReceived;
+
         VCamManager.onFinalBossAppear -= FinalBossAppearReceived;
+        BehaviourTree.onEnableFinalCam -= OnFinalCamReceived;
     }
 
     void OnRopeBreakEventReceived()
@@ -103,5 +111,11 @@ public class EventManager : MonoBehaviour
         finalBoss.SetActive(true);
         // areanaLockObj.SetActive(true);
         trunk.GetComponent<Rigidbody>().AddForce(Vector3.right * trunkMoveForce);
+    }
+
+    void OnFinalCamReceived()
+    {
+        bossCamCol.enabled = false;
+        BehaviourTree.onEnableFinalCam -= OnFinalCamReceived;
     }
 }

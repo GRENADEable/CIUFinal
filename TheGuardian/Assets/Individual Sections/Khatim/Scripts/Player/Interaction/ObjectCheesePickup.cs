@@ -21,7 +21,7 @@ public class ObjectCheesePickup : PlayerInteraction
         base.StartInteraction();
         pickedUpObj = interactCol.GetComponentInParent<Rigidbody>();
         courageAnim.SetBool("isInteractingCheese", true);
-        Debug.Log("Object Picked Up");
+        // Debug.Log("Object Picked Up");
     }
     public override void UpdateInteraction()
     {
@@ -29,7 +29,7 @@ public class ObjectCheesePickup : PlayerInteraction
         {
             courageAnim.SetBool("isInteractingCheese", false);
             courageAnim.SetTrigger("throw");
-            Debug.Log("Object Thrown");
+            // Debug.Log("Object Thrown");
         }
     }
     public override void EndInteraction()
@@ -37,7 +37,7 @@ public class ObjectCheesePickup : PlayerInteraction
         courageAnim.SetBool("isInteractingCheese", false);
         courageAnim.SetTrigger("drop");
         base.EndInteraction();
-        Debug.Log("Cheese Pickup Ended");
+        // Debug.Log("Cheese Pickup Ended");
     }
 
     void PickCheese()
@@ -67,6 +67,5 @@ public class ObjectCheesePickup : PlayerInteraction
         pickedUpObj.isKinematic = false;
         pickedUpObj = null;
         plyControls.isPickingObject = false;
-
     }
 }

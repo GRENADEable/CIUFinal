@@ -23,6 +23,7 @@ public class VCamManager : MonoBehaviour
 
     [Header("Nursery Camera References")]
     public GameObject bossCam;
+    public GameObject finalVCam;
 
     [Header("Virtual Camera Variables")]
     public float positiveScreenYCamOffset;
@@ -40,6 +41,21 @@ public class VCamManager : MonoBehaviour
     {
         mainVirutalCam = GameObject.FindGameObjectWithTag("MainVCam");
         vCam = mainVirutalCam.GetComponent<CinemachineVirtualCamera>();
+    }
+
+    void OnEnable()
+    {
+        BehaviourTree.onEnableFinalCam += OnFinalCamEnableReceived;
+    }
+
+    void OnDisable()
+    {
+        BehaviourTree.onEnableFinalCam -= OnFinalCamEnableReceived;
+    }
+
+    void OnDestroy()
+    {
+        BehaviourTree.onEnableFinalCam -= OnFinalCamEnableReceived;
     }
 
     void Update()
@@ -202,5 +218,12 @@ public class VCamManager : MonoBehaviour
             mainVirutalCam.SetActive(true);
             bossCam.SetActive(false);
         }
+    }
+
+    void OnFinalCamEnableReceived()
+    {
+        finalVCam.SetActive(true);
+        bossCam.SetActive(false);
+        BehaviourTree.onEnableFinalCam -= OnFinalCamEnableReceived;
     }
 }
