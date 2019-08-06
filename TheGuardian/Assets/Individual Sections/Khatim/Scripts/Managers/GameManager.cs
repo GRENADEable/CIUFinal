@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     public static event SendMessageToManagers onFirstKeyIllustration;
     public static event SendMessageToManagers onSecondKeyIllustration;
     public static event SendMessageToManagers onThirdKeyIllustration;
-    // public static event SendMessageToManagers onKeyMove;
-    public static event SendMessageToManagers onIncreaseEyeSpeed;
 
     void OnEnable()
     {
@@ -38,9 +36,8 @@ public class GameManager : MonoBehaviour
             onFirstKeyIllustration();
         }
 
-        if (keyCounter >= 2 && onIncreaseEyeSpeed != null && onSecondKeyIllustration != null)
+        if (keyCounter >= 2 && onSecondKeyIllustration != null)
         {
-            onIncreaseEyeSpeed();
             onSecondKeyIllustration();
         }
 

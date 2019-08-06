@@ -59,30 +59,19 @@ public class PaintingsAI : MonoBehaviour
         paintingEyeLight = GetComponent<Light>();
         player = GameObject.FindGameObjectWithTag("Player");
         currCondition = paintingState.Looking_Around;
-        GameManager.onIncreaseEyeSpeed += OnIncreasedSpeedEventReceived;
-    }
-
-    void OnDisable()
-    {
-        GameManager.onIncreaseEyeSpeed -= OnIncreasedSpeedEventReceived;
-    }
-
-    void OnDestroy()
-    {
-        GameManager.onIncreaseEyeSpeed -= OnIncreasedSpeedEventReceived;
     }
 
     void Update()
     {
         distance = Vector3.Distance(transform.position, player.transform.position);
 
-        // Debug.DrawRay(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, Color.red);
-        Debug.DrawRay(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, Color.blue);
-        Debug.DrawRay(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, Color.yellow);
+        Debug.DrawRay(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, Color.red);
+        // Debug.DrawRay(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, Color.blue);
+        // Debug.DrawRay(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, Color.yellow);
 
-        // Physics.Raycast(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, out hit);
-        Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
-        Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
+        Physics.Raycast(transform.position, (player.transform.position + playerHeadRaycast) - transform.position, out hit);
+        // Physics.Raycast(transform.position, (player.transform.position + playerRightHandRaycast) - transform.position, out hit);
+        // Physics.Raycast(transform.position, (player.transform.position + playerLeftHandRaycast) - transform.position, out hit);
 
         // Debug.Log(hit.collider);
 
@@ -122,8 +111,6 @@ public class PaintingsAI : MonoBehaviour
                 {
                     if (onPlayerDeath != null)
                         onPlayerDeath();
-
-                    // player.SetActive(false);
                     // Debug.Log("Player Dead");
                 }
                 // Debug.Log("Attacking Player");
@@ -171,7 +158,6 @@ public class PaintingsAI : MonoBehaviour
     void OnIncreasedSpeedEventReceived()
     {
         lookaroundSpeed = increasedLookaroundSpeed;
-        GameManager.onIncreaseEyeSpeed -= OnIncreasedSpeedEventReceived;
         // Debug.Log("Paintings Speed Increased");
     }
 }

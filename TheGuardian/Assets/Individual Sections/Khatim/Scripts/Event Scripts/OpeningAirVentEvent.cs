@@ -17,7 +17,7 @@ public class OpeningAirVentEvent : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && onVentIllustration != null)
+        if (other.tag == "Player" && Input.GetButtonDown("Interact") && onVentIllustration != null)
         {
             onVentIllustration();
             transform.position = airVentMovePos.position;
