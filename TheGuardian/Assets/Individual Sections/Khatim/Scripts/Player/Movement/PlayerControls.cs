@@ -187,7 +187,7 @@ public class PlayerControls : MonoBehaviour
 
                 charController.height = Mathf.Lerp(charController.height, localHeight, 5 * Time.deltaTime);
                 charController.center = new Vector3(0, Mathf.Lerp(charController.center.y, localCenter, 5 * Time.deltaTime), 0);
-                Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
+                //Mathf.Clamp(charController.center.y, 0.05f, 0.1f);
             }
             else
                 moveDirection.y -= gravity * Time.deltaTime;
