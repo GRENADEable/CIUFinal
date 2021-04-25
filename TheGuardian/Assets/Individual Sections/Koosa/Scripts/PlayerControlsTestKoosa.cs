@@ -58,15 +58,11 @@ public class PlayerControlsTestKoosa : MonoBehaviour
     private Animator anim;
 
     #region Cheats
-    [Header("Cheats Section :3")]
-    [SerializeField]
-    private float flashSpeed;
-    [SerializeField]
-    private float defaultRunningSpeed;
-    [SerializeField]
-    private float superJump;
-    [SerializeField]
-    private float defaultJump;
+    [Header("Cheats Section")]
+    [SerializeField] private float flashSpeed = default;
+    [SerializeField] private float defaultRunningSpeed = default;
+    [SerializeField] private float superJump = default;
+    [SerializeField] private float defaultJump = default;
     #endregion
 
     private float playerHeight;

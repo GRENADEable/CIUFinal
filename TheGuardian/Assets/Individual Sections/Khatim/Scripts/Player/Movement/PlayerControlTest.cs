@@ -27,27 +27,20 @@ public class PlayerControlTest : MonoBehaviour
     public static event SendEvents onObjectShakePlank;
     public static event SendEvents onObjectStillPlank;
 
-    [SerializeField]
-    private Collider ropeCol;
-    [SerializeField]
-    private Collider interactCol;
+    [SerializeField] private Collider ropeCol = default;
+    [SerializeField] private Collider interactCol = default;
     // private Collider col;
-    [SerializeField]
-    private bool isInteracting;
+    [SerializeField] private bool isInteracting = default;
     private float gravity;
     private float jumpTime;
     private CharacterController charController;
     private Vector3 moveDirection = Vector3.zero;
     [Header("Cheats Section :3")]
-    [SerializeField]
-    private float flashSpeed;
-    [SerializeField]
-    private float defaultRunningSpeed;
-    [SerializeField]
-    private float superJump;
+    [SerializeField] private float flashSpeed = default;
+    [SerializeField] private float defaultRunningSpeed = default;
+    [SerializeField] private float superJump = default;
     private GameObject cheatPanel;
-    [SerializeField]
-    private float defaultJump;
+    [SerializeField] private float defaultJump = default;
 
     void Awake()
     {

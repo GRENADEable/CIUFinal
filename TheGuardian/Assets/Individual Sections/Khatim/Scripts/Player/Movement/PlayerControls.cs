@@ -59,8 +59,7 @@ public class PlayerControls : MonoBehaviour
     private Collider interactCol;
     #endregion
 
-    [SerializeField]
-    private float gravity;
+    [SerializeField] private float gravity = default;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController charController;
     private PlayerInteraction plyInteract;
@@ -68,22 +67,14 @@ public class PlayerControls : MonoBehaviour
 
     #region Cheats
     [Header("Cheats Section :3")]
-    [SerializeField]
-    private float flashSpeed;
-    [SerializeField]
-    private float defaultRunningSpeed;
-    [SerializeField]
-    private float superJumpGravity;
-    [SerializeField]
-    private float defaultJump;
+    [SerializeField] private float flashSpeed = default;
+    [SerializeField] private float defaultRunningSpeed = default;
     #endregion
 
     private float playerHeight;
     private float moveHorizontal;
     private float moveVertical;
     private float playerCenter;
-    [SerializeField]
-    private float movementClamp;
 
     void OnEnable()
     {

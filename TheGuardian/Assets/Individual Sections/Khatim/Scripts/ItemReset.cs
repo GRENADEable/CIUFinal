@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemReset : MonoBehaviour
 {
     public float height;
-    [SerializeField]
-    private ItemData[] items;
+    [SerializeField] private ItemData[] items = default;
+
     [System.Serializable]
     private struct ItemData
     {
